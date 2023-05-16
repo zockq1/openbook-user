@@ -5,6 +5,9 @@ import QuestionSolving from "./pages/QuestionSolving";
 import Note from "./pages/Note";
 import Main from "./pages/Main";
 import Option from "./pages/Option";
+import Chapter from "./pages/Chapter";
+import Topic from "./pages/Topic";
+import Question from "./pages/Question";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +23,20 @@ const router = createBrowserRouter([
         element: <TopicLearning />,
       },
       {
+        path: "topic-learning/:chapter",
+        element: <Chapter />,
+      },
+      {
+        path: "topic-learning/:chapter/:topicTitle",
+        element: <Topic />,
+      },
+      {
         path: "question-solving",
         element: <QuestionSolving />,
+      },
+      {
+        path: "question-solving/question",
+        element: <Question />,
       },
       {
         path: "note",
