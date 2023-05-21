@@ -48,11 +48,10 @@ button {
 }
 
 body{
-  background-color: #ffffff;
-  height: 1000px
+  font-family: 'Nanum Gothic', sans-serif;
 }
 @font-face {
-    font-family: "Hanna";
-    src: url(${Hanna});
-  }
+  font-family: "Hanna";
+  src: url(${Hanna});
+}
 `;
