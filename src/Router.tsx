@@ -4,10 +4,11 @@ import TopicLearning from "./pages/TopicLearning";
 import QuestionSolving from "./pages/QuestionSolving";
 import Note from "./pages/Note";
 import Main from "./pages/Main";
-import Option from "./pages/Option";
+import Option from "./pages/Settings";
 import Chapter from "./pages/Chapter";
 import Topic from "./pages/Topic";
 import Question from "./pages/Question";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -43,8 +44,8 @@ const router = createBrowserRouter([
         element: <Note />,
       },
       {
-        path: "option",
-        element: <Option />,
+        path: "settings",
+        element: <Settings />,
       },
     ],
   },
