@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
-//import { RxAvatar } from "react-icons/rx";
+import { useEffect, useState } from "react";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -11,6 +10,7 @@ const HeaderWrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 999;
 
   height: 75px;
   width: 100%;
@@ -79,6 +79,31 @@ const NavigationText = styled.span`
 
 function Header() {
   const [activeNav, setActiveNav] = useState(1);
+  const location = useLocation();
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setActiveNav(1);
+        break;
+      case "/topic-learning":
+        setActiveNav(2);
+        break;
+      case "/question-solving":
+        setActiveNav(3);
+        break;
+      case "/note":
+        setActiveNav(4);
+        break;
+      case "/settings":
+        setActiveNav(5);
+        break;
+      default:
+        setActiveNav(1);
+        break;
+    }
+  }, [location.pathname]);
+
   return (
     <HeaderWrapper>
       <Logo>오픈북</Logo>
@@ -113,7 +138,7 @@ function Header() {
           <NavigationText>오답노트</NavigationText>
         </NavigationItem>
         <NavigationItem
-          to={"/option"}
+          to={"/settings"}
           onClick={() => setActiveNav(5)}
           $onActive={5 === activeNav}
         >
