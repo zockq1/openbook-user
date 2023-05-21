@@ -2,17 +2,19 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { chapterApi } from "./api/chapterApi";
 import authReducer from "./slices/authSlice";
+import quizReducer from "./slices/quizSlice";
 import storage from "redux-persist/lib/storage";
 import { topicApi } from "./api/topicApi";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "quiz"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  quiz: quizReducer,
   [chapterApi.reducerPath]: chapterApi.reducer,
   [topicApi.reducerPath]: topicApi.reducer,
 });
