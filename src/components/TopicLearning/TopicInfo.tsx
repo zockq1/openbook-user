@@ -1,6 +1,4 @@
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useGetTopicQuery } from "../store/api/topicApi";
 
 const TopicBox = styled.div`
   display: flex;
@@ -23,16 +21,18 @@ const Title = styled.p`
   font-size: 18px;
 `;
 
-function Topic() {
-  const { topicTitle } = useParams();
-  const { data: topic } = useGetTopicQuery(topicTitle ? topicTitle : "");
-  console.log(topic);
+interface TopicComponentProps {
+  topicTitle: string;
+  topic: { startDate: number; endDate: number; detail: string } | undefined;
+}
+
+function TopicInfo({ topicTitle, topic }: TopicComponentProps) {
   return (
     <TopicBox>
       <Title>{topicTitle}</Title>
       <br />
       <p>
-        {topic?.startDate[0]} ~ {topic?.endDate[0]}
+        {topic?.startDate} ~ {topic?.endDate}
       </p>
       <br />
       {topic?.detail &&
@@ -43,4 +43,4 @@ function Topic() {
   );
 }
 
-export default Topic;
+export default TopicInfo;

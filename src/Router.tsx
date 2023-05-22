@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import TopicLearning from "./pages/TopicLearning";
-import QuestionSolving from "./pages/QuestionSolving";
+import TopicLearningPage from "./pages/TopicLearning/TopicLearningPage";
+import QuestionSolving from "./pages/QuestionSolving/QuestionSolving";
 import Note from "./pages/Note";
 import Main from "./pages/Main";
-import Option from "./pages/Settings";
-import Chapter from "./pages/Chapter";
-import Topic from "./pages/Topic";
-import Question from "./pages/Question";
-import Settings from "./pages/Settings";
+import TopicList from "./pages/TopicLearning/TopicListPage";
+import TopicInfoPage from "./pages/TopicLearning/TopicInfoPage";
+import Question from "./pages/QuestionSolving/Question";
+import SettingsPage from "./pages/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -21,15 +20,15 @@ const router = createBrowserRouter([
       },
       {
         path: "topic-learning",
-        element: <TopicLearning />,
+        element: <TopicLearningPage />,
       },
       {
         path: "topic-learning/:chapter",
-        element: <Chapter />,
+        element: <TopicList />,
       },
       {
         path: "topic-learning/:chapter/:topicTitle",
-        element: <Topic />,
+        element: <TopicInfoPage />,
       },
       {
         path: "question-solving",
@@ -45,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "settings",
-        element: <Settings />,
+        element: <SettingsPage />,
       },
     ],
   },
