@@ -1,19 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import styled from "styled-components";
-
-const SolvedCount = styled.li`
-  position: relative;
-  height: 150px;
-  width: 100%;
-
-  margin-top: 10px;
-
-  font-weight: 700;
-  font-size: 15px;
-  color: #5a5a5a;
-  background-color: #fff;
-`;
+import ListItem from "./Common/ListItem";
 
 const Title = styled.div`
   margin-top: 15px;
@@ -53,13 +41,13 @@ function QuestionCount() {
     (state: RootState) => state.quiz
   );
   return (
-    <SolvedCount>
+    <ListItem height="150px">
       <Title>푼 문제 수</Title>
       <SolvedCountRate>{solved}</SolvedCountRate>
       <Text>문제</Text>
       <CorrectCount>정답 : {correct}</CorrectCount>
       <WrongCount>오답 : {wrong}</WrongCount>
-    </SolvedCount>
+    </ListItem>
   );
 }
 

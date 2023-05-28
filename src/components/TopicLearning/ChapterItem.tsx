@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ListItem from "../Common/ListItem";
 
-const Item = styled.li`
-  height: 100px;
-  width: 100%;
-
-  margin-top: 10px;
-
-  font-weight: 700;
-  font-size: 15px;
-  color: #5a5a5a;
-  background-color: #fff;
-`;
 const ChapterLink = styled(Link)`
   display: block;
   position: relative;
@@ -45,13 +35,13 @@ interface ChapterBoxProps {
 
 function ChapterItem({ chapterTitle, chapterNumber }: ChapterBoxProps) {
   return (
-    <Item>
+    <ListItem height="100px">
       <ChapterLink to={`/topic-learning/${chapterNumber}`}>
         <ChapterTitle>{chapterNumber + "단원: " + chapterTitle}</ChapterTitle>
         <CompletionRateText>학습진도 : </CompletionRateText>
         <CompletionRate>{chapterNumber === 1 ? "100%" : "0%"}</CompletionRate>
       </ChapterLink>
-    </Item>
+    </ListItem>
   );
 }
 
