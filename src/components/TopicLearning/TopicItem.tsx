@@ -1,12 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
-const TopicLink = styled(Link)`
-  display: flex;
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+import LinkBox from "../Common/LinkBox";
 
 const TopicTitle = styled.div`
   margin: auto 0;
@@ -19,9 +13,9 @@ interface TopicBoxProps {
 function TopicItem({ topicTitle }: TopicBoxProps) {
   const { chapter } = useParams();
   return (
-    <TopicLink to={`/topic-learning/${chapter}/${topicTitle}`}>
+    <LinkBox to={`/topic-learning/${chapter}/${topicTitle}`}>
       <TopicTitle>{topicTitle}</TopicTitle>
-    </TopicLink>
+    </LinkBox>
   );
 }
 

@@ -1,14 +1,7 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ListItem from "../Common/ListItem";
 import Title from "../Common/Title";
-
-const ChapterLink = styled(Link)`
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+import LinkBox from "../Common/LinkBox";
 
 const CompletionRateText = styled.div`
   position: absolute;
@@ -32,11 +25,11 @@ interface ChapterBoxProps {
 function ChapterItem({ chapterTitle, chapterNumber }: ChapterBoxProps) {
   return (
     <ListItem>
-      <ChapterLink to={`/topic-learning/${chapterNumber}`}>
+      <LinkBox to={`/topic-learning/${chapterNumber}`}>
         <Title>{chapterNumber + "단원: " + chapterTitle}</Title>
         <CompletionRateText>학습진도 : </CompletionRateText>
         <CompletionRate>{chapterNumber === 1 ? "100%" : "0%"}</CompletionRate>
-      </ChapterLink>
+      </LinkBox>
     </ListItem>
   );
 }
