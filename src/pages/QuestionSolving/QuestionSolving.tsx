@@ -1,14 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import QuestionCount from "../components/QuestionCount";
-
-const QuestionSolvingList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding-top: 85px;
-`;
+import QuestionCount from "../../components/QuestionCount";
+import List from "../../styles/Common/ListStyle";
 
 const Title = styled.div`
   margin-top: 15px;
@@ -20,7 +13,7 @@ const RecommendedQuestion = styled.div`
   height: 100px;
   width: 100%;
 
-  margin-bottom: 10px;
+  margin-top: 10px;
 
   font-weight: 700;
   font-size: 15px;
@@ -36,7 +29,7 @@ const QuestionLink = styled(Link)`
 
 function QuestionSolving() {
   return (
-    <QuestionSolvingList>
+    <List>
       <QuestionCount />
       <RecommendedQuestion>
         <QuestionLink to={"/question-solving/question"}>
@@ -49,7 +42,7 @@ function QuestionSolving() {
       <RecommendedQuestion>
         <Title>사용자 정의 문제풀이</Title>
       </RecommendedQuestion>
-    </QuestionSolvingList>
+    </List>
   );
 }
 

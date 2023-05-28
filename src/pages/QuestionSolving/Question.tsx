@@ -5,7 +5,7 @@ import {
   incrementCorrect,
   incrementSolved,
   incrementWrong,
-} from "../store/slices/quizSlice";
+} from "../../store/slices/quizSlice";
 
 const QuestionBox = styled.div`
   position: relative;
