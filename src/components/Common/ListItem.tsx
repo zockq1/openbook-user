@@ -2,12 +2,12 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 interface ItemProps {
-  height: string;
-  children: ReactNode;
+  height?: string;
+  children?: ReactNode;
 }
 
 const StyledItem = styled.li<ItemProps>`
-  height: ${(props) => props.height};
+  height: ${(props) => props.height || "100px"};
   position: relative;
   width: 100%;
   margin-top: 10px;

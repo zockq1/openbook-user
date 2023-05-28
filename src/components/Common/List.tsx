@@ -9,7 +9,7 @@ const StyledList = styled.ul`
 `;
 
 interface ListProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const List = ({ children }: ListProps) => {

@@ -16,15 +16,15 @@ function QuestionSolving() {
   return (
     <List>
       <QuestionCount />
-      <ListItem height="100px">
+      <ListItem>
         <QuestionLink to={"/question-solving/question"}>
           <Title>추천 문제</Title>
         </QuestionLink>
       </ListItem>
-      <ListItem height="100px">
+      <ListItem>
         <Title>모의고사형 문제풀이</Title>
       </ListItem>
-      <ListItem height="100px">
+      <ListItem>
         <Title>사용자 정의 문제풀이</Title>
       </ListItem>
     </List>

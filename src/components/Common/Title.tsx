@@ -7,7 +7,7 @@ const StyledTitle = styled.div`
 `;
 
 interface TitleProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const Title = ({ children }: TitleProps) => {

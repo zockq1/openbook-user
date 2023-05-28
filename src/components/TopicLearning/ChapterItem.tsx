@@ -31,7 +31,7 @@ interface ChapterBoxProps {
 
 function ChapterItem({ chapterTitle, chapterNumber }: ChapterBoxProps) {
   return (
-    <ListItem height="100px">
+    <ListItem>
       <ChapterLink to={`/topic-learning/${chapterNumber}`}>
         <Title>{chapterNumber + "단원: " + chapterTitle}</Title>
         <CompletionRateText>학습진도 : </CompletionRateText>
