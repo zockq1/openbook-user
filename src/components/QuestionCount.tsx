@@ -2,11 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import styled from "styled-components";
 import ListItem from "./Common/ListItem";
-
-const Title = styled.div`
-  margin-top: 15px;
-  margin-left: 10px;
-`;
+import Title from "./Common/Title";
 
 const Text = styled.div`
   position: absolute;

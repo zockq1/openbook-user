@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import QuestionCount from "../../components/QuestionCount";
 import List from "../../components/Common/List";
 import ListItem from "../../components/Common/ListItem";
-
-const Title = styled.div`
-  margin-top: 15px;
-  margin-left: 10px;
-`;
+import Title from "../../components/Common/Title";
 
 const QuestionLink = styled(Link)`
   display: block;

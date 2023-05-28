@@ -16,7 +16,7 @@ const TopicBox = styled.div`
   background-color: #fff;
 `;
 
-const Title = styled.p`
+const TopicTitle = styled.p`
   font-weight: 700;
   font-size: 18px;
 `;
@@ -29,7 +29,7 @@ interface TopicComponentProps {
 function TopicInfo({ topicTitle, topic }: TopicComponentProps) {
   return (
     <TopicBox>
-      <Title>{topicTitle}</Title>
+      <TopicTitle>{topicTitle}</TopicTitle>
       <br />
       <p>
         {topic?.startDate} ~ {topic?.endDate}

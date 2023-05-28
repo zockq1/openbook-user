@@ -3,6 +3,7 @@ import QuestionCount from "../components/QuestionCount";
 import DounutChart from "../components/DounutChart";
 import List from "../components/Common/List";
 import ListItem from "../components/Common/ListItem";
+import Title from "../components/Common/Title";
 
 const Ad = styled.li`
   position: relative;
@@ -17,11 +18,6 @@ const Ad = styled.li`
   font-family: "Hanna";
   text-align: center;
   font-size: 70px;
-`;
-
-const Title = styled.div`
-  margin-top: 15px;
-  margin-left: 10px;
 `;
 
 function Main() {
