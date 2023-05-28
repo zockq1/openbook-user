@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import QuestionCount from "../../components/QuestionCount";
-import List from "../../styles/Common/ListStyle";
+import List from "../../components/Common/List";
 
 const Title = styled.div`
   margin-top: 15px;

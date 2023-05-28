@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import QuestionCount from "../components/QuestionCount";
 import DounutChart from "../components/DounutChart";
+import List from "../components/Common/List";
 
 const Ad = styled.li`
   position: relative;
@@ -17,20 +18,12 @@ const Ad = styled.li`
   font-size: 70px;
 `;
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding-top: 75px;
-`;
-
 const Box = styled.li`
   position: relative;
   height: 150px;
   width: 100%;
 
-  margin-bottom: 10px;
+  margin-top: 10px;
 
   font-weight: 700;
   font-size: 15px;

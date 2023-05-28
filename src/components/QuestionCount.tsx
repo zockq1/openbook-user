@@ -7,7 +7,7 @@ const SolvedCount = styled.li`
   height: 150px;
   width: 100%;
 
-  margin-bottom: 10px;
+  margin-top: 10px;
 
   font-weight: 700;
   font-size: 15px;

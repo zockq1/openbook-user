@@ -1,6 +1,6 @@
 import React from "react";
 import ChapterItem from "./ChapterItem";
-import List from "../../styles/Common/ListStyle";
+import List from "../Common/List";
 
 interface TopicLearningComponentProps {
   chapterList: { titleList: string[]; numberList: number[] } | undefined;
