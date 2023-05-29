@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Login from "./Login";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -29,20 +30,6 @@ const Logo = styled.div`
   font-family: "Hanna";
   font-size: 24px;
   color: #2699fb;
-`;
-
-const Login = styled.a`
-  position: absolute;
-  top: 8px;
-  right: 8px;
-
-  padding: 5px;
-  border-radius: 6px;
-
-  font-family: "Hanna";
-  font-size: 18px;
-  color: #ffffff;
-  background-color: #2699fb;
 `;
 
 const NavigationBar = styled.nav`
@@ -81,17 +68,6 @@ function Header() {
   const [activeNav, setActiveNav] = useState(1);
   const location = useLocation();
 
-  const handleClick = () => {
-    const response = fetch("http://localhost:8080/oauth2/authorization/kakao", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    console.log(response);
-  };
-
   useEffect(() => {
     switch (location.pathname) {
       case "/":
@@ -118,10 +94,8 @@ function Header() {
   return (
     <HeaderWrapper>
       <Logo>오픈북</Logo>
-      {/* <Login onClick={handleClick}>로그인</Login> */}
-      <Login href="http://localhost:8080/oauth2/authorization/kakao">
-        로그인
-      </Login>
+      <Login />
+
       <NavigationBar>
         <NavigationItem
           to={"/"}

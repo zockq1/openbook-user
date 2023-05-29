@@ -6,6 +6,7 @@ import quizReducer from "./slices/quizSlice";
 import storage from "redux-persist/lib/storage";
 import { topicApi } from "./api/topicApi";
 import { noteApi } from "./api/noteApi";
+import { authApi } from "./api/authApi";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   [chapterApi.reducerPath]: chapterApi.reducer,
   [topicApi.reducerPath]: topicApi.reducer,
   [noteApi.reducerPath]: noteApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -30,7 +32,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(chapterApi.middleware, topicApi.middleware, noteApi.middleware),
+    }).concat(
+      chapterApi.middleware,
+      topicApi.middleware,
+      noteApi.middleware,
+      authApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);

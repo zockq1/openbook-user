@@ -10,6 +10,7 @@ import Question from "./pages/QuestionSolving/Question";
 import SettingsPage from "./pages/SettingsPage";
 import AnswerNotePage from "./pages/Note/AnswerNotePage";
 import BookmarkPage from "./pages/Note/BookmarkPage";
+import LoginLoadingRedirectPage from "./pages/LoginLoadingRedirectPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MainPage />,
+      },
+      {
+        path: "/oauth/kakao/login",
+        element: <LoginLoadingRedirectPage />,
       },
       {
         path: "topic-learning",
