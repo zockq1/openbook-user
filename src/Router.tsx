@@ -1,13 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import TopicLearningPage from "./pages/TopicLearning/TopicLearningPage";
-import QuestionSolving from "./pages/QuestionSolving/QuestionSolving";
-import Note from "./pages/Note";
-import Main from "./pages/Main";
+import QuestionSolvingPage from "./pages/QuestionSolving/QuestionSolvingPage";
+import NotePage from "./pages/Note/NotePage";
+import MainPage from "./pages/MainPage";
 import TopicList from "./pages/TopicLearning/TopicListPage";
 import TopicInfoPage from "./pages/TopicLearning/TopicInfoPage";
 import Question from "./pages/QuestionSolving/Question";
 import SettingsPage from "./pages/SettingsPage";
+import AnswerNotePage from "./pages/Note/AnswerNotePage";
+import BookmarkPage from "./pages/Note/BookmarkPage";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Main />,
+        element: <MainPage />,
       },
       {
         path: "topic-learning",
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "question-solving",
-        element: <QuestionSolving />,
+        element: <QuestionSolvingPage />,
       },
       {
         path: "question-solving/question",
@@ -40,7 +42,15 @@ const router = createBrowserRouter([
       },
       {
         path: "note",
-        element: <Note />,
+        element: <NotePage />,
+      },
+      {
+        path: "note/answer-note",
+        element: <AnswerNotePage />,
+      },
+      {
+        path: "note/bookmark",
+        element: <BookmarkPage />,
       },
       {
         path: "settings",
