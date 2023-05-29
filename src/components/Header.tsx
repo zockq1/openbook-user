@@ -31,7 +31,7 @@ const Logo = styled.div`
   color: #2699fb;
 `;
 
-const Login = styled.button`
+const Login = styled.a`
   position: absolute;
   top: 8px;
   right: 8px;
@@ -81,6 +81,17 @@ function Header() {
   const [activeNav, setActiveNav] = useState(1);
   const location = useLocation();
 
+  const handleClick = () => {
+    const response = fetch("http://localhost:8080/oauth2/authorization/kakao", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    console.log(response);
+  };
+
   useEffect(() => {
     switch (location.pathname) {
       case "/":
@@ -107,7 +118,10 @@ function Header() {
   return (
     <HeaderWrapper>
       <Logo>오픈북</Logo>
-      <Login>로그인</Login>
+      {/* <Login onClick={handleClick}>로그인</Login> */}
+      <Login href="http://localhost:8080/oauth2/authorization/kakao">
+        로그인
+      </Login>
       <NavigationBar>
         <NavigationItem
           to={"/"}
