@@ -4,7 +4,7 @@ import ListItem from "../../components/Common/ListItem";
 import Title from "../../components/Common/Title";
 import LinkBox from "../../components/Common/LinkBox";
 
-function QuestionSolving() {
+function QuestionSolvingPage() {
   return (
     <List>
       <QuestionCount />
@@ -23,4 +23,4 @@ function QuestionSolving() {
   );
 }
 
-export default QuestionSolving;
+export default QuestionSolvingPage;
