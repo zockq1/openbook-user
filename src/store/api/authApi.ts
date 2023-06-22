@@ -8,7 +8,7 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     getKakaoToken: builder.query<string, string>({
-      query: (code: string) => `/login/oauth2/code/kakao?code=${code}`,
+      query: (code: string) => `/login/kakao?code=${code}`,
     }),
   }),
 });
