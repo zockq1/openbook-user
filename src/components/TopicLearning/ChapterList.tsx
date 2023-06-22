@@ -1,20 +1,22 @@
 import React from "react";
 import ChapterItem from "./ChapterItem";
 import List from "../Common/List";
+import { ChapterListModel } from "../../types/chapterTypes";
 
 interface TopicLearningComponentProps {
-  chapterList: { titleList: string[]; numberList: number[] } | undefined;
+  chapterList: ChapterListModel[] | undefined;
 }
 
 function ChapterList({ chapterList }: TopicLearningComponentProps) {
+  console.log(chapterList);
   return (
     <List>
-      {chapterList?.titleList.map((item, index) => {
+      {chapterList?.map((item, index) => {
         return (
           <ChapterItem
             key={index}
-            chapterTitle={item}
-            chapterNumber={chapterList?.numberList[index]}
+            chapterTitle={item.title}
+            chapterNumber={item.number}
           />
         );
       })}

@@ -8,7 +8,7 @@ export const chapterApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getChapters: builder.query<ChapterListModel, void>({
+    getChapters: builder.query<ChapterListModel[], void>({
       query: () => "/admin/chapters",
     }),
   }),

@@ -1,4 +1,4 @@
 export interface ChapterListModel {
-  titleList: string[];
-  numberList: number[];
+  title: string;
+  number: number;
 }
