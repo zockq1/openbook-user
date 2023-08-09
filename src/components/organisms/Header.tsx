@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Login from "./Login";
+import Login from "../atoms/Login";
 
 const HeaderWrapper = styled.div`
   display: flex;

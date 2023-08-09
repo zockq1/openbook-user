@@ -1,13 +1,31 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import styled from "styled-components";
-import ListItem from "./Common/ListItem";
-import Title from "./Common/Title";
 
 const Text = styled.div`
   position: absolute;
   bottom: 20px;
   right: 40%;
+`;
+
+interface ItemProps {
+  height?: string;
+}
+
+const Title = styled.div`
+  margin-top: 15px;
+  margin-left: 10px;
+`;
+
+const ListItem = styled.li<ItemProps>`
+  height: ${(props) => props.height || "100px"};
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #5a5a5a;
+  background-color: #fff;
 `;
 
 const SolvedCountRate = styled.div`

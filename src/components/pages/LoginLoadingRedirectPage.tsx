@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useGetKakaoTokenQuery } from "../store/api/authApi";
+import { useGetKakaoTokenQuery } from "../../store/api/authApi";
 
 const LoginLoadingRedirectPage = () => {
   // 인가코드
@@ -9,7 +9,7 @@ const LoginLoadingRedirectPage = () => {
 
   useEffect(() => {
     console.log(accessToken);
-  }, []);
+  }, [accessToken]);
 
   return <div>로딩중</div>;
 };

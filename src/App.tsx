@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { GlobalStyle } from "./styles/global-style";
-import Header from "./components/Header";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 const BackGroundColor = styled.div`
   position: fixed;
@@ -10,16 +10,17 @@ const BackGroundColor = styled.div`
   width: 100%;
   height: 100vh;
   z-index: -999;
-  background-color: #e3e3e3;
+  background-color: #f2f5f9;
 `;
 
 function App() {
   return (
     <div>
       <GlobalStyle />
-      <BackGroundColor />
-      <Header />
-      <Outlet />
+      <ThemeProvider theme={theme}>
+        <BackGroundColor />
+        <Outlet />
+      </ThemeProvider>
     </div>
   );
 }

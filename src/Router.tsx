@@ -1,16 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import TopicLearningPage from "./pages/TopicLearning/TopicLearningPage";
-import QuestionSolvingPage from "./pages/QuestionSolving/QuestionSolvingPage";
-import NotePage from "./pages/Note/NotePage";
-import MainPage from "./pages/MainPage";
-import TopicList from "./pages/TopicLearning/TopicListPage";
-import TopicInfoPage from "./pages/TopicLearning/TopicInfoPage";
-import Question from "./pages/QuestionSolving/Question";
-import SettingsPage from "./pages/SettingsPage";
-import AnswerNotePage from "./pages/Note/AnswerNotePage";
-import BookmarkPage from "./pages/Note/BookmarkPage";
-import LoginLoadingRedirectPage from "./pages/LoginLoadingRedirectPage";
+import MainPage from "./components/pages/MainPage";
+import LoginLoadingRedirectPage from "./components/pages/LoginLoadingRedirectPage";
+import JeongJuHaengPage from "./components/pages/JeongJuHaengPage";
+import JeongJuHaengListPage from "./components/pages/JeongJuHaengListPage";
 
 const router = createBrowserRouter([
   {
@@ -26,40 +19,12 @@ const router = createBrowserRouter([
         element: <LoginLoadingRedirectPage />,
       },
       {
-        path: "topic-learning",
-        element: <TopicLearningPage />,
+        path: "/jeong-ju-haeng",
+        element: <JeongJuHaengPage />,
       },
       {
-        path: "topic-learning/:chapter",
-        element: <TopicList />,
-      },
-      {
-        path: "topic-learning/:chapter/:topicTitle",
-        element: <TopicInfoPage />,
-      },
-      {
-        path: "question-solving",
-        element: <QuestionSolvingPage />,
-      },
-      {
-        path: "question-solving/question",
-        element: <Question />,
-      },
-      {
-        path: "note",
-        element: <NotePage />,
-      },
-      {
-        path: "note/answer-note",
-        element: <AnswerNotePage />,
-      },
-      {
-        path: "note/bookmark",
-        element: <BookmarkPage />,
-      },
-      {
-        path: "settings",
-        element: <SettingsPage />,
+        path: "/jeong-ju-haeng-list",
+        element: <JeongJuHaengListPage />,
       },
     ],
   },
