@@ -2,23 +2,42 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface TextBoxProps {
-  children: ReactNode;
+  children?: ReactNode;
+  margin?: string;
+  shadow?: boolean;
+  maxWidth: "half" | "full";
 }
 
-const StyledTextBox = styled.div`
-  text-align: center;
+const StyledTextBox = styled.div<TextBoxProps>`
+  display: flex;
+  align-items: center;
+
   padding: ${({ theme }) => theme.padding.small};
+  margin: ${({ margin }) => margin};
+
   border-radius: ${({ theme }) => theme.padding.base};
+  height: inherit;
+  width: max-content;
+  max-width: ${({ maxWidth }) =>
+    ({
+      half: "calc(100vw / 2 - 40px)",
+      full: "calc(100vw - 40px)",
+    }[maxWidth] || "initial")};
 
   background-color: ${({ theme }) => theme.colors.blue};
   color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  box-shadow: ${({ theme, shadow }) =>
+    shadow ? theme.shadow.defaultShadow : "none"};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
-function TextBox({ children }: TextBoxProps) {
-  return <StyledTextBox>{children}</StyledTextBox>;
+function TextBox({ children, maxWidth, margin, shadow = true }: TextBoxProps) {
+  return (
+    <StyledTextBox margin={margin} maxWidth={maxWidth} shadow={shadow}>
+      <div style={{ width: "max-content" }}>{children}</div>
+    </StyledTextBox>
+  );
 }
 
 export default TextBox;
