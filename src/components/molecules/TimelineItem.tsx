@@ -47,7 +47,7 @@ function TimelineItem({ date, comment }: TimelineTopicProps) {
       <OuterCircle>
         <InnerCircle />
       </OuterCircle>
-      <TextBox>{comment}</TextBox>
+      <TextBox maxWidth="half">{comment}</TextBox>
     </StyledTimelineItem>
   );
 }
