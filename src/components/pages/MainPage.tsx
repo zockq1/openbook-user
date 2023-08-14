@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import QuestionCount from "../atoms/QuestionCount";
-import DounutChart from "../atoms/DounutChart";
 import Header from "../organisms/Header";
 import { Link } from "react-router-dom";
 
@@ -61,11 +59,9 @@ function Main() {
         <Ad>광고</Ad>
         <ListItem height="150px">
           <Title>개념학습 진도</Title>
-          <DounutChart color="#707070" percent={0.89} size="130px" />
         </ListItem>
-        <QuestionCount />
         <ListItem height="150px">
-          <LinkBox to="/jeong-ju-haeng-list">
+          <LinkBox to="/jeong-ju-haeng">
             <Title>정주행</Title>
           </LinkBox>
         </ListItem>

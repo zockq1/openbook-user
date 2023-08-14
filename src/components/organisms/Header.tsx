@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Login from "../atoms/Login";
+import LoginButton from "../atoms/LoginButton";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -94,7 +94,7 @@ function Header() {
   return (
     <HeaderWrapper>
       <Logo>오픈북</Logo>
-      <Login />
+      <LoginButton />
 
       <NavigationBar>
         <NavigationItem
