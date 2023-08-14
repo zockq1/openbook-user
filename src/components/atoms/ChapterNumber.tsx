@@ -20,20 +20,12 @@ const StyledChapterNumber = styled.div<StateProps>`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 3px solid
     ${({ theme, state }) =>
-      state !== "inProgress"
-        ? state === "complete"
-          ? theme.colors.black
-          : theme.colors.red
-        : theme.colors.black};
+      state === "locked" ? theme.colors.red : theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme, state }) =>
-    state !== "inProgress"
-      ? state === "complete"
-        ? theme.colors.black
-        : theme.colors.red
-      : theme.colors.black};
+    state === "locked" ? theme.colors.red : theme.colors.black};
 `;
 
 function ChapterNumber({ state, children }: ChapterNumberProps) {

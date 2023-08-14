@@ -10,7 +10,7 @@ interface ChpaterItemProps {
     title: string;
     number: number;
     state: string;
-    progress: number;
+    progress: string;
   };
 }
 
@@ -27,11 +27,7 @@ const StyledChpaterItem = styled.li<StyledChpaterItemProps>`
 
   border: 3px solid
     ${({ theme, state }) =>
-      state !== "inProgress"
-        ? state === "complete"
-          ? theme.colors.black
-          : theme.colors.red
-        : theme.colors.black};
+      state === "locked" ? theme.colors.red : theme.colors.black};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
@@ -60,7 +56,7 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
           weight={theme.fontWeight.medium}
           size={theme.fontSizes.small}
           padding={theme.padding.small}
-          color={state === "notStarted" ? theme.colors.red : theme.colors.black}
+          color={state === "locked" ? theme.colors.red : theme.colors.black}
         >
           {title}
         </Text>
@@ -68,15 +64,13 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
           weight={theme.fontWeight.regular}
           size={theme.fontSizes.small}
           padding={theme.padding.small}
-          color={
-            state === "notStarted" ? theme.colors.lightRed : theme.colors.grey
-          }
+          color={state === "locked" ? theme.colors.lightRed : theme.colors.grey}
         >
-          진행도: {progress}%
+          진행도: {progress}
         </Text>
       </ChapterContent>
 
-      {state === "notStarted" && <FaLock color={theme.colors.red} size={40} />}
+      {state === "locked" && <FaLock color={theme.colors.red} size={40} />}
     </StyledChpaterItem>
   );
 }
