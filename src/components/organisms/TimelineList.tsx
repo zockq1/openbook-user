@@ -1,21 +1,16 @@
-import styled from "styled-components";
 import TimelineItem from "../molecules/TimelineItem";
+import { ColumnList } from "../atoms/List";
 
 interface TimelineListProps {
   dateList: {
     comment: string;
     date: number;
+    topicTitle: string;
   }[];
 }
-
-const StyledTimelineList = styled.ul`
-  display: flex;
-  flex-direction: column;
-`;
-
 function TimelineList({ dateList }: TimelineListProps) {
   return (
-    <StyledTimelineList>
+    <ColumnList>
       {dateList.map((item, index) => {
         return (
           <TimelineItem
@@ -25,7 +20,7 @@ function TimelineList({ dateList }: TimelineListProps) {
           ></TimelineItem>
         );
       })}
-    </StyledTimelineList>
+    </ColumnList>
   );
 }
 
