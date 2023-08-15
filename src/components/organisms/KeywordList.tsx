@@ -5,6 +5,7 @@ interface KeywordListProps {
   keywordList: {
     name: string;
     comment: string;
+    file: string;
   }[];
 }
 

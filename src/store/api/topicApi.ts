@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { TopicListModel, TopicModel } from "../../types/topicTypes";
+import { TopicModel } from "../../types/topicTypes";
 
 export const topicApi = createApi({
   reducerPath: "topicApi",
@@ -11,8 +11,8 @@ export const topicApi = createApi({
     getTopic: builder.query<TopicModel, string>({
       query: (title) => `/topics/${title}`,
     }),
-    getChapterTopicList: builder.query<TopicListModel, number>({
-      query: (chapter) => `/admin/chapters/${chapter}/topics`,
+    getChapterTopicList: builder.query<string[], number>({
+      query: (chapter) => `/chapters/${chapter}/topics`,
     }),
   }),
 });
