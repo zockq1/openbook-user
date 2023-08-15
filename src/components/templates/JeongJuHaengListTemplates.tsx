@@ -1,14 +1,10 @@
 import TitleBox from "../molecules/TitleBox";
 import Layout from "../atoms/Layout";
 import ChpaterList from "../organisms/ChapterList";
+import { ChapterModel } from "../../types/chapterTypes";
 
 interface JeongJuHaengListTemplatesProps {
-  chapterList: {
-    title: string;
-    number: number;
-    state: string;
-    progress: string;
-  }[];
+  chapterList: ChapterModel[];
 }
 
 function JeongJuHaengListTemplates({
