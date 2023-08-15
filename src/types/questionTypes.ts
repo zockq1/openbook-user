@@ -14,3 +14,9 @@ export interface QuestionModel {
 
   choiceList: ChoiceModel[];
 }
+
+export interface TimeLineModel {
+  comment: string;
+  date: number;
+  topicTitle: string;
+}

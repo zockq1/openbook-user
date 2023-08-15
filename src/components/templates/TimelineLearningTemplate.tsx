@@ -3,14 +3,11 @@ import Layout from "../atoms/Layout";
 import styled from "styled-components";
 import TimelineList from "../organisms/TimelineList";
 import Button from "../atoms/Button";
+import { TimeLineModel } from "../../types/questionTypes";
 
 interface TimelineLearningTemplateProps {
   title: string;
-  dateList: {
-    comment: string;
-    date: number;
-    topicTitle: string;
-  }[];
+  dateList: TimeLineModel[];
   handleNextProgress: () => void;
 }
 

@@ -1,12 +1,9 @@
 import TimelineItem from "../molecules/TimelineItem";
 import { ColumnList } from "../atoms/List";
+import { TimeLineModel } from "../../types/questionTypes";
 
 interface TimelineListProps {
-  dateList: {
-    comment: string;
-    date: number;
-    topicTitle: string;
-  }[];
+  dateList: TimeLineModel[];
 }
 function TimelineList({ dateList }: TimelineListProps) {
   return (
