@@ -1,13 +1,9 @@
 import ChpaterItem from "../molecules/ChapterItem";
 import { ColumnList } from "../atoms/List";
+import { ChapterModel } from "../../types/chapterTypes";
 
 interface ChpaterListProps {
-  chapterList: {
-    title: string;
-    number: number;
-    state: string;
-    progress: string;
-  }[];
+  chapterList: ChapterModel[];
 }
 
 function ChpaterList({ chapterList }: ChpaterListProps) {
