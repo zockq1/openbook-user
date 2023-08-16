@@ -21,6 +21,13 @@ import {
 } from "../../store/api/topicApi";
 import { QuestionModel, TimeLineModel } from "../../types/questionTypes";
 import { TopicModel } from "../../types/topicTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import {
+  setCurrentProgress,
+  setCurrentTopic,
+  updateProgressListWithTopics,
+} from "../../store/slices/progressSlice";
 
 const Box = styled.div`
   display: flex;
@@ -91,7 +98,7 @@ const topicInfo: TopicModel = {
   ],
 };
 
-const topicList: string[] = ["공민왕", "주제2"];
+const topicList: string[] = ["공민왕"];
 
 const TtoSQuestion: QuestionModel[] = [
   {
@@ -204,103 +211,93 @@ const KtoTQuestion: QuestionModel[] = [
 function JeongJuHaengPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
-  const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
-  const { data: chapterData } = useGetChapterLearningQuery(Number(chapter));
-  const { data: dateList } = useGetTimelineQuery(Number(chapter));
-  const [progressList, setProgressList] = useState([
-    "단원 학습",
-    "연표 학습",
-    "연표 문제",
-    "키워드 보고 주제 맞추기",
-  ]);
-  const [progress, setProgress] = useState(progressList[0]);
-  const [currentTopic, setCurrentTopic] = useState("");
-  const { data: topicInfo } = useGetTopicQuery(currentTopic);
-  const { data: TtoKQuestion } = useGetTtoKQuestionQuery(currentTopic);
-  const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
-  const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
-
+  // const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
+  // const { data: chapterData } = useGetChapterLearningQuery(Number(chapter));
+  // const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  // const { data: topicInfo } = useGetTopicQuery(currentTopic);
+  // const { data: TtoKQuestion } = useGetTtoKQuestionQuery(currentTopic);
+  // const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
+  // const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
+  const dispatch = useDispatch();
+  const { progressList, currentProgress, currentTopic } = useSelector(
+    (state: RootState) => state.progress
+  );
   useEffect(() => {
-    if (topicList) {
-      const updatedTopicList: string[] = [];
-      for (const topic of topicList) {
-        updatedTopicList.push(`주제 학습/${topic}`);
-        updatedTopicList.push(`주제 보고 키워드 맞추기/${topic}`);
-        updatedTopicList.push(`주제 보고 문장 맞추기/${topic}`);
-      }
-
-      if (updatedTopicList) {
-        const updatedProgressList = [
-          "단원 학습",
-          "연표 학습",
-          "연표 문제",
-          ...updatedTopicList,
-          "키워드 보고 주제 맞추기",
-        ];
-        setProgressList(updatedProgressList);
-      }
-    }
+    dispatch(updateProgressListWithTopics(topicList));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicList]);
 
   const handleNextProgress = () => {
-    if (!progressList[progressList.indexOf(progress) + 1]) {
+    if (!progressList[progressList.indexOf(currentProgress) + 1]) {
+      dispatch(setCurrentProgress("단원 학습"));
       navigate("/jeong-ju-haeng");
+    } else {
+      dispatch(
+        setCurrentProgress(
+          progressList[progressList.indexOf(currentProgress) + 1]
+        )
+      );
     }
 
-    setProgress(progressList[progressList.indexOf(progress) + 1]);
-
-    if (progress.startsWith("주제 학습/")) {
-      setCurrentTopic(progress.substring("주제 학습/".length));
-    } else if (progress.startsWith("주제 보고 키워드 맞추기/")) {
-      setCurrentTopic(progress.substring("주제 보고 키워드 맞추기/".length));
-    } else if (progress.startsWith("주제 보고 문장 맞추기/")) {
-      setCurrentTopic(progress.substring("주제 보고 문장 맞추기/".length));
+    if (currentProgress.startsWith("주제 학습/")) {
+      dispatch(setCurrentTopic(currentProgress.substring("주제 학습/".length)));
+    } else if (currentProgress.startsWith("주제 보고 키워드 맞추기/")) {
+      dispatch(
+        setCurrentTopic(
+          currentProgress.substring("주제 보고 키워드 맞추기/".length)
+        )
+      );
+    } else if (currentProgress.startsWith("주제 보고 문장 맞추기/")) {
+      dispatch(
+        setCurrentTopic(
+          currentProgress.substring("주제 보고 문장 맞추기/".length)
+        )
+      );
     }
   };
 
   return (
     <Box>
-      {progress === "단원 학습" && chapterData && (
+      {currentProgress === "단원 학습" && chapterData && (
         <ChapterLearningTemplate
           title={String(chapter) + ". " + chapterData.title}
           content={chapterData.content}
           handleNextProgress={handleNextProgress}
         />
       )}
-      {progress === "연표 학습" && chapterData && dateList && (
+      {currentProgress === "연표 학습" && chapterData && dateList && (
         <TimelineLearningTemplate
           title={chapterData.title}
           dateList={dateList}
           handleNextProgress={handleNextProgress}
         />
       )}
-      {progress === "연표 문제" && (
+      {currentProgress === "연표 문제" && (
         <TimelineGame handleNextProgress={handleNextProgress} />
       )}
-      {progress.includes("주제 학습") && topicInfo && (
+      {currentProgress.includes("주제 학습") && topicInfo && (
         <TopicLearningTemplate
           title={currentTopic}
           topicInfo={topicInfo}
           handleNextProgress={handleNextProgress}
         />
       )}
-      {progress.includes("주제 보고 키워드 맞추기") && TtoKQuestion && (
+      {currentProgress.includes("주제 보고 키워드 맞추기") && TtoKQuestion && (
         <FindKeywordGameTemplate
           topicTitle={currentTopic}
           questionList={TtoKQuestion}
           handleNextProgress={handleNextProgress}
         />
       )}
-      {progress.includes("주제 보고 문장 맞추기") && TtoSQuestion && (
+      {currentProgress.includes("주제 보고 문장 맞추기") && TtoSQuestion && (
         <FindSentenceGameTemplate
           topicTitle={currentTopic}
           questionList={TtoSQuestion}
           handleNextProgress={handleNextProgress}
         />
       )}
-      {progress.includes("키워드 보고 주제 맞추기") && KtoTQuestion && (
+      {currentProgress.includes("키워드 보고 주제 맞추기") && KtoTQuestion && (
         <FindTopicGame
           questionList={KtoTQuestion}
           handleNextProgress={handleNextProgress}
