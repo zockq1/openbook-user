@@ -1,7 +1,9 @@
+export type ContentState = "open" | "locked";
+
 export interface ChapterModel {
   title: string;
   number: number;
-  state: string;
+  state: ContentState;
   progress: string;
 }
 

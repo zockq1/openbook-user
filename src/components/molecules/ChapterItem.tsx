@@ -4,18 +4,14 @@ import ChapterNumber from "../atoms/ChapterNumber";
 import Text from "../atoms/Text";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { ChapterModel, ContentState } from "../../types/chapterTypes";
 
 interface ChpaterItemProps {
-  chapterInfo: {
-    title: string;
-    number: number;
-    state: string;
-    progress: string;
-  };
+  chapterInfo: ChapterModel;
 }
 
 interface StyledChpaterItemProps {
-  state: string;
+  state: ContentState;
 }
 
 const StyledChpaterItem = styled.li<StyledChpaterItemProps>`
@@ -45,7 +41,9 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
   const navigate = useNavigate();
 
   const onClickChapter = () => {
-    navigate(`/jeong-ju-haeng/${number}`);
+    if (state === "open") {
+      navigate(`/jeong-ju-haeng/${number}`);
+    }
   };
 
   return (

@@ -1,7 +1,8 @@
 import { useGetChaptersQuery } from "../../store/api/chapterApi";
+import { ChapterModel } from "../../types/chapterTypes";
 import JeongJuHaengListTemplates from "../templates/JeongJuHaengListTemplates";
 
-const chapterList = [
+const chapterList: ChapterModel[] = [
   {
     title: "인류의 출현",
     number: 1,
