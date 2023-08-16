@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <LoginLoadingRedirectPage />,
       },
       {
-        path: "jeong-ju-haeng/:chpater",
+        path: "jeong-ju-haeng/:chapter",
         element: <JeongJuHaengPage />,
       },
       {
