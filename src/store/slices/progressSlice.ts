@@ -23,6 +23,19 @@ const progressSlice = createSlice({
   reducers: {
     setCurrentProgress: (state, action) => {
       state.currentProgress = action.payload;
+      if (state.currentProgress.startsWith("주제 학습/")) {
+        state.currentTopic = state.currentProgress.substring(
+          "주제 학습/".length
+        );
+      } else if (state.currentProgress.startsWith("주제 보고 키워드 맞추기/")) {
+        state.currentTopic = state.currentProgress.substring(
+          "주제 보고 키워드 맞추기/".length
+        );
+      } else if (state.currentProgress.startsWith("주제 보고 문장 맞추기/")) {
+        state.currentTopic = state.currentProgress.substring(
+          "주제 보고 문장 맞추기/".length
+        );
+      }
     },
     setCurrentTopic: (state, action) => {
       state.currentTopic = action.payload;

@@ -239,22 +239,6 @@ function JeongJuHaengPage() {
         )
       );
     }
-
-    if (currentProgress.startsWith("주제 학습/")) {
-      dispatch(setCurrentTopic(currentProgress.substring("주제 학습/".length)));
-    } else if (currentProgress.startsWith("주제 보고 키워드 맞추기/")) {
-      dispatch(
-        setCurrentTopic(
-          currentProgress.substring("주제 보고 키워드 맞추기/".length)
-        )
-      );
-    } else if (currentProgress.startsWith("주제 보고 문장 맞추기/")) {
-      dispatch(
-        setCurrentTopic(
-          currentProgress.substring("주제 보고 문장 맞추기/".length)
-        )
-      );
-    }
   };
 
   return (
