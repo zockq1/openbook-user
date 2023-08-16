@@ -10,7 +10,7 @@ function ChpaterList({ chapterList }: ChpaterListProps) {
   return (
     <ColumnList>
       {chapterList.map((item) => {
-        return <ChpaterItem chapterInfo={item} />;
+        return <ChpaterItem chapterInfo={item} key={item.number} />;
       })}
     </ColumnList>
   );
