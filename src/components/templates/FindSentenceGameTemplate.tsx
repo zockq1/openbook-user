@@ -16,10 +16,7 @@ function FindSentenceGameTemplate({
 }: FindSentenceGameTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        title={topicTitle}
-        category="주제 보고 문장 맞추기 문제"
-      ></TitleBox>
+      <TitleBox title={topicTitle} category="주제 보고 문장 맞추기"></TitleBox>
       <LongChoiceQuestion
         questionList={questionList}
         choiceType="long"

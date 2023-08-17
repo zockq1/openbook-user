@@ -14,7 +14,7 @@ function FindTopicGameTemplate({
 }: FindTopicGameTemplateProps) {
   return (
     <Layout>
-      <TitleBox category="키워드 보고 주제 맞추기 문제"></TitleBox>
+      <TitleBox category="키워드 보고 주제 맞추기"></TitleBox>
       <LongChoiceQuestion
         questionList={questionList}
         choiceType="short"

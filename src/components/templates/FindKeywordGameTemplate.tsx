@@ -18,7 +18,7 @@ function FindKeywordGameTemplate({
     <Layout>
       <TitleBox
         title={topicTitle}
-        category="주제 보고 키워드 맞추기 문제"
+        category="주제 보고 키워드 맞추기"
       ></TitleBox>
       <LongChoiceQuestion
         questionList={questionList}
