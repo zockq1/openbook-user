@@ -12,21 +12,29 @@ interface TitleBoxProps {
   backLink: string;
 }
 
-const StyledTitleBox = styled.div`
+interface StyledTitleBoxProps {
+  position: "fixed" | "static";
+}
+
+const StyledTitleBox = styled.div<StyledTitleBoxProps>`
+  position: ${({ position }) => position};
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 100;
 
   width: 100%;
 
   padding: ${({ theme }) => theme.padding.large};
   margin-bottom: 10px;
   border-radius: 0 0 50px 50px;
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  box-shadow: ${({ theme, position }) =>
+    position === "fixed" && theme.shadow.defaultShadow};
 
-  background-color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme, position }) =>
+    position === "fixed" ? theme.colors.blue : theme.colors.bg};
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, position }) =>
+    position === "fixed" ? theme.colors.white : theme.colors.bg};
 `;
 
 const Category = styled.span`
@@ -46,38 +54,72 @@ const TitleBox = ({
 }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
-    <StyledTitleBox>
-      <Category>
-        <BackButton backLink={backLink} />
-        &nbsp;&nbsp;
-        <Icon category={category} />
-        &nbsp;&nbsp;
-        {category}
-      </Category>
-      {title && <br />}
-      {title && (
-        <Text
-          weight={theme.fontWeight.bold}
-          size={theme.fontSizes.xxl}
-          textAlign="center"
-          margin="auto"
-        >
-          {title}
-        </Text>
-      )}
-      {(startDate || endDate) && (
-        <Text
-          weight={theme.fontWeight.light}
-          size={theme.fontSizes.small}
-          color={theme.colors.lightBlue}
-          margin="auto"
-          textAlign="center"
-          lineHeight="200%"
-        >
-          {startDate ? startDate : "???"} ~ {endDate ? endDate : "???"}
-        </Text>
-      )}
-    </StyledTitleBox>
+    <>
+      <StyledTitleBox position={"static"}>
+        <Category>
+          <BackButton backLink={backLink} />
+          &nbsp;&nbsp;
+          <Icon category={category} />
+          &nbsp;&nbsp;
+          {category}
+        </Category>
+        {title && <br />}
+        {title && (
+          <Text
+            weight={theme.fontWeight.bold}
+            size={theme.fontSizes.xxl}
+            textAlign="center"
+            margin="auto"
+          >
+            {title}
+          </Text>
+        )}
+        {(startDate || endDate) && (
+          <Text
+            weight={theme.fontWeight.light}
+            size={theme.fontSizes.small}
+            color={theme.colors.lightBlue}
+            margin="auto"
+            textAlign="center"
+            lineHeight="200%"
+          >
+            {startDate ? startDate : "???"} ~ {endDate ? endDate : "???"}
+          </Text>
+        )}
+      </StyledTitleBox>
+      <StyledTitleBox position={"fixed"}>
+        <Category>
+          <BackButton backLink={backLink} />
+          &nbsp;&nbsp;
+          <Icon category={category} />
+          &nbsp;&nbsp;
+          {category}
+        </Category>
+        {title && <br />}
+        {title && (
+          <Text
+            weight={theme.fontWeight.bold}
+            size={theme.fontSizes.xxl}
+            textAlign="center"
+            margin="auto"
+          >
+            {title}
+          </Text>
+        )}
+        {(startDate || endDate) && (
+          <Text
+            weight={theme.fontWeight.light}
+            size={theme.fontSizes.small}
+            color={theme.colors.lightBlue}
+            margin="auto"
+            textAlign="center"
+            lineHeight="200%"
+          >
+            {startDate ? startDate : "???"} ~ {endDate ? endDate : "???"}
+          </Text>
+        )}
+      </StyledTitleBox>
+    </>
   );
 };
 
