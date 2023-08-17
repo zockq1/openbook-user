@@ -8,13 +8,13 @@ import { TopicModel } from "../../types/topicTypes";
 interface TopicLearningTemplateProps {
   title: string;
   topicInfo: TopicModel;
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 function TopicLearningTemplate({
   title,
   topicInfo,
-  handleNextProgress,
+  handleNextContent,
 }: TopicLearningTemplateProps) {
   return (
     <Layout>
@@ -26,7 +26,7 @@ function TopicLearningTemplate({
       />
       <KeywordList keywordList={topicInfo.keywordList} />
       <SentenceList sentenceList={topicInfo.sentenceList} />
-      <Button onClick={handleNextProgress}>다음</Button>
+      <Button onClick={handleNextContent}>다음</Button>
     </Layout>
   );
 }

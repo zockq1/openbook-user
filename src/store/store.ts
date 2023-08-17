@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { chapterApi } from "./api/chapterApi";
 import authReducer from "./slices/authSlice";
-import progressReducer from "./slices/progressSlice";
+import contentReducer from "./slices/contentSlice";
 import storage from "redux-persist/lib/storage";
 import { topicApi } from "./api/topicApi";
 import { noteApi } from "./api/noteApi";
@@ -12,12 +12,12 @@ import { questionApi } from "./api/questionApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "progress"],
+  whitelist: ["auth"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  progress: progressReducer,
+  content: contentReducer,
   [chapterApi.reducerPath]: chapterApi.reducer,
   [topicApi.reducerPath]: topicApi.reducer,
   [noteApi.reducerPath]: noteApi.reducer,

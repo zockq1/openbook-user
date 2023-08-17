@@ -5,12 +5,12 @@ import { LongChoiceQuestion } from "../organisms/Question";
 
 interface FindTopicGameTemplateProps {
   questionList: QuestionModel[];
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 function FindTopicGameTemplate({
   questionList,
-  handleNextProgress,
+  handleNextContent,
 }: FindTopicGameTemplateProps) {
   return (
     <Layout>
@@ -18,7 +18,7 @@ function FindTopicGameTemplate({
       <LongChoiceQuestion
         questionList={questionList}
         choiceType="short"
-        handleNextProgress={handleNextProgress}
+        handleNextContent={handleNextContent}
       />
     </Layout>
   );

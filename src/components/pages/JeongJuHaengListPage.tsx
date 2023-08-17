@@ -24,7 +24,7 @@ const chapterList: ChapterModel[] = [
 ];
 
 function JeongJuHaengListPage() {
-  const { data: chapterList } = useGetChaptersQuery();
+  //const { data: chapterList } = useGetChaptersQuery();
 
   return <JeongJuHaengListTemplates chapterList={chapterList || []} />;
 }

@@ -24,10 +24,10 @@ import { TopicModel } from "../../types/topicTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import {
-  setCurrentProgress,
+  setCurrentContent,
   setCurrentTopic,
-  updateProgressListWithTopics,
-} from "../../store/slices/progressSlice";
+  updateContentListWithTopics,
+} from "../../store/slices/contentSlice";
 
 const Box = styled.div`
   display: flex;
@@ -219,72 +219,70 @@ function JeongJuHaengPage() {
   // const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
   // const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
   const dispatch = useDispatch();
-  const { progressList, currentProgress, currentTopic } = useSelector(
-    (state: RootState) => state.progress
+  const { contentList, currentContent, currentTopic } = useSelector(
+    (state: RootState) => state.content
   );
   useEffect(() => {
-    dispatch(updateProgressListWithTopics(topicList));
+    dispatch(updateContentListWithTopics(topicList));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicList]);
 
-  const handleNextProgress = () => {
-    if (!progressList[progressList.indexOf(currentProgress) + 1]) {
-      dispatch(setCurrentProgress("단원 학습"));
+  const handleNextContent = () => {
+    if (!contentList[contentList.indexOf(currentContent) + 1]) {
+      dispatch(setCurrentContent("단원 학습"));
       navigate("/jeong-ju-haeng");
     } else {
       dispatch(
-        setCurrentProgress(
-          progressList[progressList.indexOf(currentProgress) + 1]
-        )
+        setCurrentContent(contentList[contentList.indexOf(currentContent) + 1])
       );
     }
   };
 
   return (
     <Box>
-      {currentProgress === "단원 학습" && chapterData && (
+      {currentContent === "단원 학습" && chapterData && (
         <ChapterLearningTemplate
           title={String(chapter) + ". " + chapterData.title}
           content={chapterData.content}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
-      {currentProgress === "연표 학습" && chapterData && dateList && (
+      {currentContent === "연표 학습" && chapterData && dateList && (
         <TimelineLearningTemplate
           title={chapterData.title}
           dateList={dateList}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
-      {currentProgress === "연표 문제" && (
-        <TimelineGame handleNextProgress={handleNextProgress} />
+      {currentContent === "연표 문제" && (
+        <TimelineGame handleNextContent={handleNextContent} />
       )}
-      {currentProgress.includes("주제 학습") && topicInfo && (
+      {currentContent.includes("주제 학습") && topicInfo && (
         <TopicLearningTemplate
           title={currentTopic}
           topicInfo={topicInfo}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
-      {currentProgress.includes("주제 보고 키워드 맞추기") && TtoKQuestion && (
+      {currentContent.includes("주제 보고 키워드 맞추기") && TtoKQuestion && (
         <FindKeywordGameTemplate
           topicTitle={currentTopic}
           questionList={TtoKQuestion}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
-      {currentProgress.includes("주제 보고 문장 맞추기") && TtoSQuestion && (
+      {currentContent.includes("주제 보고 문장 맞추기") && TtoSQuestion && (
         <FindSentenceGameTemplate
           topicTitle={currentTopic}
           questionList={TtoSQuestion}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
-      {currentProgress.includes("키워드 보고 주제 맞추기") && KtoTQuestion && (
+      {currentContent.includes("키워드 보고 주제 맞추기") && KtoTQuestion && (
         <FindTopicGame
           questionList={KtoTQuestion}
-          handleNextProgress={handleNextProgress}
+          handleNextContent={handleNextContent}
         />
       )}
     </Box>

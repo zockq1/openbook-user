@@ -1,38 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface ProgressState {
-  progressList: string[];
-  currentProgress: string;
+interface ContentState {
+  contentList: string[];
+  currentContent: string;
   currentTopic: string;
 }
 
-const initialState: ProgressState = {
-  progressList: [
+const initialState: ContentState = {
+  contentList: [
     "단원 학습",
     "연표 학습",
     "연표 문제",
     "키워드 보고 주제 맞추기",
   ],
-  currentProgress: "단원 학습",
+  currentContent: "단원 학습",
   currentTopic: "",
 };
 
-const progressSlice = createSlice({
-  name: "progress",
+const contentSlice = createSlice({
+  name: "content",
   initialState,
   reducers: {
-    setCurrentProgress: (state, action) => {
-      state.currentProgress = action.payload;
-      if (state.currentProgress.startsWith("주제 학습/")) {
-        state.currentTopic = state.currentProgress.substring(
+    setCurrentContent: (state, action) => {
+      state.currentContent = action.payload;
+      if (state.currentContent.startsWith("주제 학습/")) {
+        state.currentTopic = state.currentContent.substring(
           "주제 학습/".length
         );
-      } else if (state.currentProgress.startsWith("주제 보고 키워드 맞추기/")) {
-        state.currentTopic = state.currentProgress.substring(
+      } else if (state.currentContent.startsWith("주제 보고 키워드 맞추기/")) {
+        state.currentTopic = state.currentContent.substring(
           "주제 보고 키워드 맞추기/".length
         );
-      } else if (state.currentProgress.startsWith("주제 보고 문장 맞추기/")) {
-        state.currentTopic = state.currentProgress.substring(
+      } else if (state.currentContent.startsWith("주제 보고 문장 맞추기/")) {
+        state.currentTopic = state.currentContent.substring(
           "주제 보고 문장 맞추기/".length
         );
       }
@@ -40,7 +40,7 @@ const progressSlice = createSlice({
     setCurrentTopic: (state, action) => {
       state.currentTopic = action.payload;
     },
-    updateProgressListWithTopics: (state, action) => {
+    updateContentListWithTopics: (state, action) => {
       const topicList = action.payload;
       const updatedTopicList = [];
       for (const topic of topicList) {
@@ -48,7 +48,7 @@ const progressSlice = createSlice({
         updatedTopicList.push(`주제 보고 키워드 맞추기/${topic}`);
         updatedTopicList.push(`주제 보고 문장 맞추기/${topic}`);
       }
-      state.progressList = [
+      state.contentList = [
         "단원 학습",
         "연표 학습",
         "연표 문제",
@@ -60,9 +60,9 @@ const progressSlice = createSlice({
 });
 
 export const {
-  setCurrentProgress,
+  setCurrentContent,
   setCurrentTopic,
-  updateProgressListWithTopics,
-} = progressSlice.actions;
+  updateContentListWithTopics,
+} = contentSlice.actions;
 
-export default progressSlice.reducer;
+export default contentSlice.reducer;

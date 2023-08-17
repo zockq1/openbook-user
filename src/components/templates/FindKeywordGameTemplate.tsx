@@ -6,13 +6,13 @@ import { LongChoiceQuestion } from "../organisms/Question";
 interface FindkeywordGameTemplateProps {
   topicTitle: string;
   questionList: QuestionModel[];
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 function FindKeywordGameTemplate({
   questionList,
   topicTitle,
-  handleNextProgress,
+  handleNextContent,
 }: FindkeywordGameTemplateProps) {
   return (
     <Layout>
@@ -23,7 +23,7 @@ function FindKeywordGameTemplate({
       <LongChoiceQuestion
         questionList={questionList}
         choiceType="short"
-        handleNextProgress={handleNextProgress}
+        handleNextContent={handleNextContent}
       />
     </Layout>
   );

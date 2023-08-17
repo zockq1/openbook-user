@@ -5,7 +5,7 @@ import Layout from "../atoms/Layout";
 import Button from "../atoms/Button";
 
 interface TimelineGameProps {
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 const Line = styled.div`
@@ -61,7 +61,7 @@ const dateList = [
 
 const title = "1. 교역망의 발달과 은 유통";
 
-function TimelineGame({ handleNextProgress }: TimelineGameProps) {
+function TimelineGame({ handleNextContent }: TimelineGameProps) {
   return (
     <Layout>
       <TopicBox>
@@ -79,7 +79,7 @@ function TimelineGame({ handleNextProgress }: TimelineGameProps) {
           ></TimelineItem>
         );
       })}
-      <Button onClick={handleNextProgress}>다음</Button>
+      <Button onClick={handleNextContent}>다음</Button>
     </Layout>
   );
 }

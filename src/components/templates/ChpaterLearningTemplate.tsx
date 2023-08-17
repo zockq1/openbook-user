@@ -7,19 +7,19 @@ import Button from "../atoms/Button";
 interface ChapterLearningTemplateProps {
   title: string;
   content: string;
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 function ChapterLearningTemplate({
   title,
   content,
-  handleNextProgress,
+  handleNextContent,
 }: ChapterLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox title={title} category="단원 학습" />
       <ContentBox>{parse(String(content))}</ContentBox>
-      <Button onClick={handleNextProgress}>다음</Button>
+      <Button onClick={handleNextContent}>다음</Button>
     </Layout>
   );
 }

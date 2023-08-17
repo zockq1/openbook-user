@@ -11,7 +11,7 @@ import TextBox from "../atoms/TextBox";
 interface LongChoiceList {
   questionList: QuestionModel[];
   choiceType: "short" | "long";
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 const Description = styled.ul`
@@ -31,7 +31,7 @@ const Description = styled.ul`
 function LongChoiceQuestion({
   questionList,
   choiceType,
-  handleNextProgress,
+  handleNextContent,
 }: LongChoiceList) {
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
@@ -124,7 +124,7 @@ function LongChoiceQuestion({
       ) : currentQuestionNumber < questionList.length - 1 ? (
         <Button onClick={handleNextQuestion}>다음 문제</Button>
       ) : (
-        <Button onClick={handleNextProgress}>다음</Button>
+        <Button onClick={handleNextContent}>다음</Button>
       )}
     </>
   );

@@ -8,7 +8,7 @@ import { TimeLineModel } from "../../types/questionTypes";
 interface TimelineLearningTemplateProps {
   title: string;
   dateList: TimeLineModel[];
-  handleNextProgress: () => void;
+  handleNextContent: () => void;
 }
 
 const Line = styled.div`
@@ -24,14 +24,14 @@ const Line = styled.div`
 function TimelineLearningTemplate({
   title,
   dateList,
-  handleNextProgress,
+  handleNextContent,
 }: TimelineLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox title={title} category="연표 학습" />
       <Line />
       <TimelineList dateList={dateList} />
-      <Button onClick={handleNextProgress}>다음</Button>
+      <Button onClick={handleNextContent}>다음</Button>
     </Layout>
   );
 }
