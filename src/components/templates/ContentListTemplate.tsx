@@ -19,6 +19,7 @@ function ContentListTemplate({
   return (
     <Layout>
       <TitleBox
+        backLink="/jeong-ju-haeng"
         category={String(chapter) + ". " + chapterInfo.title}
       ></TitleBox>
       <ContentList

@@ -4,12 +4,14 @@ import TitleBox from "../molecules/TitleBox";
 import { LongChoiceQuestion } from "../organisms/Question";
 
 interface FindkeywordGameTemplateProps {
+  chapterNumber: number;
   topicTitle: string;
   questionList: QuestionModel[];
   handleNextContent: () => void;
 }
 
 function FindKeywordGameTemplate({
+  chapterNumber,
   questionList,
   topicTitle,
   handleNextContent,
@@ -17,6 +19,7 @@ function FindKeywordGameTemplate({
   return (
     <Layout>
       <TitleBox
+        backLink={`/jeong-ju-haeng/${chapterNumber}`}
         title={topicTitle}
         category="주제 보고 키워드 맞추기"
       ></TitleBox>

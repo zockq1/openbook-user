@@ -6,20 +6,23 @@ import Button from "../atoms/Button";
 import { TopicModel } from "../../types/topicTypes";
 
 interface TopicLearningTemplateProps {
-  title: string;
+  chapterNumber: number;
+  topicTitle: string;
   topicInfo: TopicModel;
   handleNextContent: () => void;
 }
 
 function TopicLearningTemplate({
-  title,
+  chapterNumber,
+  topicTitle,
   topicInfo,
   handleNextContent,
 }: TopicLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox
-        title={title}
+        backLink={`/jeong-ju-haeng/${chapterNumber}`}
+        title={topicTitle}
         category="주제 학습"
         startDate={topicInfo.startDate}
         endDate={topicInfo.endDate}

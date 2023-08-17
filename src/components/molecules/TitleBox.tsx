@@ -9,6 +9,7 @@ interface TitleBoxProps {
   category: string;
   startDate?: number;
   endDate?: number;
+  backLink: string;
 }
 
 const StyledTitleBox = styled.div`
@@ -36,12 +37,18 @@ const Category = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
-const TitleBox = ({ title, category, startDate, endDate }: TitleBoxProps) => {
+const TitleBox = ({
+  title,
+  category,
+  startDate,
+  endDate,
+  backLink,
+}: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
     <StyledTitleBox>
       <Category>
-        <BackButton />
+        <BackButton backLink={backLink} />
         &nbsp;&nbsp;
         <Icon category={category} />
         &nbsp;&nbsp;

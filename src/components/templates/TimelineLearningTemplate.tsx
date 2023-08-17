@@ -6,6 +6,7 @@ import Button from "../atoms/Button";
 import { TimeLineModel } from "../../types/questionTypes";
 
 interface TimelineLearningTemplateProps {
+  chapterNumber: number;
   title: string;
   dateList: TimeLineModel[];
   handleNextContent: () => void;
@@ -22,13 +23,18 @@ const Line = styled.div`
 `;
 
 function TimelineLearningTemplate({
+  chapterNumber,
   title,
   dateList,
   handleNextContent,
 }: TimelineLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} category="연표 학습" />
+      <TitleBox
+        backLink={`/jeong-ju-haeng/${chapterNumber}`}
+        title={title}
+        category="연표 학습"
+      />
       <Line />
       <TimelineList dateList={dateList} />
       <Button onClick={handleNextContent}>다음</Button>

@@ -12,7 +12,7 @@ function JeongJuHaengListTemplates({
 }: JeongJuHaengListTemplatesProps) {
   return (
     <Layout>
-      <TitleBox category="정주행"></TitleBox>
+      <TitleBox backLink="/" category="정주행"></TitleBox>
       <ChpaterList chapterList={chapterList} />
     </Layout>
   );

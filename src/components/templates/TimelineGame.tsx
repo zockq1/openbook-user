@@ -5,6 +5,7 @@ import Layout from "../atoms/Layout";
 import Button from "../atoms/Button";
 
 interface TimelineGameProps {
+  chapterNumber: number;
   handleNextContent: () => void;
 }
 
@@ -61,13 +62,17 @@ const dateList = [
 
 const title = "1. 교역망의 발달과 은 유통";
 
-function TimelineGame({ handleNextContent }: TimelineGameProps) {
+function TimelineGame({ handleNextContent, chapterNumber }: TimelineGameProps) {
   return (
     <Layout>
       <TopicBox>
         <Topic>원 건국</Topic>
       </TopicBox>
-      <TitleBox title={title} category="연표 문제" />
+      <TitleBox
+        backLink={`/jeong-ju-haeng/${chapterNumber}`}
+        title={title}
+        category="연표 문제"
+      />
 
       <Line />
       {dateList.map((item, index) => {

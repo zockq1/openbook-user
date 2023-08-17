@@ -243,6 +243,7 @@ function JeongJuHaengPage() {
     <Box>
       {currentContent === "단원 학습" && chapterData && (
         <ChapterLearningTemplate
+          chapterNumber={Number(chapter)}
           title={String(chapter) + ". " + chapterData.title}
           content={chapterData.content}
           handleNextContent={handleNextContent}
@@ -250,23 +251,29 @@ function JeongJuHaengPage() {
       )}
       {currentContent === "연표 학습" && chapterData && dateList && (
         <TimelineLearningTemplate
+          chapterNumber={Number(chapter)}
           title={chapterData.title}
           dateList={dateList}
           handleNextContent={handleNextContent}
         />
       )}
       {currentContent === "연표 문제" && (
-        <TimelineGame handleNextContent={handleNextContent} />
+        <TimelineGame
+          handleNextContent={handleNextContent}
+          chapterNumber={Number(chapter)}
+        />
       )}
       {currentContent.includes("주제 학습") && topicInfo && (
         <TopicLearningTemplate
-          title={currentTopic}
+          chapterNumber={Number(chapter)}
+          topicTitle={currentTopic}
           topicInfo={topicInfo}
           handleNextContent={handleNextContent}
         />
       )}
       {currentContent.includes("주제 보고 키워드 맞추기") && TtoKQuestion && (
         <FindKeywordGameTemplate
+          chapterNumber={Number(chapter)}
           topicTitle={currentTopic}
           questionList={TtoKQuestion}
           handleNextContent={handleNextContent}
@@ -274,6 +281,7 @@ function JeongJuHaengPage() {
       )}
       {currentContent.includes("주제 보고 문장 맞추기") && TtoSQuestion && (
         <FindSentenceGameTemplate
+          chapterNumber={Number(chapter)}
           topicTitle={currentTopic}
           questionList={TtoSQuestion}
           handleNextContent={handleNextContent}
@@ -281,6 +289,7 @@ function JeongJuHaengPage() {
       )}
       {currentContent.includes("키워드 보고 주제 맞추기") && KtoTQuestion && (
         <FindTopicGame
+          chapterNumber={Number(chapter)}
           questionList={KtoTQuestion}
           handleNextContent={handleNextContent}
         />
