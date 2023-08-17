@@ -11,3 +11,8 @@ export interface ChapterLearningModel {
   title: string;
   content: string;
 }
+
+export interface ProgressModel {
+  chapterNumber: number;
+  content: string;
+}

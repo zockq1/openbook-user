@@ -52,6 +52,7 @@ const margin = {
 };
 
 const padding = {
+  xs_Lsmall: "4px 4px 4px 8px",
   xs: "4px",
   small: "8px",
   base: "12px",

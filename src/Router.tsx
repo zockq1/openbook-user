@@ -4,6 +4,7 @@ import MainPage from "./components/pages/MainPage";
 import LoginLoadingRedirectPage from "./components/pages/LoginLoadingRedirectPage";
 import JeongJuHaengPage from "./components/pages/JeongJuHaengPage";
 import JeongJuHaengListPage from "./components/pages/JeongJuHaengListPage";
+import ContentListPage from "./components/pages/ContentListPage";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +20,12 @@ const router = createBrowserRouter([
         element: <LoginLoadingRedirectPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter",
+        path: "jeong-ju-haeng/:chapter/content",
         element: <JeongJuHaengPage />,
+      },
+      {
+        path: "jeong-ju-haeng/:chapter",
+        element: <ContentListPage />,
       },
       {
         path: "jeong-ju-haeng",
