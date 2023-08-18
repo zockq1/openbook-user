@@ -62,7 +62,10 @@ function LongChoiceQuestion({
   };
 
   const handleCheckAnswer = () => {
-    if (selectedCheckbox === questionList[currentQuestionNumber].answer) {
+    if (selectedCheckbox === "") {
+    } else if (
+      selectedCheckbox === questionList[currentQuestionNumber].answer
+    ) {
       setIsSolved("correctAnswer");
     } else {
       setIsSolved("wrongAnswer");
