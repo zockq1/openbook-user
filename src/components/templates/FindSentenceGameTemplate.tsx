@@ -1,7 +1,7 @@
 import { QuestionModel } from "../../types/questionTypes";
 import Layout from "../atoms/Layout";
 import TitleBox from "../molecules/TitleBox";
-import { LongChoiceQuestion } from "../organisms/Question";
+import { ChoiceQuestion } from "../organisms/Question";
 
 interface FindSentenceGameTemplateProps {
   chapterNumber: number;
@@ -23,7 +23,7 @@ function FindSentenceGameTemplate({
         title={topicTitle}
         category="주제 보고 문장 맞추기"
       ></TitleBox>
-      <LongChoiceQuestion
+      <ChoiceQuestion
         questionList={questionList}
         choiceType="long"
         handleNextContent={handleNextContent}

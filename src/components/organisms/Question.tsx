@@ -8,7 +8,7 @@ import { ShortChoiceItem } from "../molecules/ShortChoiceItem";
 import styled from "styled-components";
 import TextBox from "../atoms/TextBox";
 
-interface LongChoiceList {
+interface ChoiceList {
   questionList: QuestionModel[];
   choiceType: "short" | "long";
   handleNextContent: () => void;
@@ -28,11 +28,11 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-function LongChoiceQuestion({
+function ChoiceQuestion({
   questionList,
   choiceType,
   handleNextContent,
-}: LongChoiceList) {
+}: ChoiceList) {
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
   const [currentChoiceList, setCurrentChoiceList] = useState<ChoiceModel[]>([]);
@@ -133,4 +133,4 @@ function LongChoiceQuestion({
   );
 }
 
-export { LongChoiceQuestion };
+export { ChoiceQuestion };
