@@ -37,18 +37,25 @@ function ChoiceQuestion({
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
   const [currentChoiceList, setCurrentChoiceList] = useState<ChoiceModel[]>([]);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
+  const [currentQuestionList, setCurrentQuestionList] = useState<
+    QuestionModel[]
+  >([...questionList]);
 
   useEffect(() => {
-    questionList.sort(() => Math.random() - 0.5);
-  }, [questionList]);
+    const shuffledQuestionList = [...currentQuestionList].sort(
+      () => Math.random() - 0.5
+    );
+    setCurrentQuestionList(shuffledQuestionList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setCurrentChoiceList(
-      questionList[currentQuestionNumber].choiceList.sort(
+      [...currentQuestionList[currentQuestionNumber].choiceList].sort(
         () => Math.random() - 0.5
       )
     );
-  }, [currentQuestionNumber, setCurrentChoiceList, questionList]);
+  }, [currentQuestionList, setCurrentChoiceList, currentQuestionNumber]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxId = event.target.id;
@@ -64,7 +71,7 @@ function ChoiceQuestion({
   const handleCheckAnswer = () => {
     if (selectedCheckbox === "") {
     } else if (
-      selectedCheckbox === questionList[currentQuestionNumber].answer
+      selectedCheckbox === currentQuestionList[currentQuestionNumber].answer
     ) {
       setIsSolved("correctAnswer");
     } else {
@@ -86,7 +93,7 @@ function ChoiceQuestion({
         handleCheckboxChange={handleCheckboxChange}
         handleChoiceClick={handleSentenceClick}
         current={item.key}
-        answer={questionList[currentQuestionNumber].answer}
+        answer={currentQuestionList[currentQuestionNumber].answer}
         choice={item.choice}
         isSolved={isSolved}
         selectedCheckbox={selectedCheckbox}
@@ -97,9 +104,9 @@ function ChoiceQuestion({
 
   return (
     <>
-      {questionList[currentQuestionNumber].descriptionKeyword && (
+      {currentQuestionList[currentQuestionNumber].descriptionKeyword && (
         <Description>
-          {questionList[currentQuestionNumber].descriptionKeyword?.map(
+          {currentQuestionList[currentQuestionNumber].descriptionKeyword?.map(
             (item) => {
               return (
                 <TextBox maxWidth="full" key={item.name}>
@@ -110,21 +117,21 @@ function ChoiceQuestion({
           )}
         </Description>
       )}
-      {questionList[currentQuestionNumber].description && (
+      {currentQuestionList[currentQuestionNumber].description && (
         <Description>
           <TextBox maxWidth="full">
-            {questionList[currentQuestionNumber].description}
+            {currentQuestionList[currentQuestionNumber].description}
           </TextBox>
         </Description>
       )}
       <RowList>
-        {questionList[currentQuestionNumber] &&
+        {currentQuestionList[currentQuestionNumber] &&
           currentChoiceList.map(renderChoiceItem)}
       </RowList>
       {isSolved !== "no" && <AnswerNotification isSolved={isSolved} />}
       {isSolved === "no" ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>
-      ) : currentQuestionNumber < questionList.length - 1 ? (
+      ) : currentQuestionNumber < currentQuestionList.length - 1 ? (
         <Button onClick={handleNextQuestion}>다음 문제</Button>
       ) : (
         <Button onClick={handleNextContent}>다음</Button>
