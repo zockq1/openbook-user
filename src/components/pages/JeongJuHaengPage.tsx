@@ -6,7 +6,6 @@ import TimelineGame from "../templates/TimelineGame";
 import TopicLearningTemplate from "../templates/TopicLearningTemplate";
 import FindSentenceGameTemplate from "../templates/FindSentenceGameTemplate";
 import FindKeywordGameTemplate from "../templates/FindKeywordGameTemplate";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetChapterLearningQuery } from "../../store/api/chapterApi";
 import {
@@ -231,22 +230,16 @@ const KtoTQuestion: QuestionModel[] = [
 function JeongJuHaengPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
-  // const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
-  // const { data: chapterData } = useGetChapterLearningQuery(Number(chapter));
-  // const { data: dateList } = useGetTimelineQuery(Number(chapter));
-  // const { data: topicInfo } = useGetTopicQuery(currentTopic);
-  // const { data: TtoKQuestion } = useGetTtoKQuestionQuery(currentTopic);
-  // const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
-  // const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
-  const dispatch = useDispatch();
   const { contentList, currentContent, currentTopic } = useSelector(
     (state: RootState) => state.content
   );
-  useEffect(() => {
-    dispatch(updateContentListWithTopics(topicList));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicList]);
+  const { data: chapterData } = useGetChapterLearningQuery(Number(chapter));
+  const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  const { data: topicInfo } = useGetTopicQuery(currentTopic);
+  const { data: TtoKQuestion } = useGetTtoKQuestionQuery(currentTopic);
+  const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
+  const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
+  const dispatch = useDispatch();
 
   const handleNextContent = () => {
     if (!contentList[contentList.indexOf(currentContent) + 1]) {
