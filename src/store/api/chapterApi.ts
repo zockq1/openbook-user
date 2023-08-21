@@ -1,5 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ChapterLearningModel, ChapterModel } from "../../types/chapterTypes";
+import {
+  ChapterInfoModel,
+  ChapterModel,
+  ChapterTitleModel,
+} from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 
 export const chapterApi = createApi({
@@ -9,10 +13,18 @@ export const chapterApi = createApi({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
     }),
-    getChapterLearning: builder.query<ChapterLearningModel, number>({
-      query: (chpaterNumber: number) => `/chapters/${chpaterNumber}/info`,
+    getChapterTitle: builder.query<ChapterTitleModel, number>({
+      query: (chapterNumber) =>
+        `/admin/chapters/chapter-title?num=${chapterNumber}`,
+    }),
+    getChapterInfo: builder.query<ChapterInfoModel, number>({
+      query: (chapterNumber) => `/admin/chapters/${chapterNumber}/info`,
     }),
   }),
 });
 
-export const { useGetChaptersQuery, useGetChapterLearningQuery } = chapterApi;
+export const {
+  useGetChaptersQuery,
+  useGetChapterTitleQuery,
+  useGetChapterInfoQuery,
+} = chapterApi;

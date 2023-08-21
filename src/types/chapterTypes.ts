@@ -1,4 +1,4 @@
-export type ContentState = "open" | "locked";
+export type ContentState = "open" | "locked" | "updated";
 
 export interface ChapterModel {
   title: string;
@@ -7,12 +7,16 @@ export interface ChapterModel {
   progress: string;
 }
 
-export interface ChapterLearningModel {
+export interface ChapterTitleModel {
   title: string;
+}
+
+export interface ChapterInfoModel {
   content: string;
 }
 
-export interface ProgressModel {
-  chapterNumber: number;
+export interface ContentModel {
   content: string;
+  title: string;
+  state: ContentState;
 }
