@@ -1,25 +1,16 @@
-import { ChapterModel, ProgressModel } from "../../types/chapterTypes";
+import { ContentModel } from "../../types/chapterTypes";
 import { ColumnList } from "../atoms/List";
 import ContentItem from "../molecules/ContentItem";
 
 interface ChpaterListProps {
-  contentList: string[];
-  progress: ProgressModel;
-  chapterInfo: ChapterModel;
+  contentList: ContentModel[];
 }
 
-function ConetntList({ contentList, progress, chapterInfo }: ChpaterListProps) {
+function ConetntList({ contentList }: ChpaterListProps) {
   return (
     <ColumnList>
-      {contentList.map((item) => {
-        return (
-          <ContentItem
-            content={item}
-            key={item}
-            progress={progress}
-            chapterInfo={chapterInfo}
-          />
-        );
+      {contentList.map((item, index) => {
+        return <ContentItem content={item} index={index} key={index} />;
       })}
     </ColumnList>
   );

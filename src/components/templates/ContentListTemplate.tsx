@@ -1,32 +1,18 @@
-import { useParams } from "react-router-dom";
-import { ChapterModel, ProgressModel } from "../../types/chapterTypes";
+import { ContentModel } from "../../types/chapterTypes";
 import Layout from "../atoms/Layout";
 import TitleBox from "../molecules/TitleBox";
 import ContentList from "../organisms/ContentList";
 
 interface ContentListTemplateProps {
-  chapterInfo: ChapterModel;
-  contentList: string[];
-  progress: ProgressModel;
+  title: string;
+  contentList: ContentModel[];
 }
 
-function ContentListTemplate({
-  chapterInfo,
-  contentList,
-  progress,
-}: ContentListTemplateProps) {
-  const { chapter } = useParams();
+function ContentListTemplate({ title, contentList }: ContentListTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        backLink="/jeong-ju-haeng"
-        category={String(chapter) + ". " + chapterInfo.title}
-      ></TitleBox>
-      <ContentList
-        contentList={contentList}
-        progress={progress}
-        chapterInfo={chapterInfo}
-      />
+      <TitleBox backLink="/jeong-ju-haeng" category={title}></TitleBox>
+      <ContentList contentList={contentList} />
     </Layout>
   );
 }

@@ -1,44 +1,68 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ChapterModel, ProgressModel } from "../../types/chapterTypes";
-import ContentListTemplate from "../templates/ContentListTemplate";
-import { RootState } from "../../store/store";
-import { useEffect } from "react";
-import { updateContentListWithTopics } from "../../store/slices/contentSlice";
-import { useGetChapterTopicListQuery } from "../../store/api/topicApi";
 import { useParams } from "react-router-dom";
+import { ContentModel } from "../../types/chapterTypes";
+import ContentListTemplate from "../templates/ContentListTemplate";
+import { useGetChapterTitleQuery } from "../../store/api/chapterApi";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setContentList } from "../../store/slices/contentSlice";
 
-const chapterInfo: ChapterModel = {
-  title: "교역망의 발달과 은 유통",
-  number: 2,
-  state: "open",
-  progress: "연표 학습",
-};
-
-//const topicList: string[] = ["공민왕"];
-
-const progress: ProgressModel = {
-  chapterNumber: 2,
-  content: "단원 학습",
-};
+const contentList: ContentModel[] = [
+  {
+    content: "단원 학습",
+    title: "교역망의 발달과 은 유통",
+    state: "open",
+  },
+  {
+    content: "연표 학습",
+    title: "교역망의 발달과 은 유통",
+    state: "open",
+  },
+  {
+    content: "연표 문제",
+    title: "교역망의 발달과 은 유통",
+    state: "open",
+  },
+  {
+    content: "주제 학습",
+    title: "공민왕",
+    state: "open",
+  },
+  {
+    content: "주제 보고 키워드 맞추기",
+    title: "공민왕",
+    state: "open",
+  },
+  {
+    content: "주제 보고 문장 맞추기",
+    title: "공민왕",
+    state: "open",
+  },
+  {
+    content: "키워드 보고 주제 맞추기",
+    title: "교역망의 발달과 은 유통",
+    state: "open",
+  },
+  {
+    content: "문장 보고 주제 맞추기",
+    title: "교역망의 발달과 은 유통",
+    state: "locked",
+  },
+];
 
 function ContentListPage() {
-  const dispatch = useDispatch();
   const { chapter } = useParams();
-  const { contentList } = useSelector((state: RootState) => state.content);
-  const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
+  const dispatch = useDispatch();
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
 
   useEffect(() => {
-    if (topicList) {
-      dispatch(updateContentListWithTopics(topicList));
-    }
+    dispatch(setContentList(contentList));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicList]);
+  }, [contentList]);
 
   return (
     <ContentListTemplate
-      chapterInfo={chapterInfo}
+      title={String(chapter) + ". " + chapterTitle?.title}
       contentList={contentList}
-      progress={progress}
     />
   );
 }
