@@ -7,8 +7,14 @@ export const authApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getKakaoToken: builder.query<string, string>({
+    getKakaoToken: builder.query({
       query: (code: string) => `/login/kakao?code=${code}`,
+      transformResponse: (response, meta) => {
+        return {
+          accessToken: meta?.response?.headers.get("Authorization"),
+          data: response,
+        };
+      },
     }),
   }),
 });

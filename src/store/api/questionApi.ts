@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { QuestionModel, TimeLineModel } from "../../types/questionTypes";
+import baseQueryWithJWT from "./baseApi";
 
 export const questionApi = createApi({
   reducerPath: "questionApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
-    credentials: "include",
-  }),
+  baseQuery: baseQueryWithJWT,
   endpoints: (builder) => ({
     getTimeline: builder.query<TimeLineModel[], number>({
       query: (chapterNumber: number) =>

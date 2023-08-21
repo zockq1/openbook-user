@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { TopicModel } from "../../types/topicTypes";
+import baseQueryWithJWT from "./baseApi";
 
 export const topicApi = createApi({
   reducerPath: "topicApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
-    credentials: "include",
-  }),
+  baseQuery: baseQueryWithJWT,
   endpoints: (builder) => ({
     getTopic: builder.query<TopicModel, string>({
       query: (title) => `/topics/${title}`,

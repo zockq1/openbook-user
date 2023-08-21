@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { ChapterLearningModel, ChapterModel } from "../../types/chapterTypes";
+import baseQueryWithJWT from "./baseApi";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
-    credentials: "include",
-  }),
+  baseQuery: baseQueryWithJWT,
   endpoints: (builder) => ({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
