@@ -18,6 +18,7 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     "주제 보고 키워드 맞추기": <BsQuestionSquare color={color} size={size} />,
     "주제 보고 문장 맞추기": <BsQuestionSquare color={color} size={size} />,
     "키워드 보고 주제 맞추기": <BsQuestionSquare color={color} size={size} />,
+    "문장 보고 주제 맞추기": <BsQuestionSquare color={color} size={size} />,
   };
 
   const matchedIcon = Object.keys(icons).find((key) => category.includes(key));

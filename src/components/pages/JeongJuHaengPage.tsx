@@ -27,6 +27,7 @@ import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
 } from "../../store/api/chapterApi";
+import SentenceToTopicQuestionTemplate from "../templates/SentenceToTopicQuestionTemplate";
 
 const Box = styled.div`
   display: flex;
@@ -120,8 +121,6 @@ const topicInfo: TopicModel = {
     "신돈을 등용하여 불법적인 농장을 없애고 토지를 원래의 주인에게 돌려줌",
   ],
 };
-
-const topicList: string[] = ["공민왕"];
 
 const TtoSQuestionList: QuestionModel[] = [
   {
@@ -218,7 +217,38 @@ const KtoTQuestionList: QuestionModel[] = [
   },
   {
     answer: "공민왕",
-    description: "쌍성총관부를 공격하여 철령 이북의 영토를 회복",
+    descriptionKeyword: [
+      { name: "신돈 등용", comment: "신돈 등용" },
+      { name: "반원 개혁", comment: "반원 개혁" },
+    ],
+    choiceList: [
+      {
+        choice: "공민왕",
+        key: "공민왕",
+      },
+      { choice: "오답4", key: "오답4" },
+      { choice: "오답5", key: "오답5" },
+      { choice: "오답6 ", key: "오답6" },
+    ],
+  },
+];
+
+const StoTQuestionList: QuestionModel[] = [
+  {
+    answer: "공민왕",
+    descriptionSentence:
+      "신돈을 등용하여 불법적인 농장을 없애고 토지를 원래의 주인에게 돌려줌",
+
+    choiceList: [
+      { choice: "공민왕", key: "공민왕" },
+      { choice: "오답1", key: "오답1" },
+      { choice: "오답2", key: "오답2" },
+      { choice: "오답3", key: "오답3" },
+    ],
+  },
+  {
+    answer: "공민왕",
+    descriptionSentence: "쌍성총관부를 공격하여 철령 이북의 영토를 회복",
     choiceList: [
       {
         choice: "공민왕",
@@ -311,6 +341,14 @@ function JeongJuHaengPage() {
           <KeywordToTopicQuestionTemplate
             chapterNumber={Number(chapter)}
             questionList={KtoTQuestionList}
+            handleNextContent={handleNextContent}
+          />
+        )}
+      {contentList[currentContent].content === "문장 보고 주제 맞추기" &&
+        StoTQuestionList && (
+          <SentenceToTopicQuestionTemplate
+            chapterNumber={Number(chapter)}
+            questionList={StoTQuestionList}
             handleNextContent={handleNextContent}
           />
         )}

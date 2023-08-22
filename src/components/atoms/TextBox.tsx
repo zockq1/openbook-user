@@ -21,7 +21,7 @@ const StyledTextBox = styled.div<TextBoxProps>`
   max-width: ${({ maxWidth }) =>
     ({
       half: "calc(100vw / 2 - 40px)",
-      full: "calc(100vw - 40px)",
+      full: "calc(100% - 40px)",
     }[maxWidth] || "initial")};
 
   background-color: ${({ theme }) => theme.colors.blue};

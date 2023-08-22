@@ -19,7 +19,6 @@ const Description = styled.ul`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: auto;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.small};
   border-radius: 10px;
@@ -122,6 +121,13 @@ function ChoiceQuestion({
         <Description>
           <TextBox maxWidth="full">
             {currentQuestionList[currentQuestionNumber].description}
+          </TextBox>
+        </Description>
+      )}
+      {currentQuestionList[currentQuestionNumber].descriptionSentence && (
+        <Description>
+          <TextBox maxWidth="full">
+            {currentQuestionList[currentQuestionNumber].descriptionSentence}
           </TextBox>
         </Description>
       )}
