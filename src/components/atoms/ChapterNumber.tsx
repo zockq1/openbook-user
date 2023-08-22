@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { ContentState } from "../../types/chapterTypes";
 
 interface ChapterNumberProps {
-  state: string;
+  state: ContentState;
   children?: ReactNode;
 }
 
 interface StateProps {
-  state: string;
+  state: ContentState;
 }
 
 const StyledChapterNumber = styled.div<StateProps>`
@@ -20,12 +21,12 @@ const StyledChapterNumber = styled.div<StateProps>`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 3px solid
     ${({ theme, state }) =>
-      state === "locked" ? theme.colors.red : theme.colors.black};
+      state === "Locked" ? theme.colors.red : theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme, state }) =>
-    state === "locked" ? theme.colors.red : theme.colors.black};
+    state === "Locked" ? theme.colors.red : theme.colors.black};
   box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
 `;
 

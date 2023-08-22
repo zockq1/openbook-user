@@ -27,7 +27,7 @@ const StyledChpaterItem = styled.li<StyledChpaterItemProps>`
 
   border: 3px solid
     ${({ theme, state }) =>
-      state === "locked" ? theme.colors.red : theme.colors.black};
+      state === "Locked" ? theme.colors.red : theme.colors.black};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
@@ -46,7 +46,7 @@ function ChpaterItem({ content, index }: ChpaterItemProps) {
   const { chapter } = useParams();
 
   const onClickChapter = () => {
-    if (content.state === "open") {
+    if (content.state === "Open") {
       dispatch(setCurrentContent(index));
       navigate(`/jeong-ju-haeng/${chapter}/content`);
     }
@@ -63,7 +63,7 @@ function ChpaterItem({ content, index }: ChpaterItemProps) {
           size={theme.fontSizes.small}
           padding={theme.padding.xs_Lsmall}
           color={
-            content.state !== "open" ? theme.colors.red : theme.colors.black
+            content.state !== "Open" ? theme.colors.red : theme.colors.black
           }
         >
           {content.content}
@@ -73,14 +73,14 @@ function ChpaterItem({ content, index }: ChpaterItemProps) {
           size={theme.fontSizes.xs}
           padding={theme.padding.xs_Lsmall}
           color={
-            content.state !== "open" ? theme.colors.lightRed : theme.colors.grey
+            content.state !== "Open" ? theme.colors.lightRed : theme.colors.grey
           }
         >
           {content.title}
         </Text>
       </ChapterContent>
 
-      {content.state !== "open" && (
+      {content.state !== "Open" && (
         <FaLock color={theme.colors.red} size={40} />
       )}
     </StyledChpaterItem>

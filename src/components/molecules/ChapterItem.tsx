@@ -23,7 +23,7 @@ const StyledChpaterItem = styled.li<StyledChpaterItemProps>`
 
   border: 3px solid
     ${({ theme, state }) =>
-      state === "locked" ? theme.colors.red : theme.colors.black};
+      state === "Locked" ? theme.colors.red : theme.colors.black};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
@@ -41,7 +41,7 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
   const navigate = useNavigate();
 
   const onClickChapter = () => {
-    if (state === "open") {
+    if (state === "Open") {
       navigate(`/jeong-ju-haeng/${number}`);
     }
   };
@@ -54,7 +54,7 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
           weight={theme.fontWeight.medium}
           size={theme.fontSizes.small}
           padding={theme.padding.small}
-          color={state === "locked" ? theme.colors.red : theme.colors.black}
+          color={state === "Locked" ? theme.colors.red : theme.colors.black}
         >
           {title}
         </Text>
@@ -62,13 +62,13 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
           weight={theme.fontWeight.regular}
           size={theme.fontSizes.small}
           padding={theme.padding.small}
-          color={state === "locked" ? theme.colors.lightRed : theme.colors.grey}
+          color={state === "Locked" ? theme.colors.lightRed : theme.colors.grey}
         >
           진행도: {progress}
         </Text>
       </ChapterContent>
 
-      {state === "locked" && <FaLock color={theme.colors.red} size={40} />}
+      {state === "Locked" && <FaLock color={theme.colors.red} size={40} />}
     </StyledChpaterItem>
   );
 }

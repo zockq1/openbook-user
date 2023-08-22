@@ -1,4 +1,4 @@
-export type ContentState = "open" | "locked" | "updated";
+export type ContentState = "Open" | "Locked" | "Updated";
 
 export interface ChapterModel {
   title: string;

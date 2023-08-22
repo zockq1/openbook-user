@@ -8,7 +8,7 @@ interface ContentState {
 }
 
 const initialState: ContentState = {
-  contentList: [{ content: "", title: "", state: "open" }],
+  contentList: [{ content: "", title: "", state: "Open" }],
   currentContent: 0,
   currentTopic: "",
 };
