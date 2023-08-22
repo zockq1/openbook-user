@@ -3,6 +3,7 @@ import {
   ChapterInfoModel,
   ChapterModel,
   ChapterTitleModel,
+  ContentModel,
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 
@@ -20,6 +21,9 @@ export const chapterApi = createApi({
     getChapterInfo: builder.query<ChapterInfoModel, number>({
       query: (chapterNumber) => `/admin/chapters/${chapterNumber}/info`,
     }),
+    getContentList: builder.query<ContentModel[], number>({
+      query: (chapterNumber) => `/contents-table?num=${chapterNumber}`,
+    }),
   }),
 });
 
@@ -27,4 +31,5 @@ export const {
   useGetChaptersQuery,
   useGetChapterTitleQuery,
   useGetChapterInfoQuery,
+  useGetContentListQuery,
 } = chapterApi;
