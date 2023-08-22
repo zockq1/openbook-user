@@ -3,33 +3,33 @@ import Layout from "../atoms/Layout";
 import TitleBox from "../molecules/TitleBox";
 import { ChoiceQuestion } from "../organisms/Question";
 
-interface FindkeywordGameTemplateProps {
+interface TopicToSentenceQuestionTemplateProps {
   chapterNumber: number;
   topicTitle: string;
   questionList: QuestionModel[];
   handleNextContent: () => void;
 }
 
-function FindKeywordGameTemplate({
+function TopicToSentenceQuestionTemplate({
   chapterNumber,
   questionList,
   topicTitle,
   handleNextContent,
-}: FindkeywordGameTemplateProps) {
+}: TopicToSentenceQuestionTemplateProps) {
   return (
     <Layout>
       <TitleBox
         backLink={`/jeong-ju-haeng/${chapterNumber}`}
         title={topicTitle}
-        category="주제 보고 키워드 맞추기"
+        category="주제 보고 문장 맞추기"
       ></TitleBox>
       <ChoiceQuestion
         questionList={questionList}
-        choiceType="short"
+        choiceType="long"
         handleNextContent={handleNextContent}
       />
     </Layout>
   );
 }
 
-export default FindKeywordGameTemplate;
+export default TopicToSentenceQuestionTemplate;

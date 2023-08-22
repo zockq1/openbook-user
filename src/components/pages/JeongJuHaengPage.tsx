@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import ChapterLearningTemplate from "../templates/ChpaterLearningTemplate";
 import TimelineLearningTemplate from "../templates/TimelineLearningTemplate";
-import FindTopicGame from "../templates/FindTopicGameTemplate";
+import KeywordToTopicQuestionTemplate from "../templates/KeywordToTopicQuestionTemplate";
 import TimelineGame from "../templates/TimelineGame";
 import TopicLearningTemplate from "../templates/TopicLearningTemplate";
-import FindSentenceGameTemplate from "../templates/FindSentenceGameTemplate";
-import FindKeywordGameTemplate from "../templates/FindKeywordGameTemplate";
+import TopicToSentenceQuestionTemplate from "../templates/TopicToSentenceQuestionTemplate";
+import TopicToKeywordQuestionTemplate from "../templates/TopicToKeywordQuestionTemplate";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetKtoTQuestionQuery,
@@ -123,7 +123,7 @@ const topicInfo: TopicModel = {
 
 const topicList: string[] = ["공민왕"];
 
-const TtoSQuestion: QuestionModel[] = [
+const TtoSQuestionList: QuestionModel[] = [
   {
     answer: "공민왕",
     choiceList: [
@@ -148,7 +148,7 @@ const TtoSQuestion: QuestionModel[] = [
   },
 ];
 
-const TtoKQuestion: QuestionModel[] = [
+const TtoKQuestionList: QuestionModel[] = [
   {
     answer: "공민왕",
     choiceList: [
@@ -201,7 +201,7 @@ const TtoKQuestion: QuestionModel[] = [
   },
 ];
 
-const KtoTQuestion: QuestionModel[] = [
+const KtoTQuestionList: QuestionModel[] = [
   {
     answer: "공민왕",
     descriptionKeyword: [
@@ -241,9 +241,9 @@ function JeongJuHaengPage() {
   // const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
   // const { data: dateList } = useGetTimelineQuery(Number(chapter));
   // const { data: topicInfo } = useGetTopicQuery(currentTopic);
-  // const { data: TtoKQuestion } = useGetTtoKQuestionQuery(currentTopic);
-  // const { data: TtoSQuestion } = useGetTtoSQuestionQuery(currentTopic);
-  // const { data: KtoTQuestion } = useGetKtoTQuestionQuery(Number(chapter));
+  // const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(currentTopic);
+  // const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(currentTopic);
+  // const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(Number(chapter));
   const dispatch = useDispatch();
 
   const handleNextContent = () => {
@@ -289,28 +289,28 @@ function JeongJuHaengPage() {
         />
       )}
       {contentList[currentContent].content === "주제 보고 키워드 맞추기" &&
-        TtoKQuestion && (
-          <FindKeywordGameTemplate
+        TtoKQuestionList && (
+          <TopicToKeywordQuestionTemplate
             chapterNumber={Number(chapter)}
             topicTitle={currentTopic}
-            questionList={TtoKQuestion}
+            questionList={TtoKQuestionList}
             handleNextContent={handleNextContent}
           />
         )}
       {contentList[currentContent].content === "주제 보고 문장 맞추기" &&
-        TtoSQuestion && (
-          <FindSentenceGameTemplate
+        TtoSQuestionList && (
+          <TopicToSentenceQuestionTemplate
             chapterNumber={Number(chapter)}
             topicTitle={currentTopic}
-            questionList={TtoSQuestion}
+            questionList={TtoSQuestionList}
             handleNextContent={handleNextContent}
           />
         )}
       {contentList[currentContent].content === "키워드 보고 주제 맞추기" &&
-        KtoTQuestion && (
-          <FindTopicGame
+        KtoTQuestionList && (
+          <KeywordToTopicQuestionTemplate
             chapterNumber={Number(chapter)}
-            questionList={KtoTQuestion}
+            questionList={KtoTQuestionList}
             handleNextContent={handleNextContent}
           />
         )}

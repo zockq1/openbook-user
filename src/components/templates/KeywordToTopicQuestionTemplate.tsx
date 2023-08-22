@@ -3,17 +3,17 @@ import Layout from "../atoms/Layout";
 import TitleBox from "../molecules/TitleBox";
 import { ChoiceQuestion } from "../organisms/Question";
 
-interface FindTopicGameTemplateProps {
+interface KeywordToTopicQuestionTemplateProps {
   chapterNumber: number;
   questionList: QuestionModel[];
   handleNextContent: () => void;
 }
 
-function FindTopicGameTemplate({
+function KeywordToTopicQuestionTemplate({
   chapterNumber,
   questionList,
   handleNextContent,
-}: FindTopicGameTemplateProps) {
+}: KeywordToTopicQuestionTemplateProps) {
   return (
     <Layout>
       <TitleBox
@@ -29,4 +29,4 @@ function FindTopicGameTemplate({
   );
 }
 
-export default FindTopicGameTemplate;
+export default KeywordToTopicQuestionTemplate;
