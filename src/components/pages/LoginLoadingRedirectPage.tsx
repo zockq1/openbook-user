@@ -8,15 +8,31 @@ const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
-  const { data } = useGetKakaoTokenQuery(code ? code : "");
+  // const { data } = useGetKakaoTokenQuery(code ? code : "");
+  // console.log(data);
+  // useEffect(() => {
+  //   if (data) {
+  //     const accessToken = data.accessToken;
+  //     dispatch(setAccessToken(accessToken)); // Redux Store에 토큰 저장
+  //   }
+  //   navigate("/");
+  // }, [data, dispatch, navigate]);
 
   useEffect(() => {
-    if (data) {
-      const accessToken = data.accessToken;
-      dispatch(setAccessToken(accessToken)); // Redux Store에 토큰 저장
-    }
-    navigate("/");
-  }, [data, dispatch, navigate]);
+    const getJWTToken = async () => {
+      const url = `${process.env.REACT_APP_API_URL}/login/kakao?code=${code}`;
+      const response = await fetch(url, {
+        credentials: "include",
+      });
+      //console.log(response);
+      const authorizationHeader = await response.headers.get("Authorization");
+      //const data = await response.text();
+      const accessToken = authorizationHeader;
+      dispatch(setAccessToken(accessToken));
+      navigate("/");
+    };
+    getJWTToken();
+  });
 
   return <div>로딩중</div>;
 };
