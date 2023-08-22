@@ -68,10 +68,13 @@ function ShortChoiceItem({
     <ShortChoice
       onClick={() => handleChoiceClick(current)}
       isSolved={isSolved}
-      isAnswer={current === answer}
+      isAnswer={current.substring(1) === answer}
       key={current}
     >
-      <ShortComment isSolved={isSolved} isAnswer={current === answer}>
+      <ShortComment
+        isSolved={isSolved}
+        isAnswer={current.substring(1) === answer}
+      >
         {choice}
       </ShortComment>
       <CheckBoxInput

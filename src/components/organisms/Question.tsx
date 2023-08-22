@@ -71,7 +71,8 @@ function ChoiceQuestion({
   const handleCheckAnswer = () => {
     if (selectedCheckbox === "") {
     } else if (
-      selectedCheckbox === currentQuestionList[currentQuestionNumber].answer
+      selectedCheckbox.substring(1) ===
+      currentQuestionList[currentQuestionNumber].answer
     ) {
       setIsSolved("correctAnswer");
     } else {
@@ -92,7 +93,7 @@ function ChoiceQuestion({
       <ChoiceItem
         handleCheckboxChange={handleCheckboxChange}
         handleChoiceClick={handleSentenceClick}
-        current={item.key}
+        current={String(index) + item.key}
         answer={currentQuestionList[currentQuestionNumber].answer}
         choice={item.choice}
         isSolved={isSolved}

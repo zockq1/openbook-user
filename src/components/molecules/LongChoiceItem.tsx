@@ -65,7 +65,7 @@ function LongChoiceItem({
     <LongChoice
       onClick={() => handleChoiceClick(current)}
       isSolved={isSolved}
-      isAnswer={current === answer}
+      isAnswer={current.substring(1) === answer}
       key={current}
     >
       <CheckBoxInput
@@ -74,7 +74,10 @@ function LongChoiceItem({
         selectedCheckbox={selectedCheckbox}
       />
       <CheckBoxLabel current={current} answer={answer} isSolved={isSolved} />
-      <LongComment isSolved={isSolved} isAnswer={current === answer}>
+      <LongComment
+        isSolved={isSolved}
+        isAnswer={current.substring(1) === answer}
+      >
         {choice}
       </LongComment>
     </LongChoice>

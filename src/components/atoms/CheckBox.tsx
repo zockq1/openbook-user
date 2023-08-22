@@ -122,7 +122,7 @@ function CheckBoxLabel({ current, answer, isSolved }: CheckBoxLabelProps) {
     <CheckboxLabel
       htmlFor={current}
       isSolved={isSolved}
-      isAnswer={current === answer}
+      isAnswer={current.substring(1) === answer}
     >
       <div className="tick"></div>
     </CheckboxLabel>
