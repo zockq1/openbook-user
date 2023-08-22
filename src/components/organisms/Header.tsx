@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import LoginButton from "../atoms/LoginButton";
+import Icon from "../atoms/Icon";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -16,20 +17,40 @@ const HeaderWrapper = styled.div`
   height: 75px;
   width: 100%;
 
-  background-color: #ffffff;
+  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.blue};
+  font-family: "Giants-Inline";
+
+  font-weight: 500;
+`;
+const Logo = styled.div`
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.blue};
+  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
 `;
 
-const Logo = styled.div`
+const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
+  padding-top: 8px;
+
   height: 45px;
   width: 100%;
 
-  font-family: "Hanna";
   font-size: 24px;
-  color: #2699fb;
+  color: white;
 `;
 
 const NavigationBar = styled.nav`
@@ -59,7 +80,6 @@ const NavigationItem = styled(Link)<NavigationItemProps>`
 `;
 
 const NavigationText = styled.span`
-  font-family: "Hanna";
   font-weight: 100;
   font-size: 15px;
 `;
@@ -93,9 +113,11 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <Logo>오픈북</Logo>
-      <LoginButton />
-
+      <Logo>
+        <Icon category="정주행" />
+        정주행 한국사
+      </Logo>
+      {/* 
       <NavigationBar>
         <NavigationItem
           to={"/"}
@@ -132,7 +154,7 @@ function Header() {
         >
           <NavigationText>옵션</NavigationText>
         </NavigationItem>
-      </NavigationBar>
+      </NavigationBar> */}
     </HeaderWrapper>
   );
 }

@@ -1,17 +1,23 @@
 import styled from "styled-components";
+import { FiLogIn } from "react-icons/fi";
 
 const StyledLogin = styled.a`
   position: absolute;
-  top: 8px;
-  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 24px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
 
-  padding: 5px;
-  border-radius: 6px;
+  padding: ${({ theme }) => theme.padding.small};
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  border: 3px solid ${({ theme }) => theme.colors.black};
 
-  font-family: "Hanna";
-  font-size: 18px;
-  color: #ffffff;
-  background-color: #2699fb;
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 `;
 
 function Login() {
@@ -19,7 +25,7 @@ function Login() {
     <StyledLogin
       href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=http://localhost:4000/oauth/kakao/login&response_type=code`}
     >
-      로그인
+      <FiLogIn />
     </StyledLogin>
   );
 }

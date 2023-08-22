@@ -1,72 +1,61 @@
-import styled from "styled-components";
-import Header from "../organisms/Header";
-import { Link } from "react-router-dom";
+import styled, { ThemeContext } from "styled-components";
+import Layout from "../atoms/Layout";
+import Icon from "../atoms/Icon";
+import { useContext } from "react";
+import LoginButton from "../atoms/LoginButton";
 
-const LinkBox = styled(Link)`
+const Header = styled.div`
   display: flex;
-  position: relative;
+  justify-content: center;
+  z-index: 100;
+
   width: 100%;
-  height: 100%;
+  height: 200px;
+
+  padding: ${({ theme }) => theme.padding.large};
+  margin-bottom: 10px;
+  border-radius: 0 0 50px 50px;
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+
+  background-color: ${({ theme }) => theme.colors.blue};
+
+  color: ${({ theme }) => theme.colors.white};
 `;
 
-const List = styled.ul`
+const Logo = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-top: 75px;
+  justify-content: center;
+  height: 40px;
+  padding: ${({ theme }) => theme.padding.base};
+  border: 3px solid ${({ theme }) => theme.colors.black};
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
 `;
-
-interface ItemProps {
-  height?: string;
-}
 
 const Title = styled.div`
-  margin-top: 15px;
-  margin-left: 10px;
-`;
-
-const ListItem = styled.li<ItemProps>`
-  height: ${(props) => props.height || "100px"};
-  position: relative;
-  width: 100%;
-  margin-top: 10px;
-  font-weight: 700;
-  font-size: 15px;
-  color: #5a5a5a;
-  background-color: #fff;
-`;
-
-const Ad = styled.li`
-  position: relative;
-  height: 150px;
-  width: 100%;
-
-  padding-top: 40px;
-  font-weight: 700;
-  font-size: 15px;
-  color: #fff;
-  background-color: #43477b;
-  font-family: "Hanna";
-  text-align: center;
-  font-size: 70px;
+  padding: ${({ theme }) => theme.padding.base};
+  font-family: "Giants-Inline";
+  font-size: ${({ theme }) => theme.fontSizes.xl};
 `;
 
 function Main() {
+  const theme = useContext(ThemeContext);
   return (
-    <div>
-      <Header />
-      <List>
-        <Ad>광고</Ad>
-        <ListItem height="150px">
-          <Title>개념학습 진도</Title>
-        </ListItem>
-        <ListItem height="150px">
-          <LinkBox to="/jeong-ju-haeng">
-            <Title>정주행</Title>
-          </LinkBox>
-        </ListItem>
-      </List>
-    </div>
+    <Layout>
+      {/* <Header /> */}
+      <Header>
+        <Logo>
+          <Title>정주행</Title>
+          <Icon category="정주행" size={24} />
+          <Title>한국사</Title>
+          <LoginButton></LoginButton>
+        </Logo>
+      </Header>
+    </Layout>
   );
 }
 
