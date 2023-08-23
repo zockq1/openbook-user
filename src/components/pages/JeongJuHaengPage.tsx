@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ChapterLearningTemplate from "../templates/ChpaterLearningTemplate";
 import TimelineLearningTemplate from "../templates/TimelineLearningTemplate";
 import KeywordToTopicQuestionTemplate from "../templates/KeywordToTopicQuestionTemplate";
-import TimelineGame from "../templates/TimelineGame";
 import TopicLearningTemplate from "../templates/TopicLearningTemplate";
 import TopicToSentenceQuestionTemplate from "../templates/TopicToSentenceQuestionTemplate";
 import TopicToKeywordQuestionTemplate from "../templates/TopicToKeywordQuestionTemplate";
@@ -28,6 +27,7 @@ import {
   useGetChapterTitleQuery,
 } from "../../store/api/chapterApi";
 import SentenceToTopicQuestionTemplate from "../templates/SentenceToTopicQuestionTemplate";
+import TimelineQuestionTemplate from "../templates/TimelineQuestionTemplate";
 
 const Box = styled.div`
   display: flex;
@@ -44,26 +44,6 @@ const chapterInfo: ChapterInfoModel = {
 };
 
 const dateList: TimeLineModel[] = [
-  {
-    date: 1206,
-    comment: "몽골 부족 통일",
-    topicTitle: "1",
-  },
-  {
-    date: 1234,
-    comment: "금 몽골에 멸망",
-    topicTitle: "1",
-  },
-  {
-    date: 1271,
-    comment: "원 건국",
-    topicTitle: "1",
-  },
-  {
-    date: 1279,
-    comment: "남송 멸망",
-    topicTitle: "1",
-  },
   {
     date: 1206,
     comment: "몽골 부족 통일",
@@ -305,9 +285,11 @@ function JeongJuHaengPage() {
         />
       )}
       {contentList[currentContent].content === "연표 문제" && (
-        <TimelineGame
-          handleNextContent={handleNextContent}
+        <TimelineQuestionTemplate
           chapterNumber={Number(chapter)}
+          title={String(chapter) + ". " + chapterTitle?.title}
+          dateList={dateList}
+          handleNextContent={handleNextContent}
         />
       )}
       {contentList[currentContent].content === "주제 학습" && topicInfo && (
