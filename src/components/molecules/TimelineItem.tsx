@@ -2,8 +2,9 @@ import styled from "styled-components";
 import TextBox from "../atoms/TextBox";
 
 interface TimelineTopicProps {
-  date: number;
+  date: number | null;
   comment: string;
+  disableCircle?: boolean;
 }
 
 const StyledTimelineItem = styled.li`
@@ -30,6 +31,11 @@ const OuterCircle = styled.div`
   border-radius: 50%;
   z-index: 98;
 `;
+const Transparent = styled.div`
+  background-color: transparent;
+  width: 34px;
+  height: 34px;
+`;
 
 const Date = styled.div`
   color: ${({ theme }) => theme.colors.blue};
@@ -40,13 +46,22 @@ const Date = styled.div`
   padding: 10px;
 `;
 
-function TimelineItem({ date, comment }: TimelineTopicProps) {
+function TimelineItem({
+  date,
+  comment,
+  disableCircle = false,
+}: TimelineTopicProps) {
   return (
     <StyledTimelineItem>
       <Date>{date}</Date>
-      <OuterCircle>
-        <InnerCircle />
-      </OuterCircle>
+      {disableCircle ? (
+        <Transparent />
+      ) : (
+        <OuterCircle>
+          <InnerCircle />
+        </OuterCircle>
+      )}
+
       <TextBox maxWidth="half">{comment}</TextBox>
     </StyledTimelineItem>
   );
