@@ -5,13 +5,18 @@ interface TimelineTopicProps {
   date: number | null;
   comment: string;
   disableCircle?: boolean;
+  isQuestion?: boolean;
 }
 
-const StyledTimelineItem = styled.li`
+interface StyledTimelineItemProps {
+  isQuestion?: boolean;
+}
+
+const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 81px 44px max-content;
+  grid-template-columns: 81px 44px max-content 125px;
   align-items: center;
-  margin-top: 30px;
+  margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "15px 0")};
 `;
 
 const InnerCircle = styled.div`
@@ -50,9 +55,10 @@ function TimelineItem({
   date,
   comment,
   disableCircle = false,
+  isQuestion = false,
 }: TimelineTopicProps) {
   return (
-    <StyledTimelineItem>
+    <StyledTimelineItem isQuestion={isQuestion}>
       <Date>{date}</Date>
       {disableCircle ? (
         <Transparent />
@@ -61,7 +67,6 @@ function TimelineItem({
           <InnerCircle />
         </OuterCircle>
       )}
-
       <TextBox maxWidth="half">{comment}</TextBox>
     </StyledTimelineItem>
   );

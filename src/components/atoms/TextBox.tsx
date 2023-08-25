@@ -20,7 +20,7 @@ const StyledTextBox = styled.div<TextBoxProps>`
   width: max-content;
   max-width: ${({ maxWidth }) =>
     ({
-      half: "calc(100vw / 2 - 40px)",
+      half: "calc(100vw - 150px)",
       full: "calc(100% - 40px)",
     }[maxWidth] || "initial")};
 

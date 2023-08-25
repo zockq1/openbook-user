@@ -1,7 +1,6 @@
 import TimelineItem from "../molecules/TimelineItem";
 import { TimeLineModel } from "../../types/questionTypes";
 import styled from "styled-components";
-import TextBox from "../atoms/TextBox";
 import { useEffect, useState } from "react";
 import {
   DragDropContext,
@@ -12,6 +11,8 @@ import {
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
+  setIsComplete: React.Dispatch<React.SetStateAction<boolean>>;
+  isComplete: boolean;
 }
 
 const Line = styled.div`
@@ -19,10 +20,9 @@ const Line = styled.div`
   background-color: ${({ theme }) => theme.colors.blue};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 16px;
-  height: 100%;
+  height: 104%;
   left: 90px;
   z-index: 0;
-  transition: height 5s ease-in-out;
 `;
 
 const StyledTimelineQuestion = styled.ul`
@@ -39,25 +39,36 @@ const StyledTimelineQuestion = styled.ul`
 const Item = styled.div`
   display: inline-block;
   width: 100%;
-  height: 38px;
-  background-color: transparent;
-`;
-
-const NextItem = styled.div`
-  display: inline-block;
-  width: 100%;
-  height: 38px;
-  margin-left: 125px;
+  height: 68px;
   background-color: transparent;
 `;
 
 const NextItemPlace = styled.div`
-  position: fixed;
-  top: 100px;
-  right: 10px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: -20px;
+  height: 60px;
 `;
 
-function TimelineQuestion({ dateList }: TimelineQuestionProps) {
+const NextItemPlaceBox = styled.div`
+  position: fixed;
+  bottom: 20px;
+  left: 15px;
+  width: calc(100vw - 30px);
+  height: 60px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ theme }) => theme.padding.base};
+  border: 3px solid ${({ theme }) => theme.colors.black};
+  z-index: 0;
+`;
+
+function TimelineQuestion({
+  dateList,
+  setIsComplete,
+  isComplete,
+}: TimelineQuestionProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [nextDateList, setNextDateList] = useState<TimeLineModel[]>(
     [...dateList].sort(() => Math.random() - 0.5)
@@ -68,7 +79,14 @@ function TimelineQuestion({ dateList }: TimelineQuestionProps) {
     setIsMounted(true);
     setPlacedDateList([nextDateList[0]]);
     setNextDateList((prevList) => prevList.slice(1));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (nextDateList.length === 0) {
+      setIsComplete(true);
+    }
+  }, [nextDateList, setIsComplete]);
 
   const handleChange = async (result: DropResult) => {
     const { destination } = result;
@@ -79,37 +97,32 @@ function TimelineQuestion({ dateList }: TimelineQuestionProps) {
       nextDateList[0].date <= placedDateList[0].date
     ) {
       setPlacedDateList([nextDateList[0], ...placedDateList]);
-      setNextDateList((prevList) => prevList.slice(1));
-      return;
+      setNextDateList(nextDateList.slice(1));
     } else if (
       destination.index === 0 &&
       nextDateList[0].date > placedDateList[0].date
     ) {
-      return;
-    }
-
-    if (
+    } else if (
       destination.index === placedDateList.length &&
       nextDateList[0].date >= placedDateList[placedDateList.length - 1].date
     ) {
       setPlacedDateList([...placedDateList, nextDateList[0]]);
-      setNextDateList((prevList) => prevList.slice(1));
-      return;
+      setNextDateList(nextDateList.slice(1));
     } else if (
       destination.index === placedDateList.length &&
       nextDateList[0].date < placedDateList[placedDateList.length - 1].date
     ) {
-      return;
-    }
-    if (
+    } else if (
       nextDateList[0].date >= placedDateList[destination.index - 1].date &&
       nextDateList[0].date <= placedDateList[destination.index].date
     ) {
       const updatedList = [...placedDateList];
       updatedList.splice(destination.index, 0, nextDateList[0]);
       setPlacedDateList(updatedList);
-      setNextDateList((prevList) => prevList.slice(1));
-      return;
+      setNextDateList(nextDateList.slice(1));
+    }
+    if (nextDateList.length === 0) {
+      setIsComplete(true);
     }
   };
 
@@ -118,39 +131,44 @@ function TimelineQuestion({ dateList }: TimelineQuestionProps) {
       <Line />
       {isMounted && (
         <DragDropContext onDragEnd={handleChange}>
-          <Droppable droppableId="next">
-            {(provided) => (
-              <NextItemPlace
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                <Draggable draggableId={`ex`} index={0} key={`ex`}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                      >
-                        {nextDateList[0] && (
-                          <Item>
-                            <TimelineItem
-                              date={null}
-                              comment={nextDateList[0].comment}
-                              key={0}
-                              disableCircle={true}
-                            />
-                          </Item>
-                        )}
-                      </div>
-                    );
-                  }}
-                </Draggable>
+          {!isComplete && (
+            <NextItemPlaceBox>
+              <Droppable droppableId="next">
+                {(provided) => (
+                  <NextItemPlace
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    <Draggable draggableId={`ex`} index={0} key={`ex`}>
+                      {(provided, snapshot) => {
+                        return (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            {nextDateList[0] && (
+                              <Item>
+                                <TimelineItem
+                                  date={null}
+                                  comment={nextDateList[0].comment}
+                                  key={0}
+                                  disableCircle={true}
+                                  isQuestion={true}
+                                />
+                              </Item>
+                            )}
+                          </div>
+                        );
+                      }}
+                    </Draggable>
 
-                {provided.placeholder}
-              </NextItemPlace>
-            )}
-          </Droppable>
+                    {provided.placeholder}
+                  </NextItemPlace>
+                )}
+              </Droppable>
+            </NextItemPlaceBox>
+          )}
           <Droppable droppableId="played">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -173,6 +191,7 @@ function TimelineQuestion({ dateList }: TimelineQuestionProps) {
                               date={item.date}
                               comment={item.comment}
                               key={i}
+                              isQuestion={true}
                             />
                           </Item>
                         </div>

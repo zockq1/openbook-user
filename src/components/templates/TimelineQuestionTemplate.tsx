@@ -3,6 +3,7 @@ import Layout from "../atoms/Layout";
 import Button from "../atoms/Button";
 import { TimeLineModel } from "../../types/questionTypes";
 import TimelineQuestion from "../organisms/TimeLineQuestion";
+import { useState } from "react";
 
 interface TimelineQuestionTemplateProps {
   chapterNumber: number;
@@ -17,6 +18,7 @@ function TimelineQuestionTemplate({
   dateList,
   title,
 }: TimelineQuestionTemplateProps) {
+  const [isComplete, setIsComplete] = useState(false);
   return (
     <Layout>
       <TitleBox
@@ -24,8 +26,12 @@ function TimelineQuestionTemplate({
         title={title}
         category="연표 문제"
       />
-      <TimelineQuestion dateList={dateList} />
-      <Button onClick={handleNextContent}>다음</Button>
+      <TimelineQuestion
+        dateList={dateList}
+        setIsComplete={setIsComplete}
+        isComplete={isComplete}
+      />
+      {isComplete && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>
   );
 }
