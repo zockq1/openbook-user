@@ -73,11 +73,11 @@ function TimelineQuestion({
   const [nextDateList, setNextDateList] = useState<TimeLineModel[]>(
     [...dateList].sort(() => Math.random() - 0.5)
   );
-  const [placedDateList, setPlacedDateList] = useState<TimeLineModel[]>([]);
+  const [playedDateList, setPlayedDateList] = useState<TimeLineModel[]>([]);
 
   useEffect(() => {
     setIsMounted(true);
-    setPlacedDateList([nextDateList[0]]);
+    setPlayedDateList([nextDateList[0]]);
     setNextDateList((prevList) => prevList.slice(1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -94,31 +94,31 @@ function TimelineQuestion({
 
     if (
       destination.index === 0 &&
-      nextDateList[0].date <= placedDateList[0].date
+      nextDateList[0].date <= playedDateList[0].date
     ) {
-      setPlacedDateList([nextDateList[0], ...placedDateList]);
+      setPlayedDateList([nextDateList[0], ...playedDateList]);
       setNextDateList(nextDateList.slice(1));
     } else if (
       destination.index === 0 &&
-      nextDateList[0].date > placedDateList[0].date
+      nextDateList[0].date > playedDateList[0].date
     ) {
     } else if (
-      destination.index === placedDateList.length &&
-      nextDateList[0].date >= placedDateList[placedDateList.length - 1].date
+      destination.index === playedDateList.length &&
+      nextDateList[0].date >= playedDateList[playedDateList.length - 1].date
     ) {
-      setPlacedDateList([...placedDateList, nextDateList[0]]);
+      setPlayedDateList([...playedDateList, nextDateList[0]]);
       setNextDateList(nextDateList.slice(1));
     } else if (
-      destination.index === placedDateList.length &&
-      nextDateList[0].date < placedDateList[placedDateList.length - 1].date
+      destination.index === playedDateList.length &&
+      nextDateList[0].date < playedDateList[playedDateList.length - 1].date
     ) {
     } else if (
-      nextDateList[0].date >= placedDateList[destination.index - 1].date &&
-      nextDateList[0].date <= placedDateList[destination.index].date
+      nextDateList[0].date >= playedDateList[destination.index - 1].date &&
+      nextDateList[0].date <= playedDateList[destination.index].date
     ) {
-      const updatedList = [...placedDateList];
+      const updatedList = [...playedDateList];
       updatedList.splice(destination.index, 0, nextDateList[0]);
-      setPlacedDateList(updatedList);
+      setPlayedDateList(updatedList);
       setNextDateList(nextDateList.slice(1));
     }
     if (nextDateList.length === 0) {
@@ -172,7 +172,7 @@ function TimelineQuestion({
           <Droppable droppableId="played">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                {placedDateList.map((item, i: number) => (
+                {playedDateList.map((item, i: number) => (
                   <Draggable
                     draggableId={`${item.comment}`}
                     index={i}
