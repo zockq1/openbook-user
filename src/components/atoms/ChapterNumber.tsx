@@ -25,8 +25,7 @@ const StyledChapterNumber = styled.div<StateProps>`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme, state }) =>
-    state === "Locked" ? theme.colors.red : theme.colors.grey};
-  //box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
+    state === "Locked" ? theme.colors.lightRed : theme.colors.grey};
 `;
 
 function ChapterNumber({ state, children }: ChapterNumberProps) {

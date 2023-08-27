@@ -1,7 +1,6 @@
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 import Layout from "../atoms/Layout";
 import Icon from "../atoms/Icon";
-import { useContext } from "react";
 import LoginButton from "../atoms/LoginButton";
 
 const Header = styled.div`
@@ -43,10 +42,8 @@ const Title = styled.div`
 `;
 
 function Main() {
-  const theme = useContext(ThemeContext);
   return (
     <Layout>
-      {/* <Header /> */}
       <Header>
         <Logo>
           <Title>정주행</Title>
