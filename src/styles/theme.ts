@@ -24,7 +24,7 @@ const colors = {
   white: "#fff",
   black: "#000",
   lightGrey: "#BEC5D2",
-  grey: "#5D6A85",
+  grey: "#818BA0",
 
   blue: "#0F67FE",
   semiLightBlue: "#458CFF",
@@ -67,9 +67,9 @@ const borderRadius = {
 };
 
 const border = {
-  black: `3px solid ${colors.black}`,
-  red: `3px solid ${colors.red}`,
-  blue: `3px solid ${colors.blue}`,
+  black: `0px solid ${colors.black}`,
+  red: `0px solid ${colors.red}`,
+  blue: `0px solid ${colors.blue}`,
 };
 
 const deviceSizes = {

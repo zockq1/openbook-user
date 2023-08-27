@@ -11,6 +11,7 @@ const Button = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.large};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 `;
 
 export default Button;

@@ -22,7 +22,7 @@ const Description = styled.ul`
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.small};
   border-radius: 10px;
-  border: 3px solid ${({ theme }) => theme.colors.black};
+  border: ${({ theme }) => theme.border.black};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
 `;

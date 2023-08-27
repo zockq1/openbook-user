@@ -48,7 +48,7 @@ const NextItemPlace = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  top: -20px;
+  top: -18px;
   height: 60px;
 `;
 
@@ -61,6 +61,7 @@ const NextItemPlaceBox = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.padding.base};
   border: ${({ theme }) => theme.border.black};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   z-index: 0;
 `;
 

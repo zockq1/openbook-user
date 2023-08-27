@@ -52,7 +52,7 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
         <Text
           weight={theme.fontWeight.medium}
           size={theme.fontSizes.small}
-          padding={theme.padding.small}
+          padding={theme.padding.xs_Lsmall}
           color={state === "Locked" ? theme.colors.red : theme.colors.black}
         >
           {title}
@@ -60,7 +60,7 @@ function ChpaterItem({ chapterInfo }: ChpaterItemProps) {
         <Text
           weight={theme.fontWeight.regular}
           size={theme.fontSizes.small}
-          padding={theme.padding.small}
+          padding={theme.padding.xs_Lsmall}
           color={state === "Locked" ? theme.colors.lightRed : theme.colors.grey}
         >
           진행도: {progress}
