@@ -1,5 +1,6 @@
 import "styled-components";
 import {
+  Border,
   BorderRadius,
   Colors,
   Device,
@@ -22,5 +23,6 @@ declare module "styled-components" {
     margin: Margin;
     padding: Padding;
     borderRadius: BorderRadius;
+    border: Border;
   }
 }

@@ -66,6 +66,12 @@ const borderRadius = {
   base: "25px",
 };
 
+const border = {
+  black: `3px solid ${colors.black}`,
+  red: `3px solid ${colors.red}`,
+  blue: `3px solid ${colors.blue}`,
+};
+
 const deviceSizes = {
   tablet: "768px",
   desktop: "1024px",
@@ -86,6 +92,7 @@ const theme: DefaultTheme = {
   margin,
   padding,
   borderRadius,
+  border,
 };
 
 export type FontSizes = typeof fontSizes;
@@ -97,4 +104,5 @@ export type Shadow = typeof shadow;
 export type Margin = typeof margin;
 export type Padding = typeof padding;
 export type BorderRadius = typeof borderRadius;
+export type Border = typeof border;
 export default theme;

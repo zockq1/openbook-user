@@ -10,7 +10,7 @@ const StyledContentBox = styled.div`
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.large};
   border-radius: ${({ theme }) => theme.padding.base};
-  border: 3px solid ${({ theme }) => theme.colors.black};
+  border: ${({ theme }) => theme.border.black};
 
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.light};

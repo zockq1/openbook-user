@@ -24,13 +24,12 @@ const LongChoice = styled.div<AnswerCheckProps>`
   margin: 10px 15px;
   padding: 0 12px;
   border-radius: 10px;
-  border: 3px solid
-    ${({ theme, isSolved, isAnswer }) =>
-      isSolved !== "no"
-        ? isAnswer
-          ? theme.colors.blue
-          : theme.colors.red
-        : theme.colors.black};
+  border: ${({ theme, isSolved, isAnswer }) =>
+    isSolved !== "no"
+      ? isAnswer
+        ? theme.border.blue
+        : theme.border.red
+      : theme.border.black};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};

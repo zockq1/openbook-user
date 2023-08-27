@@ -19,9 +19,8 @@ const StyledChapterNumber = styled.div<StateProps>`
   height: 50px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 3px solid
-    ${({ theme, state }) =>
-      state === "Locked" ? theme.colors.red : theme.colors.black};
+  border: ${({ theme, state }) =>
+    state === "Locked" ? theme.border.red : theme.border.black};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};

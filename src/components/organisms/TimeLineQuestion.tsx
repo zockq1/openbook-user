@@ -60,7 +60,7 @@ const NextItemPlaceBox = styled.div`
   height: 60px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.padding.base};
-  border: 3px solid ${({ theme }) => theme.colors.black};
+  border: ${({ theme }) => theme.border.black};
   z-index: 0;
 `;
 

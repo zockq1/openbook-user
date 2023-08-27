@@ -25,9 +25,8 @@ const StyledChpaterItem = styled.li<StyledChpaterItemProps>`
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
 
-  border: 3px solid
-    ${({ theme, state }) =>
-      state === "Locked" ? theme.colors.red : theme.colors.black};
+  border: ${({ theme, state }) =>
+    state === "Locked" ? theme.border.red : theme.border.black};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
