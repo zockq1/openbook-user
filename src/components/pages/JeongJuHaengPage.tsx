@@ -284,7 +284,7 @@ function JeongJuHaengPage() {
           handleNextContent={handleNextContent}
         />
       )}
-      {contentList[currentContent].content === "연표 문제" && (
+      {contentList[currentContent].content === "연표 문제" && dateList && (
         <TimelineQuestionTemplate
           chapterNumber={Number(chapter)}
           title={String(chapter) + ". " + chapterTitle?.title}
