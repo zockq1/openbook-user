@@ -20,13 +20,11 @@ const LoginLoadingRedirectPage = () => {
 
   useEffect(() => {
     const getJWTToken = async () => {
-      const url = `${process.env.REACT_APP_API_URL}/login/kakao?code=${code}`;
+      const url = `${process.env.REACT_APP_API_URL}login/kakao?code=${code}`;
       const response = await fetch(url, {
         credentials: "include",
       });
-      //console.log(response);
       const authorizationHeader = await response.headers.get("Authorization");
-      //const data = await response.text();
       const accessToken = authorizationHeader;
       dispatch(setAccessToken(accessToken));
       navigate("/");
