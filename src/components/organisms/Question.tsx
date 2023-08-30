@@ -10,7 +10,6 @@ import TextBox from "../atoms/TextBox";
 
 interface ChoiceList {
   questionList: QuestionModel[];
-  choiceType: "short" | "long";
   handleNextContent: () => void;
 }
 
@@ -27,11 +26,7 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-function ChoiceQuestion({
-  questionList,
-  choiceType,
-  handleNextContent,
-}: ChoiceList) {
+function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
   const [currentChoiceList, setCurrentChoiceList] = useState<ChoiceModel[]>([]);
@@ -86,7 +81,10 @@ function ChoiceQuestion({
   };
 
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
-    const ChoiceItem = choiceType === "long" ? LongChoiceItem : ShortChoiceItem;
+    const ChoiceItem =
+      currentQuestionList[currentQuestionNumber].questionType === "TtoS"
+        ? LongChoiceItem
+        : ShortChoiceItem;
 
     return (
       <ChoiceItem

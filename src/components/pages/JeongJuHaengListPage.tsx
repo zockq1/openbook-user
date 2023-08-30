@@ -1,32 +1,19 @@
+import useGetExChapterList from "../../example/useGetExChapterList";
 import { useGetChaptersQuery } from "../../store/api/chapterApi";
-import { ChapterModel } from "../../types/chapterTypes";
 import JeongJuHaengListTemplates from "../templates/JeongJuHaengListTemplates";
 
-const chapterList: ChapterModel[] = [
-  {
-    title: "인류의 출현",
-    number: 1,
-    state: "Open",
-    progress: "완료",
-  },
-  {
-    title: "교역망의 발달과 은 유통",
-    number: 2,
-    state: "Open",
-    progress: "연표 학습",
-  },
-  {
-    title: "조선의 건국",
-    number: 3,
-    state: "Locked",
-    progress: "시작 전",
-  },
-];
-
 function JeongJuHaengListPage() {
-  //const { data: chapterList } = useGetChaptersQuery();
+  /******************************* 실제 코드 *********************************/
+  // const { data: chapterList } = useGetChaptersQuery();
+  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
+  const { data: chapterList } = useGetExChapterList();
+  /******************************* 예시 코드 *********************************/
 
-  return <JeongJuHaengListTemplates chapterList={chapterList || []} />;
+  if (!chapterList) {
+    return <div>Loading...</div>;
+  }
+
+  return <JeongJuHaengListTemplates chapterList={chapterList} />;
 }
 
 export default JeongJuHaengListPage;

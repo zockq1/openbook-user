@@ -58,7 +58,7 @@ interface ProgressBarProps {
 
 const ProgressBar = styled.div<ProgressBarProps>`
   --progress-width: ${({ percentage }) => `${percentage}%`};
-  animation: ${Load} 3s normal forwards;
+  animation: ${Load} 1s normal forwards;
   border-radius: 100px;
   background: ${({ theme }) => theme.colors.blue};
   height: 10px;

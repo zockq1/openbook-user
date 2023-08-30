@@ -5,8 +5,6 @@ import Text from "../atoms/Text";
 import { FaLock } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContentModel, ContentState } from "../../types/chapterTypes";
-import { useDispatch } from "react-redux";
-import { setCurrentContent } from "../../store/slices/contentSlice";
 import Icon from "../atoms/Icon";
 
 interface ChpaterItemProps {
@@ -41,13 +39,25 @@ const ChapterContent = styled.div`
 function ChpaterItem({ content, index }: ChpaterItemProps) {
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { chapter } = useParams();
 
   const onClickChapter = () => {
-    if (content.state === "Open") {
-      dispatch(setCurrentContent(index));
-      navigate(`/jeong-ju-haeng/${chapter}/content`);
+    if (content.state === "Locked") {
+      return;
+    }
+    switch (content.content) {
+      case "단원 학습":
+        navigate(`/jeong-ju-haeng/${chapter}/chapter-learning`);
+        break;
+      case "연표 학습":
+        navigate(`/jeong-ju-haeng/${chapter}/timeline-learning`);
+        break;
+      case "주제 학습":
+        navigate(`/jeong-ju-haeng/${chapter}/topic-learning/${content.title}`);
+        break;
+      case "단원 마무리 학습":
+        navigate(`/jeong-ju-haeng/${chapter}/final-learning`);
+        break;
     }
   };
 

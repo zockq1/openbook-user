@@ -1,3 +1,5 @@
+type QuestionType = "TtoK" | "TtoS" | "KtoT" | "StoT";
+
 export interface ChoiceModel {
   choice: string;
   comment?: string;
@@ -5,6 +7,7 @@ export interface ChoiceModel {
 }
 
 export interface QuestionModel {
+  questionType: QuestionType;
   answer: string;
   questionSentence?: string;
 

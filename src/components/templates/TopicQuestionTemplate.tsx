@@ -3,33 +3,32 @@ import Layout from "../atoms/Layout";
 import TitleBox from "../molecules/TitleBox";
 import { ChoiceQuestion } from "../organisms/Question";
 
-interface TopicToSentenceQuestionTemplateProps {
+interface TopicQuestionTemplateProps {
   chapterNumber: number;
   topicTitle: string;
   questionList: QuestionModel[];
   handleNextContent: () => void;
 }
 
-function TopicToSentenceQuestionTemplate({
+function TopicQuestionTemplate({
   chapterNumber,
   questionList,
   topicTitle,
   handleNextContent,
-}: TopicToSentenceQuestionTemplateProps) {
+}: TopicQuestionTemplateProps) {
   return (
     <Layout>
       <TitleBox
         backLink={`/jeong-ju-haeng/${chapterNumber}`}
         title={topicTitle}
-        category="주제 보고 문장 맞추기"
-      ></TitleBox>
+        category="주제별 문제"
+      />
       <ChoiceQuestion
         questionList={questionList}
-        choiceType="long"
         handleNextContent={handleNextContent}
       />
     </Layout>
   );
 }
 
-export default TopicToSentenceQuestionTemplate;
+export default TopicQuestionTemplate;

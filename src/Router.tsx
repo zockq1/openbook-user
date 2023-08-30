@@ -2,9 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import MainPage from "./components/pages/MainPage";
 import LoginLoadingRedirectPage from "./components/pages/LoginLoadingRedirectPage";
-import JeongJuHaengPage from "./components/pages/JeongJuHaengPage";
 import JeongJuHaengListPage from "./components/pages/JeongJuHaengListPage";
 import ContentListPage from "./components/pages/ContentListPage";
+import ChapterLearningPage from "./components/pages/ChapterLearningPage";
+import TimelineLearningPage from "./components/pages/TimelineLearningPage";
+import TopicLearningPage from "./components/pages/TopicLearningPage";
+import FinalLearningPage from "./components/pages/FinalLearningPage";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +23,20 @@ const router = createBrowserRouter([
         element: <LoginLoadingRedirectPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter/content",
-        element: <JeongJuHaengPage />,
+        path: "jeong-ju-haeng/:chapter/final-learning",
+        element: <FinalLearningPage />,
+      },
+      {
+        path: "jeong-ju-haeng/:chapter/timeline-learning",
+        element: <TimelineLearningPage />,
+      },
+      {
+        path: "jeong-ju-haeng/:chapter/chapter-learning",
+        element: <ChapterLearningPage />,
+      },
+      {
+        path: "jeong-ju-haeng/:chapter/topic-learning/:topic",
+        element: <TopicLearningPage />,
       },
       {
         path: "jeong-ju-haeng/:chapter",
