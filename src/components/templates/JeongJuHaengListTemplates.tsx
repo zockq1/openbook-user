@@ -1,4 +1,4 @@
-import TitleBox from "../molecules/TitleBox";
+import TitleBox from "../organisms/TitleBox";
 import Layout from "../atoms/Layout";
 import ChpaterList from "../organisms/ChapterList";
 import { ChapterModel } from "../../types/chapterTypes";

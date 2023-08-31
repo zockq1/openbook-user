@@ -1,6 +1,6 @@
 import { QuestionModel } from "../../types/questionTypes";
 import Layout from "../atoms/Layout";
-import TitleBox from "../molecules/TitleBox";
+import TitleBox from "../organisms/TitleBox";
 import { ChoiceQuestion } from "../organisms/Question";
 
 interface FinalQuestionTemplateProps {

@@ -1,6 +1,6 @@
 import { ContentModel } from "../../types/chapterTypes";
 import Layout from "../atoms/Layout";
-import TitleBox from "../molecules/TitleBox";
+import TitleBox from "../organisms/TitleBox";
 import ContentList from "../organisms/ContentList";
 
 interface ContentListTemplateProps {

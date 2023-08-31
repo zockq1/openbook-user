@@ -1,4 +1,4 @@
-import TitleBox from "../molecules/TitleBox";
+import TitleBox from "../organisms/TitleBox";
 import Layout from "../atoms/Layout";
 import KeywordList from "../organisms/KeywordList";
 import SentenceList from "../organisms/SentenceList";
