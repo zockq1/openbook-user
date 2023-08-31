@@ -8,6 +8,9 @@ import ChapterLearningPage from "./components/pages/ChapterLearningPage";
 import TimelineLearningPage from "./components/pages/TimelineLearningPage";
 import TopicLearningPage from "./components/pages/TopicLearningPage";
 import FinalLearningPage from "./components/pages/FinalLearningPage";
+import QuestionPage from "./components/pages/QuestionPage";
+import MyInfoPage from "./components/pages/MyInfoPage";
+import OptionPage from "./components/pages/OptionPage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,18 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MainPage />,
+      },
+      {
+        path: "/question",
+        element: <QuestionPage />,
+      },
+      {
+        path: "/my-info",
+        element: <MyInfoPage />,
+      },
+      {
+        path: "/option",
+        element: <OptionPage />,
       },
       {
         path: "/oauth/kakao/login",

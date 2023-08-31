@@ -1,6 +1,14 @@
-import { BsCardText, BsPostcard, BsQuestionSquare } from "react-icons/bs";
+import {
+  BsCardText,
+  BsPostcard,
+  BsQuestionSquare,
+  BsGear,
+} from "react-icons/bs";
 import { FaRunning } from "react-icons/fa";
 import { TbClockHour5, TbClockQuestion } from "react-icons/tb";
+import { AiOutlineHome } from "react-icons/ai";
+import { LuFileQuestion } from "react-icons/lu";
+import { LiaReadme } from "react-icons/lia";
 
 interface Iconprops {
   category: string;
@@ -17,6 +25,10 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     "주제 학습": <BsCardText color={color} size={size} />,
     "주제별 문제": <BsQuestionSquare color={color} size={size} />,
     "단원 마무리 학습": <BsQuestionSquare color={color} size={size} />,
+    Home: <AiOutlineHome color={color} size={size} />,
+    Question: <LuFileQuestion color={color} size={size} />,
+    MyInfo: <LiaReadme color={color} size={size} />,
+    Option: <BsGear color={color} size={size} />,
   };
 
   const matchedIcon = Object.keys(icons).find((key) => category.includes(key));
