@@ -27,8 +27,8 @@ const colors = {
   grey: "#818BA0",
 
   blue: "#0F67FE",
-  semiLightBlue: "#458CFF",
-  lightBlue: "#A6CBFF",
+  semiLightBlue: "#A6CBFF",
+  lightBlue: "#EDF5FF",
 
   red: "#FA4D5E",
   lightRed: "#FF8391",

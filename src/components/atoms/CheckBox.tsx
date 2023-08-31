@@ -55,7 +55,7 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
     ${({ theme, isSolved, isAnswer }) =>
       isSolved !== "no"
         ? isAnswer
-          ? theme.colors.lightBlue
+          ? theme.colors.semiLightBlue
           : theme.colors.lightRed
         : theme.colors.black};
   border-radius: 12.5%;
