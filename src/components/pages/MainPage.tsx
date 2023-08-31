@@ -1,25 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import Layout from "../atoms/Layout";
-import Icon from "../atoms/Icon";
-import LoginButton from "../atoms/LoginButton";
 import { Link } from "react-router-dom";
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.black};
-  font-family: "Giants-Inline";
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: ${({ theme }) => theme.padding.large};
-`;
+import Header from "../organisms/Header";
+import NavigationBar from "../organisms/NavigationBar";
 
 const Box = styled(Link)`
   position: relative;
@@ -74,19 +57,13 @@ function Main() {
   const { total, complete } = progress;
   return (
     <Layout>
-      <Header>
-        <Logo>
-          정주행
-          <Icon category="정주행" size={24} />
-          한국사
-        </Logo>
-        <LoginButton />
-      </Header>
+      <Header />
       <Box to="jeong-ju-haeng">
         <Progress>
           <ProgressBar percentage={(complete / total) * 100} />
         </Progress>
       </Box>
+      <NavigationBar />
     </Layout>
   );
 }
