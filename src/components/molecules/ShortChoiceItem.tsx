@@ -17,11 +17,10 @@ interface ChoiceProps {
 }
 
 const ShortChoice = styled.div<AnswerCheckProps>`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: calc((100% - 45px) / 2);
-  height: max(20vh, max-content);
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  width: calc((100vw - 45px) / 2);
   margin: 10px 0px 10px 15px;
   padding: 12px;
   border-radius: 10px;
@@ -37,10 +36,7 @@ const ShortChoice = styled.div<AnswerCheckProps>`
 `;
 
 const ShortComment = styled.span<AnswerCheckProps>`
-  width: max-content;
-  max-width: calc(100% - 30px);
   border-radius: 10px;
-
   color: ${({ theme, isSolved, isAnswer }) =>
     isSolved !== "no"
       ? isAnswer

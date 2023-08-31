@@ -19,7 +19,7 @@ interface ChoiceProps {
 const LongChoice = styled.div<AnswerCheckProps>`
   display: flex;
   align-items: center;
-  width: calc(100% - 30px);
+  width: calc(100vw - 30px);
   height: max-content;
   margin: 10px 15px;
   padding: 0 12px;
