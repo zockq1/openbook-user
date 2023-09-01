@@ -1,3 +1,10 @@
+// BsCardText, BsPostcard, BsQuestionSquare, BsGear: Designed by Bootstrap
+// FaRunning: Designed by Font Awesome
+// TbClockHour5, TbClockQuestion: Designed by Tabler Icons
+// AiOutlineHome: Designed by Ant Design Icons
+// LuFileQuestion: Designed by Lineicons
+// LiaReadme: Designed by Linea Icons
+
 import {
   BsCardText,
   BsPostcard,

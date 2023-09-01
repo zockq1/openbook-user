@@ -10,6 +10,7 @@ const fontSizes = {
   xl: calcRem(20),
   xxl: calcRem(22),
   xxxl: calcRem(24),
+  big: calcRem(50),
 };
 
 const fontWeight = {
@@ -48,6 +49,7 @@ const shadow = {
 };
 
 const margin = {
+  small: "5px",
   base: "10px 20px",
 };
 
@@ -60,6 +62,7 @@ const padding = {
 };
 
 const borderRadius = {
+  xxxs: "5px",
   xxs: "10px",
   xs: "15px",
   small: "20px",

@@ -5,7 +5,6 @@ function MyInfoPage() {
   return (
     <>
       <Header />
-      북마크
       <NavigationBar />
     </>
   );
