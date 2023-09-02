@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import ContentListTemplate from "../templates/ContentListTemplate";
+import ContentListTemplate from "../../templates/JJH/ContentListTemplate";
 import {
   useGetChapterTitleQuery,
   useGetContentListQuery,
-} from "../../store/api/chapterApi";
-import useGetExChapterTitle from "../../example/useGetExChapterTitle";
-import useGetExContentList from "../../example/useGetExContentList";
+} from "../../../store/api/chapterApi";
+import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
+import useGetExContentList from "../../../example/useGetExContentList";
 
 function ContentListPage() {
   const { chapter } = useParams();

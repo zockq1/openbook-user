@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import ChapterLearningTemplate from "../templates/ChpaterLearningTemplate";
+import ChapterLearningTemplate from "../../templates/JJH/ChpaterLearningTemplate";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
-} from "../../store/api/chapterApi";
-import useGetExChapterTitle from "../../example/useGetExChapterTitle";
-import useGetExChapterInfo from "../../example/useGetExChapterInfo";
+} from "../../../store/api/chapterApi";
+import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
+import useGetExChapterInfo from "../../../example/useGetExChapterInfo";
 
 function ChapterLearningPage() {
   const navigate = useNavigate();

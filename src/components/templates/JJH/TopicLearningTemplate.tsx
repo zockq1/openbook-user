@@ -1,9 +1,9 @@
-import TitleBox from "../organisms/TitleBox";
-import Layout from "../atoms/Layout";
-import KeywordList from "../organisms/KeywordList";
-import SentenceList from "../organisms/SentenceList";
-import Button from "../atoms/Button";
-import { TopicModel } from "../../types/topicTypes";
+import TitleBox from "../../organisms/TitleBox";
+import Layout from "../../atoms/Layout";
+import KeywordList from "../../organisms/KeywordList";
+import SentenceList from "../../organisms/SentenceList";
+import Button from "../../atoms/Button";
+import { TopicModel } from "../../../types/topicTypes";
 
 interface TopicLearningTemplateProps {
   chapterNumber: number;

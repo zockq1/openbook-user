@@ -2,15 +2,17 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import MainPage from "./components/pages/MainPage";
 import LoginLoadingRedirectPage from "./components/pages/LoginLoadingRedirectPage";
-import JeongJuHaengListPage from "./components/pages/JeongJuHaengListPage";
-import ContentListPage from "./components/pages/ContentListPage";
-import ChapterLearningPage from "./components/pages/ChapterLearningPage";
-import TimelineLearningPage from "./components/pages/TimelineLearningPage";
-import TopicLearningPage from "./components/pages/TopicLearningPage";
-import FinalLearningPage from "./components/pages/FinalLearningPage";
+import JeongJuHaengListPage from "./components/pages/JJH/JeongJuHaengListPage";
+import ContentListPage from "./components/pages/JJH/ContentListPage";
+import ChapterLearningPage from "./components/pages/JJH/ChapterLearningPage";
+import TimelineLearningPage from "./components/pages/JJH/TimelineLearningPage";
+import TopicLearningPage from "./components/pages/JJH/TopicLearningPage";
+import FinalLearningPage from "./components/pages/JJH/FinalLearningPage";
 import QuestionPage from "./components/pages/QuestionPage";
 import MyInfoPage from "./components/pages/MyInfoPage";
 import OptionPage from "./components/pages/OptionPage";
+import TimelineMenuPage from "./components/pages/Timeline/TimelineMenuPage";
+import TimelinePage from "./components/pages/Timeline/TimelinePage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/option",
         element: <OptionPage />,
+      },
+      {
+        path: "/timeline",
+        element: <TimelineMenuPage />,
+      },
+      {
+        path: "/timeline/:chapter",
+        element: <TimelinePage />,
       },
       {
         path: "/oauth/kakao/login",

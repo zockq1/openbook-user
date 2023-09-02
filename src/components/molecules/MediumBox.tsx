@@ -1,12 +1,14 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactNode } from "react";
 
 const Box = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  width: calc(100vw - 40px);
-  height: 55vw;
-  margin: ${({ theme }) => theme.margin.base};
+  width: calc((100vw - 60px) / 2);
+  margin: 10px 0px 10px 20px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
@@ -15,11 +17,8 @@ const Box = styled(Link)`
 `;
 
 const BoxImage = styled.img`
-  position: absolute;
-  width: 50%;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
+  margin-top: 15px;
+  width: 90%;
 `;
 
 const BoxTitle = styled.div`
@@ -33,14 +32,14 @@ const BoxTitle = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
 `;
 
-interface LargeBoxProps {
+interface MediumBoxProps {
   children?: ReactNode;
   image: string;
   link: string;
   title: string;
 }
 
-function LargeBox({ children, image, link, title }: LargeBoxProps) {
+function MediumBox({ children, image, link, title }: MediumBoxProps) {
   return (
     <Box to={link}>
       <BoxTitle>{title + " >"}</BoxTitle>
@@ -50,4 +49,4 @@ function LargeBox({ children, image, link, title }: LargeBoxProps) {
   );
 }
 
-export default LargeBox;
+export default MediumBox;

@@ -1,15 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
-import TimelineLearningTemplate from "../templates/TimelineLearningTemplate";
+import TimelineLearningTemplate from "../../templates/JJH/TimelineLearningTemplate";
 import {
   useGetChapterTitleQuery,
   useGetContentListQuery,
-} from "../../store/api/chapterApi";
-import { useGetTimelineQuery } from "../../store/api/questionApi";
+} from "../../../store/api/chapterApi";
+import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import { useState } from "react";
-import TimelineQuestionTemplate from "../templates/TimelineQuestionTemplate";
-import useGetExContentList from "../../example/useGetExContentList";
-import useGetExChapterTitle from "../../example/useGetExChapterTitle";
-import useGetExDateList from "../../example/useGetExDateList";
+import TimelineQuestionTemplate from "../../templates/JJH/TimelineQuestionTemplate";
+import useGetExContentList from "../../../example/useGetExContentList";
+import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
+import useGetExDateList from "../../../example/useGetExDateList";
 
 type SelectedContent = "Learning" | "Question";
 
@@ -51,6 +51,7 @@ function TimelineLearningPage() {
           title={String(chapter) + ". " + chapterTitle?.title}
           dateList={dateList || []}
           handleNextContent={handleNextQuestion}
+          backLink={`/jeong-ju-haeng/${Number(chapter)}`}
         />
       ) : (
         <TimelineQuestionTemplate

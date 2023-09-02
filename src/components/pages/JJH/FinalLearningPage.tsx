@@ -1,13 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useGetExKtoTQuestionList from "../../example/useGetExKtoTQuestionList";
-import useGetExStoTQuestionList from "../../example/useGetExStoTQuestionList";
+import useGetExKtoTQuestionList from "../../../example/useGetExKtoTQuestionList";
+import useGetExStoTQuestionList from "../../../example/useGetExStoTQuestionList";
 import {
   useGetKtoTQuestionQuery,
   useGetStoTQuestionQuery,
-} from "../../store/api/questionApi";
-import { QuestionModel } from "../../types/questionTypes";
+} from "../../../store/api/questionApi";
+import { QuestionModel } from "../../../types/questionTypes";
 import { useEffect, useState } from "react";
-import FinalQuestionTemplate from "../templates/FinalQuestionTemplate";
+import FinalQuestionTemplate from "../../templates/JJH/FinalQuestionTemplate";
 
 function FinalLearningPage() {
   const { chapter } = useParams();

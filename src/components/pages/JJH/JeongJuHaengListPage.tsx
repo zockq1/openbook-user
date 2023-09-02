@@ -1,6 +1,6 @@
-import useGetExChapterList from "../../example/useGetExChapterList";
-import { useGetChaptersQuery } from "../../store/api/chapterApi";
-import JeongJuHaengListTemplates from "../templates/JeongJuHaengListTemplates";
+import useGetExChapterList from "../../../example/useGetExChapterList";
+import { useGetChaptersQuery } from "../../../store/api/chapterApi";
+import JeongJuHaengListTemplates from "../../templates/JJH/JeongJuHaengListTemplates";
 
 function JeongJuHaengListPage() {
   /******************************* 실제 코드 *********************************/

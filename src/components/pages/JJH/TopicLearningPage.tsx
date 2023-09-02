@@ -1,18 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
-import TopicLearningTemplate from "../templates/TopicLearningTemplate";
-import { useGetTopicQuery } from "../../store/api/topicApi";
+import TopicLearningTemplate from "../../templates/JJH/TopicLearningTemplate";
+import { useGetTopicQuery } from "../../../store/api/topicApi";
 import { useEffect, useState } from "react";
-import TopicQuestionTemplate from "../templates/TopicQuestionTemplate";
+import TopicQuestionTemplate from "../../templates/JJH/TopicQuestionTemplate";
 import {
   useGetTtoKQuestionQuery,
   useGetTtoSQuestionQuery,
-} from "../../store/api/questionApi";
-import { QuestionModel } from "../../types/questionTypes";
-import { useGetContentListQuery } from "../../store/api/chapterApi";
-import useGetExTopicInfo from "../../example/useGetExTopicInfo";
-import useGetExTtoKQuestionList from "../../example/useGetExTtoKQuestionList";
-import useGetExTtoSQuestionList from "../../example/useGetExTtoSQuestionList";
-import useGetExContentList from "../../example/useGetExContentList";
+} from "../../../store/api/questionApi";
+import { QuestionModel } from "../../../types/questionTypes";
+import { useGetContentListQuery } from "../../../store/api/chapterApi";
+import useGetExTopicInfo from "../../../example/useGetExTopicInfo";
+import useGetExTtoKQuestionList from "../../../example/useGetExTtoKQuestionList";
+import useGetExTtoSQuestionList from "../../../example/useGetExTtoSQuestionList";
+import useGetExContentList from "../../../example/useGetExContentList";
 
 type SelectedContent = "Learning" | "Question";
 

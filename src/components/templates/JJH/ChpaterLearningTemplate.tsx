@@ -1,8 +1,8 @@
 import parse from "html-react-parser";
-import TitleBox from "../organisms/TitleBox";
-import Layout from "../atoms/Layout";
-import ContentBox from "../atoms/ContentBox";
-import Button from "../atoms/Button";
+import TitleBox from "../../organisms/TitleBox";
+import Layout from "../../atoms/Layout";
+import ContentBox from "../../atoms/ContentBox";
+import Button from "../../atoms/Button";
 
 interface ChapterLearningTemplateProps {
   chapterNumber: number;
