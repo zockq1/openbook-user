@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useGetExChapterList from "../../../example/useGetExChapterList";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
-import TimeLineMenuTemplate from "../../templates/TimeLine/TimeLineMenuTemplate";
+import MenuTemplate from "../../templates/MenuTemplate";
 import { MenuModel } from "../../../types/CommonTypes";
 
 function TimelineMenuPage() {
@@ -11,14 +11,14 @@ function TimelineMenuPage() {
   const { data } = useGetExChapterList();
   const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
-  const [timelineList, setTimelineList] = useState<MenuModel[]>([]);
+  const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
     if (!chapterList) {
       return;
     }
 
-    setTimelineList([
+    setMenuList([
       {
         title: "전체 연표",
         state: "Open",
@@ -37,13 +37,13 @@ function TimelineMenuPage() {
         return result;
       }),
     ]);
-  }, [setTimelineList, chapterList]);
+  }, [setMenuList, chapterList]);
 
   if (!chapterList) {
     return <div>Loading...</div>;
   }
 
-  return <TimeLineMenuTemplate timelineList={timelineList} />;
+  return <MenuTemplate menuList={menuList} category="연표 학습" backLink="/" />;
 }
 
 export default TimelineMenuPage;
