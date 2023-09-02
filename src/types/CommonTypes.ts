@@ -1,6 +1,6 @@
 import { ContentState } from "./chapterTypes";
 
-export interface CommonListItemModel {
+export interface MenuModel {
   title: string;
   description?: string;
   state: ContentState;

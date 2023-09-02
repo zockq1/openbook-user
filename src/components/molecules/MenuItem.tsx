@@ -6,7 +6,7 @@ import Text from "../atoms/Text";
 import { useContext } from "react";
 import { FaLock } from "react-icons/fa";
 
-interface ListItemProps {
+interface MenuItemProps {
   title: string;
   description?: string;
   icon: string | number;
@@ -14,11 +14,11 @@ interface ListItemProps {
   onClickItem: () => void;
 }
 
-interface StyledChpaterItemProps {
+interface StyledMenuItemProps {
   state: ContentState;
 }
 
-const StyledListItem = styled.li<StyledChpaterItemProps>`
+const StyledMenuItem = styled.li<StyledMenuItemProps>`
   display: flex;
   align-items: center;
   width: auto;
@@ -32,26 +32,26 @@ const StyledListItem = styled.li<StyledChpaterItemProps>`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const ListItemDescription = styled.div`
+const MenuDescription = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
 `;
 
-function ListItem({
+function MenuItem({
   title,
   description,
   icon,
   state,
   onClickItem,
-}: ListItemProps) {
+}: MenuItemProps) {
   const theme = useContext(ThemeContext);
   return (
-    <StyledListItem state={state} onClick={onClickItem}>
+    <StyledMenuItem state={state} onClick={onClickItem}>
       <ChapterNumber state={state}>
         {typeof icon === "string" ? <Icon category={icon} /> : icon}
       </ChapterNumber>
-      <ListItemDescription>
+      <MenuDescription>
         <Text
           weight={theme.fontWeight.medium}
           size={theme.fontSizes.small}
@@ -70,11 +70,11 @@ function ListItem({
             {description}
           </Text>
         )}
-      </ListItemDescription>
+      </MenuDescription>
 
       {state !== "Open" && <FaLock color={theme.colors.red} size={40} />}
-    </StyledListItem>
+    </StyledMenuItem>
   );
 }
 
-export default ListItem;
+export default MenuItem;

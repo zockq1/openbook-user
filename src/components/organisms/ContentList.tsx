@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ContentModel, ContentState } from "../../types/chapterTypes";
 import { ColumnList } from "../atoms/List";
-import ListItem from "../molecules/ListItem";
+import ListItem from "../molecules/MenuItem";
 
 interface ChpaterListProps {
   contentList: ContentModel[];

@@ -1,7 +1,7 @@
 import { ColumnList } from "../atoms/List";
 import { ChapterModel, ContentState } from "../../types/chapterTypes";
 import { useNavigate } from "react-router-dom";
-import ListItem from "../molecules/ListItem";
+import ListItem from "../molecules/MenuItem";
 
 interface ChpaterListProps {
   chapterList: ChapterModel[];

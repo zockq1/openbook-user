@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { ColumnList } from "../atoms/List";
-import ListItem from "../molecules/ListItem";
+import MenuItem from "../molecules/MenuItem";
 import { ContentState } from "../../types/chapterTypes";
-import { CommonListItemModel } from "../../types/CommonTypes";
+import { MenuModel } from "../../types/CommonTypes";
 
-interface CommonListProps {
-  list: CommonListItemModel[];
+interface MenuListProps {
+  list: MenuModel[];
 }
 
-function CommonList({ list }: CommonListProps) {
+function MenuList({ list }: MenuListProps) {
   const navigate = useNavigate();
 
   const onClickListItem = (state: ContentState, link: string) => {
@@ -22,7 +22,7 @@ function CommonList({ list }: CommonListProps) {
     <ColumnList>
       {list.map((item, index) => {
         return (
-          <ListItem
+          <MenuItem
             title={item.title}
             description={item.description}
             icon={item.icon}
@@ -36,4 +36,4 @@ function CommonList({ list }: CommonListProps) {
   );
 }
 
-export default CommonList;
+export default MenuList;

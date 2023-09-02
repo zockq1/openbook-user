@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useGetExChapterList from "../../../example/useGetExChapterList";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 import TimeLineMenuTemplate from "../../templates/TimeLine/TimeLineMenuTemplate";
-import { CommonListItemModel } from "../../../types/CommonTypes";
+import { MenuModel } from "../../../types/CommonTypes";
 
 function TimelineMenuPage() {
   /******************************* 실제 코드 *********************************/
@@ -11,7 +11,7 @@ function TimelineMenuPage() {
   const { data } = useGetExChapterList();
   const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
-  const [timelineList, setTimelineList] = useState<CommonListItemModel[]>([]);
+  const [timelineList, setTimelineList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
     if (!chapterList) {
@@ -27,7 +27,7 @@ function TimelineMenuPage() {
         description: "??? ~ ???",
       },
       ...chapterList.map((item) => {
-        const result: CommonListItemModel = {
+        const result: MenuModel = {
           title: item.title,
           state: "Open",
           link: `/timeline/${item.number}`,
