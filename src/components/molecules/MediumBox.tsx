@@ -28,8 +28,7 @@ const BoxTitle = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.black};
-  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 interface MediumBoxProps {

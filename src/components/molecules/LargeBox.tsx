@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactNode } from "react";
+import ChapterNumber from "../atoms/ChapterNumber";
+import Icon from "../atoms/Icon";
 
 const Box = styled(Link)`
   position: relative;
@@ -23,14 +25,11 @@ const BoxImage = styled.img`
 `;
 
 const BoxTitle = styled.div`
-  width: max-content;
-  padding: ${({ theme }) => theme.padding.small};
-  margin: ${({ theme }) => theme.margin.small};
-  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  display: flex;
+  align-items: center;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.black};
-  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 interface LargeBoxProps {
@@ -43,7 +42,11 @@ interface LargeBoxProps {
 function LargeBox({ children, image, link, title }: LargeBoxProps) {
   return (
     <Box to={link}>
-      <BoxTitle>{title + " >"}</BoxTitle>
+      {/* <BoxTitle>{title + " >"}</BoxTitle> */}
+      <BoxTitle>
+        <ChapterNumber state="Open">{<Icon category="정주행" />}</ChapterNumber>
+        &nbsp;&nbsp;{title}
+      </BoxTitle>
       <BoxImage src={image} alt={title + " 이미지"} />
       {children}
     </Box>
