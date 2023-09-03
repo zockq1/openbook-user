@@ -29,7 +29,11 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
             percentage={Math.floor((progress.complete / progress.total) * 100)}
           />
         </LargeBox>
-        <MediumBox title="개념 학습" link="learning" image={books}></MediumBox>
+        <MediumBox
+          title="학습 자료 모음"
+          link="learning"
+          image={books}
+        ></MediumBox>
         <MediumBox
           title="연표 보기"
           link="timeline"

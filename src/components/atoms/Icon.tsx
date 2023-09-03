@@ -16,6 +16,7 @@ import { TbClockHour5, TbClockQuestion } from "react-icons/tb";
 import { AiOutlineHome } from "react-icons/ai";
 import { LuFileQuestion } from "react-icons/lu";
 import { LiaReadme } from "react-icons/lia";
+import { GrUser } from "react-icons/gr";
 
 interface Iconprops {
   category: string;
@@ -36,6 +37,7 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     Question: <LuFileQuestion color={color} size={size} />,
     MyInfo: <LiaReadme color={color} size={size} />,
     Option: <BsGear color={color} size={size} />,
+    인물: <GrUser color={color} size={size} />,
   };
 
   const matchedIcon = Object.keys(icons).find((key) => category.includes(key));

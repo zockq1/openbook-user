@@ -8,7 +8,8 @@ interface ChapterLearningTemplateProps {
   chapterNumber: number;
   title: string;
   content: string;
-  handleNextContent: () => void;
+  handleNextContent?: () => void;
+  backLink: string;
 }
 
 function ChapterLearningTemplate({
@@ -16,16 +17,13 @@ function ChapterLearningTemplate({
   title,
   content,
   handleNextContent,
+  backLink,
 }: ChapterLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        title={title}
-        category="단원 학습"
-        backLink={`/jeong-ju-haeng/${chapterNumber}`}
-      />
+      <TitleBox title={title} category="단원 학습" backLink={backLink} />
       <ContentBox>{parse(String(content))}</ContentBox>
-      <Button onClick={handleNextContent}>다음</Button>
+      {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>
   );
 }

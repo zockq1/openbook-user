@@ -76,6 +76,7 @@ function TopicLearningPage() {
           topicTitle={String(topic)}
           topicInfo={topicInfo}
           handleNextContent={handleNextQuestion}
+          backLink={`/jeong-ju-haeng/${chapter}`}
         />
       ) : (
         <TopicQuestionTemplate

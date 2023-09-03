@@ -18,7 +18,11 @@ function TimelinePage() {
   return (
     <TimelineLearningTemplate
       chapterNumber={Number(chapter)}
-      title={String(chapter) + ". " + chapterTitle?.title}
+      title={
+        chapter === "0"
+          ? "전체 연표"
+          : String(chapter) + ". " + chapterTitle?.title
+      }
       dateList={dateList || []}
       backLink="/timeline"
     />

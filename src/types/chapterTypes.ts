@@ -5,6 +5,9 @@ export interface ChapterModel {
   number: number;
   state: ContentState;
   progress: string;
+  startDate?: number | null;
+  endDate?: number | null;
+  topicCount?: number;
 }
 
 export interface ChapterTitleModel {

@@ -1,14 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import ChapterLearningTemplate from "../../templates/JJH/ChpaterLearningTemplate";
-import {
-  useGetChapterInfoQuery,
-  useGetChapterTitleQuery,
-} from "../../../store/api/chapterApi";
+import { useParams } from "react-router-dom";
 import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
 import useGetExChapterInfo from "../../../example/useGetExChapterInfo";
+import ChapterLearningTemplate from "../../templates/JJH/ChpaterLearningTemplate";
 
-function ChapterLearningPage() {
-  const navigate = useNavigate();
+function LearningChapterPage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
   // const { data: chapterTitle } =  useGetChapterTitleQuery(Number(chapter));
@@ -17,10 +12,6 @@ function ChapterLearningPage() {
   const { data: chapterTitle } = useGetExChapterTitle();
   const { data: chapterInfo } = useGetExChapterInfo();
   /******************************* 예시 코드 *********************************/
-
-  const handleNextContent = () => {
-    navigate(`/jeong-ju-haeng/${chapter}/timeline-learning`);
-  };
 
   if (!chapterInfo || !chapterTitle) {
     return <div>Loading...</div>;
@@ -31,10 +22,9 @@ function ChapterLearningPage() {
       chapterNumber={Number(chapter)}
       title={String(chapter) + ". " + chapterTitle.title}
       content={String(chapterInfo.content)}
-      handleNextContent={handleNextContent}
-      backLink={`/jeong-ju-haeng/${Number(chapter)}`}
+      backLink={`/learning/${chapter}`}
     />
   );
 }
 
-export default ChapterLearningPage;
+export default LearningChapterPage;

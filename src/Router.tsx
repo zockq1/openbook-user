@@ -13,6 +13,10 @@ import MyInfoPage from "./components/pages/MyInfoPage";
 import OptionPage from "./components/pages/OptionPage";
 import TimelineMenuPage from "./components/pages/Timeline/TimelineMenuPage";
 import TimelinePage from "./components/pages/Timeline/TimelinePage";
+import LearningChapterListPage from "./components/pages/Learning/LearningChapterListPage";
+import LearningTopicListPage from "./components/pages/Learning/LearningTopicListPage";
+import LearningTopicPage from "./components/pages/Learning/LearningTopicPage";
+import LearningChapterPage from "./components/pages/Learning/LearningChapterPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,22 @@ const router = createBrowserRouter([
       {
         path: "/option",
         element: <OptionPage />,
+      },
+      {
+        path: "/learning",
+        element: <LearningChapterListPage />,
+      },
+      {
+        path: "/learning/:chapter",
+        element: <LearningTopicListPage />,
+      },
+      {
+        path: "learning/:chapter/chapter-learning",
+        element: <LearningChapterPage />,
+      },
+      {
+        path: "/learning/:chapter/:topic",
+        element: <LearningTopicPage />,
       },
       {
         path: "/timeline",

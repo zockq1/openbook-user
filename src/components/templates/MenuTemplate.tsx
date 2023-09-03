@@ -13,7 +13,7 @@ function MenuTemplate({ menuList, category, backLink }: MenuTemplateProps) {
   return (
     <Layout>
       <TitleBox backLink={backLink} category={category}></TitleBox>
-      <MenuList list={menuList} />;
+      <MenuList list={menuList} />
     </Layout>
   );
 }

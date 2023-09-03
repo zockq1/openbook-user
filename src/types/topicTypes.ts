@@ -9,5 +9,8 @@ export interface TopicModel {
 }
 
 export interface TopicListModel {
-  topicList: string[];
+  title: string;
+  category: string;
+  startDate: number;
+  endDate: number;
 }

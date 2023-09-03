@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useGetExChapterList from "../../../example/useGetExChapterList";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
-import MenuTemplate from "../../templates/MenuTemplate";
 import { MenuModel } from "../../../types/CommonTypes";
+import MenuTemplate from "../../templates/MenuTemplate";
 
-function TimelineMenuPage() {
+function LearningChapterListPage() {
   /******************************* 실제 코드 *********************************/
-  //const { data: chapterList } = useGetChaptersQuery();
+  // const { data: chapterList } = useGetChaptersQuery();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
   const { data } = useGetExChapterList();
   const [chapterList] = useState(data);
@@ -19,22 +19,13 @@ function TimelineMenuPage() {
     }
 
     setMenuList([
-      {
-        title: "전체 연표",
-        state: "Open",
-        link: `/timeline/0`,
-        icon: "연표 학습",
-        description: "??? ~ 2023년",
-      },
       ...chapterList.map((item) => {
         const result: MenuModel = {
           title: item.title,
           state: "Open",
-          link: `/timeline/${item.number}`,
+          link: `/learning/${item.number}`,
           icon: item.number,
-          description: `${item.startDate || "???"}년 ~ ${
-            item.endDate || "???"
-          }년`,
+          description: "주제 수: " + item.topicCount,
         };
         return result;
       }),
@@ -45,7 +36,9 @@ function TimelineMenuPage() {
     return <div>Loading...</div>;
   }
 
-  return <MenuTemplate menuList={menuList} category="연표 학습" backLink="/" />;
+  return (
+    <MenuTemplate menuList={menuList} backLink="/" category="학습 자료 모음" />
+  );
 }
 
-export default TimelineMenuPage;
+export default LearningChapterListPage;

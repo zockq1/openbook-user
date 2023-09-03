@@ -9,7 +9,8 @@ interface TopicLearningTemplateProps {
   chapterNumber: number;
   topicTitle: string;
   topicInfo: TopicModel;
-  handleNextContent: () => void;
+  handleNextContent?: () => void;
+  backLink: string;
 }
 
 function TopicLearningTemplate({
@@ -17,11 +18,12 @@ function TopicLearningTemplate({
   topicTitle,
   topicInfo,
   handleNextContent,
+  backLink,
 }: TopicLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox
-        backLink={`/jeong-ju-haeng/${chapterNumber}`}
+        backLink={backLink}
         title={topicTitle}
         category="주제 학습"
         startDate={topicInfo.startDate}
@@ -29,7 +31,7 @@ function TopicLearningTemplate({
       />
       <KeywordList keywordList={topicInfo.keywordList} />
       <SentenceList sentenceList={topicInfo.sentenceList} />
-      <Button onClick={handleNextContent}>다음</Button>
+      {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>
   );
 }
