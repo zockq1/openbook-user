@@ -11,7 +11,14 @@ import {
   BsQuestionSquare,
   BsGear,
 } from "react-icons/bs";
-import { FaRunning, FaClock, FaPen, FaQuestion } from "react-icons/fa";
+import {
+  FaRunning,
+  FaClock,
+  FaPen,
+  FaQuestion,
+  FaInfinity,
+  FaDice,
+} from "react-icons/fa";
 import { TbClockHour5, TbClockQuestion } from "react-icons/tb";
 import { AiOutlineHome } from "react-icons/ai";
 import { LuFileQuestion } from "react-icons/lu";
@@ -39,11 +46,13 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     MyInfo: <LiaReadme color={color} size={size} />,
     Option: <BsGear color={color} size={size} />,
     인물: <GrUser color={color} size={size} />,
-    제한시간: <FaClock color={color} size={size} />,
+    시간제한: <FaClock color={color} size={size} />,
     갯수: <PiListNumbersBold color={color} size={size} />,
     설명: <IoMdListBox color={color} size={size} />,
     모의고사: <FaPen color={color} size={size} />,
     퀴즈: <FaQuestion color={color} size={size} />,
+    무제한: <FaInfinity color={color} size={size} />,
+    무작위: <FaDice color={color} size={size} />,
   };
 
   const matchedIcon = Object.keys(icons).find((key) => category.includes(key));

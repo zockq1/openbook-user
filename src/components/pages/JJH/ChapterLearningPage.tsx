@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import ChapterLearningTemplate from "../../templates/JJH/ChpaterLearningTemplate";
+import ChapterLearningTemplate from "../../templates/Learning/ChpaterLearningTemplate";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
@@ -28,7 +28,6 @@ function ChapterLearningPage() {
 
   return (
     <ChapterLearningTemplate
-      chapterNumber={Number(chapter)}
       title={String(chapter) + ". " + chapterTitle.title}
       content={String(chapterInfo.content)}
       handleNextContent={handleNextContent}

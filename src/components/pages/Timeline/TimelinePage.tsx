@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
 import useGetExDateList from "../../../example/useGetExDateList";
-import TimelineLearningTemplate from "../../templates/JJH/TimelineLearningTemplate";
+import TimelineLearningTemplate from "../../templates/Learning/TimelineLearningTemplate";
 import { useGetChapterTitleQuery } from "../../../store/api/chapterApi";
 import { useGetTimelineQuery } from "../../../store/api/questionApi";
 
@@ -17,7 +17,6 @@ function TimelinePage() {
 
   return (
     <TimelineLearningTemplate
-      chapterNumber={Number(chapter)}
       title={
         chapter === "0"
           ? "전체 연표"

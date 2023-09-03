@@ -6,7 +6,6 @@ import Button from "../../atoms/Button";
 import { TopicModel } from "../../../types/topicTypes";
 
 interface TopicLearningTemplateProps {
-  chapterNumber: number;
   topicTitle: string;
   topicInfo: TopicModel;
   handleNextContent?: () => void;
@@ -14,7 +13,6 @@ interface TopicLearningTemplateProps {
 }
 
 function TopicLearningTemplate({
-  chapterNumber,
   topicTitle,
   topicInfo,
   handleNextContent,

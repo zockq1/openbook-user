@@ -1,25 +1,26 @@
 import { QuestionModel } from "../../../types/questionTypes";
 import Layout from "../../atoms/Layout";
-import TitleBox from "../../organisms/TitleBox";
 import { ChoiceQuestion } from "../../organisms/Question";
+import TitleBox from "../../organisms/TitleBox";
 
-interface FinalQuestionTemplateProps {
-  chapterNumber: number;
+interface QuestionTemplateProps {
+  backLink: string;
   questionList: QuestionModel[];
+  title?: string;
+  category: string;
   handleNextContent: () => void;
 }
 
-function FinalQuestionTemplate({
-  chapterNumber,
+function QuestionTemplate({
+  backLink,
   questionList,
+  title,
+  category,
   handleNextContent,
-}: FinalQuestionTemplateProps) {
+}: QuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        backLink={`/jeong-ju-haeng/${chapterNumber}`}
-        category="단원 마무리 학습"
-      />
+      <TitleBox backLink={backLink} title={title} category={category} />
       <ChoiceQuestion
         questionList={questionList}
         handleNextContent={handleNextContent}
@@ -28,4 +29,4 @@ function FinalQuestionTemplate({
   );
 }
 
-export default FinalQuestionTemplate;
+export default QuestionTemplate;

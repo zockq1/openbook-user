@@ -5,7 +5,6 @@ import ContentBox from "../../atoms/ContentBox";
 import Button from "../../atoms/Button";
 
 interface ChapterLearningTemplateProps {
-  chapterNumber: number;
   title: string;
   content: string;
   handleNextContent?: () => void;
@@ -13,7 +12,6 @@ interface ChapterLearningTemplateProps {
 }
 
 function ChapterLearningTemplate({
-  chapterNumber,
   title,
   content,
   handleNextContent,

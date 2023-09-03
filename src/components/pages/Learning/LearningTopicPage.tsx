@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import TopicLearningTemplate from "../../templates/JJH/TopicLearningTemplate";
+import TopicLearningTemplate from "../../templates/Learning/TopicLearningTemplate";
 import useGetExTopicInfo from "../../../example/useGetExTopicInfo";
 import { useGetTopicQuery } from "../../../store/api/topicApi";
 
@@ -17,7 +17,6 @@ function LearningTopicPage() {
 
   return (
     <TopicLearningTemplate
-      chapterNumber={Number(chapter)}
       topicTitle={String(topic)}
       topicInfo={topicInfo}
       backLink={`/learning/${chapter}`}

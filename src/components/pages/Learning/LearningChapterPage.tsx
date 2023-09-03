@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
 import useGetExChapterInfo from "../../../example/useGetExChapterInfo";
-import ChapterLearningTemplate from "../../templates/JJH/ChpaterLearningTemplate";
+import ChapterLearningTemplate from "../../templates/Learning/ChpaterLearningTemplate";
 
 function LearningChapterPage() {
   const { chapter } = useParams();
@@ -19,7 +19,6 @@ function LearningChapterPage() {
 
   return (
     <ChapterLearningTemplate
-      chapterNumber={Number(chapter)}
       title={String(chapter) + ". " + chapterTitle.title}
       content={String(chapterInfo.content)}
       backLink={`/learning/${chapter}`}

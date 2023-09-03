@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import TopicLearningTemplate from "../../templates/JJH/TopicLearningTemplate";
+import TopicLearningTemplate from "../../templates/Learning/TopicLearningTemplate";
 import { useGetTopicQuery } from "../../../store/api/topicApi";
 import { useEffect, useState } from "react";
-import TopicQuestionTemplate from "../../templates/JJH/TopicQuestionTemplate";
 import {
   useGetTtoKQuestionQuery,
   useGetTtoSQuestionQuery,
@@ -13,6 +12,7 @@ import useGetExTopicInfo from "../../../example/useGetExTopicInfo";
 import useGetExTtoKQuestionList from "../../../example/useGetExTtoKQuestionList";
 import useGetExTtoSQuestionList from "../../../example/useGetExTtoSQuestionList";
 import useGetExContentList from "../../../example/useGetExContentList";
+import QuestionTemplate from "../../templates/Question/QuestionTemplate";
 
 type SelectedContent = "Learning" | "Question";
 
@@ -72,18 +72,18 @@ function TopicLearningPage() {
     <>
       {selectedContent === "Learning" ? (
         <TopicLearningTemplate
-          chapterNumber={Number(chapter)}
           topicTitle={String(topic)}
           topicInfo={topicInfo}
           handleNextContent={handleNextQuestion}
           backLink={`/jeong-ju-haeng/${chapter}`}
         />
       ) : (
-        <TopicQuestionTemplate
-          chapterNumber={Number(chapter)}
-          topicTitle={String(topic)}
+        <QuestionTemplate
+          backLink={`/jeong-ju-haeng/${chapter}`}
+          title={topic}
           questionList={questionList}
           handleNextContent={handleNextContent}
+          category="주제별 문제"
         />
       )}
     </>

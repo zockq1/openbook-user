@@ -7,7 +7,7 @@ import {
 } from "../../../store/api/questionApi";
 import { QuestionModel } from "../../../types/questionTypes";
 import { useEffect, useState } from "react";
-import FinalQuestionTemplate from "../../templates/JJH/FinalQuestionTemplate";
+import QuestionTemplate from "../../templates/Question/QuestionTemplate";
 
 function FinalLearningPage() {
   const { chapter } = useParams();
@@ -37,10 +37,11 @@ function FinalLearningPage() {
   }
 
   return (
-    <FinalQuestionTemplate
-      chapterNumber={Number(chapter)}
+    <QuestionTemplate
+      backLink={`/jeong-ju-haeng/${chapter}`}
       questionList={questionList}
       handleNextContent={handleNextContent}
+      category="단원 마무리 학습"
     />
   );
 }

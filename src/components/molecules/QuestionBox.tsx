@@ -54,7 +54,7 @@ const Description = styled.span`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
-function QuizBox({
+function QuestionBox({
   children,
   image,
   link,
@@ -73,7 +73,7 @@ function QuizBox({
       </BoxTitle>
       <br />
       <Description>
-        <Icon category="제한시간" />
+        <Icon category="시간제한" />
         <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
       </Description>
       <Description>
@@ -90,4 +90,4 @@ function QuizBox({
   );
 }
 
-export default QuizBox;
+export default QuestionBox;

@@ -1,31 +1,27 @@
-import TitleBox from "../../organisms/TitleBox";
-import Layout from "../../atoms/Layout";
-import Button from "../../atoms/Button";
-import { TimeLineModel } from "../../../types/questionTypes";
-import TimelineQuestion from "../../organisms/TimeLineQuestion";
 import { useState } from "react";
+import { TimeLineModel } from "../../../types/questionTypes";
+import Layout from "../../atoms/Layout";
+import TitleBox from "../../organisms/TitleBox";
+import TimelineQuestion from "../../organisms/TimeLineQuestion";
+import Button from "../../atoms/Button";
 
 interface TimelineQuestionTemplateProps {
-  chapterNumber: number;
-  title: string;
+  backLink: string;
+  title?: string;
   dateList: TimeLineModel[];
   handleNextContent: () => void;
 }
 
 function TimelineQuestionTemplate({
-  handleNextContent,
-  chapterNumber,
-  dateList,
+  backLink,
   title,
+  dateList,
+  handleNextContent,
 }: TimelineQuestionTemplateProps) {
   const [isComplete, setIsComplete] = useState(false);
   return (
     <Layout>
-      <TitleBox
-        backLink={`/jeong-ju-haeng/${chapterNumber}`}
-        title={title}
-        category="연표 문제"
-      />
+      <TitleBox backLink={backLink} category="연표 문제" title={title} />
       <TimelineQuestion
         dateList={dateList}
         setIsComplete={setIsComplete}

@@ -17,6 +17,8 @@ import LearningChapterListPage from "./components/pages/Learning/LearningChapter
 import LearningTopicListPage from "./components/pages/Learning/LearningTopicListPage";
 import LearningTopicPage from "./components/pages/Learning/LearningTopicPage";
 import LearningChapterPage from "./components/pages/Learning/LearningChapterPage";
+import QuizPage from "./components/pages/Question/QuizPage";
+import TimelineQuestionPage from "./components/pages/Question/TimelineQuestionPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/question",
         element: <QuestionPage />,
+      },
+      {
+        path: "/question/timeline",
+        element: <TimelineQuestionPage />,
+      },
+      {
+        path: "/question/quiz",
+        element: <QuizPage />,
       },
       {
         path: "/my-info",

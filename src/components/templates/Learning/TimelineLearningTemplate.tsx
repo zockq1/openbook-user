@@ -5,7 +5,6 @@ import Button from "../../atoms/Button";
 import { TimeLineModel } from "../../../types/questionTypes";
 
 interface TimelineLearningTemplateProps {
-  chapterNumber: number;
   title: string;
   dateList: TimeLineModel[];
   handleNextContent?: () => void;
@@ -13,7 +12,6 @@ interface TimelineLearningTemplateProps {
 }
 
 function TimelineLearningTemplate({
-  chapterNumber,
   title,
   dateList,
   handleNextContent,
