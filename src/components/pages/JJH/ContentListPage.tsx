@@ -34,7 +34,7 @@ function ContentListPage() {
           return `/jeong-ju-haeng/${chapter}/timeline-learning`;
         case "주제 학습":
           return `/jeong-ju-haeng/${chapter}/topic-learning/${title}`;
-        case "단원 마무리 학습":
+        case "단원 마무리 문제":
           return `/jeong-ju-haeng/${chapter}/final-learning`;
       }
       return "";
