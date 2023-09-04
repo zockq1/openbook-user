@@ -41,7 +41,7 @@ function TopicLearningPage() {
     const questionList2 = TtoSQuestionList ? [...TtoSQuestionList] : [];
     setQuestionList([...questionList1, ...questionList2]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic]);
+  }, [topic, TtoKQuestionList, TtoSQuestionList]);
 
   const handleNextQuestion = () => {
     setSelectedContent("Question");

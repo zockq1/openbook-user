@@ -27,8 +27,7 @@ function FinalLearningPage() {
     const questionList1 = KtoTQuestionList ? [...KtoTQuestionList] : [];
     const questionList2 = StoTQuestionList ? [...StoTQuestionList] : [];
     setQuestionList([...questionList1, ...questionList2]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [KtoTQuestionList, StoTQuestionList]);
 
   const handleNextContent = () => {
     updateProgres({
