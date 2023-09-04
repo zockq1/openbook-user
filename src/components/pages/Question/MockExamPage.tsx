@@ -5,12 +5,13 @@ import QuestionOptionTemplate from "../../templates/Question/QuestionOptionTempl
 import QuestionTemplate from "../../templates/Question/QuestionTemplate";
 import useGetExKtoTQuestionList from "../../../example/useGetExKtoTQuestionList";
 import { useNavigate } from "react-router-dom";
+import useGetExMockExamList from "../../../example/useGetExMockEaxm";
 
 function MockExamPage() {
   const navigate = useNavigate();
   /******************************* 실제 코드 *********************************/
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: KtoTQuestionList } = useGetExKtoTQuestionList();
+  const { data: KtoTQuestionList } = useGetExMockExamList();
   const [questionList] = useState(KtoTQuestionList);
   /******************************* 예시 코드 *********************************/
   const [selectedTimeLimit, setSelectedTimeLimit] = useState("무제한");

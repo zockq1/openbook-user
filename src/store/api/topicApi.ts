@@ -9,10 +9,7 @@ export const topicApi = createApi({
     getTopic: builder.query<TopicModel, string>({
       query: (title) => `/topics/${title}`,
     }),
-    getChapterTopicList: builder.query<string[], number>({
-      query: (chapter) => `/chapters/${chapter}/topics`,
-    }),
   }),
 });
 
-export const { useGetTopicQuery, useGetChapterTopicListQuery } = topicApi;
+export const { useGetTopicQuery } = topicApi;

@@ -18,7 +18,7 @@ const useGetExContentList = (): { data: ContentModel[] | undefined } => {
       state: "Open",
     },
     {
-      content: "단원 마무리 학습",
+      content: "단원 마무리 문제",
       title: "교역망의 발달과 은 유통",
       state: "Open",
     },

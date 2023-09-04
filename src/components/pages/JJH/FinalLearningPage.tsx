@@ -14,12 +14,13 @@ function FinalLearningPage() {
   const { chapter } = useParams();
   const navigate = useNavigate();
   /******************************* 실제 코드 *********************************/
-  const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(Number(chapter));
-  const { data: StoTQuestionList } = useGetStoTQuestionQuery(Number(chapter));
-  const [updateProgres] = useUpdateProgressMutation();
+  // const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(Number(chapter));
+  // const { data: StoTQuestionList } = useGetStoTQuestionQuery(Number(chapter));
+  // const [updateProgres] = useUpdateProgressMutation();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: KtoTQuestionList } = useGetExKtoTQuestionList();
-  // const { data: StoTQuestionList } = useGetExStoTQuestionList();
+  const { data: KtoTQuestionList } = useGetExKtoTQuestionList();
+  const { data: StoTQuestionList } = useGetExStoTQuestionList();
+  const updateProgres = (ex: any) => {};
   /******************************* 예시 코드 *********************************/
   const [questionList, setQuestionList] = useState<QuestionModel[]>([]);
 

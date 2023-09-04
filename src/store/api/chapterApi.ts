@@ -6,6 +6,7 @@ import {
   ContentModel,
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
+import { TopicModel } from "../../types/topicTypes";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
@@ -15,6 +16,9 @@ export const chapterApi = createApi({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
       providesTags: ["ProgressUpdate"],
+    }),
+    getChapterTopicList: builder.query<TopicModel[], number>({
+      query: (chapter) => `/chapters/${chapter}/topics`,
     }),
     getChapterTitle: builder.query<ChapterTitleModel, number>({
       query: (chapterNumber) =>

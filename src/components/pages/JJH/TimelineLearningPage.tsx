@@ -18,14 +18,15 @@ function TimelineLearningPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  const { data: dateList } = useGetTimelineQuery(Number(chapter));
-  const { data: contentList } = useGetContentListQuery(Number(chapter));
-  const [updateProgres] = useUpdateProgressMutation();
+  // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  // const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  // const { data: contentList } = useGetContentListQuery(Number(chapter));
+  // const [updateProgres] = useUpdateProgressMutation();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: contentList } = useGetExContentList();
-  // const { data: chapterTitle } = useGetExChapterTitle();
-  // const { data: dateList } = useGetExDateList();
+  const { data: contentList } = useGetExContentList();
+  const { data: chapterTitle } = useGetExChapterTitle();
+  const { data: dateList } = useGetExDateList();
+  const updateProgres = (ex: any) => {};
   /******************************* 예시 코드 *********************************/
 
   const [selectedContent, setSelectedContent] =
@@ -40,14 +41,23 @@ function TimelineLearningPage() {
   };
 
   const handleNextContent = () => {
-    updateProgres({
-      content: "주제 학습",
-      title: contentList[2].title,
-      state: "Open",
-    });
-    navigate(
-      `/jeong-ju-haeng/${chapter}/topic-learning/${contentList[2].title}`
-    );
+    if (contentList[2].content === "주제 학습") {
+      updateProgres({
+        content: "주제 학습",
+        title: contentList[2].title,
+        state: "Open",
+      });
+      navigate(
+        `/jeong-ju-haeng/${chapter}/topic-learning/${contentList[2].title}`
+      );
+    } else if (contentList[2].content === "단원 마무리 문제") {
+      updateProgres({
+        content: "단원 마무리 문제",
+        title: String(chapter),
+        state: "Open",
+      });
+      navigate(`/jeong-ju-haeng/${chapter}/final-learning`);
+    }
   };
 
   return (

@@ -6,9 +6,9 @@ import { useGetTopicQuery } from "../../../store/api/topicApi";
 function LearningTopicPage() {
   const { chapter, topic } = useParams();
   /******************************* 실제 코드 *********************************/
-  const { data: topicInfo } = useGetTopicQuery(String(topic));
+  // const { data: topicInfo } = useGetTopicQuery(String(topic));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  //const { data: topicInfo } = useGetExTopicInfo();
+  const { data: topicInfo } = useGetExTopicInfo();
   /******************************* 예시 코드 *********************************/
 
   if (!topicInfo) {

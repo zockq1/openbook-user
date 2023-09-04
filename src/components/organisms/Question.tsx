@@ -117,9 +117,11 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
       )}
       {currentQuestionList[currentQuestionNumber].description && (
         <Description>
-          <TextBox maxWidth="full">
-            {currentQuestionList[currentQuestionNumber].description}
-          </TextBox>
+          <img
+            style={{ width: "100%", height: "auto" }}
+            src={currentQuestionList[currentQuestionNumber].description}
+            alt=""
+          />
         </Description>
       )}
       {currentQuestionList[currentQuestionNumber].descriptionSentence && (
