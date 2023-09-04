@@ -10,9 +10,11 @@ import baseQueryWithJWT from "./baseApi";
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
   baseQuery: baseQueryWithJWT,
+  tagTypes: ["ProgressUpdate"],
   endpoints: (builder) => ({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
+      providesTags: ["ProgressUpdate"],
     }),
     getChapterTitle: builder.query<ChapterTitleModel, number>({
       query: (chapterNumber) =>
@@ -23,6 +25,17 @@ export const chapterApi = createApi({
     }),
     getContentList: builder.query<ContentModel[], number>({
       query: (chapterNumber) => `/contents-table?num=${chapterNumber}`,
+      providesTags: ["ProgressUpdate"],
+    }),
+    updateProgress: builder.mutation<any, ContentModel>({
+      query: (progress: ContentModel) => {
+        return {
+          url: `/study-progress/chapter/progress`,
+          method: "PATCH",
+          body: progress,
+        };
+      },
+      invalidatesTags: ["ProgressUpdate"],
     }),
   }),
 });
@@ -32,4 +45,5 @@ export const {
   useGetChapterTitleQuery,
   useGetChapterInfoQuery,
   useGetContentListQuery,
+  useUpdateProgressMutation,
 } = chapterApi;

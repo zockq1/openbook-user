@@ -13,6 +13,7 @@ import useGetExTtoKQuestionList from "../../../example/useGetExTtoKQuestionList"
 import useGetExTtoSQuestionList from "../../../example/useGetExTtoSQuestionList";
 import useGetExContentList from "../../../example/useGetExContentList";
 import QuestionTemplate from "../../templates/Question/QuestionTemplate";
+import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
 
 type SelectedContent = "Learning" | "Question";
 
@@ -20,15 +21,16 @@ function TopicLearningPage() {
   const navigate = useNavigate();
   const { chapter, topic } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: topicInfo } = useGetTopicQuery(String(topic));
-  // const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
-  // const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
-  //const { data: contentList } = useGetContentListQuery(Number(chapter));
+  const { data: topicInfo } = useGetTopicQuery(String(topic));
+  const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
+  const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
+  const { data: contentList } = useGetContentListQuery(Number(chapter));
+  const [updateProgres] = useUpdateProgressMutation();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: topicInfo } = useGetExTopicInfo();
-  const { data: TtoKQuestionList } = useGetExTtoKQuestionList();
-  const { data: TtoSQuestionList } = useGetExTtoSQuestionList();
-  const { data: contentList } = useGetExContentList();
+  // const { data: topicInfo } = useGetExTopicInfo();
+  // const { data: TtoKQuestionList } = useGetExTtoKQuestionList();
+  // const { data: TtoSQuestionList } = useGetExTtoSQuestionList();
+  // const { data: contentList } = useGetExContentList();
   /******************************* 예시 코드 *********************************/
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");
@@ -59,9 +61,19 @@ function TopicLearningPage() {
         const nextContent = arr[index + 1].content;
         const nextTopic = arr[index + 1].title;
         if (nextContent === "주제 학습") {
+          updateProgres({
+            content: "주제 학습",
+            title: nextTopic,
+            state: "Open",
+          });
           setSelectedContent("Learning");
           navigate(`/jeong-ju-haeng/${chapter}/topic-learning/${nextTopic}`);
-        } else if (nextContent === "단원 마무리 학습") {
+        } else if (nextContent === "단원 마무리 문제") {
+          updateProgres({
+            content: "단원 마무리 문제",
+            title: String(chapter),
+            state: "Open",
+          });
           navigate(`/jeong-ju-haeng/${chapter}/final-learning/`);
         }
       }

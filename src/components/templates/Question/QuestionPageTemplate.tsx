@@ -32,7 +32,7 @@ function QuestionPageTemplate() {
         ></QuestionBox>
         <QuestionBox
           title="모의고사"
-          link=""
+          link="/question/mock-exam"
           image={mock}
           icon={<Icon category="모의고사" />}
           descriptionTime="30분"

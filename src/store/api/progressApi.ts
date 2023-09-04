@@ -5,17 +5,7 @@ import { ContentModel } from "../../types/chapterTypes";
 export const progressApi = createApi({
   reducerPath: "progressApi",
   baseQuery: baseQueryWithJWT,
-  endpoints: (builder) => ({
-    updateProgress: builder.mutation<any, ContentModel>({
-      query: (progress: ContentModel) => {
-        return {
-          url: `/study-progress/chapter/progress`,
-          method: "PATCH",
-          body: progress,
-        };
-      },
-    }),
-  }),
+  endpoints: (builder) => ({}),
 });
 
-export const { useUpdateProgressMutation } = progressApi;
+export const {} = progressApi;

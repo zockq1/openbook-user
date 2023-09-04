@@ -17,7 +17,7 @@ function MenuList({ list }: MenuListProps) {
     }
     navigate(link);
   };
-
+  console.log(list);
   return (
     <ColumnList>
       {list.map((item, index) => {

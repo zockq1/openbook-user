@@ -40,7 +40,7 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     "연표 문제": <TbClockQuestion color={color} size={size} />,
     "주제 학습": <BsCardText color={color} size={size} />,
     "주제별 문제": <BsQuestionSquare color={color} size={size} />,
-    "단원 마무리 학습": <BsQuestionSquare color={color} size={size} />,
+    "단원 마무리 문제": <BsQuestionSquare color={color} size={size} />,
     Home: <AiOutlineHome color={color} size={size} />,
     Question: <LuFileQuestion color={color} size={size} />,
     MyInfo: <LiaReadme color={color} size={size} />,

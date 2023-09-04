@@ -16,7 +16,7 @@ export const questionApi = createApi({
     }),
     getTtoSQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
-        `/questions/get-senteces/?title=${topicTitle}`,
+        `/questions/get-sentences/?title=${topicTitle}`,
     }),
     getKtoTQuestion: builder.query<QuestionModel[], number>({
       query: (chapterNumber: number) =>

@@ -19,6 +19,7 @@ import LearningTopicPage from "./components/pages/Learning/LearningTopicPage";
 import LearningChapterPage from "./components/pages/Learning/LearningChapterPage";
 import QuizPage from "./components/pages/Question/QuizPage";
 import TimelineQuestionPage from "./components/pages/Question/TimelineQuestionPage";
+import MockExamPage from "./components/pages/Question/MockExamPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/question",
         element: <QuestionPage />,
+      },
+      {
+        path: "/question/mock-exam",
+        element: <MockExamPage />,
       },
       {
         path: "/question/timeline",

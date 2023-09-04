@@ -6,10 +6,10 @@ import MenuTemplate from "../../templates/MenuTemplate";
 
 function LearningChapterListPage() {
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterList } = useGetChaptersQuery();
+  const { data: chapterList } = useGetChaptersQuery();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data } = useGetExChapterList();
-  const [chapterList] = useState(data);
+  // const { data } = useGetExChapterList();
+  // const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 

@@ -9,9 +9,9 @@ import { useGetChapterTitleQuery } from "../../../store/api/chapterApi";
 function LearningTopicListPage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  //const { data: chapterTitle } = useGetChapterTitleQuery();
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: chapterTitle } = useGetExChapterTitle();
+  //const { data: chapterTitle } = useGetExChapterTitle();
   const { data } = useGetExTopicList();
   const [topicList] = useState(data);
   /******************************* 예시 코드 *********************************/

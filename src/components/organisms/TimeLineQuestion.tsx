@@ -152,7 +152,7 @@ function TimelineQuestion({
 
   return (
     <StyledTimelineQuestion>
-      <Box />
+      {!isComplete && <Box />}
       {isMounted && (
         <DragDropContext onDragEnd={handleChange}>
           <Droppable droppableId="played">
