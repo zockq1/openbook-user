@@ -45,8 +45,8 @@ const LongComment = styled.span<AnswerCheckProps>`
         ? theme.colors.blue
         : theme.colors.red
       : theme.colors.black};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-size: ${({ theme }) => theme.fontSizes.small};
 
   line-height: 120%;
 `;
