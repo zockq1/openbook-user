@@ -15,25 +15,28 @@ interface TimelineQuestionProps {
   isComplete: boolean;
 }
 
-const Line = styled.div`
+interface LineProps {
+  height: number;
+}
+
+const Line = styled.div<LineProps>`
   position: absolute;
   background-color: ${({ theme }) => theme.colors.blue};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 16px;
-  height: 104%;
+  height: ${({ height }) => `${height}px`};
   left: 90px;
   z-index: 0;
+  transition: 0.5s ease;
 `;
 
-const StyledTimelineQuestion = styled.ul`
-  position: relative;
+const StyledTimelineQuestion = styled.div`
   display: flex;
+  overflow: hidden;
+  align-items: center;
   flex-direction: column;
-  margin-bottom: 30px;
-
-  & > :last-child {
-    margin-bottom: 30px;
-  }
+  width: 90vw;
+  height: 100%;
 `;
 
 const Item = styled.div`
@@ -44,20 +47,36 @@ const Item = styled.div`
 `;
 
 const NextItemPlace = styled.div`
-  position: absolute;
   display: flex;
   justify-content: center;
-  width: 100%;
-  top: -18px;
-  height: 60px;
 `;
 
 const NextItemPlaceBox = styled.div`
+  position: absolute;
+  overflow: hidden;
+  bottom: 18px;
+  left: 15px;
+  height: 80px;
+  width: calc(100vw - 30px);
+  z-index: 0;
+`;
+
+const PlayedItemPlaceBox = styled.div`
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: calc(100vh - 230px);
+  width: 100%;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+`;
+
+const Box = styled.div`
   position: fixed;
   bottom: 20px;
   left: 15px;
-  width: calc(100vw - 30px);
   height: 60px;
+  width: calc(100vw - 30px);
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.padding.base};
   border: ${({ theme }) => theme.border.black};
@@ -75,6 +94,7 @@ function TimelineQuestion({
     [...dateList].sort(() => Math.random() - 0.5)
   );
   const [playedDateList, setPlayedDateList] = useState<TimeLineModel[]>([]);
+  const [lineHeight, setLineHeight] = useState<number>(166); //68씩 증가
 
   useEffect(() => {
     setIsMounted(true);
@@ -99,6 +119,7 @@ function TimelineQuestion({
     ) {
       setPlayedDateList([nextDateList[0], ...playedDateList]);
       setNextDateList(nextDateList.slice(1));
+      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
     } else if (
       destination.index === 0 &&
       nextDateList[0].date > playedDateList[0].date
@@ -109,6 +130,7 @@ function TimelineQuestion({
     ) {
       setPlayedDateList([...playedDateList, nextDateList[0]]);
       setNextDateList(nextDateList.slice(1));
+      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
     } else if (
       destination.index === playedDateList.length &&
       nextDateList[0].date < playedDateList[playedDateList.length - 1].date
@@ -121,6 +143,7 @@ function TimelineQuestion({
       updatedList.splice(destination.index, 0, nextDateList[0]);
       setPlayedDateList(updatedList);
       setNextDateList(nextDateList.slice(1));
+      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
     }
     if (nextDateList.length === 0) {
       setIsComplete(true);
@@ -129,9 +152,47 @@ function TimelineQuestion({
 
   return (
     <StyledTimelineQuestion>
-      <Line />
+      <Box />
       {isMounted && (
         <DragDropContext onDragEnd={handleChange}>
+          <Droppable droppableId="played">
+            {(provided) => (
+              <PlayedItemPlaceBox
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                <Line height={lineHeight} />
+                {playedDateList.map((item, i: number) => (
+                  <Draggable
+                    draggableId={`${item.comment}`}
+                    index={i}
+                    key={`${item.comment}`}
+                    isDragDisabled={true}
+                  >
+                    {(provided, snapshot) => {
+                      return (
+                        <div
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Item>
+                            <TimelineItem
+                              date={item.date}
+                              comment={item.comment}
+                              key={i}
+                              isQuestion={true}
+                            />
+                          </Item>
+                        </div>
+                      );
+                    }}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </PlayedItemPlaceBox>
+            )}
+          </Droppable>
           {!isComplete && (
             <NextItemPlaceBox>
               <Droppable droppableId="next">
@@ -170,40 +231,6 @@ function TimelineQuestion({
               </Droppable>
             </NextItemPlaceBox>
           )}
-          <Droppable droppableId="played">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {playedDateList.map((item, i: number) => (
-                  <Draggable
-                    draggableId={`${item.comment}`}
-                    index={i}
-                    key={`${item.comment}`}
-                    isDragDisabled={true}
-                  >
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Item>
-                            <TimelineItem
-                              date={item.date}
-                              comment={item.comment}
-                              key={i}
-                              isQuestion={true}
-                            />
-                          </Item>
-                        </div>
-                      );
-                    }}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
         </DragDropContext>
       )}
     </StyledTimelineQuestion>

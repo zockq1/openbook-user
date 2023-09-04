@@ -14,9 +14,10 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 81px 44px max-content 125px;
+  grid-template-columns: 81px 44px max-content;
   align-items: center;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "15px 0")};
+  margin-right: 125px;
 `;
 
 const InnerCircle = styled.div`
