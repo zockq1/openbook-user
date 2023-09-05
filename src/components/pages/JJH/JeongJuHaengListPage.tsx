@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import useGetExChapterList from "../../../example/useGetExChapterList";
-import { useGetChaptersQuery } from "../../../store/api/chapterApi";
+import useGetExJJHChapterList from "../../../example/useGetExJJHChapterList";
+import { useGetJJHChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/CommonTypes";
 import MenuTemplate from "../../templates/MenuTemplate";
 
 function JeongJuHaengListPage() {
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterList } = useGetChaptersQuery();
+  // const { data: chapterList } = useGetJJHChaptersQuery();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data } = useGetExChapterList();
+  const { data } = useGetExJJHChapterList();
   const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);

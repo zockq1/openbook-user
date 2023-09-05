@@ -4,6 +4,7 @@ import {
   ChapterModel,
   ChapterTitleModel,
   ContentModel,
+  JJHChapterModel,
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 import { TopicModel } from "../../types/topicTypes";
@@ -15,6 +16,9 @@ export const chapterApi = createApi({
   endpoints: (builder) => ({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
+    }),
+    getJJHChapters: builder.query<JJHChapterModel[], void>({
+      query: () => "/jjh/chapters",
       providesTags: ["ProgressUpdate"],
     }),
     getChapterTopicList: builder.query<TopicModel[], number>({
@@ -46,8 +50,10 @@ export const chapterApi = createApi({
 
 export const {
   useGetChaptersQuery,
+  useGetJJHChaptersQuery,
   useGetChapterTitleQuery,
   useGetChapterInfoQuery,
   useGetContentListQuery,
+  useGetChapterTopicListQuery,
   useUpdateProgressMutation,
 } = chapterApi;

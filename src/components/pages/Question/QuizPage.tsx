@@ -1,4 +1,4 @@
-import useGetExChapterList from "../../../example/useGetExChapterList";
+import useGetExChapterList from "../../../example/useGetExJJHChapterList";
 import { useState } from "react";
 import Icon from "../../atoms/Icon";
 import QuestionOptionTemplate from "../../templates/Question/QuestionOptionTemplate";

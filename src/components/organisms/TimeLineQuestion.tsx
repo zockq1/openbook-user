@@ -72,7 +72,7 @@ const PlayedItemPlaceBox = styled.div`
 `;
 
 const Box = styled.div`
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 15px;
   height: 60px;

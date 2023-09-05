@@ -4,12 +4,16 @@ import useGetExTopicList from "../../../example/useGetExTopicList";
 import MenuTemplate from "../../templates/MenuTemplate";
 import { useParams } from "react-router-dom";
 import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
-import { useGetChapterTitleQuery } from "../../../store/api/chapterApi";
+import {
+  useGetChapterTitleQuery,
+  useGetChapterTopicListQuery,
+} from "../../../store/api/chapterApi";
 
 function LearningTopicListPage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
   // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  // const {data: topicList} = useGetChapterTopicListQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
   const { data: chapterTitle } = useGetExChapterTitle();
   const { data } = useGetExTopicList();

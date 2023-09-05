@@ -1,13 +1,18 @@
 export type ContentState = "Open" | "Locked" | "Updated";
 
-export interface ChapterModel {
+export interface JJHChapterModel {
   title: string;
   number: number;
   state: ContentState;
   progress: string;
-  startDate?: number | null;
-  endDate?: number | null;
-  topicCount?: number;
+}
+
+export interface ChapterModel {
+  title: string;
+  number: number;
+  startDate: number | null;
+  endDate: number | null;
+  topicCount: number;
 }
 
 export interface ChapterTitleModel {
