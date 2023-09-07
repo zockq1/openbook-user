@@ -5,21 +5,28 @@ import QuestionOptionTemplate from "../../templates/Question/QuestionOptionTempl
 import QuestionTemplate from "../../templates/Question/QuestionTemplate";
 import useGetExKtoTQuestionList from "../../../example/useGetExKtoTQuestionList";
 import { useNavigate } from "react-router-dom";
+import { useGetChaptersQuery } from "../../../store/api/chapterApi";
+import { useGetRandomQuestionQuery } from "../../../store/api/questionApi";
 
 function QuizPage() {
   const navigate = useNavigate();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterList } = useGetChaptersQuery();
+  const { data: chapterList } = useGetChaptersQuery();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data } = useGetExChapterList();
-  const [chapterList] = useState(data);
-  const { data: KtoTQuestionList } = useGetExKtoTQuestionList();
-  const [questionList] = useState(KtoTQuestionList);
+  // const { data } = useGetExChapterList();
+  // const [chapterList] = useState(data);
+  // const { data: KtoTQuestionList } = useGetExKtoTQuestionList();
+  // const [questionList] = useState(KtoTQuestionList);
   /******************************* 예시 코드 *********************************/
   const [selectedTimeLimit, setSelectedTimeLimit] = useState("무제한");
   const [selectedChapter, setSelectedChapter] = useState("무작위");
-  const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] = useState("5");
+  const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] = useState(5);
   const [start, setStart] = useState<boolean>(false);
+
+  const { data: questionList } = useGetRandomQuestionQuery({
+    chapterNumber: selectedChapter === "무작위" ? 0 : Number(selectedChapter),
+    numberOfQuestion: selectedNumberOfQuestion,
+  });
 
   const handleStart = () => {
     setStart(true);
@@ -91,7 +98,7 @@ function QuizPage() {
               title: "문제 수",
               icon: <Icon category="갯수" />,
               handleSelect: handleSelectNumberOfQuestion,
-              selectedItem: selectedNumberOfQuestion,
+              selectedItem: String(selectedNumberOfQuestion),
               selectName: "number-of-question",
               optionList: [
                 { value: "5", key: "5", description: "5" },

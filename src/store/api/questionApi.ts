@@ -1,5 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { QuestionModel, TimeLineModel } from "../../types/questionTypes";
+import {
+  GetQuestionModel,
+  QuestionModel,
+  TimeLineModel,
+} from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
 
 export const questionApi = createApi({
@@ -13,6 +17,10 @@ export const questionApi = createApi({
     getTtoKQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
         `/questions/get-keywords/?title=${topicTitle}`,
+    }),
+    getRandomQuestion: builder.query<QuestionModel[], GetQuestionModel>({
+      query: (getQuestion) =>
+        `/questions/random?num=${getQuestion.chapterNumber}&count=${getQuestion.numberOfQuestion}`,
     }),
     getTtoSQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
@@ -31,6 +39,7 @@ export const questionApi = createApi({
 
 export const {
   useGetTimelineQuery,
+  useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,
   useGetStoTQuestionQuery,

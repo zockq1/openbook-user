@@ -23,3 +23,8 @@ export interface TimeLineModel {
   date: number;
   topicTitle: string;
 }
+
+export interface GetQuestionModel {
+  chapterNumber: number;
+  numberOfQuestion: number;
+}
