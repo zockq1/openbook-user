@@ -6,10 +6,10 @@ import MenuTemplate from "../../templates/MenuTemplate";
 
 function JeongJuHaengListPage() {
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterList } = useGetJJHChaptersQuery();
+  const { data: chapterList } = useGetJJHChaptersQuery();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data } = useGetExJJHChapterList();
-  const [chapterList] = useState(data);
+  // const { data } = useGetExJJHChapterList();
+  // const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 

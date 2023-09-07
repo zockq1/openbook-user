@@ -8,11 +8,11 @@ import { useGetTimelineQuery } from "../../../store/api/questionApi";
 function TimelinePage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  // const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  const { data: dateList } = useGetTimelineQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: chapterTitle } = useGetExChapterTitle();
-  const { data: dateList } = useGetExDateList();
+  // const { data: chapterTitle } = useGetExChapterTitle();
+  // const { data: dateList } = useGetExDateList();
   /******************************* 예시 코드 *********************************/
 
   return (

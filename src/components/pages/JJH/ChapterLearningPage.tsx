@@ -12,13 +12,13 @@ function ChapterLearningPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  // const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
-  // const [updateProgres] = useUpdateProgressMutation();
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
+  const [updateProgres] = useUpdateProgressMutation();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: chapterTitle } = useGetExChapterTitle();
-  const { data: chapterInfo } = useGetExChapterInfo();
-  const updateProgres = (ex: any) => {};
+  // const { data: chapterTitle } = useGetExChapterTitle();
+  // const { data: chapterInfo } = useGetExChapterInfo();
+  // const updateProgres = (ex: any) => {};
   /******************************* 예시 코드 *********************************/
 
   if (!chapterInfo || !chapterTitle) {

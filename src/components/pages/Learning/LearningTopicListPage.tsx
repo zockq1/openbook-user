@@ -12,12 +12,12 @@ import {
 function LearningTopicListPage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  // const {data: topicList} = useGetChapterTopicListQuery(Number(chapter));
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: chapterTitle } = useGetExChapterTitle();
-  const { data } = useGetExTopicList();
-  const [topicList] = useState(data);
+  // const { data: chapterTitle } = useGetExChapterTitle();
+  // const { data } = useGetExTopicList();
+  // const [topicList] = useState(data);
   /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -47,7 +47,7 @@ function LearningTopicListPage() {
         return result;
       }),
     ]);
-  }, [setMenuList, topicList, chapter]);
+  }, [setMenuList, topicList, chapter, chapterTitle]);
 
   if (!topicList || !chapterTitle) {
     return <div>Loading...</div>;

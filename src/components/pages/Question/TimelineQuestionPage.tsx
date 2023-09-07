@@ -6,17 +6,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import TimelineQuestionTemplate from "../../templates/Question/TimelineQuestionTemplate";
 import useGetExDateList from "../../../example/useGetExDateList";
 import { useGetTimelineQuery } from "../../../store/api/questionApi";
+import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 
 function TimelineQuestionPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterList } = useGetChaptersQuery();
-  //const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  const { data: chapterList } = useGetChaptersQuery();
+  const { data: dateList } = useGetTimelineQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: dateList } = useGetExDateList();
-  const { data } = useGetExChapterList();
-  const [chapterList] = useState(data);
+  // const { data: dateList } = useGetExDateList();
+  // const { data } = useGetExChapterList();
+  // const [chapterList] = useState(data);
   /******************************* 예시 코드 *********************************/
   const [selectedTimeLimit, setSelectedTimeLimit] = useState("무제한");
   const [selectedChapter, setSelectedChapter] = useState("무작위");

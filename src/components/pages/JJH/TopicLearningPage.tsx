@@ -21,17 +21,17 @@ function TopicLearningPage() {
   const navigate = useNavigate();
   const { chapter, topic } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: topicInfo } = useGetTopicQuery(String(topic));
-  // const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
-  // const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
-  // const { data: contentList } = useGetContentListQuery(Number(chapter));
-  // const [updateProgres] = useUpdateProgressMutation();
+  const { data: topicInfo } = useGetTopicQuery(String(topic));
+  const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
+  const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
+  const { data: contentList } = useGetContentListQuery(Number(chapter));
+  const [updateProgres] = useUpdateProgressMutation();
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: topicInfo } = useGetExTopicInfo();
-  const { data: TtoKQuestionList } = useGetExTtoKQuestionList();
-  const { data: TtoSQuestionList } = useGetExTtoSQuestionList();
-  const { data: contentList } = useGetExContentList();
-  const updateProgres = (ex: any) => {};
+  // const { data: topicInfo } = useGetExTopicInfo();
+  // const { data: TtoKQuestionList } = useGetExTtoKQuestionList();
+  // const { data: TtoSQuestionList } = useGetExTtoSQuestionList();
+  // const { data: contentList } = useGetExContentList();
+  // const updateProgres = (ex: any) => {};
   /******************************* 예시 코드 *********************************/
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");

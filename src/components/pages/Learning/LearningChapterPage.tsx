@@ -10,11 +10,11 @@ import {
 function LearningChapterPage() {
   const { chapter } = useParams();
   /******************************* 실제 코드 *********************************/
-  // const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  // const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
+  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
   /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  const { data: chapterTitle } = useGetExChapterTitle();
-  const { data: chapterInfo } = useGetExChapterInfo();
+  // const { data: chapterTitle } = useGetExChapterTitle();
+  // const { data: chapterInfo } = useGetExChapterInfo();
   /******************************* 예시 코드 *********************************/
 
   if (!chapterInfo || !chapterTitle) {
