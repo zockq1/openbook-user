@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import {
   GetQuestionModel,
   QuestionModel,
+  RoundModel,
   TimeLineModel,
 } from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
@@ -10,9 +11,15 @@ export const questionApi = createApi({
   reducerPath: "questionApi",
   baseQuery: baseQueryWithJWT,
   endpoints: (builder) => ({
+    getRounds: builder.query<RoundModel[], void>({
+      query: () => "/rounds",
+    }),
     getTimeline: builder.query<TimeLineModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/time-flow/?num=${chapterNumber}`,
+    }),
+    getMockExam: builder.query<QuestionModel[], number>({
+      query: (round: number) => `/questions/mock-exam/?nun=${round}`,
     }),
     getTtoKQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
@@ -38,7 +45,9 @@ export const questionApi = createApi({
 });
 
 export const {
+  useGetRoundsQuery,
   useGetTimelineQuery,
+  useGetMockExamQuery,
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,

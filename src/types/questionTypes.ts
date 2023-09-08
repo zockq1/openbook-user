@@ -28,3 +28,8 @@ export interface GetQuestionModel {
   chapterNumber: number;
   numberOfQuestion: number;
 }
+
+export interface RoundModel {
+  date: number;
+  number: number;
+}
