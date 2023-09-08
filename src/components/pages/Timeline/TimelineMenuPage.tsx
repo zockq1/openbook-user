@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import useGetExChapterList from "../../../example/useGetExChapterList";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 import MenuTemplate from "../../templates/MenuTemplate";
 import { MenuModel } from "../../../types/CommonTypes";
 
 function TimelineMenuPage() {
-  /******************************* 실제 코드 *********************************/
   const { data: chapterList } = useGetChaptersQuery();
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data } = useGetExChapterList();
-  // const [chapterList] = useState(data);
-  /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import MainPage from "./components/pages/MainPage";
 import LoginLoadingRedirectPage from "./components/pages/LoginLoadingRedirectPage";
-import JeongJuHaengListPage from "./components/pages/JJH/JeongJuHaengListPage";
 import ContentListPage from "./components/pages/JJH/ContentListPage";
 import ChapterLearningPage from "./components/pages/JJH/ChapterLearningPage";
 import TimelineLearningPage from "./components/pages/JJH/TimelineLearningPage";
@@ -23,6 +22,7 @@ import MockExamPage from "./components/pages/Question/MockExamPage";
 import MockExamSettingPage from "./components/pages/Question/MockExamSettingPage";
 import TimelineQuestionSettingPage from "./components/pages/Question/TimelineQuestionSettingPage.tsx";
 import QuizSettingPage from "./components/pages/Question/QuizSettingPage";
+import ChapterListPage from "./components/pages/JJH/ChapterListPage";
 
 const router = createBrowserRouter([
   {
@@ -119,7 +119,7 @@ const router = createBrowserRouter([
       },
       {
         path: "jeong-ju-haeng",
-        element: <JeongJuHaengListPage />,
+        element: <ChapterListPage />,
       },
     ],
   },

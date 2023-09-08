@@ -3,22 +3,14 @@ import {
   useGetChapterTitleQuery,
   useGetContentListQuery,
 } from "../../../store/api/chapterApi";
-import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
-import useGetExContentList from "../../../example/useGetExContentList";
 import { useEffect, useState } from "react";
 import { MenuModel } from "../../../types/CommonTypes";
 import MenuTemplate from "../../templates/MenuTemplate";
 
 function ContentListPage() {
   const { chapter } = useParams();
-  /******************************* 실제 코드 *********************************/
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: contentList } = useGetContentListQuery(Number(chapter));
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: chapterTitle } = useGetExChapterTitle();
-  // const { data } = useGetExContentList();
-  // const [contentList] = useState(data);
-  /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {

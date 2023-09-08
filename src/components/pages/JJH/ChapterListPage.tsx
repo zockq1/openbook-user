@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import useGetExJJHChapterList from "../../../example/useGetExJJHChapterList";
 import { useGetJJHChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/CommonTypes";
 import MenuTemplate from "../../templates/MenuTemplate";
 
-function JeongJuHaengListPage() {
-  /******************************* 실제 코드 *********************************/
+function ChapterListPage() {
   const { data: chapterList } = useGetJJHChaptersQuery();
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data } = useGetExJJHChapterList();
-  // const [chapterList] = useState(data);
-  /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -39,6 +33,4 @@ function JeongJuHaengListPage() {
   return <MenuTemplate menuList={menuList} backLink="/" category="정주행" />;
 }
 
-export default JeongJuHaengListPage;
-
-//   지금까지 한 갯수(  ) / (3 + (주제 개수 * 3) + (주제 개수 * 2)) * 100
+export default ChapterListPage;

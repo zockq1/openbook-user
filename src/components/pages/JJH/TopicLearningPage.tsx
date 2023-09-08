@@ -8,10 +8,6 @@ import {
 } from "../../../store/api/questionApi";
 import { QuestionModel } from "../../../types/questionTypes";
 import { useGetContentListQuery } from "../../../store/api/chapterApi";
-import useGetExTopicInfo from "../../../example/useGetExTopicInfo";
-import useGetExTtoKQuestionList from "../../../example/useGetExTtoKQuestionList";
-import useGetExTtoSQuestionList from "../../../example/useGetExTtoSQuestionList";
-import useGetExContentList from "../../../example/useGetExContentList";
 import QuestionTemplate from "../../templates/Question/QuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
 
@@ -20,19 +16,11 @@ type SelectedContent = "Learning" | "Question";
 function TopicLearningPage() {
   const navigate = useNavigate();
   const { chapter, topic } = useParams();
-  /******************************* 실제 코드 *********************************/
   const { data: topicInfo } = useGetTopicQuery(String(topic));
   const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
   const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
   const { data: contentList } = useGetContentListQuery(Number(chapter));
   const [updateProgres] = useUpdateProgressMutation();
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: topicInfo } = useGetExTopicInfo();
-  // const { data: TtoKQuestionList } = useGetExTtoKQuestionList();
-  // const { data: TtoSQuestionList } = useGetExTtoSQuestionList();
-  // const { data: contentList } = useGetExContentList();
-  // const updateProgres = (ex: any) => {};
-  /******************************* 예시 코드 *********************************/
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");
   const [questionList, setQuestionList] = useState<QuestionModel[]>([]);

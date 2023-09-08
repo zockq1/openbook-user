@@ -6,9 +6,6 @@ import {
 } from "../../../store/api/chapterApi";
 import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import { useState } from "react";
-import useGetExContentList from "../../../example/useGetExContentList";
-import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
-import useGetExDateList from "../../../example/useGetExDateList";
 import TimelineQuestionTemplate from "../../templates/Question/TimelineQuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
 
@@ -17,17 +14,10 @@ type SelectedContent = "Learning" | "Question";
 function TimelineLearningPage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
-  /******************************* 실제 코드 *********************************/
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: dateList } = useGetTimelineQuery(Number(chapter));
   const { data: contentList } = useGetContentListQuery(Number(chapter));
   const [updateProgres] = useUpdateProgressMutation();
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: contentList } = useGetExContentList();
-  // const { data: chapterTitle } = useGetExChapterTitle();
-  // const { data: dateList } = useGetExDateList();
-  // const updateProgres = (ex: any) => {};
-  /******************************* 예시 코드 *********************************/
 
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");

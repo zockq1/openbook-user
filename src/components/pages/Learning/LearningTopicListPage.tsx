@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { MenuModel } from "../../../types/CommonTypes";
-import useGetExTopicList from "../../../example/useGetExTopicList";
 import MenuTemplate from "../../templates/MenuTemplate";
 import { useParams } from "react-router-dom";
-import useGetExChapterTitle from "../../../example/useGetExChapterTitle";
 import {
   useGetChapterTitleQuery,
   useGetChapterTopicListQuery,
@@ -11,14 +9,8 @@ import {
 
 function LearningTopicListPage() {
   const { chapter } = useParams();
-  /******************************* 실제 코드 *********************************/
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
-  /************************ ↓예시 코드↓ / ↑실제 코드↑ **************************/
-  // const { data: chapterTitle } = useGetExChapterTitle();
-  // const { data } = useGetExTopicList();
-  // const [topicList] = useState(data);
-  /******************************* 예시 코드 *********************************/
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
