@@ -20,6 +20,9 @@ import LearningChapterPage from "./components/pages/Learning/LearningChapterPage
 import QuizPage from "./components/pages/Question/QuizPage";
 import TimelineQuestionPage from "./components/pages/Question/TimelineQuestionPage";
 import MockExamPage from "./components/pages/Question/MockExamPage";
+import MockExamSettingPage from "./components/pages/Question/MockExamSettingPage";
+import TimelineQuestionSettingPage from "./components/pages/Question/TimelineQuestionSettingPage.tsx";
+import QuizSettingPage from "./components/pages/Question/QuizSettingPage";
 
 const router = createBrowserRouter([
   {
@@ -35,12 +38,24 @@ const router = createBrowserRouter([
         element: <QuestionPage />,
       },
       {
+        path: "/question/mock-exam/setting",
+        element: <MockExamSettingPage />,
+      },
+      {
         path: "/question/mock-exam",
         element: <MockExamPage />,
       },
       {
+        path: "/question/timeline/setting",
+        element: <TimelineQuestionSettingPage />,
+      },
+      {
         path: "/question/timeline",
         element: <TimelineQuestionPage />,
+      },
+      {
+        path: "/question/quiz/setting",
+        element: <QuizSettingPage />,
       },
       {
         path: "/question/quiz",
