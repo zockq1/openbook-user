@@ -1,5 +1,11 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
+import { logout, setAccessToken, setRefreshToken } from "../slices/authSlice";
 
 const baseQueryWithJWT = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API_URL,
@@ -13,4 +19,56 @@ const baseQueryWithJWT = fetchBaseQuery({
   },
 });
 
-export default baseQueryWithJWT;
+const baseQueryWithRefresh = fetchBaseQuery({
+  baseUrl: process.env.REACT_APP_API_URL,
+  credentials: "include",
+  responseHandler: "text",
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.refreshToken;
+    if (token) {
+      headers.set("Refresh-Token", `${token}`);
+    }
+    return headers;
+  },
+});
+
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQueryWithJWT(args, api, extraOptions);
+  console.log(result);
+  if (result.error && result.error.status === 401) {
+    const refreshResult = await baseQueryWithRefresh(
+      "refresh-token",
+      api,
+      extraOptions
+    );
+    console.log(
+      "리프레시 응답: ",
+      refreshResult.data,
+      refreshResult.meta?.response?.headers.get("Refresh-Token"),
+      refreshResult.meta?.response?.headers.get("Authorization")
+    );
+    if (refreshResult.meta?.response?.headers.get("Refresh-Token")) {
+      api.dispatch(
+        setRefreshToken(
+          refreshResult.meta?.response?.headers.get("Refresh-Token")
+        )
+      );
+      api.dispatch(
+        setAccessToken(
+          refreshResult.meta?.response?.headers.get("Authorization")
+        )
+      );
+      console.log("리프레시!");
+      result = await baseQueryWithJWT(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
+    }
+  }
+  return result;
+};
+
+export default baseQueryWithReauth;

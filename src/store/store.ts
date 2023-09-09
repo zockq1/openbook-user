@@ -11,7 +11,7 @@ import { questionApi } from "./api/questionApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "content"],
+  whitelist: ["content", "auth"],
 };
 
 const rootReducer = combineReducers({
