@@ -50,6 +50,13 @@ button {
 body{
   font-family: 'Nanum Gothic', sans-serif;
 }
+
+.Toastify__toast-container--top-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 @font-face {
   font-family: "Hanna";
   src: url(${Hanna});

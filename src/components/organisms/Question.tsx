@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { RowList } from "../atoms/List";
 import { LongChoiceItem } from "../molecules/LongChoiceItem";
-import AnswerNotification from "../atoms/AnswerNotification";
 import Button from "../atoms/Button";
 import { ChoiceModel, QuestionModel } from "../../types/questionTypes";
 import { ShortChoiceItem } from "../molecules/ShortChoiceItem";
 import styled from "styled-components";
 import TextBox from "../atoms/TextBox";
+import { ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import corrct from "../../styles/images/correct.svg";
+import incorrct from "../../styles/images/incorrect.svg";
 
 interface ChoiceList {
   questionList: QuestionModel[];
@@ -34,6 +37,26 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
   const [currentQuestionList, setCurrentQuestionList] = useState<
     QuestionModel[]
   >([...questionList]);
+
+  const correctAnswer = () =>
+    toast(
+      <img
+        src={corrct}
+        width="200px"
+        style={{ margin: "auto", display: "block" }}
+        alt="correct"
+      />
+    );
+
+  const wrongAnswer = () =>
+    toast(
+      <img
+        src={incorrct}
+        width="200px"
+        style={{ margin: "auto", display: "block" }}
+        alt="correct"
+      />
+    );
 
   useEffect(() => {
     const shuffledQuestionList = [...currentQuestionList].sort(
@@ -69,12 +92,15 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
       currentQuestionList[currentQuestionNumber].answer
     ) {
       setIsSolved("correctAnswer");
+      correctAnswer();
     } else {
       setIsSolved("wrongAnswer");
+      wrongAnswer();
     }
   };
 
   const handleNextQuestion = () => {
+    toast.dismiss();
     setSelectedCheckbox("");
     setIsSolved("no");
     setCurrentQuestionNumber(currentQuestionNumber + 1);
@@ -102,6 +128,21 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
 
   return (
     <>
+      <ToastContainer
+        toastStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
+        position="top-center"
+        autoClose={3000}
+        limit={1}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        transition={Zoom}
+        draggable={false}
+        theme="light"
+        closeButton={false}
+      />
       {currentQuestionList[currentQuestionNumber].descriptionKeyword && (
         <Description>
           {currentQuestionList[currentQuestionNumber].descriptionKeyword?.map(
@@ -135,7 +176,6 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
         {currentQuestionList[currentQuestionNumber] &&
           currentChoiceList.map(renderChoiceItem)}
       </RowList>
-      {isSolved !== "no" && <AnswerNotification isSolved={isSolved} />}
       {isSolved === "no" ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>
       ) : currentQuestionNumber < currentQuestionList.length - 1 ? (
