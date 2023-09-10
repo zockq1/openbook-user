@@ -7,27 +7,27 @@ import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 function QuizSettingPage() {
   const navigate = useNavigate();
   const { data: chapterList } = useGetChaptersQuery();
-  const [selectedTimeLimit, setSelectedTimeLimit] = useState("infinite");
-  const [selectedChapter, setSelectedChapter] = useState("random");
-  const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] = useState(5);
+  const [selectedTimeLimit, setSelectedTimeLimit] = useState<number>(Infinity);
+  const [selectedChapter, setSelectedChapter] = useState<number>(0);
+  const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] =
+    useState<number>(5);
 
   const handleStart = () => {
-    const chapter = selectedChapter === "random" ? 0 : selectedChapter;
     navigate(
-      `/question/quiz?timelimit=${selectedTimeLimit}&chapter=${chapter}&noq=${selectedNumberOfQuestion}`
+      `/question/quiz?timelimit=${selectedTimeLimit}&chapter=${selectedChapter}&noq=${selectedNumberOfQuestion}`
     );
   };
 
   const handleSelectTimeLimit = (e: any) => {
-    setSelectedTimeLimit(e.target.value);
+    setSelectedTimeLimit(Number(e.target.value));
   };
 
   const handleSelectChapter = (e: any) => {
-    setSelectedChapter(e.target.value);
+    setSelectedChapter(Number(e.target.value));
   };
 
   const handleSelectNumberOfQuestion = (e: any) => {
-    setSelectedNumberOfQuestion(e.target.value);
+    setSelectedNumberOfQuestion(Number(e.target.value));
   };
 
   if (!chapterList) {
@@ -44,24 +44,23 @@ function QuizSettingPage() {
           title: "시간제한",
           icon: <Icon category="시간제한" />,
           handleSelect: handleSelectTimeLimit,
-          selectedItem: selectedTimeLimit,
           selectName: "time-limit",
           optionList: [
-            { value: "infinite", key: "infinite", description: "무제한" },
+            { value: Infinity, key: Infinity, description: "무제한" },
+            { value: 60 * 20, key: 60 * 20, description: "20분" },
           ],
         },
         {
           title: "단원 선택",
           icon: <Icon category="단원 학습" />,
           handleSelect: handleSelectChapter,
-          selectedItem: selectedChapter,
           selectName: "chapter",
           optionList: [
-            { value: "random", key: "random", description: "무작위" },
+            { value: 0, key: 0, description: "무작위" },
             ...chapterList.map((item) => {
               return {
-                value: `${item.number}`,
-                key: `${item.number}`,
+                value: item.number,
+                key: item.number,
                 description: `${item.number}. ${item.title}`,
               };
             }),
@@ -71,12 +70,11 @@ function QuizSettingPage() {
           title: "문제 수",
           icon: <Icon category="갯수" />,
           handleSelect: handleSelectNumberOfQuestion,
-          selectedItem: String(selectedNumberOfQuestion),
           selectName: "number-of-question",
           optionList: [
-            { value: "5", key: "5", description: "5" },
-            { value: "10", key: "10", description: "10" },
-            { value: "20", key: "20", description: "20" },
+            { value: 5, key: 5, description: "5" },
+            { value: 10, key: 10, description: "10" },
+            { value: 20, key: 20, description: "20" },
           ],
         },
       ]}

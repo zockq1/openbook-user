@@ -1,6 +1,6 @@
 import { QuestionModel } from "../../../types/questionTypes";
 import Layout from "../../atoms/Layout";
-import { ChoiceQuestion } from "../../organisms/Question";
+import { Question } from "../../organisms/Question";
 import TitleBox from "../../organisms/TitleBox";
 
 interface QuestionTemplateProps {
@@ -8,6 +8,7 @@ interface QuestionTemplateProps {
   questionList: QuestionModel[];
   title?: string;
   category: string;
+  timeLimit?: number;
   handleNextContent: () => void;
 }
 
@@ -16,14 +17,17 @@ function QuestionTemplate({
   questionList,
   title,
   category,
+  timeLimit,
   handleNextContent,
 }: QuestionTemplateProps) {
   return (
     <Layout>
       <TitleBox backLink={backLink} title={title} category={category} />
-      <ChoiceQuestion
+      <Question
         questionList={questionList}
         handleNextContent={handleNextContent}
+        category={category}
+        timeLimit={timeLimit || Infinity}
       />
     </Layout>
   );

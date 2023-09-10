@@ -9,7 +9,7 @@ export interface MenuModel {
 }
 
 export interface OptionModel {
-  value: string;
-  key: string;
+  value: number;
+  key: number;
   description: string;
 }

@@ -36,7 +36,6 @@ const Box = styled.div`
 
 export interface QuestionOptionItemProps {
   handleSelect: (e: any) => void;
-  selectedItem: string;
   icon: ReactNode;
   title: string;
   selectName: string;
@@ -45,7 +44,6 @@ export interface QuestionOptionItemProps {
 
 function QuestionOptionItem({
   handleSelect,
-  selectedItem,
   icon,
   title,
   selectName,
@@ -58,11 +56,7 @@ function QuestionOptionItem({
         &nbsp;{title}
       </Title>
       <br />
-      <QuestionSelect
-        name={selectName}
-        onChange={handleSelect}
-        value={selectedItem}
-      >
+      <QuestionSelect name={selectName} onChange={handleSelect}>
         {optionList.map((item) => {
           return (
             <option value={item.value} key={item.key}>

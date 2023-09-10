@@ -24,6 +24,7 @@ function QuizPage() {
       category="퀴즈"
       backLink="/question"
       questionList={questionList}
+      timeLimit={Number(searchParams.get("timelimit"))}
       handleNextContent={handleNext}
     />
   );

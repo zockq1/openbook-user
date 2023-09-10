@@ -10,10 +10,13 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../styles/images/correct.svg";
 import incorrct from "../../styles/images/incorrect.svg";
+import QuestionCounter from "../molecules/QuestionCounter";
 
-interface ChoiceList {
+interface QuestionProps {
   questionList: QuestionModel[];
   handleNextContent: () => void;
+  category: string;
+  timeLimit: number;
 }
 
 const Description = styled.ul`
@@ -29,7 +32,12 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
+function Question({
+  questionList,
+  handleNextContent,
+  category,
+  timeLimit,
+}: QuestionProps) {
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
   const [currentChoiceList, setCurrentChoiceList] = useState<ChoiceModel[]>([]);
@@ -98,7 +106,6 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
       wrongAnswer();
     }
   };
-
   const handleNextQuestion = () => {
     toast.dismiss();
     setSelectedCheckbox("");
@@ -142,6 +149,12 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
         draggable={false}
         theme="light"
         closeButton={false}
+      />
+      <QuestionCounter
+        timeLimit={timeLimit}
+        totalQuestionCount={questionList.length}
+        currentQuestionCount={currentQuestionNumber + 1}
+        category={category}
       />
       {currentQuestionList[currentQuestionNumber].descriptionKeyword && (
         <Description>
@@ -187,4 +200,4 @@ function ChoiceQuestion({ questionList, handleNextContent }: ChoiceList) {
   );
 }
 
-export { ChoiceQuestion };
+export { Question };

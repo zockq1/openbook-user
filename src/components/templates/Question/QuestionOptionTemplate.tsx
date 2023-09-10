@@ -65,7 +65,6 @@ function QuestionOptionTemplate({
             title={item.title}
             icon={item.icon}
             handleSelect={item.handleSelect}
-            selectedItem={item.selectedItem}
             selectName={item.selectName}
             optionList={item.optionList}
             key={index}

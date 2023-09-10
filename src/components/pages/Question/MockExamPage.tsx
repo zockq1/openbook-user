@@ -22,6 +22,7 @@ function MockExamPage() {
       category="모의고사"
       backLink="/question"
       questionList={mockExamList}
+      timeLimit={Number(searchParams.get("timelimit"))}
       handleNextContent={handleNext}
     />
   );
