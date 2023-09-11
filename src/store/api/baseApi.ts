@@ -38,18 +38,11 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQueryWithJWT(args, api, extraOptions);
-  console.log(result);
   if (result.error && result.error.status === 401) {
     const refreshResult = await baseQueryWithRefresh(
       "refresh-token",
       api,
       extraOptions
-    );
-    console.log(
-      "리프레시 응답: ",
-      refreshResult.data,
-      refreshResult.meta?.response?.headers.get("Refresh-Token"),
-      refreshResult.meta?.response?.headers.get("Authorization")
     );
     if (refreshResult.meta?.response?.headers.get("Refresh-Token")) {
       api.dispatch(
@@ -62,7 +55,6 @@ const baseQueryWithReauth: BaseQueryFn<
           refreshResult.meta?.response?.headers.get("Authorization")
         )
       );
-      console.log("리프레시!");
       result = await baseQueryWithJWT(args, api, extraOptions);
     } else {
       api.dispatch(logout());

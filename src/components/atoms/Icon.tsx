@@ -25,7 +25,9 @@ import { LuFileQuestion } from "react-icons/lu";
 import { LiaReadme } from "react-icons/lia";
 import { GrUser } from "react-icons/gr";
 import { PiListNumbersBold } from "react-icons/pi";
-import { IoMdListBox } from "react-icons/io";
+import { IoMdListBox, IoMdLogIn } from "react-icons/io";
+import { BiSolidUserCircle } from "react-icons/bi";
+
 interface Iconprops {
   category: string;
   color?: string;
@@ -53,6 +55,8 @@ function Icon({ category, color = "inherit", size }: Iconprops) {
     퀴즈: <FaQuestion color={color} size={size} />,
     무제한: <FaInfinity color={color} size={size} />,
     무작위: <FaDice color={color} size={size} />,
+    login: <IoMdLogIn color={color} size={size} />,
+    user: <BiSolidUserCircle color={color} size={size} />,
   };
 
   const matchedIcon = Object.keys(icons).find((key) => category.includes(key));

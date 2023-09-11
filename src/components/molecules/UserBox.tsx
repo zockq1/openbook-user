@@ -32,7 +32,7 @@ function UserBox() {
   return (
     <StyledUserBox>
       <UserImage src={user} />
-      <UserName>탁재민</UserName>
+      <UserName>ID: 324gv3hj4vh3q</UserName>
       {">"}
     </StyledUserBox>
   );
