@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   login,
   setAccessToken,
+  setId,
   setRefreshToken,
 } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const LoginLoadingRedirectPage = () => {
     if (data) {
       dispatch(setAccessToken(data.accessToken));
       dispatch(setRefreshToken(data.refreshToken));
+      dispatch(setId(data.id));
       dispatch(login());
       navigate("/");
     }

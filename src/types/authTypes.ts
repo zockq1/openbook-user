@@ -1,5 +1,5 @@
 export interface GetTokenModel {
-  message: string;
+  id: string;
   accessToken: string;
   refreshToken: string;
 }

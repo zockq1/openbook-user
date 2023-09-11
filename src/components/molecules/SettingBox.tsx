@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { logout } from "../../store/slices/authSlice";
 
 const StyledSettingBox = styled.div`
   display: flex;
@@ -26,6 +28,10 @@ const Bar = styled.div`
 `;
 
 function SettingBox() {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <StyledSettingBox>
       <SettingItem>고객센터</SettingItem>
@@ -34,7 +40,7 @@ function SettingBox() {
       <Bar />
       <SettingItem>계정정보</SettingItem>
       <Bar />
-      <SettingItem>로그아웃</SettingItem>
+      <SettingItem onClick={handleLogout}>로그아웃</SettingItem>
       <Bar />
       <SettingItem>기타</SettingItem>
     </StyledSettingBox>
