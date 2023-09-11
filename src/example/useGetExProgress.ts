@@ -4,8 +4,7 @@ const useGetExProgress = (): {
   data: ProgressModel | undefined;
 } => {
   const data: ProgressModel = {
-    total: 30,
-    complete: 19,
+    totalProgress: 83,
   };
   return {
     data,

@@ -8,6 +8,7 @@ import {
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 import { TopicListModel } from "../../types/topicTypes";
+import { ProgressModel } from "../../types/ProgressTypes";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
@@ -34,6 +35,10 @@ export const chapterApi = createApi({
       query: (chapterNumber) => `/contents-table?num=${chapterNumber}`,
       providesTags: ["ProgressUpdate"],
     }),
+    getTotalProgress: builder.query<ProgressModel, void>({
+      query: () => `/total-progress`,
+      providesTags: ["ProgressUpdate"],
+    }),
     updateProgress: builder.mutation<any, ContentModel>({
       query: (progress: ContentModel) => {
         return {
@@ -54,5 +59,6 @@ export const {
   useGetChapterInfoQuery,
   useGetContentListQuery,
   useGetChapterTopicListQuery,
+  useGetTotalProgressQuery,
   useUpdateProgressMutation,
 } = chapterApi;

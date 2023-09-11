@@ -22,12 +22,8 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
       <Header />
       <RowList>
         <LargeBox title="정주행" link="jeong-ju-haeng" image={run}>
-          <Percentage
-            percentage={Math.floor((progress.complete / progress.total) * 100)}
-          />
-          <ProgressBar
-            percentage={Math.floor((progress.complete / progress.total) * 100)}
-          />
+          <Percentage percentage={progress.totalProgress} />
+          <ProgressBar percentage={progress.totalProgress} />
         </LargeBox>
         <MediumBox
           title="학습 자료 모음"

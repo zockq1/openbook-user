@@ -6,7 +6,6 @@ import MenuTemplate from "../../templates/MenuTemplate";
 function ChapterListPage() {
   const { data: chapterList } = useGetJJHChaptersQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
-
   useEffect(() => {
     if (!chapterList) {
       return;
