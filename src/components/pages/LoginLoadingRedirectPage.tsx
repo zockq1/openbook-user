@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useGetKakaoTokenQuery } from "../../store/api/authApi";
 import { useDispatch } from "react-redux";
-import { setAccessToken, setRefreshToken } from "../../store/slices/authSlice";
+import {
+  login,
+  setAccessToken,
+  setRefreshToken,
+} from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const LoginLoadingRedirectPage = () => {
@@ -14,6 +18,7 @@ const LoginLoadingRedirectPage = () => {
     if (data) {
       dispatch(setAccessToken(data.accessToken));
       dispatch(setRefreshToken(data.refreshToken));
+      dispatch(login());
       navigate("/");
     }
   }, [data, dispatch, navigate]);
