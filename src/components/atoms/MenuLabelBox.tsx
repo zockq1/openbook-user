@@ -28,8 +28,8 @@ const StyledChapterNumber = styled.div<StateProps>`
     state === "Locked" ? theme.colors.lightRed : theme.colors.grey};
 `;
 
-function ChapterNumber({ state, children }: ChapterNumberProps) {
+function MenuLabelBox({ state, children }: ChapterNumberProps) {
   return <StyledChapterNumber state={state}>{children}</StyledChapterNumber>;
 }
 
-export default ChapterNumber;
+export default MenuLabelBox;

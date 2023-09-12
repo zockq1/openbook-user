@@ -1,6 +1,6 @@
 import styled, { ThemeContext } from "styled-components";
 import { ContentState } from "../../types/chapterTypes";
-import ChapterNumber from "../atoms/ChapterNumber";
+import ChapterNumber from "../atoms/MenuLabelBox";
 import Icon from "../atoms/Icon";
 import Text from "../atoms/Text";
 import { useContext } from "react";

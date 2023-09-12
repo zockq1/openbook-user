@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactNode } from "react";
-import ChapterNumber from "../atoms/ChapterNumber";
+import MenuLabelBox from "../atoms/MenuLabelBox";
 import Icon from "../atoms/Icon";
 
 const Box = styled(Link)`
@@ -44,7 +44,7 @@ function LargeBox({ children, image, link, title }: LargeBoxProps) {
     <Box to={link}>
       {/* <BoxTitle>{title + " >"}</BoxTitle> */}
       <BoxTitle>
-        <ChapterNumber state="Open">{<Icon category="정주행" />}</ChapterNumber>
+        <MenuLabelBox state="Open">{<Icon category="정주행" />}</MenuLabelBox>
         &nbsp;&nbsp;{title}
       </BoxTitle>
       <BoxImage src={image} alt={title + " 이미지"} />

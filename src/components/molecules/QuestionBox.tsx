@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled, { ThemeContext } from "styled-components";
 import Text from "../atoms/Text";
 import Icon from "../atoms/Icon";
-import ChapterNumber from "../atoms/ChapterNumber";
+import MenuLabelBox from "../atoms/MenuLabelBox";
 
 const Box = styled(Link)`
   position: relative;
@@ -68,7 +68,7 @@ function QuestionBox({
   return (
     <Box to={link}>
       <BoxTitle>
-        <ChapterNumber state="Open">{icon}</ChapterNumber>
+        <MenuLabelBox state="Open">{icon}</MenuLabelBox>
         &nbsp;&nbsp;{title}
       </BoxTitle>
       <br />
