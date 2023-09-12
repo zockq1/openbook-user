@@ -16,10 +16,15 @@ type SelectedContent = "Learning" | "Question";
 function TopicLearningPage() {
   const navigate = useNavigate();
   const { chapter, topic } = useParams();
-  const { data: topicInfo } = useGetTopicQuery(String(topic));
-  const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(String(topic));
-  const { data: TtoSQuestionList } = useGetTtoSQuestionQuery(String(topic));
-  const { data: contentList } = useGetContentListQuery(Number(chapter));
+  const { data: topicInfo, isLoading: isTopicInfoLoading } = useGetTopicQuery(
+    String(topic)
+  );
+  const { data: TtoKQuestionList, isLoading: isTtoKQuestionListLoading } =
+    useGetTtoKQuestionQuery(String(topic));
+  const { data: TtoSQuestionList, isLoading: isTtoSQuestionListLoading } =
+    useGetTtoSQuestionQuery(String(topic));
+  const { data: contentList, isLoading: isContentListLoading } =
+    useGetContentListQuery(Number(chapter));
   const [updateProgres] = useUpdateProgressMutation();
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");
@@ -36,16 +41,17 @@ function TopicLearningPage() {
     setSelectedContent("Question");
   };
 
-  if (!contentList || !topicInfo) {
-    return <div>Loading...</div>;
-  }
-
-  if (questionList.length === 0) {
+  if (
+    isContentListLoading ||
+    isTopicInfoLoading ||
+    isTtoKQuestionListLoading ||
+    isTtoSQuestionListLoading
+  ) {
     return <div>Loading...</div>;
   }
 
   const handleNextContent = () => {
-    contentList.forEach((item, index, arr) => {
+    contentList?.forEach((item, index, arr) => {
       if (item.title === topic) {
         const nextContent = arr[index + 1].content;
         const nextTopic = arr[index + 1].title;
@@ -72,12 +78,14 @@ function TopicLearningPage() {
   return (
     <>
       {selectedContent === "Learning" ? (
-        <TopicLearningTemplate
-          topicTitle={String(topic)}
-          topicInfo={topicInfo}
-          handleNextContent={handleNextQuestion}
-          backLink={`/jeong-ju-haeng/${chapter}`}
-        />
+        topicInfo && (
+          <TopicLearningTemplate
+            topicTitle={String(topic)}
+            topicInfo={topicInfo}
+            handleNextContent={handleNextQuestion}
+            backLink={`/jeong-ju-haeng/${chapter}`}
+          />
+        )
       ) : (
         <QuestionTemplate
           backLink={`/jeong-ju-haeng/${chapter}`}
