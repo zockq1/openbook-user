@@ -1,15 +1,27 @@
-import useGetExProgress from "../../example/useGetExProgress";
-import { useGetTotalProgressQuery } from "../../store/api/chapterApi";
+import { useEffect, useState } from "react";
+import { useLazyGetTotalProgressQuery } from "../../store/api/chapterApi";
 import MainPageTemplate from "../templates/MainPageTemplate";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 function Main() {
-  const { data: progress } = useGetTotalProgressQuery();
+  const [getProgressTriger, progressResult] = useLazyGetTotalProgressQuery();
+  const [progress, setProgress] = useState<number>(0);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  if (!progress) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      getProgressTriger();
+    }
+  }, [isLoggedIn]);
 
-  return <MainPageTemplate progress={progress} />;
+  useEffect(() => {
+    if (progressResult.data) {
+      setProgress(progressResult.data?.totalProgress);
+    }
+  }, [progressResult]);
+
+  return <MainPageTemplate progress={{ totalProgress: progress }} />;
 }
 
 export default Main;

@@ -59,6 +59,6 @@ export const {
   useGetChapterInfoQuery,
   useGetContentListQuery,
   useGetChapterTopicListQuery,
-  useGetTotalProgressQuery,
+  useLazyGetTotalProgressQuery,
   useUpdateProgressMutation,
 } = chapterApi;
