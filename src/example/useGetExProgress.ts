@@ -1,4 +1,4 @@
-import { ProgressModel } from "../types/ProgressTypes";
+import { ProgressModel } from "../types/progressTypes";
 
 const useGetExProgress = (): {
   data: ProgressModel | undefined;

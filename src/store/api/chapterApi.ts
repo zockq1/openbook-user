@@ -8,7 +8,7 @@ import {
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 import { TopicListModel } from "../../types/topicTypes";
-import { ProgressModel } from "../../types/ProgressTypes";
+import { ProgressModel } from "../../types/progressTypes";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
