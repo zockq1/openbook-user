@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import styled from "styled-components";
 
-const Button = styled.button`
-  width: auto;
+const StyledButton = styled.button`
+  width: calc(100vw - 30px);
   margin: auto 15px 20px;
   padding: 16px 24px;
   border-radius: ${({ theme }) => theme.padding.base};
@@ -13,5 +14,13 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 `;
+interface ButtonProps {
+  children?: ReactNode;
+  onClick?: () => void;
+}
+
+function Button({ children, onClick }: ButtonProps) {
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+}
 
 export default Button;

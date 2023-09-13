@@ -1,7 +1,20 @@
 import type { Preview } from "@storybook/react";
+import { withThemeFromJSXProvider } from "@storybook/addon-styling";
+import { GlobalStyle as GlobalStyles } from "../src/styles/global-style";
+import theme from "../src/styles/theme";
+import { ThemeProvider } from "styled-components";
+import {
+  reactRouterParameters,
+  withRouter,
+} from "storybook-addon-react-router-v6";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 const preview: Preview = {
   parameters: {
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+    },
+    reactRouter: reactRouterParameters({}),
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -10,6 +23,17 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    withThemeFromJSXProvider({
+      themes: {
+        default: theme,
+      },
+      defaultTheme: "default",
+      Provider: ThemeProvider,
+      GlobalStyles,
+    }),
+    withRouter,
+  ],
 };
 
 export default preview;
