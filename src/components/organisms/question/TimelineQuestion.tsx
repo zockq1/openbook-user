@@ -110,9 +110,19 @@ function TimelineQuestion({
 
   useEffect(() => {
     if (nextDateList.length === 0) {
+      addChapterWrongCounter({
+        number: Number(chapter),
+        count: wrongCount,
+      });
       setIsComplete(true);
     }
-  }, [nextDateList, setIsComplete]);
+  }, [
+    nextDateList,
+    setIsComplete,
+    wrongCount,
+    addChapterWrongCounter,
+    chapter,
+  ]);
 
   const handleChange = async (result: DropResult) => {
     const { destination } = result;
@@ -159,13 +169,6 @@ function TimelineQuestion({
     } else {
       //그 외
       setWrongCount(wrongCount + 1);
-    }
-    if (nextDateList.length === 0) {
-      addChapterWrongCounter({
-        number: Number(chapter),
-        count: wrongCount,
-      });
-      setIsComplete(true);
     }
   };
 
