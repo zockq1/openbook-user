@@ -1,4 +1,5 @@
-type QuestionType = "TtoK" | "TtoS" | "KtoT" | "StoT";
+export type QuestionType = "TtoK" | "TtoS" | "KtoT" | "StoT" | "Mock";
+export type ChoiceType = "String" | "Image";
 
 export interface ChoiceModel {
   choice: string;
@@ -32,4 +33,14 @@ export interface GetQuestionModel {
 export interface RoundModel {
   date: number;
   number: number;
+}
+
+export interface ChapterWrongCounterModel {
+  number: number;
+  count: number;
+}
+
+export interface TopicWrongCounterModel {
+  topicTitle: string;
+  count: number;
 }

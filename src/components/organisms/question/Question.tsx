@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../../styles/images/correct.svg";
 import incorrct from "../../../styles/images/incorrect.svg";
 import QuestionCounter from "../../molecules/etc/QuestionCounter";
+import { useAddTopicWrongCounterMutation } from "../../../store/api/questionApi";
 
 interface QuestionProps {
   questionList: QuestionModel[];
@@ -38,9 +39,9 @@ function Question({
   category,
   timeLimit,
 }: QuestionProps) {
+  const [addTopicWrongCounte] = useAddTopicWrongCounterMutation();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
-  const [currentChoiceList, setCurrentChoiceList] = useState<ChoiceModel[]>([]);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
   const [currentQuestionList, setCurrentQuestionList] = useState<
     QuestionModel[]
@@ -67,27 +68,27 @@ function Question({
     );
 
   useEffect(() => {
-    const shuffledQuestionList = [...currentQuestionList].sort(
+    let shuffledQuestionList = [...currentQuestionList].sort(
       () => Math.random() - 0.5
     );
-    setCurrentQuestionList(shuffledQuestionList);
+    setCurrentQuestionList(
+      shuffledQuestionList.map((item) => {
+        const shuffledQuestion: QuestionModel = {
+          ...item,
+          choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
+        };
+        return shuffledQuestion;
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    setCurrentChoiceList(
-      [...currentQuestionList[currentQuestionNumber].choiceList].sort(
-        () => Math.random() - 0.5
-      )
-    );
-  }, [currentQuestionList, setCurrentChoiceList, currentQuestionNumber]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkboxId = event.target.id;
     setSelectedCheckbox(checkboxId);
   };
 
-  const handleSentenceClick = (checkboxId: string) => {
+  const handleChoiceClick = (checkboxId: string) => {
     setSelectedCheckbox((prevSelected) =>
       prevSelected === checkboxId ? prevSelected : checkboxId
     );
@@ -102,6 +103,12 @@ function Question({
       setIsSolved("correctAnswer");
       correctAnswer();
     } else {
+      addTopicWrongCounte([
+        {
+          topicTitle: currentQuestionList[currentQuestionNumber].answer,
+          count: 1,
+        },
+      ]);
       setIsSolved("wrongAnswer");
       wrongAnswer();
     }
@@ -115,14 +122,15 @@ function Question({
 
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
-      currentQuestionList[currentQuestionNumber].questionType === "TtoS"
+      currentQuestionList[currentQuestionNumber].questionType === "TtoS" ||
+      currentQuestionList[currentQuestionNumber].questionType === "Mock"
         ? LongChoiceItem
         : ShortChoiceItem;
 
     return (
       <ChoiceItem
         handleCheckboxChange={handleCheckboxChange}
-        handleChoiceClick={handleSentenceClick}
+        handleChoiceClick={handleChoiceClick}
         current={String(index) + item.key}
         answer={currentQuestionList[currentQuestionNumber].answer}
         choice={item.choice}
@@ -187,7 +195,9 @@ function Question({
       )}
       <RowList>
         {currentQuestionList[currentQuestionNumber] &&
-          currentChoiceList.map(renderChoiceItem)}
+          currentQuestionList[currentQuestionNumber].choiceList.map(
+            renderChoiceItem
+          )}
       </RowList>
       {isSolved === "no" ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>

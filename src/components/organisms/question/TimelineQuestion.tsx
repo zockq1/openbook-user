@@ -8,6 +8,8 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
+import { useAddChapterWrongCounterMutation } from "../../../store/api/questionApi";
+import { useParams } from "react-router-dom";
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
@@ -89,12 +91,15 @@ function TimelineQuestion({
   setIsComplete,
   isComplete,
 }: TimelineQuestionProps) {
+  const { chapter } = useParams();
   const [isMounted, setIsMounted] = useState(false);
   const [nextDateList, setNextDateList] = useState<TimeLineModel[]>(
     [...dateList].sort(() => Math.random() - 0.5)
   );
   const [playedDateList, setPlayedDateList] = useState<TimeLineModel[]>([]);
   const [lineHeight, setLineHeight] = useState<number>(166); //68씩 증가
+  const [wrongCount, setWrongCount] = useState<number>(0);
+  const [addChapterWrongCounter] = useAddChapterWrongCounterMutation();
 
   useEffect(() => {
     setIsMounted(true);
@@ -114,6 +119,7 @@ function TimelineQuestion({
     if (!destination || destination.droppableId !== "played") return;
 
     if (
+      //맨 앞에 넣었는데 맞았을때
       destination.index === 0 &&
       nextDateList[0].date <= playedDateList[0].date
     ) {
@@ -121,10 +127,13 @@ function TimelineQuestion({
       setNextDateList(nextDateList.slice(1));
       nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
     } else if (
+      //맨 앞에 넣었는데 틀렸을때
       destination.index === 0 &&
       nextDateList[0].date > playedDateList[0].date
     ) {
+      setWrongCount(wrongCount + 1);
     } else if (
+      //맨 밑에 넣었는데 맞았을 때
       destination.index === playedDateList.length &&
       nextDateList[0].date >= playedDateList[playedDateList.length - 1].date
     ) {
@@ -132,10 +141,13 @@ function TimelineQuestion({
       setNextDateList(nextDateList.slice(1));
       nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
     } else if (
+      //맨 밑에 넣었는데 틀렸을 때
       destination.index === playedDateList.length &&
       nextDateList[0].date < playedDateList[playedDateList.length - 1].date
     ) {
+      setWrongCount(wrongCount + 1);
     } else if (
+      //중간에 넣었는데 맞았을 때
       nextDateList[0].date >= playedDateList[destination.index - 1].date &&
       nextDateList[0].date <= playedDateList[destination.index].date
     ) {
@@ -144,8 +156,15 @@ function TimelineQuestion({
       setPlayedDateList(updatedList);
       setNextDateList(nextDateList.slice(1));
       nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
+    } else {
+      //그 외
+      setWrongCount(wrongCount + 1);
     }
     if (nextDateList.length === 0) {
+      addChapterWrongCounter({
+        number: Number(chapter),
+        count: wrongCount,
+      });
       setIsComplete(true);
     }
   };

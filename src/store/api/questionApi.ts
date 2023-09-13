@@ -1,9 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import {
+  ChapterWrongCounterModel,
   GetQuestionModel,
   QuestionModel,
   RoundModel,
   TimeLineModel,
+  TopicWrongCounterModel,
 } from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
 
@@ -41,6 +43,24 @@ export const questionApi = createApi({
       query: (chapterNumber: number) =>
         `/questions/get-topics-sentences/?num=${chapterNumber}`,
     }),
+    addChapterWrongCounter: builder.mutation<void, ChapterWrongCounterModel>({
+      query: (counter: ChapterWrongCounterModel) => {
+        return {
+          url: `/study-progress/chapter/wrong-count`,
+          method: "POST",
+          body: counter,
+        };
+      },
+    }),
+    addTopicWrongCounter: builder.mutation<void, TopicWrongCounterModel[]>({
+      query: (counterList: TopicWrongCounterModel[]) => {
+        return {
+          url: `/study-progress/topic/wrong-count`,
+          method: "POST",
+          body: counterList,
+        };
+      },
+    }),
   }),
 });
 
@@ -53,4 +73,6 @@ export const {
   useGetTtoKQuestionQuery,
   useGetStoTQuestionQuery,
   useGetTtoSQuestionQuery,
+  useAddChapterWrongCounterMutation,
+  useAddTopicWrongCounterMutation,
 } = questionApi;
