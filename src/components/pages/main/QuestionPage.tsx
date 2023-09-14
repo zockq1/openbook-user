@@ -1,4 +1,4 @@
-import QuestionPageTemplate from "../../templates/question/QuestionPageTemplate";
+import QuestionPageTemplate from "../../templates/main/QuestionPageTemplate";
 
 function QuestionPage() {
   return <QuestionPageTemplate />;

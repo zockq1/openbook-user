@@ -28,7 +28,7 @@ function QuestionTemplate({
         <Button onClick={handleNextContent}>다음</Button>
       ) : (
         <Question
-          questionList={questionList}
+          questionList={questionList.filter((item) => item !== null)}
           handleNextContent={handleNextContent}
           category={category}
           timeLimit={timeLimit || Infinity}
