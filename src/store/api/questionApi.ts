@@ -47,7 +47,7 @@ export const questionApi = createApi({
       query: (counter: ChapterWrongCounterModel) => {
         return {
           url: `/study-progress/chapter/wrong-count`,
-          method: "POST",
+          method: "PATCH",
           body: counter,
         };
       },
@@ -56,7 +56,7 @@ export const questionApi = createApi({
       query: (counterList: TopicWrongCounterModel[]) => {
         return {
           url: `/study-progress/topic/wrong-count`,
-          method: "POST",
+          method: "PATCH",
           body: counterList,
         };
       },
