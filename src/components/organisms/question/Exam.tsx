@@ -213,6 +213,7 @@ function Exam({
   useEffect(() => {
     if (isTimeout) {
       handleCheckAnswer();
+      setCurrentQuestionNumber(dataList.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimeout]);
