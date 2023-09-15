@@ -8,6 +8,7 @@ interface QuestionCounterProps {
   totalQuestionCount: number;
   currentQuestionCount: number;
   category: string;
+  setisTimeout?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StyledQuestionCounter = styled.ul`
@@ -28,6 +29,7 @@ function QuestionCounter({
   totalQuestionCount,
   currentQuestionCount,
   category,
+  setisTimeout,
 }: QuestionCounterProps) {
   const [minutes, setMinutes] = useState(Math.floor(timeLimit / 60));
   const [seconds, setSeconds] = useState(timeLimit % 60);
@@ -39,6 +41,7 @@ function QuestionCounter({
       }
       if (seconds === 0) {
         if (minutes === 0) {
+          setisTimeout && setisTimeout(true);
           clearInterval(countdown);
         } else {
           setMinutes(minutes - 1);
@@ -47,7 +50,7 @@ function QuestionCounter({
       }
     }, 1000);
     return () => clearInterval(countdown);
-  }, [minutes, seconds]);
+  }, [minutes, seconds, setisTimeout]);
 
   return (
     <RowList>

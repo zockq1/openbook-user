@@ -4,7 +4,7 @@ import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
 import { ChoiceModel, QuestionModel } from "../../../types/questionTypes";
 import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import QuestionCounter from "../../molecules/etc/QuestionCounter";
 
@@ -47,13 +47,26 @@ interface QuestionNavigationItemProps {
   isCurrent: boolean;
   state: "no" | "correctAnswer" | "wrongAnswer";
 }
+const popAnimation = keyframes`
+  0% {
+    transform: scale(0.7);
+  }
+  33% {
+    transform: scale(0.9);
+  }
+  66% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 const QuestionNavigationItem = styled.li<QuestionNavigationItemProps>`
   position: relative;
   flex-shrink: 0;
-  min-width: 30px;
+  min-width: 40px;
   padding: 6px;
-  margin: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   background-color: ${({ theme, isCurrent }) =>
     isCurrent && theme.colors.lightGrey};
@@ -65,6 +78,12 @@ const QuestionNavigationItem = styled.li<QuestionNavigationItemProps>`
       : theme.colors.red};
 
   text-align: center;
+  animation: ${({ isCurrent }) =>
+    isCurrent
+      ? css`
+          ${popAnimation} 400ms linear
+        `
+      : ""};
 `;
 
 interface CheckProps {
@@ -116,6 +135,7 @@ function Exam({
   >([...questionList]);
   const [dataList, setDataList] = useState<QuestionData[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [isTimeout, setIsTimeout] = useState<boolean>(false);
 
   const questionNavigationRef = useRef<HTMLUListElement | null>(null);
 
@@ -132,6 +152,7 @@ function Exam({
           containerRect.left -
           containerRect.width / 2 +
           itemRect.width / 2 +
+          5 +
           currentQuestionNumber * 40;
         return scrollPosition;
       }
@@ -188,6 +209,13 @@ function Exam({
       );
     }
   };
+
+  useEffect(() => {
+    if (isTimeout) {
+      handleCheckAnswer();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTimeout]);
 
   const handleCheckAnswer = () => {
     let newScore = 0;
@@ -273,6 +301,7 @@ function Exam({
         totalQuestionCount={questionList.length}
         currentQuestionCount={currentQuestionNumber + 1}
         category={category}
+        setisTimeout={setIsTimeout}
       />
       {currentQuestionNumber < currentQuestionList.length &&
         currentQuestionList[currentQuestionNumber].description && (
