@@ -15,7 +15,7 @@ const StyledQuestionCounter = styled.ul`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: calc((100vw - 45px) / 2);
+  width: calc((100% - 45px) / 2);
   margin: 10px 0px 10px 15px;
   padding: 12px;
   border-radius: 10px;

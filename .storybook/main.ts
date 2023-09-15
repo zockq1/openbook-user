@@ -13,6 +13,7 @@ const config: StorybookConfig = {
     "@storybook/addon-viewport",
     "@storybook/addon-actions",
     "@storybook/addon-controls",
+    "@storybook/addon-actions/register",
   ],
   framework: {
     name: "@storybook/react-webpack5",

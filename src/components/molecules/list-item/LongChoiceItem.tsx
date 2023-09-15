@@ -22,7 +22,7 @@ interface ChoiceProps {
 const LongChoice = styled.div<AnswerCheckProps>`
   display: flex;
   align-items: center;
-  width: calc(100vw - 30px);
+  width: calc(100% - 30px);
   height: max-content;
   margin: 10px 15px;
   padding: 0 12px;
@@ -49,7 +49,7 @@ const LongComment = styled.span<AnswerCheckProps>`
         : theme.colors.red
       : theme.colors.black};
   font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
 
   line-height: 120%;
 `;

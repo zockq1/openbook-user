@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  width: calc(100vw - 30px);
+  width: auto;
   margin: auto 15px 20px;
   padding: 16px 24px;
   border-radius: ${({ theme }) => theme.padding.base};

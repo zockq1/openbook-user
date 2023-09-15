@@ -10,6 +10,8 @@ export interface ChoiceModel {
 export interface QuestionModel {
   questionType: QuestionType;
   answer: string;
+  score?: number;
+  choiceType?: "String" | "Image";
   questionSentence?: string;
 
   description?: string;

@@ -8,6 +8,7 @@ import {
   withRouter,
 } from "storybook-addon-react-router-v6";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { withConsole } from "@storybook/addon-console";
 
 const preview: Preview = {
   parameters: {
@@ -33,6 +34,7 @@ const preview: Preview = {
       GlobalStyles,
     }),
     withRouter,
+    (storyFn, context) => withConsole()(storyFn)(context),
   ],
 };
 

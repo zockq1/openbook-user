@@ -11,10 +11,11 @@ function MockExamSettingPage() {
   const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] =
     useState<number>(5);
   const { data: roundList } = useGetRoundsQuery();
-
+  console.log("모의고사");
   const handleStart = () => {
+    console.log("모의고사");
     navigate(
-      `/question/quiz?timelimit=${selectedTimeLimit}&round=${selectedRound}&noq=${selectedNumberOfQuestion}`
+      `/question/mock-exam?timelimit=${selectedTimeLimit}&round=${selectedRound}&noq=${selectedNumberOfQuestion}`
     );
   };
 
