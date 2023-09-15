@@ -9,19 +9,19 @@ interface TopicLearningTemplateProps {
   topicTitle: string;
   topicInfo: TopicModel;
   handleNextContent?: () => void;
-  backLink: string;
+  handleBackPage: () => void;
 }
 
 function TopicLearningTemplate({
   topicTitle,
   topicInfo,
   handleNextContent,
-  backLink,
+  handleBackPage,
 }: TopicLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox
-        backLink={backLink}
+        handleBackPage={handleBackPage}
         title={topicTitle}
         category="주제 학습"
         startDate={topicInfo.startDate}

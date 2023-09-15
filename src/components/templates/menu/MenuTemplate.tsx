@@ -5,14 +5,18 @@ import { MenuModel } from "../../../types/commonTypes";
 
 interface MenuTemplateProps {
   category: string;
-  backLink: string;
+  handleBackPage: () => void;
   menuList: MenuModel[];
 }
 
-function MenuTemplate({ menuList, category, backLink }: MenuTemplateProps) {
+function MenuTemplate({
+  menuList,
+  category,
+  handleBackPage,
+}: MenuTemplateProps) {
   return (
     <Layout>
-      <TitleBox backLink={backLink} category={category}></TitleBox>
+      <TitleBox handleBackPage={handleBackPage} category={category}></TitleBox>
       <MenuList list={menuList} />
     </Layout>
   );

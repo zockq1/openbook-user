@@ -57,11 +57,11 @@ function TimelineLearningPage() {
           title={String(chapter) + ". " + chapterTitle?.title}
           dateList={dateList || []}
           handleNextContent={handleNextQuestion}
-          backLink={`/jeong-ju-haeng/${Number(chapter)}`}
+          handleBackPage={() => navigate(`/jeong-ju-haeng/${Number(chapter)}`)}
         />
       ) : (
         <TimelineQuestionTemplate
-          backLink={`/jeong-ju-haeng/${chapter}`}
+          handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
           title={String(chapter) + ". " + chapterTitle?.title}
           dateList={dateList}
           handleNextContent={handleNextContent}

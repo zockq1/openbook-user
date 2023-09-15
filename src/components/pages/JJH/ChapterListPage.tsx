@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useGetJJHChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
+import { useNavigate } from "react-router-dom";
 
 function ChapterListPage() {
+  const navigate = useNavigate();
   const { data: chapterList } = useGetJJHChaptersQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
   useEffect(() => {
@@ -29,7 +31,13 @@ function ChapterListPage() {
     return <div>Loading...</div>;
   }
 
-  return <MenuTemplate menuList={menuList} backLink="/" category="정주행" />;
+  return (
+    <MenuTemplate
+      menuList={menuList}
+      handleBackPage={() => navigate("/")}
+      category="정주행"
+    />
+  );
 }
 
 export default ChapterListPage;

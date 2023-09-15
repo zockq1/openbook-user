@@ -20,7 +20,7 @@ const meta = {
   decorators: [
     (Story) => (
       <Layout>
-        <TitleBox backLink="" category=""></TitleBox>
+        <TitleBox handleBackPage={() => {}} category=""></TitleBox>
         <Story />
       </Layout>
     ),

@@ -6,7 +6,7 @@ import { Question } from "../../organisms/question/Question";
 import TitleBox from "../../organisms/ui/TitleBox";
 
 interface QuestionTemplateProps {
-  backLink: string;
+  handleBackPage: () => void;
   questionList: QuestionModel[];
   title?: string;
   category: string;
@@ -15,7 +15,7 @@ interface QuestionTemplateProps {
 }
 
 function QuestionTemplate({
-  backLink,
+  handleBackPage,
   questionList,
   title,
   category,
@@ -24,7 +24,11 @@ function QuestionTemplate({
 }: QuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox backLink={backLink} title={title} category={category} />
+      <TitleBox
+        handleBackPage={handleBackPage}
+        title={title}
+        category={category}
+      />
       {questionList.length === 0 ? (
         <Button onClick={handleNextContent}>다음</Button>
       ) : category === "모의고사" ? (

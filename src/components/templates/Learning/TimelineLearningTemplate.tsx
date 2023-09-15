@@ -8,18 +8,22 @@ interface TimelineLearningTemplateProps {
   title: string;
   dateList: TimeLineModel[];
   handleNextContent?: () => void;
-  backLink: string;
+  handleBackPage: () => void;
 }
 
 function TimelineLearningTemplate({
   title,
   dateList,
   handleNextContent,
-  backLink,
+  handleBackPage,
 }: TimelineLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox backLink={backLink} title={title} category="연표 학습" />
+      <TitleBox
+        handleBackPage={handleBackPage}
+        title={title}
+        category="연표 학습"
+      />
 
       <TimelineList dateList={dateList} />
       {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}

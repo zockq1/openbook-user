@@ -11,7 +11,6 @@ function MockExamSettingPage() {
   const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] =
     useState<number>(5);
   const { data: roundList } = useGetRoundsQuery();
-  console.log("모의고사");
   const handleStart = () => {
     console.log("모의고사");
     navigate(
@@ -38,6 +37,7 @@ function MockExamSettingPage() {
   return (
     <QuestionOptionTemplate
       title="모의고사"
+      handleBackPage={() => navigate("/question")}
       icon={<Icon category="모의고사" />}
       handleStart={handleStart}
       optionList={[

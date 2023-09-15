@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetChapterTitleQuery,
   useGetContentListQuery,
@@ -8,6 +8,7 @@ import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 
 function ContentListPage() {
+  const navigate = useNavigate();
   const { chapter } = useParams();
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: contentList } = useGetContentListQuery(Number(chapter));
@@ -53,7 +54,7 @@ function ContentListPage() {
   return (
     <MenuTemplate
       menuList={menuList}
-      backLink="/jeong-ju-haeng"
+      handleBackPage={() => navigate("/jeong-ju-haeng")}
       category={String(chapter) + ". " + chapterTitle.title}
     />
   );

@@ -9,18 +9,14 @@ function TimelineQuestionPage() {
     Number(searchParams.get("chapter")) || -1
   );
 
-  const handleNext = () => {
-    navigate("/question");
-  };
-
   if (!dateList) {
     return <div>Loading...</div>;
   }
 
   return (
     <TimelineQuestionTemplate
-      backLink="/question"
-      handleNextContent={handleNext}
+      handleBackPage={() => navigate("/question")}
+      handleNextContent={() => navigate("/question")}
       dateList={dateList}
     />
   );

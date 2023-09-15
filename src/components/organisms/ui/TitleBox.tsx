@@ -9,7 +9,7 @@ interface TitleBoxProps {
   category: string;
   startDate?: number;
   endDate?: number;
-  backLink: string;
+  handleBackPage: () => void;
 }
 
 interface StyledTitleBoxProps {
@@ -50,14 +50,14 @@ const TitleBox = ({
   category,
   startDate,
   endDate,
-  backLink,
+  handleBackPage,
 }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
     <>
       <StyledTitleBox position={"static"}>
         <Category>
-          <BackButton backLink={backLink} />
+          <BackButton onClick={handleBackPage} />
           &nbsp;&nbsp;
           <Icon category={category} />
           &nbsp;&nbsp;
@@ -89,7 +89,7 @@ const TitleBox = ({
       </StyledTitleBox>
       <StyledTitleBox position={"fixed"}>
         <Category>
-          <BackButton backLink={backLink} />
+          <BackButton onClick={handleBackPage} />
           &nbsp;&nbsp;
           <Icon category={category} />
           &nbsp;&nbsp;

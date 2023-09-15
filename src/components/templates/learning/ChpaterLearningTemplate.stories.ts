@@ -21,7 +21,7 @@ export const Learning: Story = {
   args: {
     title: "1단원",
     content: "1단원 내용",
-    backLink: "/jeong-ju-haeng/1",
+    handleBackPage: () => {},
   },
 };
 
@@ -29,7 +29,7 @@ export const JJH: Story = {
   args: {
     title: "1단원",
     content: "1단원 내용",
-    backLink: "/jeong-ju-haeng/1",
+    handleBackPage: () => {},
     handleNextContent: () => {
       console.log("다음 콘텐트로 이동");
     },

@@ -37,7 +37,7 @@ function FinalLearningPage() {
 
   return (
     <QuestionTemplate
-      backLink={`/jeong-ju-haeng/${chapter}`}
+      handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
       questionList={questionList}
       handleNextContent={handleNextContent}
       category="단원 마무리 문제"

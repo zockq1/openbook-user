@@ -39,6 +39,7 @@ interface QuestionOptionTemplateProps {
   title: string;
   icon: ReactNode;
   handleStart: () => void;
+  handleBackPage: () => void;
   optionList: QuestionOptionItemProps[];
 }
 
@@ -47,10 +48,11 @@ function QuestionOptionTemplate({
   icon,
   optionList,
   handleStart,
+  handleBackPage,
 }: QuestionOptionTemplateProps) {
   return (
     <QuizBackground>
-      <BackButton backLink="/question" />
+      <BackButton onClick={handleBackPage} />
       <Box>
         <Title>
           {icon}

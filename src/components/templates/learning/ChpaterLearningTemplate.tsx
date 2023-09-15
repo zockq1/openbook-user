@@ -8,18 +8,22 @@ interface ChapterLearningTemplateProps {
   title: string;
   content: string;
   handleNextContent?: () => void;
-  backLink: string;
+  handleBackPage: () => void;
 }
 
 function ChapterLearningTemplate({
   title,
   content,
   handleNextContent,
-  backLink,
+  handleBackPage,
 }: ChapterLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} category="단원 학습" backLink={backLink} />
+      <TitleBox
+        title={title}
+        category="단원 학습"
+        handleBackPage={handleBackPage}
+      />
       <ContentBox>{parse(String(content))}</ContentBox>
       {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>

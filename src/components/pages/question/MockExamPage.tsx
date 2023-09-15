@@ -9,10 +9,6 @@ function MockExamPage() {
     Number(searchParams.get("round")) || 0
   );
 
-  const handleNext = () => {
-    navigate("/question");
-  };
-
   if (!mockExamList) {
     return <div>Loading...</div>;
   }
@@ -20,10 +16,10 @@ function MockExamPage() {
   return (
     <QuestionTemplate
       category="모의고사"
-      backLink="/question"
+      handleBackPage={() => navigate("/question")}
       questionList={mockExamList}
       timeLimit={Number(searchParams.get("timelimit"))}
-      handleNextContent={handleNext}
+      handleNextContent={() => navigate("/question")}
     />
   );
 }

@@ -6,14 +6,14 @@ import TimelineQuestion from "../../organisms/question/TimelineQuestion";
 import Button from "../../atoms/button/Button";
 
 interface TimelineQuestionTemplateProps {
-  backLink: string;
+  handleBackPage: () => void;
   title?: string;
   dateList: TimeLineModel[];
   handleNextContent: () => void;
 }
 
 function TimelineQuestionTemplate({
-  backLink,
+  handleBackPage,
   title,
   dateList,
   handleNextContent,
@@ -21,7 +21,11 @@ function TimelineQuestionTemplate({
   const [isComplete, setIsComplete] = useState(false);
   return (
     <Layout>
-      <TitleBox backLink={backLink} category="연표 문제" title={title} />
+      <TitleBox
+        handleBackPage={handleBackPage}
+        category="연표 문제"
+        title={title}
+      />
       <TimelineQuestion
         dateList={dateList}
         setIsComplete={setIsComplete}

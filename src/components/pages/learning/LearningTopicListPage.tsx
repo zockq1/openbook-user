@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetChapterTitleQuery,
   useGetChapterTopicListQuery,
 } from "../../../store/api/chapterApi";
 
 function LearningTopicListPage() {
+  const navigate = useNavigate();
   const { chapter } = useParams();
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
@@ -48,7 +49,7 @@ function LearningTopicListPage() {
   return (
     <MenuTemplate
       menuList={menuList}
-      backLink="/"
+      handleBackPage={() => navigate("/")}
       category={String(chapter) + ". " + chapterTitle.title}
     />
   );

@@ -1,16 +1,12 @@
 import { AiOutlineLeft } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 
 interface BackButtonProps {
   color?: string;
-  backLink: string;
+  onClick: () => void;
 }
 
-function BackButton({ color = "inherit", backLink }: BackButtonProps) {
-  const navigate = useNavigate();
-  return (
-    <AiOutlineLeft size={24} color={color} onClick={() => navigate(backLink)} />
-  );
+function BackButton({ color = "inherit", onClick }: BackButtonProps) {
+  return <AiOutlineLeft size={24} color={color} onClick={onClick} />;
 }
 
 export default BackButton;

@@ -83,12 +83,12 @@ function TopicLearningPage() {
             topicTitle={String(topic)}
             topicInfo={topicInfo}
             handleNextContent={handleNextQuestion}
-            backLink={`/jeong-ju-haeng/${chapter}`}
+            handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
           />
         )
       ) : (
         <QuestionTemplate
-          backLink={`/jeong-ju-haeng/${chapter}`}
+          handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
           title={topic}
           questionList={questionList}
           handleNextContent={handleNextContent}

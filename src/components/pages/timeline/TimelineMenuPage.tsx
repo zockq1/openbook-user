@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { MenuModel } from "../../../types/commonTypes";
+import { useNavigate } from "react-router-dom";
 
 function TimelineMenuPage() {
+  const navigate = useNavigate();
   const { data: chapterList } = useGetChaptersQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -39,7 +41,13 @@ function TimelineMenuPage() {
     return <div>Loading...</div>;
   }
 
-  return <MenuTemplate menuList={menuList} category="연표 학습" backLink="/" />;
+  return (
+    <MenuTemplate
+      menuList={menuList}
+      category="연표 학습"
+      handleBackPage={() => navigate("/")}
+    />
+  );
 }
 
 export default TimelineMenuPage;

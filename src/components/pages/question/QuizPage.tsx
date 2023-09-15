@@ -11,10 +11,6 @@ function QuizPage() {
     numberOfQuestion: Number(searchParams.get("noq")) || 5,
   });
 
-  const handleNext = () => {
-    navigate("/question");
-  };
-
   if (!questionList || questionList.length === 0) {
     return <div>Loading...</div>;
   }
@@ -22,10 +18,10 @@ function QuizPage() {
   return (
     <QuestionTemplate
       category="퀴즈"
-      backLink="/question"
+      handleBackPage={() => navigate("/question")}
       questionList={questionList}
       timeLimit={Number(searchParams.get("timelimit"))}
-      handleNextContent={handleNext}
+      handleNextContent={() => navigate("/question")}
     />
   );
 }
