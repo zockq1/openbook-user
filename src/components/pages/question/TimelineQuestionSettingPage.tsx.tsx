@@ -12,12 +12,6 @@ function TimelineQuestionSettingPage() {
   const [selectedNumberOfQuestion, setSelectedNumberOfQuestion] =
     useState<number>(1);
 
-  const handleStart = () => {
-    navigate(
-      `/question/timeline?timelimit=${selectedTimeLimit}&chapter=${selectedChapter}&noq=${selectedNumberOfQuestion}`
-    );
-  };
-
   const handleSelectTimeLimit = (e: any) => {
     setSelectedTimeLimit(Number(e.target.value));
   };
@@ -33,6 +27,17 @@ function TimelineQuestionSettingPage() {
   if (!chapterList) {
     return <div>Loading...</div>;
   }
+
+  const handleStart = () => {
+    let chapter = selectedChapter;
+    if (selectedChapter === -1) {
+      chapter =
+        chapterList[Math.floor(Math.random() * chapterList.length)].number;
+    }
+    navigate(
+      `/question/timeline?timelimit=${selectedTimeLimit}&chapter=${chapter}&noq=${selectedNumberOfQuestion}`
+    );
+  };
 
   return (
     <QuestionOptionTemplate

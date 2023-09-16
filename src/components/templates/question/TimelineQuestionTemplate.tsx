@@ -8,6 +8,7 @@ import Button from "../../atoms/button/Button";
 interface TimelineQuestionTemplateProps {
   handleBackPage: () => void;
   title?: string;
+  chapter: number;
   dateList: TimeLineModel[];
   handleNextContent: () => void;
 }
@@ -15,6 +16,7 @@ interface TimelineQuestionTemplateProps {
 function TimelineQuestionTemplate({
   handleBackPage,
   title,
+  chapter,
   dateList,
   handleNextContent,
 }: TimelineQuestionTemplateProps) {
@@ -30,6 +32,7 @@ function TimelineQuestionTemplate({
         dateList={dateList}
         setIsComplete={setIsComplete}
         isComplete={isComplete}
+        chapter={chapter}
       />
       {isComplete && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>

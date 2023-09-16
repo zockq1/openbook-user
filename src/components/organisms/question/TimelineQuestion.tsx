@@ -9,12 +9,12 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import { useAddChapterWrongCounterMutation } from "../../../store/api/questionApi";
-import { useParams } from "react-router-dom";
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
   setIsComplete: React.Dispatch<React.SetStateAction<boolean>>;
   isComplete: boolean;
+  chapter: number;
 }
 
 interface LineProps {
@@ -90,8 +90,8 @@ function TimelineQuestion({
   dateList,
   setIsComplete,
   isComplete,
+  chapter,
 }: TimelineQuestionProps) {
-  const { chapter } = useParams();
   const [isMounted, setIsMounted] = useState(false);
   const [nextDateList, setNextDateList] = useState<TimeLineModel[]>(
     [...dateList].sort(() => Math.random() - 0.5)
