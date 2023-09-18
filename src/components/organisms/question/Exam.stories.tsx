@@ -3,7 +3,7 @@ import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { Exam } from "./Exam";
 import ex1 from "../../../styles/images/ex1.png";
 import ex2 from "../../../styles/images/ex2.png";
-import { QuestionModel } from "../../../types/questionTypes";
+import { ExamModel } from "../../../types/questionTypes";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../ui/TitleBox";
 
@@ -30,11 +30,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const questionList: QuestionModel[] = [
+const questionList: ExamModel[] = [
   {
-    questionType: "TtoS",
     answer: "정답",
     description: ex1,
+    descriptionComment: "",
     score: 2,
     choiceType: "String",
     choiceList: [
@@ -55,9 +55,9 @@ const questionList: QuestionModel[] = [
     ],
   },
   {
-    questionType: "TtoS",
     answer: "정답",
     description: ex2,
+    descriptionComment: "",
     score: 2,
     choiceType: "String",
     choiceList: [
@@ -87,7 +87,7 @@ const questionList: QuestionModel[] = [
 
 export const Learning: Story = {
   args: {
-    questionList: [
+    examList: [
       ...Array(25).fill(questionList[0]),
       ...Array(25).fill(questionList[1]),
     ],

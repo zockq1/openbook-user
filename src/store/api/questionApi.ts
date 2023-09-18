@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import {
   ChapterWrongCounterModel,
+  ExamModel,
   GetQuestionModel,
   QuestionModel,
   RoundModel,
@@ -19,9 +20,6 @@ export const questionApi = createApi({
     getTimeline: builder.query<TimeLineModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/time-flow/?num=${chapterNumber}`,
-    }),
-    getMockExam: builder.query<QuestionModel[], number>({
-      query: (round: number) => `/questions/mock-exam/?nun=${round}`,
     }),
     getTtoKQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
@@ -42,6 +40,9 @@ export const questionApi = createApi({
     getStoTQuestion: builder.query<QuestionModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/get-topics-sentences/?num=${chapterNumber}`,
+    }),
+    getExam: builder.query<ExamModel[], number>({
+      query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
     }),
     addChapterWrongCounter: builder.mutation<void, ChapterWrongCounterModel>({
       query: (counter: ChapterWrongCounterModel) => {
@@ -67,7 +68,7 @@ export const questionApi = createApi({
 export const {
   useGetRoundsQuery,
   useGetTimelineQuery,
-  useGetMockExamQuery,
+  useGetExamQuery,
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,

@@ -1,11 +1,11 @@
-import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetMockExamQuery } from "../../../store/api/questionApi";
+import { useGetExamQuery } from "../../../store/api/questionApi";
+import ExamTemplate from "../../templates/question/ExamTemplate";
 
 function MockExamPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { data: mockExamList } = useGetMockExamQuery(
+  const { data: mockExamList } = useGetExamQuery(
     Number(searchParams.get("round")) || 0
   );
 
@@ -14,10 +14,10 @@ function MockExamPage() {
   }
 
   return (
-    <QuestionTemplate
+    <ExamTemplate
       category="모의고사"
       handleBackPage={() => navigate("/question")}
-      questionList={mockExamList}
+      examList={mockExamList}
       timeLimit={Number(searchParams.get("timelimit"))}
       handleNextContent={() => navigate("/question")}
     />

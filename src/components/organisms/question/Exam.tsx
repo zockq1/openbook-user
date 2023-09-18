@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
-import { ChoiceModel, QuestionModel } from "../../../types/questionTypes";
 import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
 import styled, { css, keyframes } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
+import { ChoiceModel, ExamModel } from "../../../types/questionTypes";
 import QuestionCounter from "../../molecules/etc/QuestionCounter";
 
-interface QuestionProps {
-  questionList: QuestionModel[];
+interface ExamProps {
+  examList: ExamModel[];
   handleNextContent: () => void;
   category: string;
   timeLimit: number;
@@ -28,7 +28,7 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const QuestionNavigation = styled.ul`
+const ExamNavigation = styled.ul`
   overflow-x: scroll;
   overflow-y: hidden;
   -ms-overflow-style: none;
@@ -43,7 +43,7 @@ const QuestionNavigation = styled.ul`
   }
 `;
 
-interface QuestionNavigationItemProps {
+interface ExamNavigationItemProps {
   isCurrent: boolean;
   state: "no" | "correctAnswer" | "wrongAnswer";
 }
@@ -62,7 +62,7 @@ const popAnimation = keyframes`
   }
 `;
 
-const QuestionNavigationItem = styled.li<QuestionNavigationItemProps>`
+const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
   position: relative;
   flex-shrink: 0;
   min-width: 40px;
@@ -115,45 +115,38 @@ const AnswerBox = styled.div`
   margin-top: 30px;
 `;
 
-interface QuestionData {
+interface ExamData {
   checkedChoice: string;
   state: "no" | "correctAnswer" | "wrongAnswer";
   isChecked: boolean;
 }
 
-function Exam({
-  questionList,
-  handleNextContent,
-  category,
-  timeLimit,
-}: QuestionProps) {
+function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
   const [isComplete, setIsComplete] = useState<boolean>(false); //no, correctAnswer, wrongAnswer
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
-  const [currentQuestionList, setCurrentQuestionList] = useState<
-    QuestionModel[]
-  >([...questionList]);
-  const [dataList, setDataList] = useState<QuestionData[]>([]);
+  const [currentExamNumber, setCurrentExamNumber] = useState(0);
+  const [currentExamList, setCurrentExamList] = useState<ExamModel[]>([
+    ...examList,
+  ]);
+  const [dataList, setDataList] = useState<ExamData[]>([]);
   const [score, setScore] = useState<number>(0);
   const [isTimeout, setIsTimeout] = useState<boolean>(false);
 
-  const questionNavigationRef = useRef<HTMLUListElement | null>(null);
+  const examNavigationRef = useRef<HTMLUListElement | null>(null);
 
-  // 현재 선택된 QuestionNavigationItem의 위치를 계산
-  const calculateScrollPosition = (currentQuestionNumber: number) => {
-    if (questionNavigationRef.current) {
-      const questionItem =
-        questionNavigationRef.current.children[currentQuestionNumber];
-      if (questionItem) {
-        const itemRect = questionItem.getBoundingClientRect();
-        const containerRect =
-          questionNavigationRef.current.getBoundingClientRect();
+  // 현재 선택된 ExamNavigationItem의 위치를 계산
+  const calculateScrollPosition = (currentExamNumber: number) => {
+    if (examNavigationRef.current) {
+      const examItem = examNavigationRef.current.children[currentExamNumber];
+      if (examItem) {
+        const itemRect = examItem.getBoundingClientRect();
+        const containerRect = examNavigationRef.current.getBoundingClientRect();
         const scrollPosition =
           containerRect.left -
           containerRect.width / 2 +
           itemRect.width / 2 +
           5 +
-          currentQuestionNumber * 40;
+          currentExamNumber * 40;
         return scrollPosition;
       }
     }
@@ -161,25 +154,25 @@ function Exam({
   };
 
   useEffect(() => {
-    if (questionNavigationRef.current) {
-      const scrollPosition = calculateScrollPosition(currentQuestionNumber);
-      questionNavigationRef.current.scrollLeft = scrollPosition;
+    if (examNavigationRef.current) {
+      const scrollPosition = calculateScrollPosition(currentExamNumber);
+      examNavigationRef.current.scrollLeft = scrollPosition;
     }
-  }, [currentQuestionNumber]);
+  }, [currentExamNumber]);
 
   useEffect(() => {
-    let shuffledQuestionList = [...currentQuestionList]
+    let shuffledExamList = [...currentExamList]
       .sort(() => Math.random() - 0.5)
       .map((item) => {
-        const shuffledQuestion: QuestionModel = {
+        const shuffledExam: ExamModel = {
           ...item,
           choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
         };
-        return shuffledQuestion;
+        return shuffledExam;
       });
-    setCurrentQuestionList(shuffledQuestionList);
+    setCurrentExamList(shuffledExamList);
     setDataList(
-      shuffledQuestionList.map((item) => {
+      shuffledExamList.map((item) => {
         return {
           checkedChoice: "",
           state: "no",
@@ -198,8 +191,8 @@ function Exam({
   const handleChoiceClick = (checkboxId: string) => {
     if (!isComplete) {
       let newDataList = [...dataList];
-      newDataList[currentQuestionNumber] = {
-        ...newDataList[currentQuestionNumber],
+      newDataList[currentExamNumber] = {
+        ...newDataList[currentExamNumber],
         checkedChoice: checkboxId,
         isChecked: true,
       };
@@ -213,7 +206,7 @@ function Exam({
   useEffect(() => {
     if (isTimeout) {
       handleCheckAnswer();
-      setCurrentQuestionNumber(dataList.length);
+      setCurrentExamNumber(dataList.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimeout]);
@@ -221,19 +214,16 @@ function Exam({
   const handleCheckAnswer = () => {
     let newScore = 0;
     setIsComplete(true);
-    setCurrentQuestionNumber(dataList.length);
+    setCurrentExamNumber(dataList.length);
     setDataList(
       dataList.map((item, index) => {
-        if (
-          item.checkedChoice.substring(1) === currentQuestionList[index].answer
-        ) {
-          newScore += currentQuestionList[index].score || 0;
+        if (item.checkedChoice.substring(1) === currentExamList[index].answer) {
+          newScore += currentExamList[index].score || 0;
         }
         return {
           ...item,
           state:
-            item.checkedChoice.substring(1) ===
-            currentQuestionList[index].answer
+            item.checkedChoice.substring(1) === currentExamList[index].answer
               ? "correctAnswer"
               : "wrongAnswer",
         };
@@ -241,19 +231,19 @@ function Exam({
     );
     setScore(newScore);
   };
-  const handleNextQuestion = () => {
-    setSelectedCheckbox(dataList[currentQuestionNumber + 1].checkedChoice);
-    setCurrentQuestionNumber(currentQuestionNumber + 1);
+  const handleNextExam = () => {
+    setSelectedCheckbox(dataList[currentExamNumber + 1].checkedChoice);
+    setCurrentExamNumber(currentExamNumber + 1);
   };
 
   const handleClickNavigation = (index: number) => {
-    setCurrentQuestionNumber(index);
+    setCurrentExamNumber(index);
     setSelectedCheckbox(dataList[index].checkedChoice);
   };
 
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
-      currentQuestionList[currentQuestionNumber].choiceType === "String"
+      currentExamList[currentExamNumber].choiceType === "String"
         ? LongChoiceItem
         : ShortChoiceItem;
 
@@ -262,9 +252,9 @@ function Exam({
         handleCheckboxChange={handleCheckboxChange}
         handleChoiceClick={handleChoiceClick}
         current={String(index) + item.key}
-        answer={currentQuestionList[currentQuestionNumber].answer}
+        answer={currentExamList[currentExamNumber].answer}
         choice={item.choice}
-        isSolved={isComplete ? dataList[currentQuestionNumber].state : "no"}
+        isSolved={isComplete ? dataList[currentExamNumber].state : "no"}
         selectedCheckbox={selectedCheckbox}
         key={index}
       />
@@ -273,62 +263,60 @@ function Exam({
 
   return (
     <>
-      <QuestionNavigation ref={questionNavigationRef}>
+      <ExamNavigation ref={examNavigationRef}>
         {dataList.map((item, index) => {
           return (
-            <QuestionNavigationItem
+            <ExamNavigationItem
               key={index}
-              isCurrent={index === currentQuestionNumber}
+              isCurrent={index === currentExamNumber}
               onClick={() => handleClickNavigation(index)}
               state={item.state}
             >
               {index + 1}
               {item.isChecked && <Check state={item.state} />}
-            </QuestionNavigationItem>
+            </ExamNavigationItem>
           );
         })}
-        <QuestionNavigationItem
-          isCurrent={currentQuestionNumber === dataList.length}
+        <ExamNavigationItem
+          isCurrent={currentExamNumber === dataList.length}
           onClick={() => {
-            isComplete && setCurrentQuestionNumber(dataList.length);
+            isComplete && setCurrentExamNumber(dataList.length);
           }}
           state="no"
         >
           결과
-        </QuestionNavigationItem>
-      </QuestionNavigation>
+        </ExamNavigationItem>
+      </ExamNavigation>
       <QuestionCounter
         timeLimit={timeLimit}
-        totalQuestionCount={questionList.length}
-        currentQuestionCount={currentQuestionNumber + 1}
+        totalQuestionCount={examList.length}
+        currentQuestionCount={currentExamNumber + 1}
         category={category}
         setisTimeout={setIsTimeout}
       />
-      {currentQuestionNumber < currentQuestionList.length &&
-        currentQuestionList[currentQuestionNumber].description && (
+      {currentExamNumber < currentExamList.length &&
+        currentExamList[currentExamNumber].description && (
           <Description>
             <img
               style={{ width: "100%", height: "auto" }}
-              src={currentQuestionList[currentQuestionNumber].description}
+              src={currentExamList[currentExamNumber].description}
               alt=""
             />
           </Description>
         )}
       <RowList>
-        {currentQuestionNumber < currentQuestionList.length &&
-          currentQuestionList[currentQuestionNumber] &&
-          currentQuestionList[currentQuestionNumber].choiceList.map(
-            renderChoiceItem
-          )}
+        {currentExamNumber < currentExamList.length &&
+          currentExamList[currentExamNumber] &&
+          currentExamList[currentExamNumber].choiceList.map(renderChoiceItem)}
       </RowList>
-      {currentQuestionList.length === currentQuestionNumber + 1
-        ? currentQuestionNumber < currentQuestionList.length && (
+      {currentExamList.length === currentExamNumber + 1
+        ? currentExamNumber < currentExamList.length && (
             <Button onClick={handleCheckAnswer}>완료</Button>
           )
-        : currentQuestionNumber < currentQuestionList.length && (
-            <Button onClick={handleNextQuestion}>다음 문제</Button>
+        : currentExamNumber < currentExamList.length && (
+            <Button onClick={handleNextExam}>다음 문제</Button>
           )}
-      {currentQuestionNumber === currentQuestionList.length && (
+      {currentExamNumber === currentExamList.length && (
         <AnswerBox>점수: {score}</AnswerBox>
       )}
     </>

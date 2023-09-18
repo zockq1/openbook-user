@@ -11,14 +11,23 @@ export interface QuestionModel {
   questionType: QuestionType;
   answer: string;
   score?: number;
-  choiceType?: "String" | "Image";
-  questionSentence?: string;
+  choiceType?: ChoiceType;
 
-  description?: string;
+  description?: string; //이미지
   descriptionSentence?: string;
   descriptionKeyword?: { name: string; comment: string }[];
 
   choiceList: ChoiceModel[];
+}
+
+export interface ExamModel {
+  number?: number;
+  description: string;
+  descriptionComment: string;
+  answer: string;
+  choiceType: ChoiceType;
+  choiceList: ChoiceModel[];
+  score: number;
 }
 
 export interface TimeLineModel {

@@ -1,26 +1,26 @@
-import { QuestionModel } from "../../../types/questionTypes";
+import { ExamModel } from "../../../types/questionTypes";
 import Button from "../../atoms/button/Button";
 import Layout from "../../atoms/layout/Layout";
-import { Question } from "../../organisms/question/Question";
+import { Exam } from "../../organisms/question/Exam";
 import TitleBox from "../../organisms/ui/TitleBox";
 
-interface QuestionTemplateProps {
+interface ExamTemplateProps {
   handleBackPage: () => void;
-  questionList: QuestionModel[];
+  examList: ExamModel[];
   title?: string;
   category: string;
   timeLimit?: number;
   handleNextContent: () => void;
 }
 
-function QuestionTemplate({
+function ExamTemplate({
   handleBackPage,
-  questionList,
+  examList,
   title,
   category,
   timeLimit,
   handleNextContent,
-}: QuestionTemplateProps) {
+}: ExamTemplateProps) {
   return (
     <Layout>
       <TitleBox
@@ -28,11 +28,11 @@ function QuestionTemplate({
         title={title}
         category={category}
       />
-      {questionList.length === 0 ? (
+      {examList.length === 0 ? (
         <Button onClick={handleNextContent}>다음</Button>
       ) : (
-        <Question
-          questionList={questionList.filter((item) => item !== null)}
+        <Exam
+          examList={examList.filter((item) => item !== null)}
           handleNextContent={handleNextContent}
           category={category}
           timeLimit={timeLimit || Infinity}
@@ -42,4 +42,4 @@ function QuestionTemplate({
   );
 }
 
-export default QuestionTemplate;
+export default ExamTemplate;
