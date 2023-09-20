@@ -3,18 +3,19 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import Icon from "../icon/Icon";
-const StyledLogin = styled.a`
+import { useNavigate } from "react-router-dom";
+const StyledLogin = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 function Login() {
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   return (
-    <StyledLogin
-      href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=http://localhost:4000/oauth/kakao/login&response_type=code`}
-    >
+    <StyledLogin onClick={() => navigate(isLoggedIn ? "/option" : "/login")}>
       <Icon category={isLoggedIn ? "user" : "login"} size={30} />
     </StyledLogin>
   );

@@ -18,7 +18,6 @@ function App() {
     <div>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <BackGroundColor />
         <Outlet />
       </ThemeProvider>
     </div>

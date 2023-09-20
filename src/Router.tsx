@@ -23,6 +23,7 @@ import MockExamSettingPage from "./components/pages/question/MockExamSettingPage
 import TimelineQuestionSettingPage from "./components/pages/question/TimelineQuestionSettingPage.tsx";
 import QuizSettingPage from "./components/pages/question/QuizSettingPage";
 import ChapterListPage from "./components/pages/jjh/ChapterListPage";
+import LoginPage from "./components/pages/main/LoginPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MainPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
       {
         path: "/question",

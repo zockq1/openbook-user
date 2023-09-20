@@ -4,7 +4,9 @@ import Hanna from "./fonts/Hanna.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
-
+body {
+  background-color: #f2f5f9;
+}
 a{
     text-decoration: none;
     color: inherit;

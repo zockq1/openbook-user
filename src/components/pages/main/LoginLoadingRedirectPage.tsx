@@ -21,7 +21,7 @@ const LoginLoadingRedirectPage = () => {
       dispatch(setRefreshToken(data.refreshToken));
       dispatch(setId(data.id));
       dispatch(login());
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }, [data, dispatch, navigate]);
 

@@ -1,17 +1,6 @@
 import styled from "styled-components";
-import Icon from "../../atoms/icon/Icon";
 import LoginButton from "../../atoms/button/LoginButton";
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.black};
-  font-family: "Giants-Inline";
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-`;
+import Logo from "../../atoms/icon/Logo";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -22,11 +11,7 @@ const StyledHeader = styled.header`
 function Header() {
   return (
     <StyledHeader>
-      <Logo>
-        정주행
-        <Icon category="정주행" size={24} />
-        한국사
-      </Logo>
+      <Logo size={24} />
       <LoginButton />
     </StyledHeader>
   );
