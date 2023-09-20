@@ -6,6 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
+import withAuth from "../../../hoc/withAuth";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -60,4 +61,4 @@ function ContentListPage() {
   );
 }
 
-export default ContentListPage;
+export default withAuth(ContentListPage);

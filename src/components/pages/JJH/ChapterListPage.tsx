@@ -3,6 +3,8 @@ import { useGetJJHChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { useNavigate } from "react-router-dom";
+import withAuth from "../../../hoc/withAuth";
+import { JJHChapterModel } from "../../../types/chapterTypes";
 
 function ChapterListPage() {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ function ChapterListPage() {
     }
 
     setMenuList([
-      ...chapterList.map((item) => {
+      ...chapterList.map((item: JJHChapterModel) => {
         const result: MenuModel = {
           title: item.title,
           state: item.state,
@@ -40,4 +42,4 @@ function ChapterListPage() {
   );
 }
 
-export default ChapterListPage;
+export default withAuth(ChapterListPage);

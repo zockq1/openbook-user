@@ -7,6 +7,7 @@ import { QuestionModel } from "../../../types/questionTypes";
 import { useEffect, useState } from "react";
 import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
+import withAuth from "../../../hoc/withAuth";
 
 function FinalLearningPage() {
   const { chapter } = useParams();
@@ -45,4 +46,4 @@ function FinalLearningPage() {
   );
 }
 
-export default FinalLearningPage;
+export default withAuth(FinalLearningPage);

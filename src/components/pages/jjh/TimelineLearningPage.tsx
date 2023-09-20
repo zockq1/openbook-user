@@ -8,6 +8,7 @@ import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import { useState } from "react";
 import TimelineQuestionTemplate from "../../templates/question/TimelineQuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
+import withAuth from "../../../hoc/withAuth";
 
 type SelectedContent = "Learning" | "Question";
 
@@ -71,4 +72,4 @@ function TimelineLearningPage() {
     </>
   );
 }
-export default TimelineLearningPage;
+export default withAuth(TimelineLearningPage);

@@ -10,6 +10,7 @@ import { QuestionModel } from "../../../types/questionTypes";
 import { useGetContentListQuery } from "../../../store/api/chapterApi";
 import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
+import withAuth from "../../../hoc/withAuth";
 
 type SelectedContent = "Learning" | "Question";
 
@@ -98,4 +99,4 @@ function TopicLearningPage() {
     </>
   );
 }
-export default TopicLearningPage;
+export default withAuth(TopicLearningPage);

@@ -5,6 +5,7 @@ import {
   useGetChapterTitleQuery,
 } from "../../../store/api/chapterApi";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
+import withAuth from "../../../hoc/withAuth";
 
 function ChapterLearningPage() {
   const navigate = useNavigate();
@@ -36,4 +37,4 @@ function ChapterLearningPage() {
   );
 }
 
-export default ChapterLearningPage;
+export default withAuth(ChapterLearningPage);
