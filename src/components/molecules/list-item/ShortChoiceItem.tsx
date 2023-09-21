@@ -5,17 +5,17 @@ import {
 } from "../../atoms/checkbox/QuestionCheckBox";
 
 interface AnswerCheckProps {
-  isSolved?: string;
-  isAnswer?: boolean;
+  isFinish?: boolean;
+  isCorrect?: boolean;
 }
 
 interface ChoiceProps {
   handleChoiceClick: (checkboxId: string) => void;
   handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  current: string;
-  answer: string;
+  choiceKey: string;
   choice: string;
-  isSolved: string;
+  isFinish: boolean;
+  isCorrect: boolean;
   selectedCheckbox: string;
 }
 
@@ -27,9 +27,9 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   margin: 10px 0px 10px 15px;
   padding: 12px;
   border-radius: 10px;
-  border: ${({ theme, isSolved, isAnswer }) =>
-    isSolved !== "no"
-      ? isAnswer
+  border: ${({ theme, isFinish, isCorrect }) =>
+    isFinish
+      ? isCorrect
         ? theme.border.blue
         : theme.border.red
       : theme.border.black};
@@ -40,9 +40,9 @@ const ShortChoice = styled.div<AnswerCheckProps>`
 
 const ShortComment = styled.span<AnswerCheckProps>`
   border-radius: 10px;
-  color: ${({ theme, isSolved, isAnswer }) =>
-    isSolved !== "no"
-      ? isAnswer
+  color: ${({ theme, isCorrect, isFinish }) =>
+    isFinish
+      ? isCorrect
         ? theme.colors.blue
         : theme.colors.red
       : theme.colors.black};
@@ -56,31 +56,31 @@ const ShortComment = styled.span<AnswerCheckProps>`
 function ShortChoiceItem({
   handleChoiceClick,
   handleCheckboxChange,
-  current,
-  answer,
+  isCorrect,
+  choiceKey,
   choice,
-  isSolved,
+  isFinish,
   selectedCheckbox,
 }: ChoiceProps) {
   return (
     <ShortChoice
-      onClick={() => handleChoiceClick(current)}
-      isSolved={isSolved}
-      isAnswer={current.substring(1) === answer}
-      key={current}
+      onClick={() => handleChoiceClick(choiceKey)}
+      isFinish={isFinish}
+      isCorrect={isCorrect}
     >
-      <ShortComment
-        isSolved={isSolved}
-        isAnswer={current.substring(1) === answer}
-      >
+      <ShortComment isFinish={isFinish} isCorrect={isCorrect}>
         {choice}
       </ShortComment>
       <CheckBoxInput
-        current={current}
+        choiceKey={choiceKey}
         handleCheckboxChange={handleCheckboxChange}
         selectedCheckbox={selectedCheckbox}
       />
-      <CheckBoxLabel current={current} answer={answer} isSolved={isSolved} />
+      <CheckBoxLabel
+        choiceKey={choiceKey}
+        isCorrect={isCorrect}
+        isFinish={isFinish}
+      />
     </ShortChoice>
   );
 }

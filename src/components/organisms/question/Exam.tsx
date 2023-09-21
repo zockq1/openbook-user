@@ -121,8 +121,8 @@ interface ExamData {
   isChecked: boolean;
 }
 
-function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
-  const [isComplete, setIsComplete] = useState<boolean>(false); //no, correctAnswer, wrongAnswer
+function Exam({ examList, category, timeLimit }: ExamProps) {
+  const [isFinish, setIsFinish] = useState<boolean>(false); //no, correctAnswer, wrongAnswer
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [currentExamNumber, setCurrentExamNumber] = useState(0);
   const [currentExamList, setCurrentExamList] = useState<ExamModel[]>([
@@ -134,7 +134,6 @@ function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
 
   const examNavigationRef = useRef<HTMLUListElement | null>(null);
 
-  // 현재 선택된 ExamNavigationItem의 위치를 계산
   const calculateScrollPosition = (currentExamNumber: number) => {
     if (examNavigationRef.current) {
       const examItem = examNavigationRef.current.children[currentExamNumber];
@@ -189,7 +188,7 @@ function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
   };
 
   const handleChoiceClick = (checkboxId: string) => {
-    if (!isComplete) {
+    if (!isFinish) {
       let newDataList = [...dataList];
       newDataList[currentExamNumber] = {
         ...newDataList[currentExamNumber],
@@ -213,7 +212,7 @@ function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
 
   const handleCheckAnswer = () => {
     let newScore = 0;
-    setIsComplete(true);
+    setIsFinish(true);
     setCurrentExamNumber(dataList.length);
     setDataList(
       dataList.map((item, index) => {
@@ -251,12 +250,12 @@ function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
       <ChoiceItem
         handleCheckboxChange={handleCheckboxChange}
         handleChoiceClick={handleChoiceClick}
-        current={String(index) + item.key}
-        answer={currentExamList[currentExamNumber].answer}
+        choiceKey={String(index) + item.key}
+        key={String(index) + item.key}
+        isCorrect={currentExamList[currentExamNumber].answer === item.key}
         choice={item.choice}
-        isSolved={isComplete ? dataList[currentExamNumber].state : "no"}
+        isFinish={isFinish}
         selectedCheckbox={selectedCheckbox}
-        key={index}
       />
     );
   };
@@ -280,7 +279,7 @@ function Exam({ examList, handleNextContent, category, timeLimit }: ExamProps) {
         <ExamNavigationItem
           isCurrent={currentExamNumber === dataList.length}
           onClick={() => {
-            isComplete && setCurrentExamNumber(dataList.length);
+            isFinish && setCurrentExamNumber(dataList.length);
           }}
           state="no"
         >

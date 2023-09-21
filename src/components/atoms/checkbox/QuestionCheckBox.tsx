@@ -1,20 +1,20 @@
 import styled, { keyframes } from "styled-components";
 
 interface AnswerCheckProps {
-  isSolved?: string;
-  isAnswer?: boolean;
+  isFinish?: boolean;
+  isCorrect?: boolean;
 }
 
 interface CheckBoxInputProps {
-  current: string;
+  choiceKey: string;
   handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedCheckbox: string;
 }
 
 interface CheckBoxLabelProps {
-  current: string;
-  answer: string;
-  isSolved: string;
+  choiceKey: string;
+  isFinish?: boolean;
+  isCorrect?: boolean;
 }
 
 const popAnimation = keyframes`
@@ -39,9 +39,9 @@ const CheckboxInput = styled.input`
 
 const CheckboxLabel = styled.label<AnswerCheckProps>`
   --checkbox-size: 40px;
-  --tick-color: ${({ theme, isSolved, isAnswer }) =>
-    isSolved !== "no"
-      ? isAnswer
+  --tick-color: ${({ theme, isCorrect, isFinish }) =>
+    isFinish
+      ? isCorrect
         ? theme.colors.blue
         : theme.colors.red
       : theme.colors.blue};
@@ -52,9 +52,9 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   border: calc(var(--checkbox-size) * 0.125) solid
-    ${({ theme, isSolved, isAnswer }) =>
-      isSolved !== "no"
-        ? isAnswer
+    ${({ theme, isCorrect, isFinish }) =>
+      isFinish
+        ? isCorrect
           ? theme.colors.semiLightBlue
           : theme.colors.lightRed
         : theme.colors.black};
@@ -103,26 +103,26 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
 `;
 
 function CheckBoxInput({
-  current,
+  choiceKey,
   handleCheckboxChange,
   selectedCheckbox,
 }: CheckBoxInputProps) {
   return (
     <CheckboxInput
       type="checkbox"
-      id={current}
+      id={choiceKey}
       onChange={handleCheckboxChange}
-      checked={selectedCheckbox === current}
+      checked={selectedCheckbox === choiceKey}
     />
   );
 }
 
-function CheckBoxLabel({ current, answer, isSolved }: CheckBoxLabelProps) {
+function CheckBoxLabel({ choiceKey, isFinish, isCorrect }: CheckBoxLabelProps) {
   return (
     <CheckboxLabel
-      htmlFor={current}
-      isSolved={isSolved}
-      isAnswer={current.substring(1) === answer}
+      htmlFor={choiceKey}
+      isFinish={isFinish}
+      isCorrect={isCorrect}
     >
       <div className="tick"></div>
     </CheckboxLabel>

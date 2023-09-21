@@ -5,17 +5,17 @@ import {
 } from "../../atoms/checkbox/QuestionCheckBox";
 
 interface AnswerCheckProps {
-  isSolved?: string;
-  isAnswer?: boolean;
+  isFinish?: boolean;
+  isCorrect?: boolean;
 }
 
 interface ChoiceProps {
   handleChoiceClick: (checkboxId: string) => void;
   handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  current: string;
-  answer: string;
+  choiceKey: string;
   choice: string;
-  isSolved: string;
+  isCorrect: boolean;
+  isFinish: boolean;
   selectedCheckbox: string;
 }
 
@@ -27,9 +27,9 @@ const LongChoice = styled.div<AnswerCheckProps>`
   margin: 10px 15px;
   padding: 0 12px;
   border-radius: 10px;
-  border: ${({ theme, isSolved, isAnswer }) =>
-    isSolved !== "no"
-      ? isAnswer
+  border: ${({ theme, isFinish, isCorrect }) =>
+    isFinish
+      ? isCorrect
         ? theme.border.blue
         : theme.border.red
       : theme.border.black};
@@ -42,9 +42,9 @@ const LongComment = styled.span<AnswerCheckProps>`
   width: max-content;
   margin: 12px;
 
-  color: ${({ theme, isSolved, isAnswer }) =>
-    isSolved !== "no"
-      ? isAnswer
+  color: ${({ theme, isCorrect, isFinish }) =>
+    isFinish
+      ? isCorrect
         ? theme.colors.blue
         : theme.colors.red
       : theme.colors.black};
@@ -57,29 +57,29 @@ const LongComment = styled.span<AnswerCheckProps>`
 function LongChoiceItem({
   handleChoiceClick,
   handleCheckboxChange,
-  current,
-  answer,
+  choiceKey,
   choice,
-  isSolved,
+  isCorrect,
+  isFinish,
   selectedCheckbox,
 }: ChoiceProps) {
   return (
     <LongChoice
-      onClick={() => handleChoiceClick(current)}
-      isSolved={isSolved}
-      isAnswer={current.substring(1) === answer}
-      key={current}
+      onClick={() => handleChoiceClick(choiceKey)}
+      isFinish={isFinish}
+      isCorrect={isCorrect}
     >
       <CheckBoxInput
-        current={current}
+        choiceKey={choiceKey}
         handleCheckboxChange={handleCheckboxChange}
         selectedCheckbox={selectedCheckbox}
       />
-      <CheckBoxLabel current={current} answer={answer} isSolved={isSolved} />
-      <LongComment
-        isSolved={isSolved}
-        isAnswer={current.substring(1) === answer}
-      >
+      <CheckBoxLabel
+        choiceKey={choiceKey}
+        isCorrect={isCorrect}
+        isFinish={isFinish}
+      />
+      <LongComment isFinish={isFinish} isCorrect={isCorrect}>
         {choice}
       </LongComment>
     </LongChoice>

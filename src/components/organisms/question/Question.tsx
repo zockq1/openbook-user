@@ -41,7 +41,8 @@ function Question({
 }: QuestionProps) {
   const [addTopicWrongCounte] = useAddTopicWrongCounterMutation();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
-  const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
+  //const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
+  const [isFinish, setIsFinish] = useState<boolean>(false);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
   const [currentQuestionList, setCurrentQuestionList] = useState<
     QuestionModel[]
@@ -100,7 +101,7 @@ function Question({
       selectedCheckbox.substring(1) ===
       currentQuestionList[currentQuestionNumber].answer
     ) {
-      setIsSolved("correctAnswer");
+      setIsFinish(true);
       correctAnswer();
     } else {
       addTopicWrongCounte([
@@ -109,14 +110,14 @@ function Question({
           count: 1,
         },
       ]);
-      setIsSolved("wrongAnswer");
+      setIsFinish(true);
       wrongAnswer();
     }
   };
   const handleNextQuestion = () => {
     toast.dismiss();
     setSelectedCheckbox("");
-    setIsSolved("no");
+    setIsFinish(false);
     setCurrentQuestionNumber(currentQuestionNumber + 1);
   };
 
@@ -131,12 +132,14 @@ function Question({
       <ChoiceItem
         handleCheckboxChange={handleCheckboxChange}
         handleChoiceClick={handleChoiceClick}
-        current={String(index) + item.key}
-        answer={currentQuestionList[currentQuestionNumber].answer}
+        choiceKey={String(index) + item.key}
+        isCorrect={
+          currentQuestionList[currentQuestionNumber].answer === item.key
+        }
         choice={item.choice}
-        isSolved={isSolved}
+        isFinish={isFinish}
         selectedCheckbox={selectedCheckbox}
-        key={index}
+        key={String(index) + item.key}
       />
     );
   };
@@ -199,7 +202,7 @@ function Question({
             renderChoiceItem
           )}
       </RowList>
-      {isSolved === "no" ? (
+      {!isFinish ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>
       ) : currentQuestionNumber < currentQuestionList.length - 1 ? (
         <Button onClick={handleNextQuestion}>다음 문제</Button>
