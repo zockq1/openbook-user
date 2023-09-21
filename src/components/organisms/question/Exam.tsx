@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
 import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
-import { ChoiceModel, ExamModel } from "../../../types/questionTypes";
+import {
+  ChoiceModel,
+  ExamListModel,
+  ExamModel,
+} from "../../../types/questionTypes";
 import QuestionCounter from "../../molecules/etc/QuestionCounter";
+import QuestionNuvagation from "../../molecules/etc/QuestionNavigation";
 
 interface ExamProps {
   examList: ExamModel[];
@@ -28,85 +33,6 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const ExamNavigation = styled.ul`
-  overflow-x: scroll;
-  overflow-y: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  padding: 0 15px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-interface ExamNavigationItemProps {
-  isCurrent: boolean;
-  state: "no" | "correctAnswer" | "wrongAnswer";
-}
-const popAnimation = keyframes`
-  0% {
-    transform: scale(0.7);
-  }
-  33% {
-    transform: scale(0.9);
-  }
-  66% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
-
-const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
-  position: relative;
-  flex-shrink: 0;
-  min-width: 40px;
-  padding: 6px;
-  border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  background-color: ${({ theme, isCurrent }) =>
-    isCurrent && theme.colors.lightGrey};
-  color: ${({ theme, state }) =>
-    state === "no"
-      ? theme.colors.black
-      : state === "correctAnswer"
-      ? theme.colors.blue
-      : theme.colors.red};
-
-  text-align: center;
-  animation: ${({ isCurrent }) =>
-    isCurrent
-      ? css`
-          ${popAnimation} 400ms linear
-        `
-      : ""};
-`;
-
-interface CheckProps {
-  state: "no" | "correctAnswer" | "wrongAnswer";
-}
-
-const Check = styled.div<CheckProps>`
-  --color: ${({ theme, state }) =>
-    state === "no"
-      ? theme.colors.black
-      : state === "correctAnswer"
-      ? theme.colors.blue
-      : theme.colors.red};
-  position: absolute;
-  transform: rotate(45deg);
-  height: 12px;
-  width: 6px;
-  border-bottom: 2px solid var(--color);
-  border-right: 2px solid var(--color);
-  top: -10%;
-  left: 70%;
-`;
-
 const AnswerBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -115,207 +41,163 @@ const AnswerBox = styled.div`
   margin-top: 30px;
 `;
 
-interface ExamData {
-  checkedChoice: string;
-  state: "no" | "correctAnswer" | "wrongAnswer";
-  isChecked: boolean;
+interface State {
+  questionList: ExamListModel[];
+  isFinish: boolean;
+  currentNumber: number;
+  score: number;
 }
 
+enum Action {
+  SELECT_CHOICE = "SELECT_CHOICE",
+  CHECK_ANSWER = "CHECK_ANSWER",
+  MOVE_QUESTION = "MOVE_QUESTION",
+}
+
+const reducer = (state: State, action: { type: any; payload?: any }): State => {
+  switch (action.type) {
+    case Action.SELECT_CHOICE:
+      console.log(action.payload);
+      const updatedQuestionList = state.questionList.map((item, index) => {
+        if (index === state.currentNumber) {
+          return {
+            ...item,
+            checkedChoiceKey: action.payload,
+            isChecked: true,
+            isCorrect: item.answer === action.payload.substring(1),
+          };
+        }
+        return item;
+      });
+      return { ...state, questionList: updatedQuestionList };
+    case Action.CHECK_ANSWER:
+      let score = 0;
+      state.questionList.forEach((item) => {
+        if (item.isCorrect) {
+          score += item.score;
+        }
+      });
+      return {
+        ...state,
+        isFinish: true,
+        score,
+        currentNumber: state.questionList.length,
+      };
+    case Action.MOVE_QUESTION:
+      return { ...state, currentNumber: action.payload };
+  }
+  return { ...state };
+};
+
 function Exam({ examList, category, timeLimit }: ExamProps) {
-  const [isFinish, setIsFinish] = useState<boolean>(false); //no, correctAnswer, wrongAnswer
-  const [selectedCheckbox, setSelectedCheckbox] = useState("");
-  const [currentExamNumber, setCurrentExamNumber] = useState(0);
-  const [currentExamList, setCurrentExamList] = useState<ExamModel[]>([
-    ...examList,
-  ]);
-  const [dataList, setDataList] = useState<ExamData[]>([]);
-  const [score, setScore] = useState<number>(0);
   const [isTimeout, setIsTimeout] = useState<boolean>(false);
-
-  const examNavigationRef = useRef<HTMLUListElement | null>(null);
-
-  const calculateScrollPosition = (currentExamNumber: number) => {
-    if (examNavigationRef.current) {
-      const examItem = examNavigationRef.current.children[currentExamNumber];
-      if (examItem) {
-        const itemRect = examItem.getBoundingClientRect();
-        const containerRect = examNavigationRef.current.getBoundingClientRect();
-        const scrollPosition =
-          containerRect.left -
-          containerRect.width / 2 +
-          itemRect.width / 2 +
-          5 +
-          currentExamNumber * 40;
-        return scrollPosition;
-      }
-    }
-    return 0; // 스크롤 위치 계산 실패 시 0으로 설정
-  };
-
-  useEffect(() => {
-    if (examNavigationRef.current) {
-      const scrollPosition = calculateScrollPosition(currentExamNumber);
-      examNavigationRef.current.scrollLeft = scrollPosition;
-    }
-  }, [currentExamNumber]);
-
-  useEffect(() => {
-    let shuffledExamList = [...currentExamList]
+  const [state, dispatch] = useReducer(reducer, {
+    questionList: [...examList]
       .sort(() => Math.random() - 0.5)
       .map((item) => {
-        const shuffledExam: ExamModel = {
+        const shuffledExam: ExamListModel = {
           ...item,
+          checkedChoiceKey: "",
+          isChecked: false,
+          isCorrect: false,
           choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
         };
         return shuffledExam;
-      });
-    setCurrentExamList(shuffledExamList);
-    setDataList(
-      shuffledExamList.map((item) => {
-        return {
-          checkedChoice: "",
-          state: "no",
-          isChecked: false,
-        };
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checkboxId = event.target.id;
-    setSelectedCheckbox(checkboxId);
-  };
-
-  const handleChoiceClick = (checkboxId: string) => {
-    if (!isFinish) {
-      let newDataList = [...dataList];
-      newDataList[currentExamNumber] = {
-        ...newDataList[currentExamNumber],
-        checkedChoice: checkboxId,
-        isChecked: true,
-      };
-      setDataList(newDataList);
-      setSelectedCheckbox((prevSelected) =>
-        prevSelected === checkboxId ? prevSelected : checkboxId
-      );
-    }
-  };
+      }),
+    isFinish: false,
+    currentNumber: 0,
+    score: 0,
+  });
+  const { questionList, isFinish, currentNumber, score } = state;
 
   useEffect(() => {
     if (isTimeout) {
-      handleCheckAnswer();
-      setCurrentExamNumber(dataList.length);
+      dispatch({ type: Action.CHECK_ANSWER });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimeout]);
 
-  const handleCheckAnswer = () => {
-    let newScore = 0;
-    setIsFinish(true);
-    setCurrentExamNumber(dataList.length);
-    setDataList(
-      dataList.map((item, index) => {
-        if (item.checkedChoice.substring(1) === currentExamList[index].answer) {
-          newScore += currentExamList[index].score || 0;
-        }
-        return {
-          ...item,
-          state:
-            item.checkedChoice.substring(1) === currentExamList[index].answer
-              ? "correctAnswer"
-              : "wrongAnswer",
-        };
-      })
-    );
-    setScore(newScore);
-  };
-  const handleNextExam = () => {
-    setSelectedCheckbox(dataList[currentExamNumber + 1].checkedChoice);
-    setCurrentExamNumber(currentExamNumber + 1);
-  };
-
-  const handleClickNavigation = (index: number) => {
-    setCurrentExamNumber(index);
-    setSelectedCheckbox(dataList[index].checkedChoice);
-  };
-
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
-      currentExamList[currentExamNumber].choiceType === "String"
+      questionList[currentNumber].choiceType === "String"
         ? LongChoiceItem
         : ShortChoiceItem;
 
     return (
       <ChoiceItem
-        handleCheckboxChange={handleCheckboxChange}
-        handleChoiceClick={handleChoiceClick}
+        handleCheckboxChange={
+          isFinish
+            ? () => {}
+            : (e) =>
+                dispatch({ type: Action.SELECT_CHOICE, payload: e.target.id })
+        }
+        handleChoiceClick={
+          isFinish
+            ? () => {}
+            : (key: string) =>
+                dispatch({ type: Action.SELECT_CHOICE, payload: key })
+        }
         choiceKey={String(index) + item.key}
         key={String(index) + item.key}
-        isCorrect={currentExamList[currentExamNumber].answer === item.key}
+        isCorrect={questionList[currentNumber].answer === item.key}
         choice={item.choice}
         isFinish={isFinish}
-        selectedCheckbox={selectedCheckbox}
+        selectedCheckbox={questionList[currentNumber].checkedChoiceKey}
       />
     );
   };
 
   return (
     <>
-      <ExamNavigation ref={examNavigationRef}>
-        {dataList.map((item, index) => {
-          return (
-            <ExamNavigationItem
-              key={index}
-              isCurrent={index === currentExamNumber}
-              onClick={() => handleClickNavigation(index)}
-              state={item.state}
-            >
-              {index + 1}
-              {item.isChecked && <Check state={item.state} />}
-            </ExamNavigationItem>
-          );
-        })}
-        <ExamNavigationItem
-          isCurrent={currentExamNumber === dataList.length}
-          onClick={() => {
-            isFinish && setCurrentExamNumber(dataList.length);
-          }}
-          state="no"
-        >
-          결과
-        </ExamNavigationItem>
-      </ExamNavigation>
+      <QuestionNuvagation
+        handleClickNavigation={(index: number) =>
+          dispatch({ type: Action.MOVE_QUESTION, payload: index })
+        }
+        dataList={questionList}
+        isFinish={isFinish}
+        currentNumber={currentNumber}
+      />
       <QuestionCounter
         timeLimit={timeLimit}
         totalQuestionCount={examList.length}
-        currentQuestionCount={currentExamNumber + 1}
+        currentQuestionCount={currentNumber + 1}
         category={category}
         setisTimeout={setIsTimeout}
       />
-      {currentExamNumber < currentExamList.length &&
-        currentExamList[currentExamNumber].description && (
+      {currentNumber < questionList.length &&
+        questionList[currentNumber].description && (
           <Description>
             <img
               style={{ width: "100%", height: "auto" }}
-              src={currentExamList[currentExamNumber].description}
+              src={questionList[currentNumber].description}
               alt=""
             />
           </Description>
         )}
       <RowList>
-        {currentExamNumber < currentExamList.length &&
-          currentExamList[currentExamNumber] &&
-          currentExamList[currentExamNumber].choiceList.map(renderChoiceItem)}
+        {currentNumber < questionList.length &&
+          questionList[currentNumber] &&
+          questionList[currentNumber].choiceList.map(renderChoiceItem)}
       </RowList>
-      {currentExamList.length === currentExamNumber + 1
-        ? currentExamNumber < currentExamList.length && (
-            <Button onClick={handleCheckAnswer}>완료</Button>
+      {questionList.length === currentNumber + 1
+        ? currentNumber < questionList.length && (
+            <Button onClick={() => dispatch({ type: Action.CHECK_ANSWER })}>
+              완료
+            </Button>
           )
-        : currentExamNumber < currentExamList.length && (
-            <Button onClick={handleNextExam}>다음 문제</Button>
+        : currentNumber < questionList.length && (
+            <Button
+              onClick={() =>
+                dispatch({
+                  type: Action.MOVE_QUESTION,
+                  payload: currentNumber + 1,
+                })
+              }
+            >
+              다음 문제
+            </Button>
           )}
-      {currentExamNumber === currentExamList.length && (
+      {currentNumber === questionList.length && (
         <AnswerBox>점수: {score}</AnswerBox>
       )}
     </>

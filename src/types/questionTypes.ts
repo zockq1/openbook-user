@@ -3,7 +3,7 @@ export type ChoiceType = "String" | "Image";
 
 export interface ChoiceModel {
   choice: string;
-  comment?: string;
+  comment: string;
   key: string;
 }
 
@@ -21,13 +21,19 @@ export interface QuestionModel {
 }
 
 export interface ExamModel {
-  number?: number;
+  number: number;
   description: string;
   descriptionComment: string;
   answer: string;
   choiceType: ChoiceType;
   choiceList: ChoiceModel[];
   score: number;
+}
+
+export interface ExamListModel extends ExamModel {
+  checkedChoiceKey: string;
+  isCorrect: boolean;
+  isChecked: boolean;
 }
 
 export interface TimeLineModel {
