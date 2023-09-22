@@ -1,7 +1,7 @@
 import TimelineItem from "../../molecules/list-item/TimelineItem";
 import { TimeLineModel } from "../../../types/questionTypes";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -9,11 +9,11 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import { useAddChapterWrongCounterMutation } from "../../../store/api/questionApi";
+import Button from "../../atoms/button/Button";
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
-  setIsComplete: React.Dispatch<React.SetStateAction<boolean>>;
-  isComplete: boolean;
+  handleNextContent: () => void;
   chapter: number;
 }
 
@@ -86,144 +86,150 @@ const Box = styled.div`
   z-index: 0;
 `;
 
+type State = {
+  nextDateList: TimeLineModel[];
+  playedDateList: TimeLineModel[];
+  lineHeight: number;
+  wrongCount: number;
+  isFinish: boolean;
+};
+
+const MOVE_FIRST = "MOVE_FIRST";
+const MOVE_MIDDLE = "MOVE_MIDDLE";
+const MOVE_LAST = "MOVE_LAST";
+const WRONG_MOVE = "WRONG_MOVE";
+
+type Action =
+  | { type: "MOVE_FIRST" }
+  | { type: "MOVE_MIDDLE"; destinationIndex: number }
+  | { type: "MOVE_LAST" }
+  | { type: "WRONG_MOVE" };
+
+const reducer = (state: State, action: Action): State => {
+  const { playedDateList, nextDateList, lineHeight, wrongCount } = state;
+  switch (action.type) {
+    case MOVE_FIRST:
+      return {
+        ...state,
+        playedDateList: [nextDateList[0], ...playedDateList],
+        nextDateList: nextDateList.slice(1),
+        lineHeight: nextDateList.length > 1 ? lineHeight + 68 : lineHeight,
+        isFinish: nextDateList.length === 1,
+      };
+    case MOVE_LAST:
+      return {
+        ...state,
+        playedDateList: [...playedDateList, nextDateList[0]],
+        nextDateList: nextDateList.slice(1),
+        lineHeight: nextDateList.length > 1 ? lineHeight + 68 : lineHeight,
+        isFinish: nextDateList.length === 1,
+      };
+    case MOVE_MIDDLE:
+      const updatedList = [...playedDateList];
+      updatedList.splice(action.destinationIndex, 0, nextDateList[0]);
+      return {
+        ...state,
+        playedDateList: updatedList,
+        nextDateList: nextDateList.slice(1),
+        lineHeight: nextDateList.length > 1 ? lineHeight + 68 : lineHeight,
+        isFinish: nextDateList.length === 1,
+      };
+    case WRONG_MOVE:
+      return { ...state, wrongCount: wrongCount + 1 };
+    default:
+      return state;
+  }
+};
+
 function TimelineQuestion({
   dateList,
-  setIsComplete,
-  isComplete,
+  handleNextContent,
   chapter,
 }: TimelineQuestionProps) {
   const [isMounted, setIsMounted] = useState(false);
-  const [nextDateList, setNextDateList] = useState<TimeLineModel[]>(
-    [...dateList].sort(() => Math.random() - 0.5)
-  );
-  const [playedDateList, setPlayedDateList] = useState<TimeLineModel[]>([]);
-  const [lineHeight, setLineHeight] = useState<number>(166); //68씩 증가
-  const [wrongCount, setWrongCount] = useState<number>(0);
   const [addChapterWrongCounter] = useAddChapterWrongCounterMutation();
+  const [state, dispatch] = useReducer(reducer, {
+    playedDateList: [dateList[0]],
+    nextDateList: dateList.slice(1),
+    lineHeight: 166,
+    wrongCount: 0,
+    isFinish: false,
+  });
+  const { playedDateList, nextDateList, lineHeight, wrongCount, isFinish } =
+    state;
 
   useEffect(() => {
     setIsMounted(true);
-    setPlayedDateList([nextDateList[0]]);
-    setNextDateList((prevList) => prevList.slice(1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (nextDateList.length === 0) {
+    if (isFinish) {
+      console.log("전송!");
       addChapterWrongCounter({
         number: Number(chapter),
         count: wrongCount,
       });
-      setIsComplete(true);
     }
-  }, [
-    nextDateList,
-    setIsComplete,
-    wrongCount,
-    addChapterWrongCounter,
-    chapter,
-  ]);
+  }, [isFinish, addChapterWrongCounter, wrongCount, chapter]);
 
-  const handleChange = async (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     const { destination } = result;
     if (!destination || destination.droppableId !== "played") return;
+    const isFirst = destination.index === 0;
+    const isLast = destination.index === playedDateList.length;
+    const isMiddle = !isFirst && !isLast;
 
-    if (
-      //맨 앞에 넣었는데 맞았을때
-      destination.index === 0 &&
-      nextDateList[0].date <= playedDateList[0].date
-    ) {
-      setPlayedDateList([nextDateList[0], ...playedDateList]);
-      setNextDateList(nextDateList.slice(1));
-      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
-    } else if (
-      //맨 앞에 넣었는데 틀렸을때
-      destination.index === 0 &&
-      nextDateList[0].date > playedDateList[0].date
-    ) {
-      setWrongCount(wrongCount + 1);
-    } else if (
-      //맨 밑에 넣었는데 맞았을 때
-      destination.index === playedDateList.length &&
-      nextDateList[0].date >= playedDateList[playedDateList.length - 1].date
-    ) {
-      setPlayedDateList([...playedDateList, nextDateList[0]]);
-      setNextDateList(nextDateList.slice(1));
-      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
-    } else if (
-      //맨 밑에 넣었는데 틀렸을 때
-      destination.index === playedDateList.length &&
-      nextDateList[0].date < playedDateList[playedDateList.length - 1].date
-    ) {
-      setWrongCount(wrongCount + 1);
-    } else if (
-      //중간에 넣었는데 맞았을 때
-      nextDateList[0].date >= playedDateList[destination.index - 1].date &&
-      nextDateList[0].date <= playedDateList[destination.index].date
-    ) {
-      const updatedList = [...playedDateList];
-      updatedList.splice(destination.index, 0, nextDateList[0]);
-      setPlayedDateList(updatedList);
-      setNextDateList(nextDateList.slice(1));
-      nextDateList.length > 1 && setLineHeight((prev) => prev + 68);
-    } else {
-      //그 외
-      setWrongCount(wrongCount + 1);
+    if (isFirst) {
+      const isCorrect = nextDateList[0].date <= playedDateList[0].date;
+      if (isCorrect) {
+        dispatch({ type: MOVE_FIRST });
+        return;
+      }
     }
+
+    if (isLast) {
+      const isCorrect =
+        nextDateList[0].date >= playedDateList[playedDateList.length - 1].date;
+      if (isCorrect) {
+        dispatch({ type: MOVE_LAST });
+        return;
+      }
+    }
+
+    if (isMiddle) {
+      const isCorrect =
+        nextDateList[0].date >= playedDateList[destination.index - 1].date &&
+        nextDateList[0].date <= playedDateList[destination.index].date;
+      if (isCorrect) {
+        dispatch({ type: MOVE_MIDDLE, destinationIndex: destination.index });
+        return;
+      }
+    }
+
+    dispatch({ type: WRONG_MOVE });
   };
 
   return (
-    <StyledTimelineQuestion>
-      {!isComplete && <Box />}
-      {dateList.length !== 0 && isMounted && (
-        <DragDropContext onDragEnd={handleChange}>
-          <Droppable droppableId="played">
-            {(provided) => (
-              <PlayedItemPlaceBox
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                <Line height={lineHeight} />
-                {playedDateList.map((item, i: number) => (
-                  <Draggable
-                    draggableId={`${item.comment}`}
-                    index={i}
-                    key={`${item.comment}`}
-                    isDragDisabled={true}
-                  >
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Item>
-                            <TimelineItem
-                              date={item.date}
-                              comment={item.comment}
-                              key={i}
-                              isQuestion={true}
-                            />
-                          </Item>
-                        </div>
-                      );
-                    }}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </PlayedItemPlaceBox>
-            )}
-          </Droppable>
-          {!isComplete && (
-            <NextItemPlaceBox>
-              <Droppable droppableId="next">
-                {(provided) => (
-                  <NextItemPlace
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    <Draggable draggableId={`ex`} index={0} key={`ex`}>
+    <>
+      <StyledTimelineQuestion>
+        {!isFinish && <Box />}
+        {dateList.length !== 0 && isMounted && (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="played">
+              {(provided) => (
+                <PlayedItemPlaceBox
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <Line height={lineHeight} />
+                  {playedDateList.map((item, i: number) => (
+                    <Draggable
+                      draggableId={`${item.comment}`}
+                      index={i}
+                      key={`${item.comment}`}
+                      isDragDisabled={true}
+                    >
                       {(provided, snapshot) => {
                         return (
                           <div
@@ -231,31 +237,66 @@ function TimelineQuestion({
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
                           >
-                            {nextDateList[0] && (
-                              <Item>
-                                <TimelineItem
-                                  date={null}
-                                  comment={nextDateList[0].comment}
-                                  key={0}
-                                  disableCircle={true}
-                                  isQuestion={true}
-                                />
-                              </Item>
-                            )}
+                            <Item>
+                              <TimelineItem
+                                date={item.date}
+                                comment={item.comment}
+                                key={i}
+                                isQuestion={true}
+                              />
+                            </Item>
                           </div>
                         );
                       }}
                     </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </PlayedItemPlaceBox>
+              )}
+            </Droppable>
+            {!isFinish && (
+              <NextItemPlaceBox>
+                <Droppable droppableId="next">
+                  {(provided) => (
+                    <NextItemPlace
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      <Draggable draggableId={`ex`} index={0} key={`ex`}>
+                        {(provided, snapshot) => {
+                          return (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                            >
+                              {nextDateList[0] && (
+                                <Item>
+                                  <TimelineItem
+                                    date={null}
+                                    comment={nextDateList[0].comment}
+                                    key={0}
+                                    disableCircle={true}
+                                    isQuestion={true}
+                                  />
+                                </Item>
+                              )}
+                            </div>
+                          );
+                        }}
+                      </Draggable>
 
-                    {provided.placeholder}
-                  </NextItemPlace>
-                )}
-              </Droppable>
-            </NextItemPlaceBox>
-          )}
-        </DragDropContext>
-      )}
-    </StyledTimelineQuestion>
+                      {provided.placeholder}
+                    </NextItemPlace>
+                  )}
+                </Droppable>
+              </NextItemPlaceBox>
+            )}
+          </DragDropContext>
+        )}
+      </StyledTimelineQuestion>
+      {isFinish && <Button onClick={handleNextContent}>다음</Button>}
+    </>
   );
 }
 

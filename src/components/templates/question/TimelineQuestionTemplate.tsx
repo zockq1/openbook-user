@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { TimeLineModel } from "../../../types/questionTypes";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import TimelineQuestion from "../../organisms/question/TimelineQuestion";
-import Button from "../../atoms/button/Button";
 
 interface TimelineQuestionTemplateProps {
   handleBackPage: () => void;
@@ -20,7 +18,6 @@ function TimelineQuestionTemplate({
   dateList,
   handleNextContent,
 }: TimelineQuestionTemplateProps) {
-  const [isComplete, setIsComplete] = useState(false);
   return (
     <Layout>
       <TitleBox
@@ -29,12 +26,10 @@ function TimelineQuestionTemplate({
         title={title}
       />
       <TimelineQuestion
-        dateList={dateList}
-        setIsComplete={setIsComplete}
-        isComplete={isComplete}
+        dateList={[...dateList].sort(() => Math.random() - 0.5)}
+        handleNextContent={handleNextContent}
         chapter={chapter}
       />
-      {isComplete && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>
   );
 }
