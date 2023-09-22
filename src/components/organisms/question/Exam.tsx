@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useReducer } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
@@ -39,42 +39,78 @@ const AnswerBox = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  height: 100%;
+
+  & > span {
+    margin: 10px;
+  }
 `;
 
-interface State {
+const WrongQuestionList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 70%;
+  margin: auto;
+  & > li {
+    background-color: ${({ theme }) => theme.colors.lightRed};
+    color: ${({ theme }) => theme.colors.white};
+    border-radius: 10px;
+    text-align: center;
+    min-width: 30px;
+    padding: 4px;
+    margin: 4px;
+  }
+`;
+
+type State = {
   questionList: ExamListModel[];
   isFinish: boolean;
   currentNumber: number;
   score: number;
-}
+  wrongQuestionList: number[];
+};
 
-enum Action {
-  SELECT_CHOICE = "SELECT_CHOICE",
-  CHECK_ANSWER = "CHECK_ANSWER",
-  MOVE_QUESTION = "MOVE_QUESTION",
-}
+const SELECT_CHOICE = "SELECT_CHOICE";
+const CHECK_ANSWER = "CHECK_ANSWER";
+const MOVE_QUESTION = "MOVE_QUESTION";
 
-const reducer = (state: State, action: { type: any; payload?: any }): State => {
+type Action =
+  | { type: "SELECT_CHOICE"; selectedChoiceKey: string }
+  | { type: "CHECK_ANSWER" }
+  | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
+
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case Action.SELECT_CHOICE:
-      console.log(action.payload);
+    case SELECT_CHOICE:
       const updatedQuestionList = state.questionList.map((item, index) => {
         if (index === state.currentNumber) {
+          if (item.checkedChoiceKey === action.selectedChoiceKey) {
+            return {
+              ...item,
+              checkedChoiceKey: "",
+              isChecked: false,
+              isCorrect: false,
+            };
+          }
           return {
             ...item,
-            checkedChoiceKey: action.payload,
+            checkedChoiceKey: action.selectedChoiceKey,
             isChecked: true,
-            isCorrect: item.answer === action.payload.substring(1),
+            isCorrect: item.answer === action.selectedChoiceKey.substring(1),
           };
         }
         return item;
       });
       return { ...state, questionList: updatedQuestionList };
-    case Action.CHECK_ANSWER:
+    case CHECK_ANSWER:
       let score = 0;
-      state.questionList.forEach((item) => {
+      let wrongQuestionList: number[] = [];
+      state.questionList.forEach((item, index) => {
         if (item.isCorrect) {
           score += item.score;
+        } else {
+          wrongQuestionList.push(index + 1);
         }
       });
       return {
@@ -82,15 +118,16 @@ const reducer = (state: State, action: { type: any; payload?: any }): State => {
         isFinish: true,
         score,
         currentNumber: state.questionList.length,
+        wrongQuestionList,
       };
-    case Action.MOVE_QUESTION:
-      return { ...state, currentNumber: action.payload };
+    case MOVE_QUESTION:
+      return { ...state, currentNumber: action.moveQuestionNumber };
+    default:
+      return state;
   }
-  return { ...state };
 };
 
 function Exam({ examList, category, timeLimit }: ExamProps) {
-  const [isTimeout, setIsTimeout] = useState<boolean>(false);
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList]
       .sort(() => Math.random() - 0.5)
@@ -107,16 +144,11 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
     isFinish: false,
     currentNumber: 0,
     score: 0,
+    wrongQuestionList: [],
   });
-  const { questionList, isFinish, currentNumber, score } = state;
-
-  useEffect(() => {
-    if (isTimeout) {
-      dispatch({ type: Action.CHECK_ANSWER });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTimeout]);
-
+  const { questionList, isFinish, currentNumber, score, wrongQuestionList } =
+    state;
+  console.log(wrongQuestionList);
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
       questionList[currentNumber].choiceType === "String"
@@ -129,13 +161,16 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
           isFinish
             ? () => {}
             : (e) =>
-                dispatch({ type: Action.SELECT_CHOICE, payload: e.target.id })
+                dispatch({
+                  type: SELECT_CHOICE,
+                  selectedChoiceKey: e.target.id,
+                })
         }
         handleChoiceClick={
           isFinish
             ? () => {}
             : (key: string) =>
-                dispatch({ type: Action.SELECT_CHOICE, payload: key })
+                dispatch({ type: SELECT_CHOICE, selectedChoiceKey: key })
         }
         choiceKey={String(index) + item.key}
         key={String(index) + item.key}
@@ -151,7 +186,7 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
     <>
       <QuestionNuvagation
         handleClickNavigation={(index: number) =>
-          dispatch({ type: Action.MOVE_QUESTION, payload: index })
+          dispatch({ type: MOVE_QUESTION, moveQuestionNumber: index })
         }
         dataList={questionList}
         isFinish={isFinish}
@@ -162,7 +197,7 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
         totalQuestionCount={examList.length}
         currentQuestionCount={currentNumber + 1}
         category={category}
-        setisTimeout={setIsTimeout}
+        timeout={() => dispatch({ type: CHECK_ANSWER })}
       />
       {currentNumber < questionList.length &&
         questionList[currentNumber].description && (
@@ -181,7 +216,7 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
       </RowList>
       {questionList.length === currentNumber + 1
         ? currentNumber < questionList.length && (
-            <Button onClick={() => dispatch({ type: Action.CHECK_ANSWER })}>
+            <Button onClick={() => dispatch({ type: CHECK_ANSWER })}>
               완료
             </Button>
           )
@@ -189,8 +224,8 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
             <Button
               onClick={() =>
                 dispatch({
-                  type: Action.MOVE_QUESTION,
-                  payload: currentNumber + 1,
+                  type: MOVE_QUESTION,
+                  moveQuestionNumber: currentNumber + 1,
                 })
               }
             >
@@ -198,7 +233,27 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
             </Button>
           )}
       {currentNumber === questionList.length && (
-        <AnswerBox>점수: {score}</AnswerBox>
+        <AnswerBox>
+          <span>점수: {score}</span>
+          <span>틀린 문제 목록:</span>
+          <WrongQuestionList>
+            {wrongQuestionList.map((item) => {
+              return (
+                <li
+                  key={item}
+                  onClick={() =>
+                    dispatch({
+                      type: MOVE_QUESTION,
+                      moveQuestionNumber: item - 1,
+                    })
+                  }
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </WrongQuestionList>
+        </AnswerBox>
       )}
     </>
   );

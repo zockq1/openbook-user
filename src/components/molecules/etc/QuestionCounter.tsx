@@ -8,7 +8,7 @@ interface QuestionCounterProps {
   totalQuestionCount: number;
   currentQuestionCount: number;
   category: string;
-  setisTimeout?: React.Dispatch<React.SetStateAction<boolean>>;
+  timeout?: () => void;
 }
 
 const StyledQuestionCounter = styled.ul`
@@ -29,7 +29,7 @@ function QuestionCounter({
   totalQuestionCount,
   currentQuestionCount,
   category,
-  setisTimeout,
+  timeout,
 }: QuestionCounterProps) {
   const [minutes, setMinutes] = useState(Math.floor(timeLimit / 60));
   const [seconds, setSeconds] = useState(timeLimit % 60);
@@ -41,7 +41,7 @@ function QuestionCounter({
       }
       if (seconds === 0) {
         if (minutes === 0) {
-          setisTimeout && setisTimeout(true);
+          timeout && timeout();
           clearInterval(countdown);
         } else {
           setMinutes(minutes - 1);
@@ -50,7 +50,8 @@ function QuestionCounter({
       }
     }, 1000);
     return () => clearInterval(countdown);
-  }, [minutes, seconds, setisTimeout]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minutes, seconds]);
 
   return (
     <RowList>
