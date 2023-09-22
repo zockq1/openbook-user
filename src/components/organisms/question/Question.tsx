@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useReducer } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
@@ -14,7 +14,7 @@ import QuestionCounter from "../../molecules/etc/QuestionCounter";
 import { useAddTopicWrongCounterMutation } from "../../../store/api/questionApi";
 
 interface QuestionProps {
-  questionList: QuestionModel[];
+  quizList: QuestionModel[];
   handleNextContent: () => void;
   category: string;
   timeLimit: number;
@@ -33,20 +33,61 @@ const Description = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
+type State = {
+  questionList: QuestionModel[];
+  isFinish: boolean;
+  currentNumber: number;
+  selectedChoiceKey: string;
+};
+
+const SELECT_CHOICE = "SELECT_CHOICE";
+const FINISH = "FINISH";
+const NEXT_QUESTION = "NEXT_QUESTION";
+
+type Action =
+  | { type: "SELECT_CHOICE"; selectedChoiceKey: string }
+  | { type: "FINISH" }
+  | { type: "NEXT_QUESTION" };
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case SELECT_CHOICE:
+      return { ...state, selectedChoiceKey: action.selectedChoiceKey };
+    case FINISH:
+      return { ...state, isFinish: true };
+    case NEXT_QUESTION:
+      return {
+        ...state,
+        isFinish: false,
+        currentNumber: state.currentNumber + 1,
+        selectedChoiceKey: "",
+      };
+    default:
+      return state;
+  }
+};
+
 function Question({
-  questionList,
+  quizList,
   handleNextContent,
   category,
   timeLimit,
 }: QuestionProps) {
-  const [addTopicWrongCounte] = useAddTopicWrongCounterMutation();
-  const [selectedCheckbox, setSelectedCheckbox] = useState("");
-  //const [isSolved, setIsSolved] = useState("no"); //no, correctAnswer, wrongAnswer
-  const [isFinish, setIsFinish] = useState<boolean>(false);
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
-  const [currentQuestionList, setCurrentQuestionList] = useState<
-    QuestionModel[]
-  >([...questionList]);
+  const [addTopicWrongCount] = useAddTopicWrongCounterMutation();
+  const [state, dispatch] = useReducer(reducer, {
+    questionList: [...quizList]
+      .sort(() => Math.random() - 0.5)
+      .map((item) => {
+        return {
+          ...item,
+          choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
+        };
+      }),
+    isFinish: false,
+    currentNumber: 0,
+    selectedChoiceKey: "",
+  });
+  const { questionList, isFinish, currentNumber, selectedChoiceKey } = state;
 
   const correctAnswer = () =>
     toast(
@@ -68,77 +109,60 @@ function Question({
       />
     );
 
-  useEffect(() => {
-    let shuffledQuestionList = [...currentQuestionList].sort(
-      () => Math.random() - 0.5
-    );
-    setCurrentQuestionList(
-      shuffledQuestionList.map((item) => {
-        const shuffledQuestion: QuestionModel = {
-          ...item,
-          choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
-        };
-        return shuffledQuestion;
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checkboxId = event.target.id;
-    setSelectedCheckbox(checkboxId);
-  };
-
-  const handleChoiceClick = (checkboxId: string) => {
-    setSelectedCheckbox((prevSelected) =>
-      prevSelected === checkboxId ? prevSelected : checkboxId
-    );
-  };
-
   const handleCheckAnswer = () => {
-    if (selectedCheckbox === "") {
-    } else if (
-      selectedCheckbox.substring(1) ===
-      currentQuestionList[currentQuestionNumber].answer
-    ) {
-      setIsFinish(true);
+    if (selectedChoiceKey === "") return;
+
+    const isCorrect =
+      selectedChoiceKey.substring(1) === questionList[currentNumber].answer;
+    dispatch({ type: FINISH });
+
+    if (isCorrect) {
       correctAnswer();
     } else {
-      addTopicWrongCounte([
+      wrongAnswer();
+      addTopicWrongCount([
         {
-          topicTitle: currentQuestionList[currentQuestionNumber].answer,
+          topicTitle: questionList[currentNumber].answer,
           count: 1,
         },
       ]);
-      setIsFinish(true);
-      wrongAnswer();
     }
   };
+
   const handleNextQuestion = () => {
     toast.dismiss();
-    setSelectedCheckbox("");
-    setIsFinish(false);
-    setCurrentQuestionNumber(currentQuestionNumber + 1);
+    dispatch({ type: NEXT_QUESTION });
   };
 
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
-      currentQuestionList[currentQuestionNumber].questionType === "TtoS" ||
-      currentQuestionList[currentQuestionNumber].questionType === "Mock"
+      questionList[currentNumber].questionType === "TtoS" ||
+      questionList[currentNumber].questionType === "Mock"
         ? LongChoiceItem
         : ShortChoiceItem;
 
     return (
       <ChoiceItem
-        handleCheckboxChange={handleCheckboxChange}
-        handleChoiceClick={handleChoiceClick}
-        choiceKey={String(index) + item.key}
-        isCorrect={
-          currentQuestionList[currentQuestionNumber].answer === item.key
+        handleCheckboxChange={
+          isFinish
+            ? () => {}
+            : (e) =>
+                dispatch({
+                  type: SELECT_CHOICE,
+                  selectedChoiceKey: e.target.id,
+                })
         }
+        handleChoiceClick={
+          isFinish
+            ? () => {}
+            : (key: string) =>
+                dispatch({ type: SELECT_CHOICE, selectedChoiceKey: key })
+        }
+        choiceKey={String(index) + item.key}
+        isCorrect={questionList[currentNumber].answer === item.key}
         choice={item.choice}
         isFinish={isFinish}
-        selectedCheckbox={selectedCheckbox}
+        selectedCheckbox={selectedChoiceKey}
         key={String(index) + item.key}
       />
     );
@@ -149,7 +173,7 @@ function Question({
       <ToastContainer
         toastStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
         position="top-center"
-        autoClose={3000}
+        autoClose={10}
         limit={1}
         hideProgressBar
         newestOnTop={false}
@@ -164,47 +188,43 @@ function Question({
       <QuestionCounter
         timeLimit={timeLimit}
         totalQuestionCount={questionList.length}
-        currentQuestionCount={currentQuestionNumber + 1}
+        currentQuestionCount={currentNumber + 1}
         category={category}
       />
-      {currentQuestionList[currentQuestionNumber].descriptionKeyword && (
+      {questionList[currentNumber].descriptionKeyword && (
         <Description>
-          {currentQuestionList[currentQuestionNumber].descriptionKeyword?.map(
-            (item) => {
-              return (
-                <TextBox maxWidth="full" key={item.name}>
-                  {item.name}
-                </TextBox>
-              );
-            }
-          )}
+          {questionList[currentNumber].descriptionKeyword?.map((item) => {
+            return (
+              <TextBox maxWidth="full" key={item.name}>
+                {item.name}
+              </TextBox>
+            );
+          })}
         </Description>
       )}
-      {currentQuestionList[currentQuestionNumber].description && (
+      {questionList[currentNumber].description && (
         <Description>
           <img
             style={{ width: "100%", height: "auto" }}
-            src={currentQuestionList[currentQuestionNumber].description}
+            src={questionList[currentNumber].description}
             alt=""
           />
         </Description>
       )}
-      {currentQuestionList[currentQuestionNumber].descriptionSentence && (
+      {questionList[currentNumber].descriptionSentence && (
         <Description>
           <TextBox maxWidth="full">
-            {currentQuestionList[currentQuestionNumber].descriptionSentence}
+            {questionList[currentNumber].descriptionSentence}
           </TextBox>
         </Description>
       )}
       <RowList>
-        {currentQuestionList[currentQuestionNumber] &&
-          currentQuestionList[currentQuestionNumber].choiceList.map(
-            renderChoiceItem
-          )}
+        {questionList[currentNumber] &&
+          questionList[currentNumber].choiceList.map(renderChoiceItem)}
       </RowList>
       {!isFinish ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>
-      ) : currentQuestionNumber < currentQuestionList.length - 1 ? (
+      ) : currentNumber < questionList.length - 1 ? (
         <Button onClick={handleNextQuestion}>다음 문제</Button>
       ) : (
         <Button onClick={handleNextContent}>다음</Button>
