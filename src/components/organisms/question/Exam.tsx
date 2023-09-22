@@ -130,7 +130,7 @@ const reducer = (state: State, action: Action): State => {
 function Exam({ examList, category, timeLimit }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList]
-      .sort(() => Math.random() - 0.5)
+      .sort((a, b) => a.number - b.number)
       .map((item) => {
         const shuffledExam: ExamListModel = {
           ...item,
@@ -148,7 +148,7 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
   });
   const { questionList, isFinish, currentNumber, score, wrongQuestionList } =
     state;
-  console.log(wrongQuestionList);
+
   const renderChoiceItem = (item: ChoiceModel, index: number) => {
     const ChoiceItem =
       questionList[currentNumber].choiceType === "String"
