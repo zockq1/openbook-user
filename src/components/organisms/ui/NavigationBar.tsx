@@ -18,7 +18,11 @@ function NavigationBar() {
   return (
     <StyledNavigationBar>
       <NavigationItem to="/" category="Home" />
-      <NavigationItem to="/question" category="Question" />
+      <NavigationItem
+        to="/question"
+        category="Question"
+        aria-label="question"
+      />
       <NavigationItem to="/my-info" category="MyInfo" />
       <NavigationItem to="/option" category="Option" />
     </StyledNavigationBar>

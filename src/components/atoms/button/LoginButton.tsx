@@ -15,7 +15,10 @@ function Login() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return (
-    <StyledLogin onClick={() => navigate(isLoggedIn ? "/option" : "/login")}>
+    <StyledLogin
+      aria-label={isLoggedIn ? "user" : "login"}
+      onClick={() => navigate(isLoggedIn ? "/option" : "/login")}
+    >
       <Icon category={isLoggedIn ? "user" : "login"} size={30} />
     </StyledLogin>
   );

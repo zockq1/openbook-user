@@ -6,7 +6,7 @@ interface TimelineListProps {
   dateList: TimeLineModel[];
 }
 
-const Line = styled.div`
+const Line = styled.li`
   position: absolute;
   background-color: ${({ theme }) => theme.colors.blue};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};

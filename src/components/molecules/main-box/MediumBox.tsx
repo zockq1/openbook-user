@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Box = styled(Link)`
+const Box = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,6 +19,7 @@ const Box = styled(Link)`
 const BoxImage = styled.img`
   margin-top: 15px;
   width: 90%;
+  height: auto;
 `;
 
 const BoxTitle = styled.div`
@@ -40,10 +41,12 @@ interface MediumBoxProps {
 
 function MediumBox({ children, image, link, title }: MediumBoxProps) {
   return (
-    <Box to={link}>
-      <BoxTitle>{title + " >"}</BoxTitle>
-      <BoxImage src={image} alt={title + " 이미지"} />
-      {children}
+    <Box>
+      <Link to={link}>
+        <BoxTitle>{title + " >"}</BoxTitle>
+        <BoxImage src={image} alt={title + " 이미지"} />
+        {children}
+      </Link>
     </Box>
   );
 }

@@ -5,7 +5,7 @@ import Text from "../../atoms/text/Text";
 import Icon from "../../atoms/icon/Icon";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 
-const Box = styled(Link)`
+const Box = styled.li`
   position: relative;
   width: calc(100vw - 40px);
   height: 150px;
@@ -66,26 +66,28 @@ function QuestionBox({
 }: QuizBoxProps) {
   const theme = useContext(ThemeContext);
   return (
-    <Box to={link}>
-      <BoxTitle>
-        <MenuLabelBox state="Open">{icon}</MenuLabelBox>
-        &nbsp;&nbsp;{title}
-      </BoxTitle>
-      <br />
-      <Description>
-        <Icon category="시간제한" />
-        <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
-      </Description>
-      <Description>
-        <Icon category="갯수" />
-        <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionCount}</Text>
-      </Description>
-      <Description>
-        <Icon category="설명" />
-        <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
-      </Description>
-      {children}
-      <BoxImage src={image} alt={title + " 이미지"} />
+    <Box>
+      <Link to={link}>
+        <BoxTitle>
+          <MenuLabelBox state="Open">{icon}</MenuLabelBox>
+          &nbsp;&nbsp;{title}
+        </BoxTitle>
+        <br />
+        <Description>
+          <Icon category="시간제한" />
+          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
+        </Description>
+        <Description>
+          <Icon category="갯수" />
+          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionCount}</Text>
+        </Description>
+        <Description>
+          <Icon category="설명" />
+          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
+        </Description>
+        {children}
+        <BoxImage src={image} alt={title + " 이미지"} />
+      </Link>
     </Box>
   );
 }

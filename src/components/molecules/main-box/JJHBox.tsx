@@ -5,7 +5,7 @@ import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 import Icon from "../../atoms/icon/Icon";
 import Text from "../../atoms/text/Text";
 
-const Box = styled(Link)`
+const Box = styled.li`
   position: relative;
   width: calc(100vw - 40px);
   height: 55vw;
@@ -105,21 +105,23 @@ function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
   }, [percentage, count]);
 
   return (
-    <Box to={link}>
-      <BoxTitle>
-        <MenuLabelBox state="Open">{<Icon category="정주행" />}</MenuLabelBox>
-        &nbsp;&nbsp;{title}
-      </BoxTitle>
-      <BoxImage src={image} alt={title + " 이미지"} />
-      <Percentage>
-        <Text size={theme.fontSizes.base} margin="5px 0">
-          진행도
-        </Text>
-        <span className="number-count">{count}%</span>
-      </Percentage>
-      <Progress>
-        <Bar percentage={percentage} />
-      </Progress>
+    <Box>
+      <Link to={link}>
+        <BoxTitle>
+          <MenuLabelBox state="Open">{<Icon category="정주행" />}</MenuLabelBox>
+          &nbsp;&nbsp;{title}
+        </BoxTitle>
+        <BoxImage src={image} alt={title + " 이미지"} />
+        <Percentage>
+          <Text size={theme.fontSizes.base} margin="5px 0">
+            진행도
+          </Text>
+          <span className="number-count">{count}%</span>
+        </Percentage>
+        <Progress>
+          <Bar percentage={percentage} />
+        </Progress>
+      </Link>
     </Box>
   );
 }

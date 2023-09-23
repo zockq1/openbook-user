@@ -50,7 +50,7 @@ function NavigationItem({ to, category }: NavigationItemProps) {
   const isCurrent = location.pathname === to;
 
   return (
-    <Navigation to={to} $isCurrent={isCurrent}>
+    <Navigation to={to} $isCurrent={isCurrent} aria-label={category}>
       <Icon
         category={category}
         size={24}
