@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import Hanna from "./fonts/Hanna.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -57,11 +56,6 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-@font-face {
-  font-family: "Hanna";
-  src: url(${Hanna});
 }
 
 @font-face {
