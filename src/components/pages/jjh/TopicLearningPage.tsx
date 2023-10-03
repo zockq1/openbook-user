@@ -1,12 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import TopicLearningTemplate from "../../templates/learning/TopicLearningTemplate";
 import { useGetTopicQuery } from "../../../store/api/topicApi";
-import { useEffect, useState } from "react";
-import {
-  useGetTtoKQuestionQuery,
-  useGetTtoSQuestionQuery,
-} from "../../../store/api/questionApi";
-import { QuestionModel } from "../../../types/questionTypes";
+import { useState } from "react";
+import { useGetTtoKQuestionQuery } from "../../../store/api/questionApi";
 import { useGetContentListQuery } from "../../../store/api/chapterApi";
 import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
@@ -22,32 +18,17 @@ function TopicLearningPage() {
   );
   const { data: TtoKQuestionList, isLoading: isTtoKQuestionListLoading } =
     useGetTtoKQuestionQuery(String(topic));
-  const { data: TtoSQuestionList, isLoading: isTtoSQuestionListLoading } =
-    useGetTtoSQuestionQuery(String(topic));
   const { data: contentList, isLoading: isContentListLoading } =
     useGetContentListQuery(Number(chapter));
   const [updateProgres] = useUpdateProgressMutation();
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");
-  const [questionList, setQuestionList] = useState<QuestionModel[]>([]);
-
-  useEffect(() => {
-    const questionList1 = TtoKQuestionList ? [...TtoKQuestionList] : [];
-    const questionList2 = TtoSQuestionList ? [...TtoSQuestionList] : [];
-    setQuestionList([...questionList1, ...questionList2]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic, TtoKQuestionList, TtoSQuestionList]);
 
   const handleNextQuestion = () => {
     setSelectedContent("Question");
   };
 
-  if (
-    isContentListLoading ||
-    isTopicInfoLoading ||
-    isTtoKQuestionListLoading ||
-    isTtoSQuestionListLoading
-  ) {
+  if (isContentListLoading || isTopicInfoLoading || isTtoKQuestionListLoading) {
     return <div>Loading...</div>;
   }
 
@@ -91,7 +72,7 @@ function TopicLearningPage() {
         <QuestionTemplate
           handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
           title={topic}
-          questionList={questionList}
+          questionList={TtoKQuestionList || []}
           handleNextContent={handleNextContent}
           category="주제별 문제"
         />

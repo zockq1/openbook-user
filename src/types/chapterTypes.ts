@@ -10,8 +10,7 @@ export interface JJHChapterModel {
 export interface ChapterModel {
   title: string;
   number: number;
-  startDate: number | null;
-  endDate: number | null;
+  dateComment: string;
   topicCount: number;
 }
 

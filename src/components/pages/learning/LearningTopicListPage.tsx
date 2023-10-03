@@ -33,9 +33,7 @@ function LearningTopicListPage() {
           state: "Open",
           link: `/learning/${chapter}/${item.title}`,
           icon: item.category,
-          description: `${item.startDate || "???"}년 ~ ${
-            item.endDate || "???"
-          }년`,
+          description: `${item.dateComment}`,
         };
         return result;
       }),

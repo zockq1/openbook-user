@@ -20,7 +20,7 @@ function TimelineMenuPage() {
         state: "Open",
         link: `/timeline/0`,
         icon: "연표 학습",
-        description: "??? ~ 2023년",
+        description: "기원전 70만년 ~ 현대",
       },
       ...chapterList.map((item) => {
         const result: MenuModel = {
@@ -28,9 +28,7 @@ function TimelineMenuPage() {
           state: "Open",
           link: `/timeline/${item.number}`,
           icon: item.number,
-          description: `${item.startDate || "???"}년 ~ ${
-            item.endDate || "???"
-          }년`,
+          description: `${item.dateComment}`,
         };
         return result;
       }),

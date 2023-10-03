@@ -7,8 +7,7 @@ import { useContext } from "react";
 interface TitleBoxProps {
   title?: string;
   category: string;
-  startDate?: number;
-  endDate?: number;
+  dateComment?: string;
   handleBackPage: () => void;
 }
 
@@ -48,8 +47,7 @@ const Category = styled.span`
 const TitleBox = ({
   title,
   category,
-  startDate,
-  endDate,
+  dateComment,
   handleBackPage,
 }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
@@ -74,7 +72,7 @@ const TitleBox = ({
             {title}
           </Text>
         )}
-        {(startDate || endDate) && (
+        {dateComment && (
           <Text
             weight={theme.fontWeight.light}
             size={theme.fontSizes.small}
@@ -83,7 +81,7 @@ const TitleBox = ({
             textAlign="center"
             lineHeight="200%"
           >
-            {startDate ? startDate : "???"} ~ {endDate ? endDate : "???"}
+            {dateComment}
           </Text>
         )}
       </StyledTitleBox>
@@ -106,7 +104,7 @@ const TitleBox = ({
             {title}
           </Text>
         )}
-        {(startDate || endDate) && (
+        {dateComment && (
           <Text
             weight={theme.fontWeight.light}
             size={theme.fontSizes.small}
@@ -115,7 +113,7 @@ const TitleBox = ({
             textAlign="center"
             lineHeight="200%"
           >
-            {startDate ? startDate : "???"} ~ {endDate ? endDate : "???"}
+            {dateComment}
           </Text>
         )}
       </StyledTitleBox>
