@@ -1,7 +1,6 @@
 import TitleBox from "../../organisms/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
 import KeywordList from "../../organisms/list/KeywordList";
-import SentenceList from "../../organisms/list/SentenceList";
 import Button from "../../atoms/button/Button";
 import { TopicModel } from "../../../types/topicTypes";
 
@@ -24,11 +23,9 @@ function TopicLearningTemplate({
         handleBackPage={handleBackPage}
         title={topicTitle}
         category="주제 학습"
-        startDate={topicInfo.startDate}
-        endDate={topicInfo.endDate}
+        dateComment={topicInfo.dateComment}
       />
       <KeywordList keywordList={topicInfo.keywordList} />
-      <SentenceList sentenceList={topicInfo.sentenceList} />
       {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
     </Layout>
   );

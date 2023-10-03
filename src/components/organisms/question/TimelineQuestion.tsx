@@ -165,7 +165,6 @@ function TimelineQuestion({
 
   useEffect(() => {
     if (isFinish) {
-      console.log("전송!");
       addChapterWrongCounter({
         number: Number(chapter),
         count: wrongCount,

@@ -29,17 +29,9 @@ export const questionApi = createApi({
       query: (getQuestion) =>
         `/questions/random?num=${getQuestion.chapterNumber}&count=${getQuestion.numberOfQuestion}`,
     }),
-    getTtoSQuestion: builder.query<QuestionModel[], string>({
-      query: (topicTitle: string) =>
-        `/questions/get-sentences/?title=${topicTitle}`,
-    }),
     getKtoTQuestion: builder.query<QuestionModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/get-topics-keywords/?num=${chapterNumber}`,
-    }),
-    getStoTQuestion: builder.query<QuestionModel[], number>({
-      query: (chapterNumber: number) =>
-        `/questions/get-topics-sentences/?num=${chapterNumber}`,
     }),
     getExam: builder.query<ExamModel[], number>({
       query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
@@ -72,8 +64,6 @@ export const {
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,
-  useGetStoTQuestionQuery,
-  useGetTtoSQuestionQuery,
   useAddChapterWrongCounterMutation,
   useAddTopicWrongCounterMutation,
 } = questionApi;

@@ -1,4 +1,4 @@
-export type QuestionType = "TtoK" | "TtoS" | "KtoT" | "StoT" | "Mock";
+export type QuestionType = "TtoK" | "KtoT";
 export type ChoiceType = "String" | "Image";
 
 export interface ChoiceModel {
@@ -10,13 +10,9 @@ export interface ChoiceModel {
 export interface QuestionModel {
   questionType: QuestionType;
   answer: string;
-  score?: number;
   choiceType?: ChoiceType;
-
   description?: string; //이미지
-  descriptionSentence?: string;
   descriptionKeyword?: { name: string; comment: string }[];
-
   choiceList: ChoiceModel[];
 }
 

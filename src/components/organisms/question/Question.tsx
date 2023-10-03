@@ -2,8 +2,7 @@ import { useReducer } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
-import { ChoiceModel, QuestionModel } from "../../../types/questionTypes";
-import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
+import { QuestionModel } from "../../../types/questionTypes";
 import styled from "styled-components";
 import TextBox from "../../atoms/box/TextBox";
 import { ToastContainer, Zoom, toast } from "react-toastify";
@@ -134,40 +133,6 @@ function Question({
     dispatch({ type: NEXT_QUESTION });
   };
 
-  const renderChoiceItem = (item: ChoiceModel, index: number) => {
-    const ChoiceItem =
-      questionList[currentNumber].questionType === "TtoS" ||
-      questionList[currentNumber].questionType === "Mock"
-        ? LongChoiceItem
-        : ShortChoiceItem;
-
-    return (
-      <ChoiceItem
-        handleCheckboxChange={
-          isFinish
-            ? () => {}
-            : (e) =>
-                dispatch({
-                  type: SELECT_CHOICE,
-                  selectedChoiceKey: e.target.id,
-                })
-        }
-        handleChoiceClick={
-          isFinish
-            ? () => {}
-            : (key: string) =>
-                dispatch({ type: SELECT_CHOICE, selectedChoiceKey: key })
-        }
-        choiceKey={String(index) + item.key}
-        isCorrect={questionList[currentNumber].answer === item.key}
-        choice={item.choice}
-        isFinish={isFinish}
-        selectedCheckbox={selectedChoiceKey}
-        key={String(index) + item.key}
-      />
-    );
-  };
-
   return (
     <>
       <ToastContainer
@@ -211,16 +176,33 @@ function Question({
           />
         </Description>
       )}
-      {questionList[currentNumber].descriptionSentence && (
-        <Description>
-          <TextBox maxWidth="full">
-            {questionList[currentNumber].descriptionSentence}
-          </TextBox>
-        </Description>
-      )}
       <RowList>
         {questionList[currentNumber] &&
-          questionList[currentNumber].choiceList.map(renderChoiceItem)}
+          questionList[currentNumber].choiceList.map((item, index) => (
+            <LongChoiceItem
+              handleCheckboxChange={
+                isFinish
+                  ? () => {}
+                  : (e) =>
+                      dispatch({
+                        type: SELECT_CHOICE,
+                        selectedChoiceKey: e.target.id,
+                      })
+              }
+              handleChoiceClick={
+                isFinish
+                  ? () => {}
+                  : (key: string) =>
+                      dispatch({ type: SELECT_CHOICE, selectedChoiceKey: key })
+              }
+              choiceKey={String(index) + item.key}
+              isCorrect={questionList[currentNumber].answer === item.key}
+              choice={item.choice}
+              isFinish={isFinish}
+              selectedCheckbox={selectedChoiceKey}
+              key={String(index) + item.key}
+            />
+          ))}
       </RowList>
       {!isFinish ? (
         <Button onClick={handleCheckAnswer}>정답 확인</Button>
