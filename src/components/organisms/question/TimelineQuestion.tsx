@@ -153,7 +153,7 @@ function TimelineQuestion({
     nextDateList: dateList.slice(1),
     lineHeight: 166,
     wrongCount: 0,
-    isFinish: false,
+    isFinish: !!dateList,
   });
   const { playedDateList, nextDateList, lineHeight, wrongCount, isFinish } =
     state;
