@@ -153,11 +153,10 @@ function TimelineQuestion({
     nextDateList: dateList.slice(1),
     lineHeight: 166,
     wrongCount: 0,
-    isFinish: !!dateList,
+    isFinish: dateList.length === 0,
   });
   const { playedDateList, nextDateList, lineHeight, wrongCount, isFinish } =
     state;
-
   useEffect(() => {
     setIsMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -273,7 +272,10 @@ function TimelineQuestion({
                                 <Item>
                                   <TimelineItem
                                     date={null}
-                                    comment={nextDateList[0].comment}
+                                    comment={nextDateList[0].comment.replace(
+                                      /\([^)]*\)/g,
+                                      ""
+                                    )}
                                     key={0}
                                     disableCircle={true}
                                     isQuestion={true}
