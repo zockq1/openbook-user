@@ -15,4 +15,5 @@ export interface TopicListModel {
   title: string;
   category: string;
   dateComment: string;
+  number: number;
 }

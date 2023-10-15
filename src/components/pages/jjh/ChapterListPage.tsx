@@ -15,18 +15,20 @@ function ChapterListPage() {
       return;
     }
 
-    setMenuList([
-      ...chapterList.map((item: JJHChapterModel) => {
-        const result: MenuModel = {
-          title: item.title,
-          state: item.state,
-          link: `/jeong-ju-haeng/${item.number}`,
-          icon: item.number,
-          description: "진행도: " + item.progress,
-        };
-        return result;
-      }),
-    ]);
+    setMenuList(
+      [...chapterList]
+        .sort((a, b) => a.number - b.number)
+        .map((item: JJHChapterModel) => {
+          const result: MenuModel = {
+            title: item.title,
+            state: item.state,
+            link: `/jeong-ju-haeng/${item.number}`,
+            icon: item.number,
+            description: "진행도: " + item.progress,
+          };
+          return result;
+        })
+    );
   }, [setMenuList, chapterList]);
 
   if (!chapterList) {

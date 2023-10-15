@@ -14,18 +14,20 @@ function LearningChapterListPage() {
       return;
     }
 
-    setMenuList([
-      ...chapterList.map((item) => {
-        const result: MenuModel = {
-          title: item.title,
-          state: "Open",
-          link: `/learning/${item.number}`,
-          icon: item.number,
-          description: "주제 수: " + item.topicCount,
-        };
-        return result;
-      }),
-    ]);
+    setMenuList(
+      [...chapterList]
+        .sort((a, b) => a.number - b.number)
+        .map((item) => {
+          const result: MenuModel = {
+            title: item.title,
+            state: "Open",
+            link: `/learning/${item.number}`,
+            icon: item.number,
+            description: "주제 수: " + item.topicCount,
+          };
+          return result;
+        })
+    );
   }, [setMenuList, chapterList]);
 
   if (!chapterList) {

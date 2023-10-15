@@ -27,16 +27,18 @@ function LearningTopicListPage() {
         icon: "단원 학습",
         description: `${chapterTitle?.title}`,
       },
-      ...topicList.map((item) => {
-        const result: MenuModel = {
-          title: item.title,
-          state: "Open",
-          link: `/learning/${chapter}/${item.title}`,
-          icon: item.category,
-          description: `${item.dateComment}`,
-        };
-        return result;
-      }),
+      ...[...topicList]
+        .sort((a, b) => a.number - b.number)
+        .map((item) => {
+          const result: MenuModel = {
+            title: item.title,
+            state: "Open",
+            link: `/learning/${chapter}/${item.title}`,
+            icon: item.category,
+            description: `${item.dateComment}`,
+          };
+          return result;
+        }),
     ]);
   }, [setMenuList, topicList, chapter, chapterTitle]);
 
@@ -47,7 +49,7 @@ function LearningTopicListPage() {
   return (
     <MenuTemplate
       menuList={menuList}
-      handleBackPage={() => navigate("/")}
+      handleBackPage={() => navigate("/learning")}
       category={String(chapter) + ". " + chapterTitle.title}
     />
   );

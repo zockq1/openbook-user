@@ -22,16 +22,18 @@ function TimelineMenuPage() {
         icon: "연표 학습",
         description: "기원전 70만년 ~ 현대",
       },
-      ...chapterList.map((item) => {
-        const result: MenuModel = {
-          title: item.title,
-          state: "Open",
-          link: `/timeline/${item.number}`,
-          icon: item.number,
-          description: `${item.dateComment}`,
-        };
-        return result;
-      }),
+      ...[...chapterList]
+        .sort((a, b) => a.number - b.number)
+        .map((item) => {
+          const result: MenuModel = {
+            title: item.title,
+            state: "Open",
+            link: `/timeline/${item.number}`,
+            icon: item.number,
+            description: `${item.dateComment}`,
+          };
+          return result;
+        }),
     ]);
   }, [setMenuList, chapterList]);
 
