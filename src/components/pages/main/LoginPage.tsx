@@ -21,7 +21,7 @@ function LoginPage() {
         <Logo size={40} />
 
         <Link
-          to={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=http://localhost:4000/oauth/kakao/login&response_type=code`}
+          to={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=${process.env.REACT_APP_URL}/oauth/kakao/login&response_type=code`}
           replace={true}
         >
           <img src={kakao} alt="kakao-login" />
