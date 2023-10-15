@@ -26,15 +26,17 @@ function KeywoedItem({ name, comment }: KeywordCommentBoxProps) {
       <TextBox maxWidth="half" shadow={false}>
         {name}
       </TextBox>
-      <Text
-        color={theme.colors.black}
-        size={theme.fontSizes.xs}
-        weight={theme.fontWeight.light}
-        padding={theme.padding.small}
-        lineHeight="120%"
-      >
-        {comment}
-      </Text>
+      {comment && (
+        <Text
+          color={theme.colors.black}
+          size={theme.fontSizes.xs}
+          weight={theme.fontWeight.light}
+          padding={theme.padding.small}
+          lineHeight="120%"
+        >
+          {comment}
+        </Text>
+      )}
     </StyledKeywordCommentBox>
   );
 }
