@@ -8,8 +8,8 @@ export const authApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getKakaoToken: builder.query<GetTokenModel, string>({
-      query: (code: string) => `/login/kakao?code=${code}`,
+    getKakaoToken: builder.query<GetTokenModel, { code: string; url: string }>({
+      query: ({ code, url }) => `/login/kakao?code=${code}&url=${url}`,
       transformResponse: (response: { id: string }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");

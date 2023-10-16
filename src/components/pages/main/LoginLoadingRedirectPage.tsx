@@ -13,7 +13,10 @@ const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
-  const { data } = useGetKakaoTokenQuery(code ? code : "");
+  const { data } = useGetKakaoTokenQuery({
+    code: code ? code : "",
+    url: `${process.env.REACT_APP_URL}/auth/kakao/login`,
+  });
 
   useEffect(() => {
     if (data) {
