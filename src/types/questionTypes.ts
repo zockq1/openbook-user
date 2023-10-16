@@ -15,19 +15,17 @@ export interface ExamChoiceModel {
   commentList: ExamCommentModel[];
 }
 
-export interface ChoiceModel {
+export interface QuestionChoiceModel {
   choice: string;
   key: string;
-  commentList: string;
 }
 
 export interface QuestionModel {
   questionType: QuestionType;
-  answer: string;
-  choiceType?: ChoiceType;
-  description?: string; //이미지
-  descriptionKeyword?: { name: string; comment: string }[];
-  choiceList: ChoiceModel[];
+  answer: string; //topicTitle
+  choiceType: ChoiceType;
+  description: string[];
+  choiceList: QuestionChoiceModel[];
 }
 
 export interface ExamModel {
@@ -50,6 +48,7 @@ export interface TimeLineModel {
   comment: string;
   date: number;
   topicTitle: string;
+  keywordList: string[] | null;
 }
 
 export interface GetQuestionModel {

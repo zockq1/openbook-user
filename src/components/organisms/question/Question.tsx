@@ -156,24 +156,15 @@ function Question({
         currentQuestionCount={currentNumber + 1}
         category={category}
       />
-      {questionList[currentNumber].descriptionKeyword && (
+      {questionList[currentNumber].description && (
         <Description>
-          {questionList[currentNumber].descriptionKeyword?.map((item) => {
+          {questionList[currentNumber].description.map((item) => {
             return (
-              <TextBox maxWidth="full" key={item.name}>
-                {item.name}
+              <TextBox maxWidth="full" key={item}>
+                {item}
               </TextBox>
             );
           })}
-        </Description>
-      )}
-      {questionList[currentNumber].description && (
-        <Description>
-          <img
-            style={{ width: "100%", height: "auto" }}
-            src={questionList[currentNumber].description}
-            alt=""
-          />
         </Description>
       )}
       <RowList>
