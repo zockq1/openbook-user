@@ -3,6 +3,7 @@ import {
   CheckBoxInput,
   CheckBoxLabel,
 } from "../../atoms/checkbox/QuestionCheckBox";
+import { ExamCommentModel } from "../../../types/questionTypes";
 
 interface AnswerCheckProps {
   isFinish?: boolean;
@@ -17,6 +18,7 @@ interface ChoiceProps {
   isCorrect: boolean;
   isFinish: boolean;
   selectedCheckbox: string;
+  examCommentList?: ExamCommentModel[];
 }
 
 const LongChoice = styled.div<AnswerCheckProps>`
@@ -62,27 +64,53 @@ function LongChoiceItem({
   isCorrect,
   isFinish,
   selectedCheckbox,
+  examCommentList,
 }: ChoiceProps) {
+  console.log(isFinish, examCommentList);
   return (
-    <LongChoice
-      onClick={() => handleChoiceClick(choiceKey)}
-      isFinish={isFinish}
-      isCorrect={isCorrect}
-    >
-      <CheckBoxInput
-        choiceKey={choiceKey}
-        handleCheckboxChange={handleCheckboxChange}
-        selectedCheckbox={selectedCheckbox}
-      />
-      <CheckBoxLabel
-        choiceKey={choiceKey}
-        isCorrect={isCorrect}
+    <>
+      <LongChoice
+        onClick={() => handleChoiceClick(choiceKey)}
         isFinish={isFinish}
-      />
-      <LongComment isFinish={isFinish} isCorrect={isCorrect}>
-        {choice}
-      </LongComment>
-    </LongChoice>
+        isCorrect={isCorrect}
+      >
+        <CheckBoxInput
+          choiceKey={choiceKey}
+          handleCheckboxChange={handleCheckboxChange}
+          selectedCheckbox={selectedCheckbox}
+        />
+        <CheckBoxLabel
+          choiceKey={choiceKey}
+          isCorrect={isCorrect}
+          isFinish={isFinish}
+        />
+        <LongComment isFinish={isFinish} isCorrect={isCorrect}>
+          {choice}
+        </LongComment>
+      </LongChoice>
+      {examCommentList && isFinish && (
+        <LongComment isFinish={isFinish} isCorrect={isCorrect}>
+          {examCommentList.map((item) => {
+            const {
+              keywordComment,
+              keywordDateComment,
+              keywordName,
+              topicDateComment,
+              topicTitle,
+            } = item;
+            let comment = topicTitle;
+            comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
+            comment += keywordName;
+            comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+            return (
+              <span key={item.keywordName}>
+                {comment} <br /> {keywordComment}
+              </span>
+            );
+          })}
+        </LongComment>
+      )}
+    </>
   );
 }
 export { LongChoiceItem };

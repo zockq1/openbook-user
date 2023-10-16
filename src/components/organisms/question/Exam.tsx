@@ -6,7 +6,7 @@ import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
 import styled from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  ChoiceModel,
+  ExamChoiceModel,
   ExamListModel,
   ExamModel,
 } from "../../../types/questionTypes";
@@ -76,7 +76,7 @@ const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 
 type Action =
-  | { type: "SELECT_CHOICE"; selectedChoiceKey: string }
+  | { type: "SELECT_CHOICE"; selectedChoiceKey: number }
   | { type: "CHECK_ANSWER" }
   | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
 
@@ -88,7 +88,7 @@ const reducer = (state: State, action: Action): State => {
           if (item.checkedChoiceKey === action.selectedChoiceKey) {
             return {
               ...item,
-              checkedChoiceKey: "",
+              checkedChoiceKey: 0,
               isChecked: false,
               isCorrect: false,
             };
@@ -97,7 +97,7 @@ const reducer = (state: State, action: Action): State => {
             ...item,
             checkedChoiceKey: action.selectedChoiceKey,
             isChecked: true,
-            isCorrect: item.answer === action.selectedChoiceKey.substring(1),
+            isCorrect: item.answer === action.selectedChoiceKey,
           };
         }
         return item;
@@ -129,18 +129,16 @@ const reducer = (state: State, action: Action): State => {
 
 function Exam({ examList, category, timeLimit }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
-    questionList: [...examList]
-      .sort((a, b) => a.number - b.number)
-      .map((item) => {
-        const shuffledExam: ExamListModel = {
-          ...item,
-          checkedChoiceKey: "",
-          isChecked: false,
-          isCorrect: false,
-          choiceList: [...item.choiceList].sort(() => Math.random() - 0.5),
-        };
-        return shuffledExam;
-      }),
+    questionList: [...examList].map((item) => {
+      const shuffledExam: ExamListModel = {
+        ...item,
+        checkedChoiceKey: 0,
+        isChecked: false,
+        isCorrect: false,
+        choiceList: item.choiceList,
+      };
+      return shuffledExam;
+    }),
     isFinish: false,
     currentNumber: 0,
     score: 0,
@@ -149,7 +147,7 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
   const { questionList, isFinish, currentNumber, score, wrongQuestionList } =
     state;
 
-  const renderChoiceItem = (item: ChoiceModel, index: number) => {
+  const renderChoiceItem = (item: ExamChoiceModel, index: number) => {
     const ChoiceItem =
       questionList[currentNumber].choiceType === "String"
         ? LongChoiceItem
@@ -163,21 +161,25 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
             : (e) =>
                 dispatch({
                   type: SELECT_CHOICE,
-                  selectedChoiceKey: e.target.id,
+                  selectedChoiceKey: Number(e.target.id),
                 })
         }
         handleChoiceClick={
           isFinish
             ? () => {}
             : (key: string) =>
-                dispatch({ type: SELECT_CHOICE, selectedChoiceKey: key })
+                dispatch({
+                  type: SELECT_CHOICE,
+                  selectedChoiceKey: Number(key),
+                })
         }
-        choiceKey={String(index) + item.key}
-        key={String(index) + item.key}
-        isCorrect={questionList[currentNumber].answer === item.key}
+        choiceKey={String(item.number)}
+        key={item.number}
+        isCorrect={questionList[currentNumber].answer === item.number}
         choice={item.choice}
         isFinish={isFinish}
-        selectedCheckbox={questionList[currentNumber].checkedChoiceKey}
+        selectedCheckbox={String(questionList[currentNumber].checkedChoiceKey)}
+        examCommentList={item.commentList}
       />
     );
   };

@@ -1,10 +1,24 @@
 export type QuestionType = "TtoK" | "KtoT";
 export type ChoiceType = "String" | "Image";
 
+export interface ExamCommentModel {
+  topicTitle: string;
+  topicDateComment: string | null;
+  keywordName: string;
+  keywordDateComment: string | null;
+  keywordComment: string;
+}
+
+export interface ExamChoiceModel {
+  choice: string;
+  number: number;
+  commentList: ExamCommentModel[];
+}
+
 export interface ChoiceModel {
   choice: string;
-  comment: string;
   key: string;
+  commentList: string;
 }
 
 export interface QuestionModel {
@@ -19,15 +33,15 @@ export interface QuestionModel {
 export interface ExamModel {
   number: number;
   description: string;
-  descriptionComment: string;
-  answer: string;
+  descriptionCommentList: ExamCommentModel[];
+  answer: number;
   choiceType: ChoiceType;
-  choiceList: ChoiceModel[];
+  choiceList: ExamChoiceModel[];
   score: number;
 }
 
 export interface ExamListModel extends ExamModel {
-  checkedChoiceKey: string;
+  checkedChoiceKey: number;
   isCorrect: boolean;
   isChecked: boolean;
 }
