@@ -1,6 +1,9 @@
 import { useReducer } from "react";
 import { RowList } from "../../atoms/layout/List";
-import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
+import {
+  LongChoiceItem,
+  LongComment,
+} from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
 import { ShortChoiceItem } from "../../molecules/list-item/ShortChoiceItem";
 import styled from "styled-components";
@@ -210,6 +213,31 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
               alt=""
             />
           </Description>
+        )}
+      {currentNumber < questionList.length &&
+        questionList[currentNumber].descriptionCommentList.length !== 0 &&
+        isFinish && (
+          <LongComment isFinish={isFinish} isCorrect={true}>
+            {questionList[currentNumber].descriptionCommentList.map((item) => {
+              const {
+                keywordComment,
+                keywordDateComment,
+                keywordName,
+                topicDateComment,
+                topicTitle,
+              } = item;
+              let comment = topicTitle;
+              comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
+              comment += keywordName;
+              comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+              return (
+                <span key={item.keywordName}>
+                  {comment} <br /> {keywordComment}
+                  <br />
+                </span>
+              );
+            })}
+          </LongComment>
         )}
       <RowList>
         {currentNumber < questionList.length &&

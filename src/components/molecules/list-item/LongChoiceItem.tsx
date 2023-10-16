@@ -40,8 +40,7 @@ const LongChoice = styled.div<AnswerCheckProps>`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const LongComment = styled.span<AnswerCheckProps>`
-  width: max-content;
+export const LongComment = styled.span<AnswerCheckProps>`
   margin: 12px;
 
   color: ${({ theme, isCorrect, isFinish }) =>
@@ -66,7 +65,6 @@ function LongChoiceItem({
   selectedCheckbox,
   examCommentList,
 }: ChoiceProps) {
-  console.log(isFinish, examCommentList);
   return (
     <>
       <LongChoice
@@ -104,7 +102,7 @@ function LongChoiceItem({
             comment += keywordDateComment ? `(${keywordDateComment})` : ``;
             return (
               <span key={item.keywordName}>
-                {comment} <br /> {keywordComment}
+                {comment} <br /> {keywordComment} <br />
               </span>
             );
           })}
