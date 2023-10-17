@@ -12,7 +12,7 @@ export const authApi = createApi({
       { code: string; local: string }
     >({
       query: ({ code, local }) =>
-        `${process.env.REACT_APP_API_URL}/login/kakao?code=${code}&url=${local}`,
+        `${process.env.REACT_APP_API_URL}login/kakao?code=${code}&url=${local}`,
       transformResponse: (response: { id: string }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");

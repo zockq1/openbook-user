@@ -16,7 +16,7 @@ const LoginLoadingRedirectPage = () => {
   //const { data } = useGetKakaoTokenQuery(code ? code : "");
   const { data } = useGetKakaoTokenQuery({
     code: code ? code : "",
-    local: `${process.env.REACT_APP_URL}/auth/kakao/login`,
+    local: `${process.env.REACT_APP_IP}/oauth/kakao/login`,
   });
 
   useEffect(() => {
