@@ -38,7 +38,7 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQueryWithJWT(args, api, extraOptions);
-  if (result.error && result.error.status === 401) {
+  if (result.meta?.response?.status === 401) {
     const refreshResult = await baseQueryWithRefresh(
       "refresh-token",
       api,
