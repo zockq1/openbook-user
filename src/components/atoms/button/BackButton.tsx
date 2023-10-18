@@ -1,4 +1,4 @@
-import { AiOutlineLeft } from "react-icons/ai";
+import Icon from "../icon/Icon";
 
 interface BackButtonProps {
   color?: string;
@@ -6,7 +6,11 @@ interface BackButtonProps {
 }
 
 function BackButton({ color = "inherit", onClick }: BackButtonProps) {
-  return <AiOutlineLeft size={24} color={color} onClick={onClick} />;
+  return (
+    <button onClick={onClick}>
+      <Icon icon="back" size={20} color={color} />
+    </button>
+  );
 }
 
 export default BackButton;

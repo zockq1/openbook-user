@@ -19,7 +19,6 @@ import QuestionNuvagation from "../../molecules/etc/QuestionNavigation";
 interface ExamProps {
   examList: ExamModel[];
   handleNextContent: () => void;
-  category: string;
   timeLimit: number;
 }
 
@@ -130,7 +129,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-function Exam({ examList, category, timeLimit }: ExamProps) {
+function Exam({ examList, timeLimit }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map((item) => {
       const shuffledExam: ExamListModel = {
@@ -201,7 +200,6 @@ function Exam({ examList, category, timeLimit }: ExamProps) {
         timeLimit={timeLimit}
         totalQuestionCount={examList.length}
         currentQuestionCount={currentNumber + 1}
-        category={category}
         timeout={() => dispatch({ type: CHECK_ANSWER })}
       />
       {currentNumber < questionList.length &&

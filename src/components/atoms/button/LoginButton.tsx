@@ -19,7 +19,7 @@ function Login() {
       aria-label={isLoggedIn ? "user" : "login"}
       onClick={() => navigate(isLoggedIn ? "/option" : "/login")}
     >
-      <Icon category={isLoggedIn ? "user" : "login"} size={30} />
+      <Icon icon={isLoggedIn ? "user" : "login"} size={30} />
     </StyledLogin>
   );
 }

@@ -22,6 +22,7 @@ function TimelineQuestionTemplate({
     <Layout>
       <TitleBox
         handleBackPage={handleBackPage}
+        icon="연표 문제"
         category="연표 문제"
         title={title}
       />

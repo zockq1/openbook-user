@@ -22,6 +22,7 @@ function TopicLearningTemplate({
       <TitleBox
         handleBackPage={handleBackPage}
         title={topicTitle}
+        icon="주제 학습"
         category="주제 학습"
         dateComment={topicInfo.dateComment}
       />

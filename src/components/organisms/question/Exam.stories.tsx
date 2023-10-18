@@ -20,7 +20,11 @@ const meta = {
   decorators: [
     (Story) => (
       <Layout>
-        <TitleBox handleBackPage={() => {}} category=""></TitleBox>
+        <TitleBox
+          handleBackPage={() => {}}
+          icon="pen"
+          category="모의고사"
+        ></TitleBox>
         <Story />
       </Layout>
     ),
@@ -149,7 +153,6 @@ export const Learning: Story = {
       ...Array(25).fill(questionList[0]),
       ...Array(25).fill(questionList[1]),
     ],
-    category: "모의고사",
     handleNextContent: () => {
       console.log("완료");
     },

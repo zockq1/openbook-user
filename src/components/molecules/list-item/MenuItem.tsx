@@ -1,15 +1,14 @@
 import styled, { ThemeContext } from "styled-components";
 import { ContentState } from "../../../types/chapterTypes";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
-import Icon from "../../atoms/icon/Icon";
+import Icon, { IconType } from "../../atoms/icon/Icon";
 import Text from "../../atoms/text/Text";
 import { useContext } from "react";
-import { FaLock } from "react-icons/fa";
 
 interface MenuItemProps {
   title: string;
   description?: string;
-  icon: string | number;
+  icon: IconType | number;
   state: ContentState;
   onClickItem: () => void;
 }
@@ -49,7 +48,7 @@ function MenuItem({
   return (
     <StyledMenuItem state={state} onClick={onClickItem}>
       <MenuLabelBox state={state}>
-        {typeof icon === "string" ? <Icon category={icon} /> : icon}
+        {typeof icon === "number" ? icon : <Icon icon={icon} />}
       </MenuLabelBox>
       <MenuDescription>
         <Text
@@ -72,7 +71,9 @@ function MenuItem({
         )}
       </MenuDescription>
 
-      {state !== "Open" && <FaLock color={theme.colors.red} size={40} />}
+      {state !== "Open" && (
+        <Icon color={theme.colors.red} size={40} icon="lock" />
+      )}
     </StyledMenuItem>
   );
 }

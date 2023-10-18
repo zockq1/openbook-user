@@ -38,12 +38,12 @@ function MockExamSettingPage() {
     <QuestionOptionTemplate
       title="모의고사"
       handleBackPage={() => navigate("/question")}
-      icon={<Icon category="모의고사" />}
+      icon={<Icon icon="pen" />}
       handleStart={handleStart}
       optionList={[
         {
           title: "시간제한",
-          icon: <Icon category="시간제한" />,
+          icon: <Icon icon="clock" />,
           handleSelect: handleSelectTimeLimit,
           selectName: "time-limit",
           optionList: [
@@ -53,7 +53,7 @@ function MockExamSettingPage() {
         },
         {
           title: "회차 선택",
-          icon: <Icon category="단원 학습" />,
+          icon: <Icon icon="단원 학습" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [
@@ -69,7 +69,7 @@ function MockExamSettingPage() {
         },
         {
           title: "문제 수",
-          icon: <Icon category="갯수" />,
+          icon: <Icon icon="listNumber" />,
           handleSelect: handleSelectNumberOfQuestion,
           selectName: "number-of-question",
           optionList: [{ value: 50, key: 50, description: "50문제" }],

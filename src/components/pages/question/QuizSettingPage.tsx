@@ -38,12 +38,12 @@ function QuizSettingPage() {
     <QuestionOptionTemplate
       title="퀴즈"
       handleBackPage={() => navigate("/question")}
-      icon={<Icon category="퀴즈" />}
+      icon={<Icon icon="question" />}
       handleStart={handleStart}
       optionList={[
         {
           title: "시간제한",
-          icon: <Icon category="시간제한" />,
+          icon: <Icon icon="clock" />,
           handleSelect: handleSelectTimeLimit,
           selectName: "time-limit",
           optionList: [
@@ -53,7 +53,7 @@ function QuizSettingPage() {
         },
         {
           title: "단원 선택",
-          icon: <Icon category="단원 학습" />,
+          icon: <Icon icon="단원 학습" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [
@@ -69,7 +69,7 @@ function QuizSettingPage() {
         },
         {
           title: "문제 수",
-          icon: <Icon category="갯수" />,
+          icon: <Icon icon="listNumber" />,
           handleSelect: handleSelectNumberOfQuestion,
           selectName: "number-of-question",
           optionList: [

@@ -21,6 +21,7 @@ function ChapterLearningTemplate({
     <Layout>
       <TitleBox
         title={title}
+        icon="단원 학습"
         category="단원 학습"
         handleBackPage={handleBackPage}
       />

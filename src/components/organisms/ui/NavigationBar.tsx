@@ -17,14 +17,14 @@ const StyledNavigationBar = styled.nav`
 function NavigationBar() {
   return (
     <StyledNavigationBar>
-      <NavigationItem to="/" category="Home" />
+      <NavigationItem to="/" icon="home" />
       <NavigationItem
         to="/question"
-        category="Question"
+        icon="fileQuestion"
         aria-label="question"
       />
-      <NavigationItem to="/my-info" category="MyInfo" />
-      <NavigationItem to="/option" category="Option" />
+      <NavigationItem to="/my-info" icon="myInfo" />
+      <NavigationItem to="/option" icon="option" />
     </StyledNavigationBar>
   );
 }

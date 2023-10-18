@@ -1,11 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import styled, { ThemeContext, css, keyframes } from "styled-components";
-import Icon from "../../atoms/icon/Icon";
-import { useContext } from "react";
+import styled, { css, keyframes } from "styled-components";
+import Icon, { IconType } from "../../atoms/icon/Icon";
 
 interface NavigationItemProps {
   to: string;
-  category: string;
+  icon: IconType;
 }
 
 const popAnimation = keyframes`
@@ -36,6 +35,9 @@ const Navigation = styled(Link)<NavigationProps>`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   background-color: ${({ $isCurrent, theme }) =>
     $isCurrent ? theme.colors.lightBlue : theme.colors.white};
+  color: ${({ $isCurrent, theme }) =>
+    $isCurrent ? theme.colors.blue : theme.colors.lightGrey};
+
   animation: ${({ $isCurrent }) =>
     $isCurrent
       ? css`
@@ -44,18 +46,13 @@ const Navigation = styled(Link)<NavigationProps>`
       : ""};
 `;
 
-function NavigationItem({ to, category }: NavigationItemProps) {
-  const theme = useContext(ThemeContext);
+function NavigationItem({ to, icon }: NavigationItemProps) {
   const location = useLocation();
   const isCurrent = location.pathname === to;
 
   return (
-    <Navigation to={to} $isCurrent={isCurrent} aria-label={category}>
-      <Icon
-        category={category}
-        size={24}
-        color={isCurrent ? theme.colors.blue : theme.colors.lightGrey}
-      />
+    <Navigation to={to} $isCurrent={isCurrent} aria-label={icon}>
+      <Icon icon={icon} size={24} />
     </Navigation>
   );
 }

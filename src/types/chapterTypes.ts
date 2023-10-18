@@ -1,4 +1,11 @@
 export type ContentState = "Open" | "Locked" | "Updated";
+export type Content =
+  | "단원 학습"
+  | "연표 학습"
+  | "연표 문제"
+  | "주제 학습"
+  | "주제별 문제"
+  | "단원 마무리 문제";
 
 export interface JJHChapterModel {
   title: string;
@@ -23,7 +30,7 @@ export interface ChapterInfoModel {
 }
 
 export interface ContentModel {
-  content: string;
+  content: Content;
   title: string;
   state: ContentState;
 }

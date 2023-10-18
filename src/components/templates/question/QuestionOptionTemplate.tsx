@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import QuestionOptionSelect, {
   QuestionOptionItemProps,
 } from "../../molecules/select/QuestionOptionSelect";
 import BackButton from "../../atoms/button/BackButton";
 import Button from "../../atoms/button/Button";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 
 const QuizBackground = styled.div`
   display: flex;
@@ -35,6 +35,10 @@ const Box = styled.div`
   margin-top: 30px;
 `;
 
+const Back = styled.div`
+  display: flex;
+`;
+
 interface QuestionOptionTemplateProps {
   title: string;
   icon: ReactNode;
@@ -50,9 +54,12 @@ function QuestionOptionTemplate({
   handleStart,
   handleBackPage,
 }: QuestionOptionTemplateProps) {
+  const theme = useContext(ThemeContext);
   return (
     <QuizBackground>
-      <BackButton onClick={handleBackPage} />
+      <Back>
+        <BackButton onClick={handleBackPage} color={theme.colors.grey} />
+      </Back>
       <Box>
         <Title>
           {icon}

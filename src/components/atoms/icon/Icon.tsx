@@ -1,66 +1,88 @@
-// BsCardText, BsPostcard, BsQuestionSquare, BsGear: Designed by Bootstrap
-// FaRunning: Designed by Font Awesome
-// TbClockHour5, TbClockQuestion: Designed by Tabler Icons
-// AiOutlineHome: Designed by Ant Design Icons
-// LuFileQuestion: Designed by Lineicons
-// LiaReadme: Designed by Linea Icons
+import "../../../styles/flaticons.css";
+import { Content } from "../../../types/chapterTypes";
+import { TopicCategory } from "../../../types/topicTypes";
+import styled from "styled-components";
 
-import {
-  BsCardText,
-  BsPostcard,
-  BsQuestionSquare,
-  BsGear,
-} from "react-icons/bs";
-import {
-  FaRunning,
-  FaClock,
-  FaPen,
-  FaQuestion,
-  FaInfinity,
-  FaDice,
-} from "react-icons/fa";
-import { TbClockHour5, TbClockQuestion } from "react-icons/tb";
-import { AiOutlineHome } from "react-icons/ai";
-import { LuFileQuestion } from "react-icons/lu";
-import { LiaReadme } from "react-icons/lia";
-import { GrUser } from "react-icons/gr";
-import { PiListNumbersBold } from "react-icons/pi";
-import { IoMdListBox, IoMdLogIn } from "react-icons/io";
-import { BiSolidUserCircle } from "react-icons/bi";
+export type IconType =
+  | "run"
+  | "home"
+  | "fileQuestion"
+  | "myInfo"
+  | "option"
+  | "인물"
+  | "clock"
+  | "listNumber"
+  | "description"
+  | "pen"
+  | "question"
+  | "infinity"
+  | "dice"
+  | "login"
+  | "user"
+  | "lock"
+  | "back"
+  | Content
+  | TopicCategory;
+
+const StyledIcon = styled.i<{ size: number | undefined; color: string }>`
+  height: ${({ size }) => (size ? size + "px" : "auto")};
+  width: ${({ size }) => (size ? size + "px" : "auto")};
+  font-size: ${({ size }) => (size ? size + "px" : "auto")};
+  color: ${({ color }) => color};
+`;
 
 interface Iconprops {
-  category: string;
+  icon: IconType;
   color?: string;
-  size?: number | string;
+  size?: number;
 }
 
-function Icon({ category, color = "inherit", size }: Iconprops) {
-  const icons: { [key: string]: JSX.Element } = {
-    정주행: <FaRunning color={color} size={size} />,
-    "단원 학습": <BsPostcard color={color} size={size} />,
-    "연표 학습": <TbClockHour5 color={color} size={size} />,
-    "연표 문제": <TbClockQuestion color={color} size={size} />,
-    "주제 학습": <BsCardText color={color} size={size} />,
-    "주제별 문제": <BsQuestionSquare color={color} size={size} />,
-    "단원 마무리 문제": <BsQuestionSquare color={color} size={size} />,
-    Home: <AiOutlineHome color={color} size={size} />,
-    Question: <LuFileQuestion color={color} size={size} />,
-    MyInfo: <LiaReadme color={color} size={size} />,
-    Option: <BsGear color={color} size={size} />,
-    인물: <GrUser color={color} size={size} />,
-    시간제한: <FaClock color={color} size={size} />,
-    갯수: <PiListNumbersBold color={color} size={size} />,
-    설명: <IoMdListBox color={color} size={size} />,
-    모의고사: <FaPen color={color} size={size} />,
-    퀴즈: <FaQuestion color={color} size={size} />,
-    무제한: <FaInfinity color={color} size={size} />,
-    무작위: <FaDice color={color} size={size} />,
-    login: <IoMdLogIn color={color} size={size} />,
-    user: <BiSolidUserCircle color={color} size={size} />,
+function Icon({ icon, size, color = "inherit" }: Iconprops) {
+  const icons: { [key: string]: string } = {
+    //콘텐트
+    "단원 학습": "fi fi-rr-rectangle-list",
+    "연표 학습": "fi fi-rr-calendar-clock",
+    "연표 문제": "fi fi-rr-calendar-clock",
+    "주제 학습": "fi fi-rr-blog-text",
+    "주제별 문제": "fi fi-rr-question-square",
+    "단원 마무리 문제": "fi fi-rr-question-square",
+
+    // 주제
+    인물: "fi fi-rr-user",
+    국가: "fi fi-br-flag",
+    왕: "fi fi-bs-user-crown",
+    시대: "fi fi-rr-hourglass-end",
+    사건: "fi fi-br-exclamation",
+    조직: "fi fi-rr-users-alt",
+    기구: "fi fi-rr-bank",
+    문화: "fi fi-rs-book-open-cover",
+    사회: "fi fi-rr-share",
+    제도: "fi fi-rr-pen-field",
+    신분: "fi fi-rr-id-card-clip-alt",
+
+    //아이콘
+    run: "fi fi-br-running",
+    home: "fi fi-rr-house-chimney",
+    fileQuestion: "fi fi-rr-question-square",
+    myInfo: "fi fi-rs-book-open-reader",
+    option: "fi fi-rr-settings",
+    clock: "fi fi-sr-clock-five",
+    listNumber: "fi fi-br-hastag",
+    description: "fi fi-sr-poll-h",
+    pen: "fi fi-sr-pen-clip",
+    question: "fi fi-br-question",
+    infinity: "fi fi-br-infinity",
+    dice: "fi fi-sr-dice-alt",
+    login: "fi fi-br-sign-in-alt",
+    user: "fi fi-rr-circle-user",
+    lock: "fi fi-sr-lock",
+    back: "fi fi-br-angle-left",
   };
 
-  const matchedIcon = Object.keys(icons).find((key) => category.includes(key));
-  return matchedIcon ? icons[matchedIcon] : null;
+  const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));
+  return matchedIcon ? (
+    <StyledIcon className={icons[matchedIcon]} size={size} color={color} />
+  ) : null;
 }
 
 export default Icon;

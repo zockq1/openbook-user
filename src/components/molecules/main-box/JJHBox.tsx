@@ -108,7 +108,7 @@ function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
     <Box>
       <Link to={link}>
         <BoxTitle>
-          <MenuLabelBox state="Open">{<Icon category="정주행" />}</MenuLabelBox>
+          <MenuLabelBox state="Open">{<Icon icon="run" />}</MenuLabelBox>
           &nbsp;&nbsp;{title}
         </BoxTitle>
         <BoxImage src={image} alt={title + " 이미지"} />

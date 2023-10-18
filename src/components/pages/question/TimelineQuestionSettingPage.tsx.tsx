@@ -43,12 +43,12 @@ function TimelineQuestionSettingPage() {
     <QuestionOptionTemplate
       title="연표 문제"
       handleBackPage={() => navigate("/question")}
-      icon={<Icon category="연표 문제" />}
+      icon={<Icon icon="연표 문제" />}
       handleStart={handleStart}
       optionList={[
         {
           title: "시간제한",
-          icon: <Icon category="시간제한" />,
+          icon: <Icon icon="clock" />,
           handleSelect: handleSelectTimeLimit,
           selectName: "time-limit",
           optionList: [
@@ -58,7 +58,7 @@ function TimelineQuestionSettingPage() {
         },
         {
           title: "단원 선택",
-          icon: <Icon category="단원 학습" />,
+          icon: <Icon icon="단원 학습" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [
@@ -75,7 +75,7 @@ function TimelineQuestionSettingPage() {
         },
         {
           title: "문제 수",
-          icon: <Icon category="갯수" />,
+          icon: <Icon icon="listNumber" />,
           handleSelect: handleSelectNumberOfQuestion,
           selectName: "number-of-question",
           optionList: [{ value: 1, key: 1, description: "1" }],

@@ -22,6 +22,7 @@ function TimelineLearningTemplate({
       <TitleBox
         handleBackPage={handleBackPage}
         title={title}
+        icon="연표 학습"
         category="연표 학습"
       />
 

@@ -7,7 +7,6 @@ interface QuestionCounterProps {
   timeLimit: number;
   totalQuestionCount: number;
   currentQuestionCount: number;
-  category: string;
   timeout?: () => void;
 }
 
@@ -28,7 +27,6 @@ function QuestionCounter({
   timeLimit,
   totalQuestionCount,
   currentQuestionCount,
-  category,
   timeout,
 }: QuestionCounterProps) {
   const [minutes, setMinutes] = useState(Math.floor(timeLimit / 60));
@@ -56,10 +54,10 @@ function QuestionCounter({
   return (
     <RowList>
       <StyledQuestionCounter>
-        <Icon category="시간제한" />
+        <Icon icon="clock" />
         &nbsp;
         {timeLimit === Infinity ? (
-          <Icon category="무제한" />
+          <Icon icon="infinity" />
         ) : (
           `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
         )}

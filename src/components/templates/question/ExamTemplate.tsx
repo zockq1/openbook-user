@@ -8,7 +8,6 @@ interface ExamTemplateProps {
   handleBackPage: () => void;
   examList: ExamModel[];
   title?: string;
-  category: string;
   timeLimit?: number;
   handleNextContent: () => void;
 }
@@ -17,7 +16,6 @@ function ExamTemplate({
   handleBackPage,
   examList,
   title,
-  category,
   timeLimit,
   handleNextContent,
 }: ExamTemplateProps) {
@@ -26,7 +24,8 @@ function ExamTemplate({
       <TitleBox
         handleBackPage={handleBackPage}
         title={title}
-        category={category}
+        icon="pen"
+        category="모의 고사"
       />
       {examList.length === 0 ? (
         <Button onClick={handleNextContent}>다음</Button>
@@ -34,7 +33,6 @@ function ExamTemplate({
         <Exam
           examList={examList.filter((item) => item !== null)}
           handleNextContent={handleNextContent}
-          category={category}
           timeLimit={timeLimit || Infinity}
         />
       )}

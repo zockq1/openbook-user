@@ -1,11 +1,12 @@
 import styled, { ThemeContext } from "styled-components";
-import Icon from "../../atoms/icon/Icon";
+import Icon, { IconType } from "../../atoms/icon/Icon";
 import BackButton from "../../atoms/button/BackButton";
 import Text from "../../atoms/text/Text";
 import { useContext } from "react";
 
 interface TitleBoxProps {
   title?: string;
+  icon: IconType | undefined | null;
   category: string;
   dateComment?: string;
   handleBackPage: () => void;
@@ -46,6 +47,7 @@ const Category = styled.span`
 
 const TitleBox = ({
   title,
+  icon,
   category,
   dateComment,
   handleBackPage,
@@ -55,9 +57,9 @@ const TitleBox = ({
     <>
       <StyledTitleBox position={"static"}>
         <Category>
-          <BackButton onClick={handleBackPage} />
+          <BackButton onClick={handleBackPage} color="white" />
           &nbsp;&nbsp;
-          <Icon category={category} />
+          {icon && <Icon icon={icon} />}
           &nbsp;&nbsp;
           {category}
         </Category>
@@ -87,9 +89,9 @@ const TitleBox = ({
       </StyledTitleBox>
       <StyledTitleBox position={"fixed"}>
         <Category>
-          <BackButton onClick={handleBackPage} />
+          <BackButton onClick={handleBackPage} color={theme.colors.white} />
           &nbsp;&nbsp;
-          <Icon category={category} />
+          {icon && <Icon icon={icon} />}
           &nbsp;&nbsp;
           {category}
         </Category>

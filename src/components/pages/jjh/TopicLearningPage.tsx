@@ -74,7 +74,6 @@ function TopicLearningPage() {
           title={topic}
           questionList={TtoKQuestionList || []}
           handleNextContent={handleNextContent}
-          category="주제별 문제"
         />
       )}
     </>

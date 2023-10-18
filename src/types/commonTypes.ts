@@ -1,10 +1,11 @@
+import { IconType } from "../components/atoms/icon/Icon";
 import { ContentState } from "./chapterTypes";
 
 export interface MenuModel {
   title: string;
   description?: string;
   state: ContentState;
-  icon: string | number;
+  icon: IconType | number;
   link: string;
 }
 

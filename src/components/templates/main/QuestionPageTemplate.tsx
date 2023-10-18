@@ -16,7 +16,7 @@ function QuestionPageTemplate() {
           title="퀴즈"
           link="/question/quiz/setting"
           image={quiz}
-          icon={<Icon category="퀴즈" />}
+          icon={<Icon icon="question" />}
           descriptionTime="무제한"
           descriptionCount="사용자 정의"
           description="주제, 키워드 맞추기"
@@ -25,7 +25,7 @@ function QuestionPageTemplate() {
           title="연표 문제"
           link="/question/timeline/setting"
           image={timeline}
-          icon={<Icon category="연표 문제" />}
+          icon={<Icon icon="연표 문제" />}
           descriptionTime="무제한"
           descriptionCount="사용자 정의"
           description="연표 순서 맞추기"
@@ -34,7 +34,7 @@ function QuestionPageTemplate() {
           title="모의고사"
           link="/question/mock-exam/setting"
           image={mock}
-          icon={<Icon category="모의고사" />}
+          icon={<Icon icon="pen" />}
           descriptionTime="30분"
           descriptionCount="20문제, 모든 단원"
           description="한능검 기출문제"

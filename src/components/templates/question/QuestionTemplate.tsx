@@ -8,7 +8,6 @@ interface QuestionTemplateProps {
   handleBackPage: () => void;
   questionList: QuestionModel[];
   title?: string;
-  category: string;
   timeLimit?: number;
   handleNextContent: () => void;
 }
@@ -17,7 +16,6 @@ function QuestionTemplate({
   handleBackPage,
   questionList,
   title,
-  category,
   timeLimit,
   handleNextContent,
 }: QuestionTemplateProps) {
@@ -26,7 +24,8 @@ function QuestionTemplate({
       <TitleBox
         handleBackPage={handleBackPage}
         title={title}
-        category={category}
+        icon="question"
+        category="퀴즈"
       />
       {questionList.length === 0 ? (
         <Button onClick={handleNextContent}>다음</Button>
@@ -34,7 +33,6 @@ function QuestionTemplate({
         <Question
           quizList={questionList.filter((item) => item !== null)}
           handleNextContent={handleNextContent}
-          category={category}
           timeLimit={timeLimit || Infinity}
         />
       )}

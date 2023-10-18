@@ -15,7 +15,6 @@ import { useAddTopicWrongCounterMutation } from "../../../store/api/questionApi"
 interface QuestionProps {
   quizList: QuestionModel[];
   handleNextContent: () => void;
-  category: string;
   timeLimit: number;
 }
 
@@ -66,12 +65,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-function Question({
-  quizList,
-  handleNextContent,
-  category,
-  timeLimit,
-}: QuestionProps) {
+function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
   const [addTopicWrongCount] = useAddTopicWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
@@ -154,7 +148,6 @@ function Question({
         timeLimit={timeLimit}
         totalQuestionCount={questionList.length}
         currentQuestionCount={currentNumber + 1}
-        category={category}
       />
       {questionList[currentNumber].description && (
         <Description>

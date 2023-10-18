@@ -28,7 +28,6 @@ function FinalLearningPage() {
       handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
       questionList={KtoTQuestionList || []}
       handleNextContent={handleNextContent}
-      category="단원 마무리 문제"
     />
   );
 }

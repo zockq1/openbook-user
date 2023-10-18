@@ -39,6 +39,7 @@ function ChapterListPage() {
     <MenuTemplate
       menuList={menuList}
       handleBackPage={() => navigate("/")}
+      icon="run"
       category="정주행"
     />
   );

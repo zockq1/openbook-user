@@ -18,7 +18,7 @@ function Logo({ size }: LogoProps) {
   return (
     <StyledLogo size={size}>
       정주행
-      <Icon category="정주행" size={size} />
+      <Icon icon="run" size={size} />
       한국사
     </StyledLogo>
   );

@@ -17,7 +17,6 @@ function QuizPage() {
 
   return (
     <QuestionTemplate
-      category="퀴즈"
       handleBackPage={() => navigate("/question")}
       questionList={questionList}
       timeLimit={Number(searchParams.get("timelimit"))}

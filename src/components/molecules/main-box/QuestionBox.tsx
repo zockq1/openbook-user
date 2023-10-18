@@ -74,15 +74,15 @@ function QuestionBox({
         </BoxTitle>
         <br />
         <Description>
-          <Icon category="시간제한" />
+          <Icon icon="clock" />
           <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
         </Description>
         <Description>
-          <Icon category="갯수" />
+          <Icon icon="listNumber" />
           <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionCount}</Text>
         </Description>
         <Description>
-          <Icon category="설명" />
+          <Icon icon="description" />
           <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
         </Description>
         {children}
