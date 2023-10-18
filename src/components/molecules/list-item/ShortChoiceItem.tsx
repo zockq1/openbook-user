@@ -20,9 +20,9 @@ interface ChoiceProps {
 }
 
 const ShortChoice = styled.div<AnswerCheckProps>`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: calc((100vw - 45px) / 2);
   margin: 10px 0px 10px 15px;
   padding: 12px;
@@ -38,19 +38,10 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const ShortComment = styled.span<AnswerCheckProps>`
+const ShortComment = styled.img<AnswerCheckProps>`
   border-radius: 10px;
-  color: ${({ theme, isCorrect, isFinish }) =>
-    isFinish
-      ? isCorrect
-        ? theme.colors.blue
-        : theme.colors.red
-      : theme.colors.black};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-
-  line-height: 120%;
-  text-align: center;
+  width: 90%;
+  height: 90%;
 `;
 
 function ShortChoiceItem({
@@ -68,9 +59,12 @@ function ShortChoiceItem({
       isFinish={isFinish}
       isCorrect={isCorrect}
     >
-      <ShortComment isFinish={isFinish} isCorrect={isCorrect}>
-        {choice}
-      </ShortComment>
+      <ShortComment
+        src={choice}
+        alt="choice"
+        isFinish={isFinish}
+        isCorrect={isCorrect}
+      />
       <CheckBoxInput
         choiceKey={choiceKey}
         handleCheckboxChange={handleCheckboxChange}
