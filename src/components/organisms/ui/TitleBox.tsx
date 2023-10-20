@@ -12,12 +12,7 @@ interface TitleBoxProps {
   handleBackPage: () => void;
 }
 
-interface StyledTitleBoxProps {
-  position: "fixed" | "static";
-}
-
-const StyledTitleBox = styled.div<StyledTitleBoxProps>`
-  position: ${({ position }) => position};
+const StyledTitleBox = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -27,14 +22,11 @@ const StyledTitleBox = styled.div<StyledTitleBoxProps>`
   padding: ${({ theme }) => theme.padding.large};
   margin-bottom: 10px;
   border-radius: 0 0 50px 50px;
-  box-shadow: ${({ theme, position }) =>
-    position === "fixed" && theme.shadow.defaultShadow};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
-  background-color: ${({ theme, position }) =>
-    position === "fixed" ? theme.colors.blue : theme.colors.bg};
+  background-color: ${({ theme }) => theme.colors.blue};
 
-  color: ${({ theme, position }) =>
-    position === "fixed" ? theme.colors.white : theme.colors.bg};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Category = styled.span`
@@ -43,6 +35,24 @@ const Category = styled.span`
 
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme }) => theme.fontSizes.base};
+`;
+
+const FixedBackButton = styled.div`
+  position: fixed;
+  z-index: 99;
+  width: 40px;
+  height: 40px;
+  top: 20px;
+  left: 20px;
+  border-radius: 100%;
+  background-color: ${({ theme }) => theme.colors.blue};
+
+  & > button {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const TitleBox = ({
@@ -55,41 +65,12 @@ const TitleBox = ({
   const theme = useContext(ThemeContext);
   return (
     <>
-      <StyledTitleBox position={"static"}>
+      <FixedBackButton>
+        <BackButton onClick={handleBackPage} color="white" />
+      </FixedBackButton>
+      <StyledTitleBox>
         <Category>
           <BackButton onClick={handleBackPage} color="white" />
-          &nbsp;&nbsp;
-          {icon && <Icon icon={icon} />}
-          &nbsp;&nbsp;
-          {category}
-        </Category>
-        {title && <br />}
-        {title && (
-          <Text
-            weight={theme.fontWeight.bold}
-            size={theme.fontSizes.xxl}
-            textAlign="center"
-            margin="auto"
-          >
-            {title}
-          </Text>
-        )}
-        {dateComment && (
-          <Text
-            weight={theme.fontWeight.light}
-            size={theme.fontSizes.small}
-            color={theme.colors.lightBlue}
-            margin="auto"
-            textAlign="center"
-            lineHeight="200%"
-          >
-            {dateComment}
-          </Text>
-        )}
-      </StyledTitleBox>
-      <StyledTitleBox position={"fixed"}>
-        <Category>
-          <BackButton onClick={handleBackPage} color={theme.colors.white} />
           &nbsp;&nbsp;
           {icon && <Icon icon={icon} />}
           &nbsp;&nbsp;
