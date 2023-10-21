@@ -21,10 +21,14 @@ export type IconType =
   | "user"
   | "lock"
   | "back"
+  | "arrow"
   | Content
   | TopicCategory;
 
 const StyledIcon = styled.i<{ size: number | undefined; color: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: ${({ size }) => (size ? size + "px" : "auto")};
   width: ${({ size }) => (size ? size + "px" : "auto")};
   font-size: ${({ size }) => (size ? size + "px" : "auto")};
@@ -77,6 +81,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     user: "fi fi-rr-circle-user",
     lock: "fi fi-sr-lock",
     back: "fi fi-br-angle-left",
+    arrow: "fi fi-br-angle-double-right",
   };
 
   const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));
