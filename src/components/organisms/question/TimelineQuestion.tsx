@@ -71,6 +71,13 @@ const PlayedItemPlaceBox = styled.div`
   width: 100%;
   padding-bottom: 30px;
   margin-bottom: 30px;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Box = styled.div`
