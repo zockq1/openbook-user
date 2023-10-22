@@ -7,8 +7,9 @@ import Text from "../../atoms/text/Text";
 
 const Box = styled.li`
   position: relative;
-  width: calc(100vw - 40px);
+  width: calc(100% - 40px);
   height: 55vw;
+  max-height: 300px;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -39,7 +40,7 @@ const Percentage = styled.div`
   padding: ${({ theme }) => theme.padding.small};
   margin: ${({ theme }) => theme.margin.small};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: 15vw;
+  font-size: 60px;
   color: ${({ theme }) => theme.colors.grey};
 `;
 

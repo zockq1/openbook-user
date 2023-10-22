@@ -5,6 +5,7 @@ import QuestionOptionSelect, {
 import BackButton from "../../atoms/button/BackButton";
 import Button from "../../atoms/button/Button";
 import { ReactNode, useContext } from "react";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
 
 const QuizBackground = styled.div`
   display: flex;
@@ -60,28 +61,30 @@ function QuestionOptionTemplate({
       <Back>
         <BackButton onClick={handleBackPage} color={theme.colors.grey} />
       </Back>
-      <Box>
-        <Title>
-          {icon}
-          &nbsp;{title}
-        </Title>
-      </Box>
-      <br />
-      <br />
-      {optionList.map((item, index) => {
-        return (
-          <QuestionOptionSelect
-            title={item.title}
-            icon={item.icon}
-            handleSelect={item.handleSelect}
-            selectName={item.selectName}
-            optionList={item.optionList}
-            key={index}
-          />
-        );
-      })}
+      <MainContentLayout>
+        <Box>
+          <Title>
+            {icon}
+            &nbsp;{title}
+          </Title>
+        </Box>
+        <br />
+        <br />
+        {optionList.map((item, index) => {
+          return (
+            <QuestionOptionSelect
+              title={item.title}
+              icon={item.icon}
+              handleSelect={item.handleSelect}
+              selectName={item.selectName}
+              optionList={item.optionList}
+              key={index}
+            />
+          );
+        })}
 
-      <Button onClick={handleStart}>퀴즈 시작</Button>
+        <Button onClick={handleStart}>퀴즈 시작</Button>
+      </MainContentLayout>
     </QuizBackground>
   );
 }

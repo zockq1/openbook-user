@@ -1,9 +1,27 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
+const StyledButtonBackground = styled.button`
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  height: 62px;
+  width: 100%;
+
+  background-color: ${({ theme }) => theme.colors.bg};
+
+  z-index: 9998;
+`;
+
 const StyledButton = styled.button`
-  width: auto;
-  margin: auto 15px 20px;
+  position: fixed;
+
+  bottom: 18px;
+  left: 15px;
+  height: 50px;
+  width: calc(100% - 30px);
+
   padding: 16px 24px;
   border-radius: ${({ theme }) => theme.padding.base};
   border: ${({ theme }) => theme.border.black};
@@ -13,6 +31,8 @@ const StyledButton = styled.button`
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+
+  z-index: 9999;
 `;
 interface ButtonProps {
   children?: ReactNode;
@@ -20,7 +40,11 @@ interface ButtonProps {
 }
 
 function Button({ children, onClick }: ButtonProps) {
-  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+  return (
+    <StyledButtonBackground>
+      <StyledButton onClick={onClick}>{children}</StyledButton>
+    </StyledButtonBackground>
+  );
 }
 
 export default Button;

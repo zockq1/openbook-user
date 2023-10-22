@@ -37,7 +37,7 @@ const StyledTimelineQuestion = styled.div`
   overflow: hidden;
   align-items: center;
   flex-direction: column;
-  width: 90vw;
+  width: 90%;
   height: 100%;
 `;
 
@@ -59,7 +59,7 @@ const NextItemPlaceBox = styled.div`
   bottom: 18px;
   left: 15px;
   height: 80px;
-  width: calc(100vw - 30px);
+  width: calc(100% - 30px);
   z-index: 0;
 `;
 
@@ -78,7 +78,7 @@ const Box = styled.div`
   bottom: 20px;
   left: 15px;
   height: 60px;
-  width: calc(100vw - 30px);
+  width: calc(100% - 30px);
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.padding.base};
   border: ${({ theme }) => theme.border.black};

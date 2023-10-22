@@ -1,6 +1,7 @@
 import { QuestionModel } from "../../../types/questionTypes";
 import Button from "../../atoms/button/Button";
 import Layout from "../../atoms/layout/Layout";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import { Question } from "../../organisms/question/Question";
 import TitleBox from "../../organisms/ui/TitleBox";
 
@@ -27,15 +28,17 @@ function QuestionTemplate({
         icon="question"
         category="퀴즈"
       />
-      {questionList.length === 0 ? (
-        <Button onClick={handleNextContent}>다음</Button>
-      ) : (
-        <Question
-          quizList={questionList.filter((item) => item !== null)}
-          handleNextContent={handleNextContent}
-          timeLimit={timeLimit || Infinity}
-        />
-      )}
+      <MainContentLayout>
+        {questionList.length === 0 ? (
+          <Button onClick={handleNextContent}>다음</Button>
+        ) : (
+          <Question
+            quizList={questionList.filter((item) => item !== null)}
+            handleNextContent={handleNextContent}
+            timeLimit={timeLimit || Infinity}
+          />
+        )}
+      </MainContentLayout>
     </Layout>
   );
 }

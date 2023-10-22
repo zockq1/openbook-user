@@ -5,7 +5,7 @@ import { logout } from "../../../store/slices/authSlice";
 const StyledSettingBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100vw - 40px);
+  width: calc(100% - 40px);
   margin: ${({ theme }) => theme.margin.base};
   margin-top: 30px;
   padding: ${({ theme }) => theme.padding.base};

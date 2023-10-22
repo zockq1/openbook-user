@@ -3,6 +3,7 @@ import Layout from "../../atoms/layout/Layout";
 import TimelineList from "../../organisms/list/TimelineList";
 import Button from "../../atoms/button/Button";
 import { TimeLineModel } from "../../../types/questionTypes";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
 
 interface TimelineLearningTemplateProps {
   title: string;
@@ -25,9 +26,10 @@ function TimelineLearningTemplate({
         icon="연표 학습"
         category="연표 학습"
       />
-
-      <TimelineList dateList={dateList} />
-      {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
+      <MainContentLayout>
+        <TimelineList dateList={dateList} />
+        {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
+      </MainContentLayout>
     </Layout>
   );
 }

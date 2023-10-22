@@ -7,8 +7,9 @@ const StyledNavigationBar = styled.nav`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   position: fixed;
   bottom: 0;
+  left: 0;
   height: 70px;
-  width: 100vw;
+  width: 100%;
   border-radius: 25px 25px 0 0;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};

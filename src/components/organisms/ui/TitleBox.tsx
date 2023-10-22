@@ -17,7 +17,7 @@ const StyledTitleBox = styled.div`
   flex-direction: column;
   z-index: 100;
 
-  width: 100%;
+  left: 0;
 
   padding: ${({ theme }) => theme.padding.large};
   margin-bottom: 10px;

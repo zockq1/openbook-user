@@ -6,7 +6,6 @@ interface LayoutProps {
 }
 
 const StyledLayout = styled.div`
-  width: 100%;
   min-height: 100vh;
   display: flex;
   position: relative;

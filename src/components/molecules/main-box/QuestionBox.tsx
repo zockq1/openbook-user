@@ -7,7 +7,7 @@ import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 
 const Box = styled.li`
   position: relative;
-  width: calc(100vw - 40px);
+  width: calc(100% - 40px);
   height: 150px;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};

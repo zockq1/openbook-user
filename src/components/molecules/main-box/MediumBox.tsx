@@ -7,7 +7,7 @@ const Box = styled.li`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: calc((100vw - 60px) / 2);
+  width: calc((100% - 60px) / 2);
   margin: 10px 0px 10px 20px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
