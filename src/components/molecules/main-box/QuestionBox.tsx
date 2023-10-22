@@ -17,6 +17,11 @@ const Box = styled.li`
   overflow: hidden;
 `;
 
+const InnerBox = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const BoxImage = styled.img`
   position: absolute;
   height: 80%;
@@ -68,25 +73,29 @@ function QuestionBox({
   return (
     <Box>
       <Link to={link}>
-        <BoxTitle>
-          <MenuLabelBox state="Open">{icon}</MenuLabelBox>
-          &nbsp;&nbsp;{title}
-        </BoxTitle>
-        <br />
-        <Description>
-          <Icon icon="clock" />
-          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
-        </Description>
-        <Description>
-          <Icon icon="listNumber" />
-          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionCount}</Text>
-        </Description>
-        <Description>
-          <Icon icon="description" />
-          <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
-        </Description>
-        {children}
-        <BoxImage src={image} alt={title + " 이미지"} />
+        <InnerBox>
+          <BoxTitle>
+            <MenuLabelBox state="Open">{icon}</MenuLabelBox>
+            &nbsp;&nbsp;{title}
+          </BoxTitle>
+          <br />
+          <Description>
+            <Icon icon="clock" />
+            <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
+          </Description>
+          <Description>
+            <Icon icon="listNumber" />
+            <Text size={theme.fontSizes.xs}>
+              &nbsp;&nbsp;{descriptionCount}
+            </Text>
+          </Description>
+          <Description>
+            <Icon icon="description" />
+            <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
+          </Description>
+          {children}
+          <BoxImage src={image} alt={title + " 이미지"} />
+        </InnerBox>
       </Link>
     </Box>
   );

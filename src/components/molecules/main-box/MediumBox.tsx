@@ -16,6 +16,11 @@ const Box = styled.li`
   overflow: hidden;
 `;
 
+const InnerBox = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const BoxImage = styled.img`
   margin-top: 15px;
   width: 90%;
@@ -43,9 +48,11 @@ function MediumBox({ children, image, link, title }: MediumBoxProps) {
   return (
     <Box>
       <Link to={link}>
-        <BoxTitle>{title + " >"}</BoxTitle>
-        <BoxImage src={image} alt={title + " 이미지"} />
-        {children}
+        <InnerBox>
+          <BoxTitle>{title + " >"}</BoxTitle>
+          <BoxImage src={image} alt={title + " 이미지"} />
+          {children}
+        </InnerBox>
       </Link>
     </Box>
   );

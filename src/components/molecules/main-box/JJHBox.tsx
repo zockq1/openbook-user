@@ -18,6 +18,11 @@ const Box = styled.li`
   overflow: hidden;
 `;
 
+const InnerBox = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const BoxImage = styled.img`
   position: absolute;
   width: 50%;
@@ -108,20 +113,22 @@ function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
   return (
     <Box>
       <Link to={link}>
-        <BoxTitle>
-          <MenuLabelBox state="Open">{<Icon icon="run" />}</MenuLabelBox>
-          &nbsp;&nbsp;{title}
-        </BoxTitle>
-        <BoxImage src={image} alt={title + " 이미지"} />
-        <Percentage>
-          <Text size={theme.fontSizes.base} margin="5px 0">
-            진행도
-          </Text>
-          <span className="number-count">{count}%</span>
-        </Percentage>
-        <Progress>
-          <Bar percentage={percentage} />
-        </Progress>
+        <InnerBox>
+          <BoxTitle>
+            <MenuLabelBox state="Open">{<Icon icon="run" />}</MenuLabelBox>
+            &nbsp;&nbsp;{title}
+          </BoxTitle>
+          <BoxImage src={image} alt={title + " 이미지"} />
+          <Percentage>
+            <Text size={theme.fontSizes.base} margin="5px 0">
+              진행도
+            </Text>
+            <span className="number-count">{count}%</span>
+          </Percentage>
+          <Progress>
+            <Bar percentage={percentage} />
+          </Progress>
+        </InnerBox>
       </Link>
     </Box>
   );
