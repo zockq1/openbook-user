@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
+import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
-  const { data: chapterList } = useGetChaptersQuery();
+  const { data: timelineList } = useGetTimelineListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
-    if (!chapterList) {
+    if (!timelineList) {
       return;
     }
 
@@ -18,26 +18,26 @@ function TimelineMenuPage() {
       {
         title: "전체 연표",
         state: "Open",
-        link: `/timeline/0`,
+        link: `/timeline/-1`,
         icon: "연표 학습",
-        description: "기원전 70만년 ~ 현대",
+        description: "BC 700K ~ 현대",
       },
-      ...[...chapterList]
-        .sort((a, b) => a.number - b.number)
-        .map((item) => {
+      ...[...timelineList]
+        .sort((a, b) => a.startDate - b.startDate)
+        .map((timeline, index) => {
           const result: MenuModel = {
-            title: item.title,
+            title: `${timeline.era}`,
             state: "Open",
-            link: `/timeline/${item.number}`,
-            icon: item.number,
-            description: `${item.dateComment}`,
+            link: `/timeline/${timeline.id}`,
+            icon: index + 1,
+            description: `${timeline.startDate} ~ ${timeline.endDate}`,
           };
           return result;
         }),
     ]);
-  }, [setMenuList, chapterList]);
+  }, [setMenuList, timelineList]);
 
-  if (!chapterList) {
+  if (!timelineList) {
     return <div>Loading...</div>;
   }
 

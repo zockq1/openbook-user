@@ -6,13 +6,15 @@ import { useGetTimelineQuery } from "../../../store/api/questionApi";
 function TimelinePage() {
   const navigate = useNavigate();
   const { chapter } = useParams();
-  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
+  const { data: chapterTitle } = useGetChapterTitleQuery(
+    Number(chapter) > 0 ? Number(chapter) : 1
+  );
   const { data: dateList } = useGetTimelineQuery(Number(chapter));
 
   return (
     <TimelineLearningTemplate
       title={
-        chapter === "0"
+        chapter === "-1"
           ? "전체 연표"
           : String(chapter) + ". " + chapterTitle?.title
       }

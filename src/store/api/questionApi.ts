@@ -19,7 +19,7 @@ export const questionApi = createApi({
     }),
     getTimeline: builder.query<TimeLineModel[], number>({
       query: (chapterNumber: number) =>
-        `/questions/time-flow/?num=${chapterNumber}`,
+        `/questions/time-flow/?id=${chapterNumber}`,
     }),
     getTtoKQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>

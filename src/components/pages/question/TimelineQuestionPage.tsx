@@ -6,7 +6,7 @@ function TimelineQuestionPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { data: dateList } = useGetTimelineQuery(
-    Number(searchParams.get("chapter")) || -1
+    Number(searchParams.get("id"))
   );
 
   if (!dateList) {
@@ -15,7 +15,7 @@ function TimelineQuestionPage() {
 
   return (
     <TimelineQuestionTemplate
-      chapter={Number(searchParams.get("chapter"))}
+      chapter={Number(searchParams.get("id"))}
       handleBackPage={() => navigate("/question")}
       handleNextContent={() => navigate("/question")}
       dateList={dateList}

@@ -82,7 +82,6 @@ function QuestionOptionTemplate({
             />
           );
         })}
-
         <Button onClick={handleStart}>퀴즈 시작</Button>
       </MainContentLayout>
     </QuizBackground>

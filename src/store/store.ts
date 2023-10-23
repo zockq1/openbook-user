@@ -7,6 +7,7 @@ import { topicApi } from "./api/topicApi";
 import { noteApi } from "./api/noteApi";
 import { authApi } from "./api/authApi";
 import { questionApi } from "./api/questionApi";
+import { timelineApi } from "./api/timelineApi";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   [noteApi.reducerPath]: noteApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [questionApi.reducerPath]: questionApi.reducer,
+  [timelineApi.reducerPath]: timelineApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,7 +39,8 @@ export const store = configureStore({
       topicApi.middleware,
       noteApi.middleware,
       authApi.middleware,
-      questionApi.middleware
+      questionApi.middleware,
+      timelineApi.middleware
     ),
 });
 
