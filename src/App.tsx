@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { GlobalStyle } from "./styles/global-style";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 
 function App() {

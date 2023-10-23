@@ -1,4 +1,3 @@
-import parse from "html-react-parser";
 import TitleBox from "../../organisms/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
 import ContentBox from "../../atoms/box/ContentBox";
@@ -27,7 +26,13 @@ function ChapterLearningTemplate({
         handleBackPage={handleBackPage}
       />
       <MainContentLayout>
-        <ContentBox>{parse(String(content))}</ContentBox>
+        <ContentBox>
+          <img
+            src={content}
+            alt={title}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </ContentBox>
         {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
       </MainContentLayout>
     </Layout>
