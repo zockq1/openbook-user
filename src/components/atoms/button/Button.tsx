@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const StyledButtonBackground = styled.button`
+const StyledButtonBackground = styled.div`
   position: fixed;
 
   bottom: 0;
