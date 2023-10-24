@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { chapterApi } from "./api/chapterApi";
 import authReducer from "./slices/authSlice";
+import keywordReducer from "./slices/keywordSlice";
 import storage from "redux-persist/lib/storage";
 import { topicApi } from "./api/topicApi";
 import { noteApi } from "./api/noteApi";
@@ -12,11 +13,12 @@ import { timelineApi } from "./api/timelineApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["content", "auth"],
+  whitelist: ["content", "auth", "keyword"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  keyword: keywordReducer,
   [chapterApi.reducerPath]: chapterApi.reducer,
   [topicApi.reducerPath]: topicApi.reducer,
   [noteApi.reducerPath]: noteApi.reducer,

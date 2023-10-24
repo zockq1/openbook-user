@@ -4,6 +4,7 @@ import KeywordList from "../../organisms/list/KeywordList";
 import Button from "../../atoms/button/Button";
 import { TopicModel } from "../../../types/topicTypes";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 
 interface TopicLearningTemplateProps {
   topicTitle: string;
@@ -27,6 +28,8 @@ function TopicLearningTemplate({
         category="주제 학습"
         dateComment={topicInfo.dateComment}
       />
+
+      <KeywordToggleButton />
       <MainContentLayout>
         <KeywordList keywordList={topicInfo.keywordList} />
         {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}

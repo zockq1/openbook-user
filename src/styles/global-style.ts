@@ -52,6 +52,13 @@ body{
   font-family: 'Nanum Gothic', sans-serif;
 }
 
+@media screen and (min-width:1024px) {
+  body {
+    overflow-y: scroll;
+  }
+}
+
+
 .Toastify__toast-container--top-center {
     top: 50%;
     left: 50%;

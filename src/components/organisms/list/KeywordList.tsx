@@ -1,6 +1,7 @@
-import { useState } from "react";
 import KeywoedItem from "../../molecules/list-item/KeywordItem";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 interface KeywordListProps {
   keywordList: {
@@ -10,28 +11,46 @@ interface KeywordListProps {
   }[];
 }
 
-const StyledKeywordList = styled.div`
+const StyledKeywordList = styled.div<{ direction: "row" | "column" }>`
   display: flex;
+  flex-direction: ${({ direction }) => direction};
   flex-wrap: wrap;
-  padding: 20px;
+  padding: 0 20px;
 `;
 
 function KeywordList({ keywordList }: KeywordListProps) {
-  const [isCommentOn, setIstCommentOn] = useState<boolean>(true);
+  const isKeywordCommentOn = useSelector(
+    (state: RootState) => state.keyword.isKeywordCommentOn
+  );
   return (
     <>
-      <button onClick={() => setIstCommentOn((prev) => !prev)}>해설</button>
-      <StyledKeywordList>
-        {keywordList.map((item, index) => {
-          return (
-            <KeywoedItem
-              key={index}
-              name={item.name}
-              comment={item.comment}
-              isCommentOn={isCommentOn}
-            />
-          );
-        })}
+      <StyledKeywordList direction={"row"}>
+        {keywordList
+          .filter((keyword) => !keyword.comment)
+          .map((item, index) => {
+            return (
+              <KeywoedItem
+                key={index}
+                name={item.name}
+                comment={item.comment}
+                isCommentOn={isKeywordCommentOn}
+              />
+            );
+          })}
+      </StyledKeywordList>
+      <StyledKeywordList direction={isKeywordCommentOn ? "column" : "row"}>
+        {keywordList
+          .filter((keyword) => !!keyword.comment)
+          .map((item, index) => {
+            return (
+              <KeywoedItem
+                key={index}
+                name={item.name}
+                comment={item.comment}
+                isCommentOn={isKeywordCommentOn}
+              />
+            );
+          })}
       </StyledKeywordList>
     </>
   );
