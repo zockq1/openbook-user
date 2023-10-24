@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { useGetJJHChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
-import { useNavigate } from "react-router-dom";
 import withAuth from "../../../hoc/withAuth";
 import { JJHChapterModel } from "../../../types/chapterTypes";
 
 function ChapterListPage() {
-  const navigate = useNavigate();
   const { data: chapterList } = useGetJJHChaptersQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
   useEffect(() => {
@@ -35,14 +33,7 @@ function ChapterListPage() {
     return <div>Loading...</div>;
   }
 
-  return (
-    <MenuTemplate
-      menuList={menuList}
-      handleBackPage={() => navigate("/")}
-      icon="run"
-      category="정주행"
-    />
-  );
+  return <MenuTemplate menuList={menuList} icon="run" category="정주행" />;
 }
 
 export default withAuth(ChapterListPage);

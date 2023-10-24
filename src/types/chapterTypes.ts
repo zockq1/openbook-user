@@ -42,6 +42,7 @@ export interface JJHTimelineModel {
   state: ContentState;
   progress: string;
   jjhNumber?: number;
+  id?: number;
 }
 
 export interface ContentModel {

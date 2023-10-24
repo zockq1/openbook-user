@@ -20,11 +20,7 @@ const meta = {
   decorators: [
     (Story) => (
       <Layout>
-        <TitleBox
-          handleBackPage={() => {}}
-          icon="pen"
-          category="모의고사"
-        ></TitleBox>
+        <TitleBox icon="pen" category="모의고사"></TitleBox>
         <Story />
       </Layout>
     ),

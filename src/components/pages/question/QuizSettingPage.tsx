@@ -37,7 +37,6 @@ function QuizSettingPage() {
   return (
     <QuestionOptionTemplate
       title="퀴즈"
-      handleBackPage={() => navigate("/question")}
       icon={<Icon icon="question" />}
       handleStart={handleStart}
       optionList={[

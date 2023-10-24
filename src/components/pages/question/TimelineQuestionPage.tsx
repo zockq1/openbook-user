@@ -16,7 +16,6 @@ function TimelineQuestionPage() {
   return (
     <TimelineQuestionTemplate
       chapter={Number(searchParams.get("id"))}
-      handleBackPage={() => navigate("/question")}
       handleNextContent={() => navigate("/question")}
       dateList={dateList}
     />

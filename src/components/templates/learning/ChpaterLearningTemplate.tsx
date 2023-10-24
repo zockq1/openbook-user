@@ -8,23 +8,16 @@ interface ChapterLearningTemplateProps {
   title: string;
   content: string;
   handleNextContent?: () => void;
-  handleBackPage: () => void;
 }
 
 function ChapterLearningTemplate({
   title,
   content,
   handleNextContent,
-  handleBackPage,
 }: ChapterLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        title={title}
-        icon="단원 학습"
-        category="단원 학습"
-        handleBackPage={handleBackPage}
-      />
+      <TitleBox title={title} icon="단원 학습" category="단원 학습" />
       <MainContentLayout>
         <ContentBox>
           <img

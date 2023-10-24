@@ -1,13 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import Icon from "../icon/Icon";
 
 interface BackButtonProps {
   color?: string;
-  onClick: () => void;
 }
 
-function BackButton({ color = "inherit", onClick }: BackButtonProps) {
+function BackButton({ color = "inherit" }: BackButtonProps) {
+  const navigate = useNavigate();
   return (
-    <button onClick={onClick}>
+    <button onClick={() => navigate(-1)}>
       <Icon icon="back" size={20} color={color} />
     </button>
   );

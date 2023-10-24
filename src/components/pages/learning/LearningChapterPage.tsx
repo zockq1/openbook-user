@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ChapterLearningTemplate from "../../templates/learning/ChpaterLearningTemplate";
 import {
   useGetChapterInfoQuery,
@@ -6,7 +6,6 @@ import {
 } from "../../../store/api/chapterApi";
 
 function LearningChapterPage() {
-  const navigate = useNavigate();
   const { chapter } = useParams();
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
@@ -19,7 +18,6 @@ function LearningChapterPage() {
     <ChapterLearningTemplate
       title={String(chapter) + ". " + chapterTitle.title}
       content={String(chapterInfo.content)}
-      handleBackPage={() => navigate(`/learning/${chapter}`)}
     />
   );
 }

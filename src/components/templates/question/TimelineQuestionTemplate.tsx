@@ -5,7 +5,6 @@ import TimelineQuestion from "../../organisms/question/TimelineQuestion";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 
 interface TimelineQuestionTemplateProps {
-  handleBackPage: () => void;
   title?: string;
   chapter: number;
   dateList: TimeLineModel[];
@@ -13,7 +12,6 @@ interface TimelineQuestionTemplateProps {
 }
 
 function TimelineQuestionTemplate({
-  handleBackPage,
   title,
   chapter,
   dateList,
@@ -21,12 +19,7 @@ function TimelineQuestionTemplate({
 }: TimelineQuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        handleBackPage={handleBackPage}
-        icon="연표 문제"
-        category="연표 문제"
-        title={title}
-      />
+      <TitleBox icon="연표 문제" category="연표 문제" title={title} />
       <MainContentLayout>
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}

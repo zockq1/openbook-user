@@ -32,7 +32,6 @@ function ChapterLearningPage() {
       title={String(chapter) + ". " + chapterTitle.title}
       content={String(chapterInfo.content)}
       handleNextContent={handleNextContent}
-      handleBackPage={() => navigate(`/jeong-ju-haeng/${Number(chapter)}`)}
     />
   );
 }

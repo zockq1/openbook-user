@@ -6,7 +6,6 @@ import { Question } from "../../organisms/question/Question";
 import TitleBox from "../../organisms/ui/TitleBox";
 
 interface QuestionTemplateProps {
-  handleBackPage: () => void;
   questionList: QuestionModel[];
   title?: string;
   timeLimit?: number;
@@ -14,7 +13,6 @@ interface QuestionTemplateProps {
 }
 
 function QuestionTemplate({
-  handleBackPage,
   questionList,
   title,
   timeLimit,
@@ -22,12 +20,7 @@ function QuestionTemplate({
 }: QuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        handleBackPage={handleBackPage}
-        title={title}
-        icon="question"
-        category="퀴즈"
-      />
+      <TitleBox title={title} icon="question" category="퀴즈" />
       <MainContentLayout>
         {questionList.length === 0 ? (
           <Button onClick={handleNextContent}>다음</Button>

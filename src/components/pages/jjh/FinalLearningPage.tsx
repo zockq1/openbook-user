@@ -25,7 +25,6 @@ function FinalLearningPage() {
 
   return (
     <QuestionTemplate
-      handleBackPage={() => navigate(`/jeong-ju-haeng/${chapter}`)}
       questionList={KtoTQuestionList || []}
       handleNextContent={handleNextContent}
     />

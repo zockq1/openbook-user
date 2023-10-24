@@ -1,10 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TimelineLearningTemplate from "../../templates/learning/TimelineLearningTemplate";
 import { useGetChapterTitleQuery } from "../../../store/api/chapterApi";
 import { useGetTimelineQuery } from "../../../store/api/questionApi";
 
 function TimelinePage() {
-  const navigate = useNavigate();
   const { chapter } = useParams();
   const { data: chapterTitle } = useGetChapterTitleQuery(
     Number(chapter) > 0 ? Number(chapter) : 1
@@ -19,7 +18,6 @@ function TimelinePage() {
           : String(chapter) + ". " + chapterTitle?.title
       }
       dateList={dateList || []}
-      handleBackPage={() => navigate("/timeline")}
     />
   );
 }

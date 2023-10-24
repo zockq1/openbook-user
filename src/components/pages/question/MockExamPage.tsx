@@ -15,7 +15,6 @@ function MockExamPage() {
 
   return (
     <ExamTemplate
-      handleBackPage={() => navigate("/question")}
       examList={mockExamList}
       timeLimit={Number(searchParams.get("timelimit"))}
       handleNextContent={() => navigate("/question")}

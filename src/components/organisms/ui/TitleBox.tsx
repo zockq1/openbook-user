@@ -9,7 +9,6 @@ interface TitleBoxProps {
   icon: IconType | undefined | null;
   category: string;
   dateComment?: string;
-  handleBackPage: () => void;
 }
 
 const StyledTitleBox = styled.div`
@@ -55,22 +54,16 @@ const FixedBackButton = styled.div`
   }
 `;
 
-const TitleBox = ({
-  title,
-  icon,
-  category,
-  dateComment,
-  handleBackPage,
-}: TitleBoxProps) => {
+const TitleBox = ({ title, icon, category, dateComment }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
     <>
       <FixedBackButton>
-        <BackButton onClick={handleBackPage} color="white" />
+        <BackButton color="white" />
       </FixedBackButton>
       <StyledTitleBox>
         <Category>
-          <BackButton onClick={handleBackPage} color="white" />
+          <BackButton color="white" />
           &nbsp;&nbsp;
           {icon && <Icon icon={icon} />}
           &nbsp;&nbsp;

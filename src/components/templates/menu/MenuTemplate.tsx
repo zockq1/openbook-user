@@ -8,23 +8,13 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 interface MenuTemplateProps {
   icon?: IconType;
   category: string;
-  handleBackPage: () => void;
   menuList: MenuModel[];
 }
 
-function MenuTemplate({
-  menuList,
-  icon,
-  category,
-  handleBackPage,
-}: MenuTemplateProps) {
+function MenuTemplate({ menuList, icon, category }: MenuTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        handleBackPage={handleBackPage}
-        icon={icon}
-        category={category}
-      ></TitleBox>
+      <TitleBox icon={icon} category={category}></TitleBox>
       <MainContentLayout>
         <MenuList list={menuList} />
       </MainContentLayout>

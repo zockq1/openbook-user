@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { MenuModel } from "../../../types/commonTypes";
-import { useNavigate } from "react-router-dom";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 
 function TimelineMenuPage() {
-  const navigate = useNavigate();
   const { data: timelineList } = useGetTimelineListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -42,12 +40,7 @@ function TimelineMenuPage() {
   }
 
   return (
-    <MenuTemplate
-      menuList={menuList}
-      icon="연표 학습"
-      category="연표 학습"
-      handleBackPage={() => navigate("/")}
-    />
+    <MenuTemplate menuList={menuList} icon="연표 학습" category="연표 학습" />
   );
 }
 

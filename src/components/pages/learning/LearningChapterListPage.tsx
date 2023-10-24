@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { useGetChaptersQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
-import { useNavigate } from "react-router-dom";
 
 function LearningChapterListPage() {
-  const navigate = useNavigate();
   const { data: chapterList } = useGetChaptersQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -34,13 +32,7 @@ function LearningChapterListPage() {
     return <div>Loading...</div>;
   }
 
-  return (
-    <MenuTemplate
-      menuList={menuList}
-      handleBackPage={() => navigate("/")}
-      category="학습 자료 모음"
-    />
-  );
+  return <MenuTemplate menuList={menuList} category="학습 자료 모음" />;
 }
 
 export default LearningChapterListPage;

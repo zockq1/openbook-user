@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import kakao from "../../../styles/images/kakao.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "../../atoms/icon/Logo";
 import BackButton from "../../atoms/button/BackButton";
 
@@ -13,10 +13,9 @@ const StyledLoginPage = styled.div`
 `;
 
 function LoginPage() {
-  const navigate = useNavigate();
   return (
     <div style={{ padding: "20px" }}>
-      <BackButton onClick={() => navigate(-1)} />
+      <BackButton />
       <StyledLoginPage>
         <Logo size={40} />
 

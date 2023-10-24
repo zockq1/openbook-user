@@ -6,7 +6,6 @@ import { Exam } from "../../organisms/question/Exam";
 import TitleBox from "../../organisms/ui/TitleBox";
 
 interface ExamTemplateProps {
-  handleBackPage: () => void;
   examList: ExamModel[];
   title?: string;
   timeLimit?: number;
@@ -14,7 +13,6 @@ interface ExamTemplateProps {
 }
 
 function ExamTemplate({
-  handleBackPage,
   examList,
   title,
   timeLimit,
@@ -22,12 +20,7 @@ function ExamTemplate({
 }: ExamTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        handleBackPage={handleBackPage}
-        title={title}
-        icon="pen"
-        category="모의 고사"
-      />
+      <TitleBox title={title} icon="pen" category="모의 고사" />
       <MainContentLayout>
         {examList.length === 0 ? (
           <Button onClick={handleNextContent}>다음</Button>

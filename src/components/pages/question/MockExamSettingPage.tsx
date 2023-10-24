@@ -37,7 +37,6 @@ function MockExamSettingPage() {
   return (
     <QuestionOptionTemplate
       title="모의고사"
-      handleBackPage={() => navigate("/question")}
       icon={<Icon icon="pen" />}
       handleStart={handleStart}
       optionList={[

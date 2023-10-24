@@ -37,7 +37,6 @@ function TimelineQuestionSettingPage() {
   return (
     <QuestionOptionTemplate
       title="연표 문제"
-      handleBackPage={() => navigate("/question")}
       icon={<Icon icon="연표 문제" />}
       handleStart={handleStart}
       optionList={[
