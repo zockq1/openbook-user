@@ -19,7 +19,7 @@ export const chapterApi = createApi({
       query: () => "/chapters",
     }),
     getJJHChapters: builder.query<JJHChapterModel[], void>({
-      query: () => "/jjh/chapters",
+      query: () => "/jjh",
       providesTags: ["ProgressUpdate"],
     }),
     getChapterTopicList: builder.query<TopicListModel[], number>({
@@ -32,7 +32,7 @@ export const chapterApi = createApi({
       query: (chapterNumber) => `/chapters/${chapterNumber}/info`,
     }),
     getContentList: builder.query<ContentModel[], number>({
-      query: (chapterNumber) => `/contents-table?num=${chapterNumber}`,
+      query: (jjhNumber) => `/jjh/${jjhNumber}/contents-table`,
       providesTags: ["ProgressUpdate"],
     }),
     getTotalProgress: builder.query<ProgressModel, void>({
@@ -42,7 +42,7 @@ export const chapterApi = createApi({
     updateProgress: builder.mutation<any, ContentModel>({
       query: (progress: ContentModel) => {
         return {
-          url: `/study-progress/chapter/progress`,
+          url: `/jjh/progress`,
           method: "PATCH",
           body: progress,
         };
