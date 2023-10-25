@@ -1,11 +1,11 @@
 export type ContentState = "Open" | "Locked" | "Updated";
 export type Content =
-  | "단원 학습"
-  | "연표 학습"
-  | "연표 문제"
-  | "주제 학습"
-  | "주제별 문제"
-  | "단원 마무리 문제";
+  | "CHAPTER_INFO"
+  | "TIMELINE_STUDY"
+  | "TIMELINE_QUESTION"
+  | "TOPIC_STUDY"
+  | "TOPIC_QUESTION"
+  | "CHAPTER_COMPLETE_QUESTION";
 
 export interface ChapterModel {
   title: string;
@@ -32,7 +32,7 @@ export interface JJHChapterModel {
   number: number;
   state: ContentState;
   progress: string;
-  jjhNumber?: number;
+  jjhNumber: number;
 }
 
 export interface JJHTimelineModel {
@@ -41,13 +41,13 @@ export interface JJHTimelineModel {
   endDate: number;
   state: ContentState;
   progress: string;
-  jjhNumber?: number;
-  id?: number;
+  jjhNumber: number;
+  id: number;
 }
 
 export interface ContentModel {
   content: Content;
   title: string;
   state: ContentState;
-  contentNumber?: number;
+  contentNumber: number;
 }

@@ -30,6 +30,7 @@ const StyledTextBox = styled.div<TextBoxProps>`
     shadow ? theme.shadow.defaultShadow : "none"};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
+  z-index: 1;
 `;
 
 function TextBox({ children, maxWidth, margin, shadow = true }: TextBoxProps) {

@@ -1,35 +1,25 @@
-import { useNavigate, useParams } from "react-router-dom";
 import ChapterLearningTemplate from "../../templates/learning/ChpaterLearningTemplate";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
 } from "../../../store/api/chapterApi";
-import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
 import withAuth from "../../../hoc/withAuth";
+import useNextContent from "../../../service/useNextContent";
+import useQuesryString from "../../../service/useQueryString";
 
 function ChapterLearningPage() {
-  const navigate = useNavigate();
-  const { chapter } = useParams();
-  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
-  const [updateProgres] = useUpdateProgressMutation();
+  const { chapterNumber } = useQuesryString();
+  const handleNextContent = useNextContent();
+  const { data: chapterTitle } = useGetChapterTitleQuery(chapterNumber);
+  const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
 
   if (!chapterInfo || !chapterTitle) {
     return <div>Loading...</div>;
   }
 
-  const handleNextContent = () => {
-    updateProgres({
-      content: "연표 학습",
-      title: String(chapter),
-      state: "Open",
-    });
-    navigate(`/jeong-ju-haeng/${chapter}/timeline-learning`);
-  };
-
   return (
     <ChapterLearningTemplate
-      title={String(chapter) + ". " + chapterTitle.title}
+      title={`${chapterNumber}.${chapterTitle.title}`}
       content={String(chapterInfo.content)}
       handleNextContent={handleNextContent}
     />

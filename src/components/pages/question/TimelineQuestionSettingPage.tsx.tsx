@@ -37,7 +37,7 @@ function TimelineQuestionSettingPage() {
   return (
     <QuestionOptionTemplate
       title="연표 문제"
-      icon={<Icon icon="연표 문제" />}
+      icon={<Icon icon="TIMELINE_QUESTION" />}
       handleStart={handleStart}
       optionList={[
         {
@@ -52,7 +52,7 @@ function TimelineQuestionSettingPage() {
         },
         {
           title: "연표 선택",
-          icon: <Icon icon="연표 문제" />,
+          icon: <Icon icon="TIMELINE_QUESTION" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [

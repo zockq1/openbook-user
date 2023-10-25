@@ -1,17 +1,15 @@
-import { useParams } from "react-router-dom";
-import {
-  useGetChapterTitleQuery,
-  useGetContentListQuery,
-} from "../../../store/api/chapterApi";
+import { useGetContentListQuery } from "../../../store/api/chapterApi";
 import { useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
+import { Content } from "../../../types/chapterTypes";
+import getContentName from "../../../service/getContentName";
+import useQuesryString from "../../../service/useQueryString";
 
 function ContentListPage() {
-  const { chapter } = useParams();
-  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  const { data: contentList } = useGetContentListQuery(Number(chapter));
+  const { chapterNumber, jjhNumber, timelineId, title } = useQuesryString();
+  const { data: contentList } = useGetContentListQuery(jjhNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -19,16 +17,22 @@ function ContentListPage() {
       return;
     }
 
-    const getLink = (content: string, title: string): string => {
-      switch (content) {
-        case "단원 학습":
-          return `/jeong-ju-haeng/${chapter}/chapter-learning`;
-        case "연표 학습":
-          return `/jeong-ju-haeng/${chapter}/timeline-learning`;
-        case "주제 학습":
-          return `/jeong-ju-haeng/${chapter}/topic-learning/${title}`;
-        case "단원 마무리 문제":
-          return `/jeong-ju-haeng/${chapter}/final-learning`;
+    const getLink = (
+      contentName: Content,
+      title: string,
+      contentNumber: number
+    ): string => {
+      switch (contentName) {
+        case "CHAPTER_INFO":
+          return `/jeong-ju-haeng/content/chapter-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}`;
+        case "TIMELINE_STUDY":
+          return `/jeong-ju-haeng/content/timeline-learning?jjh=${jjhNumber}&id=${timelineId}&content=${contentNumber}&title${title}`;
+        case "TIMELINE_QUESTION":
+          return `/jeong-ju-haeng/content/timeline-question?jjh=${jjhNumber}&id=${timelineId}&content=${contentNumber}&title${title}`;
+        case "TOPIC_STUDY":
+          return `/jeong-ju-haeng/content/topic-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&topic=${title}&content=${contentNumber}`;
+        case "CHAPTER_COMPLETE_QUESTION":
+          return `/jeong-ju-haeng/content/final-question?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}`;
       }
       return "";
     };
@@ -36,27 +40,22 @@ function ContentListPage() {
     setMenuList([
       ...contentList.map((item) => {
         const result: MenuModel = {
-          title: item.content,
+          title: getContentName(item.content),
           state: item.state,
-          link: getLink(item.content, item.title),
+          link: getLink(item.content, item.title, item.contentNumber),
           icon: item.content,
           description: item.title,
         };
         return result;
       }),
     ]);
-  }, [setMenuList, contentList, chapter]);
+  }, [setMenuList, contentList, chapterNumber, timelineId, jjhNumber]);
 
-  if (!contentList || !chapterTitle) {
+  if (!contentList) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <MenuTemplate
-      menuList={menuList}
-      category={String(chapter) + ". " + chapterTitle.title}
-    />
-  );
+  return <MenuTemplate menuList={menuList} category={title} />;
 }
 
 export default withAuth(ContentListPage);

@@ -1,23 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
 import { useGetKtoTQuestionQuery } from "../../../store/api/questionApi";
 import QuestionTemplate from "../../templates/question/QuestionTemplate";
-import { useUpdateProgressMutation } from "../../../store/api/chapterApi";
 import withAuth from "../../../hoc/withAuth";
+import useQuesryString from "../../../service/useQueryString";
+import useNextContent from "../../../service/useNextContent";
 
 function FinalLearningPage() {
-  const { chapter } = useParams();
-  const navigate = useNavigate();
-  const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(Number(chapter));
-  const [updateProgres] = useUpdateProgressMutation();
-
-  const handleNextContent = () => {
-    updateProgres({
-      content: "단원 학습",
-      title: String(Number(chapter) + 1),
-      state: "Open",
-    });
-    navigate(`/jeong-ju-haeng`);
-  };
+  const handleNextContent = useNextContent();
+  const { chapterNumber } = useQuesryString();
+  const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber);
 
   if (!KtoTQuestionList) {
     return <div>Loading...</div>;

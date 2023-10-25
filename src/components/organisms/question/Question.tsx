@@ -103,7 +103,7 @@ function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
     );
 
   const handleCheckAnswer = () => {
-    if (selectedChoiceKey === "") return;
+    //if (selectedChoiceKey === "") return;
 
     const isCorrect =
       selectedChoiceKey.substring(1) === questionList[currentNumber].answer;

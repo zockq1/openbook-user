@@ -4,11 +4,11 @@ import {
   ChapterModel,
   ChapterTitleModel,
   ContentModel,
-  JJHChapterModel,
+  JJHModel,
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
 import { TopicListModel } from "../../types/topicTypes";
-import { ProgressModel } from "../../types/progressTypes";
+import { ProgressModel, UpdateProgressModel } from "../../types/progressTypes";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
@@ -18,7 +18,7 @@ export const chapterApi = createApi({
     getChapters: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
     }),
-    getJJHChapters: builder.query<JJHChapterModel[], void>({
+    getJJHList: builder.query<JJHModel, void>({
       query: () => "/jjh",
       providesTags: ["ProgressUpdate"],
     }),
@@ -39,7 +39,7 @@ export const chapterApi = createApi({
       query: () => `/total-progress`,
       providesTags: ["ProgressUpdate"],
     }),
-    updateProgress: builder.mutation<any, ContentModel>({
+    updateProgress: builder.mutation<void, UpdateProgressModel>({
       query: (progress: ContentModel) => {
         return {
           url: `/jjh/progress`,
@@ -54,11 +54,12 @@ export const chapterApi = createApi({
 
 export const {
   useGetChaptersQuery,
-  useGetJJHChaptersQuery,
+  useGetJJHListQuery,
   useGetChapterTitleQuery,
   useGetChapterInfoQuery,
   useGetContentListQuery,
   useGetChapterTopicListQuery,
   useLazyGetTotalProgressQuery,
+  useLazyGetContentListQuery,
   useUpdateProgressMutation,
 } = chapterApi;

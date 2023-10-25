@@ -27,7 +27,7 @@ function QuestionPageTemplate() {
             title="연표 문제"
             link="/question/timeline/setting"
             image={timeline}
-            icon={<Icon icon="연표 문제" />}
+            icon={<Icon icon="TIMELINE_QUESTION" />}
             descriptionTime="무제한"
             descriptionCount="사용자 정의"
             description="연표 순서 맞추기"

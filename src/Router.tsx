@@ -22,7 +22,7 @@ import MockExamPage from "./components/pages/question/MockExamPage";
 import MockExamSettingPage from "./components/pages/question/MockExamSettingPage";
 import TimelineQuestionSettingPage from "./components/pages/question/TimelineQuestionSettingPage.tsx";
 import QuizSettingPage from "./components/pages/question/QuizSettingPage";
-import ChapterListPage from "./components/pages/jjh/ChapterListPage";
+import JJHListPage from "./components/pages/jjh/JJHListPage";
 import LoginPage from "./components/pages/main/LoginPage";
 
 const router = createBrowserRouter([
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
         element: <LoginLoadingRedirectPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter/final-learning",
+        path: "jeong-ju-haeng/content/final-question",
         element: <FinalLearningPage />,
       },
       {
@@ -115,16 +115,16 @@ const router = createBrowserRouter([
         element: <ChapterLearningPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter/topic-learning/:topic",
+        path: "jeong-ju-haeng/content/topic-learning",
         element: <TopicLearningPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter",
+        path: "jeong-ju-haeng/content",
         element: <ContentListPage />,
       },
       {
         path: "jeong-ju-haeng",
-        element: <ChapterListPage />,
+        element: <JJHListPage />,
       },
     ],
   },

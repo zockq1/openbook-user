@@ -44,12 +44,12 @@ interface Iconprops {
 function Icon({ icon, size, color = "inherit" }: Iconprops) {
   const icons: { [key: string]: string } = {
     //콘텐트
-    "단원 학습": "fi fi-rr-rectangle-list",
-    "연표 학습": "fi fi-rr-calendar-clock",
-    "연표 문제": "fi fi-rr-calendar-clock",
-    "주제 학습": "fi fi-rr-blog-text",
-    "주제별 문제": "fi fi-rr-question-square",
-    "단원 마무리 문제": "fi fi-rr-question-square",
+    CHAPTER_INFO: "fi fi-rr-rectangle-list",
+    TIMELINE_STUDY: "fi fi-rr-calendar-clock",
+    TIMELINE_QUESTION: "fi fi-rr-calendar-clock",
+    TOPIC_STUDY: "fi fi-rr-blog-text",
+    TOPIC_QUESTION: "fi fi-rr-question-square",
+    CHAPTER_COMPLETE_QUESTION: "fi fi-rr-question-square",
 
     // 주제
     인물: "fi fi-rr-user",

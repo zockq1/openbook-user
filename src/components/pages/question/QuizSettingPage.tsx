@@ -52,7 +52,7 @@ function QuizSettingPage() {
         },
         {
           title: "단원 선택",
-          icon: <Icon icon="단원 학습" />,
+          icon: <Icon icon="CHAPTER_INFO" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [

@@ -21,7 +21,7 @@ function TopicLearningTemplate({
     <Layout>
       <TitleBox
         title={topicTitle}
-        icon="주제 학습"
+        icon="TOPIC_STUDY"
         category="주제 학습"
         dateComment={topicInfo.dateComment}
       />

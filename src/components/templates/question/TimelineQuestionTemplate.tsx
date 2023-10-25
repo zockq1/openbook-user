@@ -19,7 +19,7 @@ function TimelineQuestionTemplate({
 }: TimelineQuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox icon="연표 문제" category="연표 문제" title={title} />
+      <TitleBox icon="TIMELINE_QUESTION" category="연표 문제" title={title} />
       <MainContentLayout>
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}

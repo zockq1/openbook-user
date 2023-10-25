@@ -17,7 +17,7 @@ function TimelineMenuPage() {
         title: "전체 연표",
         state: "Open",
         link: `/timeline/-1`,
-        icon: "연표 학습",
+        icon: "TIMELINE_STUDY",
         description: "BC 700K ~ 현대",
       },
       ...[...timelineList]
@@ -40,7 +40,11 @@ function TimelineMenuPage() {
   }
 
   return (
-    <MenuTemplate menuList={menuList} icon="연표 학습" category="연표 학습" />
+    <MenuTemplate
+      menuList={menuList}
+      icon="TIMELINE_STUDY"
+      category="연표 학습"
+    />
   );
 }
 

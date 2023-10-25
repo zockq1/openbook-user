@@ -38,7 +38,7 @@ function LearningTopicListPage() {
         title: "단원 학습",
         state: "Open",
         link: `/learning/${chapter}/chapter-learning`,
-        icon: "단원 학습",
+        icon: "CHAPTER_INFO",
         description: `${chapterTitle.title}`,
       });
 

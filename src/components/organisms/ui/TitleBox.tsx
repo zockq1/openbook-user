@@ -36,31 +36,10 @@ const Category = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
-const FixedBackButton = styled.div`
-  position: fixed;
-  z-index: 99;
-  width: 40px;
-  height: 40px;
-  top: 20px;
-  left: 20px;
-  border-radius: 100%;
-  background-color: ${({ theme }) => theme.colors.blue};
-
-  & > button {
-    position: absolute;
-    top: 50%;
-    left: 45%;
-    transform: translate(-50%, -50%);
-  }
-`;
-
 const TitleBox = ({ title, icon, category, dateComment }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
     <>
-      <FixedBackButton>
-        <BackButton color="white" />
-      </FixedBackButton>
       <StyledTitleBox>
         <Category>
           <BackButton color="white" />

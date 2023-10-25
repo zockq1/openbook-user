@@ -52,7 +52,7 @@ function MockExamSettingPage() {
         },
         {
           title: "회차 선택",
-          icon: <Icon icon="단원 학습" />,
+          icon: <Icon icon="CHAPTER_INFO" />,
           handleSelect: handleSelectChapter,
           selectName: "chapter",
           optionList: [
