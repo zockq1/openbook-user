@@ -24,6 +24,7 @@ import TimelineQuestionSettingPage from "./components/pages/question/TimelineQue
 import QuizSettingPage from "./components/pages/question/QuizSettingPage";
 import JJHListPage from "./components/pages/jjh/JJHListPage";
 import LoginPage from "./components/pages/main/LoginPage";
+import JJHTimelineQuestionPage from "./components/pages/jjh/TimelineQuestionPage";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         path: "jeong-ju-haeng/:chapter/timeline-learning",
         element: <TimelineLearningPage />,
+      },
+      {
+        path: "jeong-ju-haeng/:chapter/timeline-question",
+        element: <JJHTimelineQuestionPage />,
       },
       {
         path: "jeong-ju-haeng/:chapter/chapter-learning",
