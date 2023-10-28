@@ -7,7 +7,9 @@ import useNextContent from "../../../service/useNextContent";
 function FinalLearningPage() {
   const handleNextContent = useNextContent();
   const { chapterNumber } = useQuesryString();
-  const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber);
+  const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber, {
+    refetchOnMountOrArgChange: true,
+  });
 
   if (!KtoTQuestionList) {
     return <div>Loading...</div>;

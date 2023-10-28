@@ -6,10 +6,13 @@ function QuizPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { data: questionList } = useGetRandomQuestionQuery({
-    chapterNumber: Number(searchParams.get("chapter")) || 0,
-    numberOfQuestion: Number(searchParams.get("noq")) || 5,
-  });
+  const { data: questionList } = useGetRandomQuestionQuery(
+    {
+      chapterNumber: Number(searchParams.get("chapter")) || 0,
+      numberOfQuestion: Number(searchParams.get("noq")) || 5,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   if (!questionList || questionList.length === 0) {
     return <div>Loading...</div>;

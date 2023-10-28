@@ -8,13 +8,13 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { useAddChapterWrongCounterMutation } from "../../../store/api/questionApi";
+import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/questionApi";
 import Button from "../../atoms/button/Button";
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
   handleNextContent: () => void;
-  chapter: number;
+  id: number;
 }
 
 interface LineProps {
@@ -151,10 +151,10 @@ const reducer = (state: State, action: Action): State => {
 function TimelineQuestion({
   dateList,
   handleNextContent,
-  chapter,
+  id,
 }: TimelineQuestionProps) {
   const [isMounted, setIsMounted] = useState(false);
-  const [addChapterWrongCounter] = useAddChapterWrongCounterMutation();
+  const [updateTimelineWrongCounter] = useUpdateTimelineWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     playedDateList: [dateList[0]],
     nextDateList: dateList.slice(1),
@@ -171,12 +171,13 @@ function TimelineQuestion({
 
   useEffect(() => {
     if (isFinish) {
-      addChapterWrongCounter({
-        number: Number(chapter),
-        count: wrongCount,
+      updateTimelineWrongCounter({
+        id: id,
+        wrongCount: wrongCount,
+        correctCount: 10,
       });
     }
-  }, [isFinish, addChapterWrongCounter, wrongCount, chapter]);
+  }, [isFinish, updateTimelineWrongCounter, wrongCount, id]);
 
   const onDragEnd = async (result: DropResult) => {
     const { destination } = result;

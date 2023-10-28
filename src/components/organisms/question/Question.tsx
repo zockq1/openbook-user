@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { RowList } from "../../atoms/layout/List";
 import { LongChoiceItem } from "../../molecules/list-item/LongChoiceItem";
 import Button from "../../atoms/button/Button";
-import { QuestionModel } from "../../../types/questionTypes";
+import { QuestionModel, WrongCounterModel } from "../../../types/questionTypes";
 import styled from "styled-components";
 import TextBox from "../../atoms/box/TextBox";
 import { ToastContainer, Zoom, toast } from "react-toastify";
@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../../styles/images/correct.svg";
 import incorrct from "../../../styles/images/incorrect.svg";
 import QuestionCounter from "../../molecules/etc/QuestionCounter";
-import { useAddTopicWrongCounterMutation } from "../../../store/api/questionApi";
+import { useUpdateKeywordWrongCounterMutation } from "../../../store/api/questionApi";
 
 interface QuestionProps {
   quizList: QuestionModel[];
@@ -36,16 +36,21 @@ type State = {
   isFinish: boolean;
   currentNumber: number;
   selectedChoiceKey: string;
+  keywordList: Map<number, { wrongCount: number; correctCount: number }>;
 };
 
 const SELECT_CHOICE = "SELECT_CHOICE";
 const FINISH = "FINISH";
 const NEXT_QUESTION = "NEXT_QUESTION";
+const WRONG = "WRONG";
+const CORRECT = "CORRECT";
 
 type Action =
   | { type: "SELECT_CHOICE"; selectedChoiceKey: string }
   | { type: "FINISH" }
-  | { type: "NEXT_QUESTION" };
+  | { type: "NEXT_QUESTION" }
+  | { type: "WRONG"; keywordId: number }
+  | { type: "CORRECT"; keywordId: number };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -60,13 +65,44 @@ const reducer = (state: State, action: Action): State => {
         currentNumber: state.currentNumber + 1,
         selectedChoiceKey: "",
       };
+    case WRONG:
+      const wrongKeywordId = action.keywordId;
+      const wrongKeyword = state.keywordList.get(wrongKeywordId);
+      if (wrongKeyword) {
+        wrongKeyword.wrongCount += 1;
+        state.keywordList.set(wrongKeywordId, wrongKeyword);
+      }
+      return { ...state };
+
+    case CORRECT:
+      const answerKeywordId = action.keywordId;
+      const answerKeyword = state.keywordList.get(answerKeywordId);
+      if (answerKeyword) {
+        answerKeyword.correctCount += 1;
+        state.keywordList.set(answerKeywordId, answerKeyword);
+      }
+      return { ...state };
+
     default:
       return state;
   }
 };
 
+function getKeywordList(
+  quizList: QuestionModel[]
+): Map<number, { wrongCount: number; correctCount: number }> {
+  let newMap = new Map<number, { wrongCount: number; correctCount: number }>();
+  quizList.forEach((quiz) => {
+    if (quiz.keywordIdList === null) return newMap;
+    quiz.keywordIdList.forEach((keywordId) => {
+      newMap.set(keywordId, { wrongCount: 0, correctCount: 0 });
+    });
+  });
+  return newMap;
+}
+
 function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
-  const [addTopicWrongCount] = useAddTopicWrongCounterMutation();
+  const [updateKeywordWrongCount] = useUpdateKeywordWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
       .sort(() => Math.random() - 0.5)
@@ -79,8 +115,15 @@ function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
     isFinish: false,
     currentNumber: 0,
     selectedChoiceKey: "",
+    keywordList: getKeywordList(quizList),
   });
-  const { questionList, isFinish, currentNumber, selectedChoiceKey } = state;
+  const {
+    questionList,
+    isFinish,
+    currentNumber,
+    selectedChoiceKey,
+    keywordList,
+  } = state;
 
   const correctAnswer = () =>
     toast(
@@ -111,20 +154,36 @@ function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
 
     if (isCorrect) {
       correctAnswer();
+      if (questionList[currentNumber].keywordIdList === null) return;
+      questionList[currentNumber].keywordIdList.forEach((keywordId) => {
+        dispatch({ type: CORRECT, keywordId });
+      });
     } else {
       wrongAnswer();
-      addTopicWrongCount([
-        {
-          topicTitle: questionList[currentNumber].answer,
-          count: 1,
-        },
-      ]);
+      if (questionList[currentNumber].keywordIdList === null) return;
+      questionList[currentNumber].keywordIdList.forEach((keywordId) => {
+        dispatch({ type: WRONG, keywordId });
+      });
     }
   };
 
   const handleNextQuestion = () => {
     toast.dismiss();
     dispatch({ type: NEXT_QUESTION });
+  };
+
+  const handleUpdate = async () => {
+    if (questionList.length === currentNumber + 1) {
+      let newKeywordList: WrongCounterModel[] = [];
+      keywordList.forEach((value, key) => {
+        newKeywordList.push({
+          id: key,
+          wrongCount: value.wrongCount,
+          correctCount: value.correctCount,
+        });
+      });
+      await updateKeywordWrongCount(newKeywordList);
+    }
   };
 
   return (
@@ -193,7 +252,14 @@ function Question({ quizList, handleNextContent, timeLimit }: QuestionProps) {
       ) : currentNumber < questionList.length - 1 ? (
         <Button onClick={handleNextQuestion}>다음 문제</Button>
       ) : (
-        <Button onClick={handleNextContent}>다음</Button>
+        <Button
+          onClick={() => {
+            handleUpdate();
+            handleNextContent();
+          }}
+        >
+          다음
+        </Button>
       )}
     </>
   );

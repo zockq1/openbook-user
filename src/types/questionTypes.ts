@@ -22,10 +22,11 @@ export interface QuestionChoiceModel {
 
 export interface QuestionModel {
   questionType: QuestionType;
-  answer: string; //topicTitle
+  answer: string;
   choiceType: ChoiceType;
   description: string[];
   choiceList: QuestionChoiceModel[];
+  keywordIdList: number[];
 }
 
 export interface ExamModel {
@@ -61,12 +62,8 @@ export interface RoundModel {
   number: number;
 }
 
-export interface ChapterWrongCounterModel {
-  number: number;
-  count: number;
-}
-
-export interface TopicWrongCounterModel {
-  topicTitle: string;
-  count: number;
+export interface WrongCounterModel {
+  id: number;
+  wrongCount: number;
+  correctCount: number;
 }

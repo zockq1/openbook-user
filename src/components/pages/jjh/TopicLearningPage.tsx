@@ -15,7 +15,7 @@ function TopicLearningPage() {
   const { data: topicInfo, isLoading: isTopicInfoLoading } =
     useGetTopicQuery(topicTitle);
   const { data: TtoKQuestionList, isLoading: isTtoKQuestionListLoading } =
-    useGetTtoKQuestionQuery(topicTitle);
+    useGetTtoKQuestionQuery(topicTitle, { refetchOnMountOrArgChange: true });
   const [selectedContent, setSelectedContent] =
     useState<SelectedContent>("Learning");
 

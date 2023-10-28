@@ -1,12 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import {
-  ChapterWrongCounterModel,
   ExamModel,
   GetQuestionModel,
   QuestionModel,
   RoundModel,
   TimeLineModel,
-  TopicWrongCounterModel,
+  WrongCounterModel,
 } from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
 
@@ -36,19 +35,19 @@ export const questionApi = createApi({
     getExam: builder.query<ExamModel[], number>({
       query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
     }),
-    addChapterWrongCounter: builder.mutation<void, ChapterWrongCounterModel>({
-      query: (counter: ChapterWrongCounterModel) => {
+    updateTimelineWrongCounter: builder.mutation<void, WrongCounterModel>({
+      query: (counter: WrongCounterModel) => {
         return {
-          url: `/study-progress/chapter/wrong-count`,
+          url: `/timeline/wrong-count`,
           method: "PATCH",
           body: counter,
         };
       },
     }),
-    addTopicWrongCounter: builder.mutation<void, TopicWrongCounterModel[]>({
-      query: (counterList: TopicWrongCounterModel[]) => {
+    updateKeywordWrongCounter: builder.mutation<void, WrongCounterModel[]>({
+      query: (counterList: WrongCounterModel[]) => {
         return {
-          url: `/study-progress/topic/wrong-count`,
+          url: `/keyword/wrong-count`,
           method: "PATCH",
           body: counterList,
         };
@@ -64,6 +63,6 @@ export const {
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,
-  useAddChapterWrongCounterMutation,
-  useAddTopicWrongCounterMutation,
+  useUpdateTimelineWrongCounterMutation,
+  useUpdateKeywordWrongCounterMutation,
 } = questionApi;

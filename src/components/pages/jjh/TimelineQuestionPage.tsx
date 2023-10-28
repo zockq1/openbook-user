@@ -16,7 +16,7 @@ function TimelineQuestionPage() {
   return (
     <TimelineQuestionTemplate
       title={title}
-      chapter={timelineId}
+      id={timelineId}
       dateList={dateList}
       handleNextContent={handleNextContent}
     />

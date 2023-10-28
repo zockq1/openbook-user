@@ -6,14 +6,14 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 
 interface TimelineQuestionTemplateProps {
   title?: string;
-  chapter: number;
+  id: number;
   dateList: TimeLineModel[];
   handleNextContent: () => void;
 }
 
 function TimelineQuestionTemplate({
   title,
-  chapter,
+  id,
   dateList,
   handleNextContent,
 }: TimelineQuestionTemplateProps) {
@@ -24,7 +24,7 @@ function TimelineQuestionTemplate({
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           handleNextContent={handleNextContent}
-          chapter={chapter}
+          id={id}
         />
       </MainContentLayout>
     </Layout>
