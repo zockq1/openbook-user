@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useGetRoundListQuery } from "../../../store/api/questionApi";
-import { QuestionMenuModel } from "../../../types/commonTypes";
+import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
-import QuestionMenuTemplate from "../../templates/menu/QuestionmenuTemplate";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import { ThemeContext } from "styled-components";
+import MenuTemplate from "../../templates/menu/MenuTemplate";
 
 function ExamListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
   const { data: examList } = useGetRoundListQuery();
-  const [questionMenuList, setMenuList] = useState<QuestionMenuModel[]>([]);
+  const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
     if (!examList) {
@@ -49,12 +49,13 @@ function ExamListPage() {
               ? calculateGradientColor(30)
               : theme.colors.red;
 
-          const result: QuestionMenuModel = {
+          const result: MenuModel = {
+            type: "Progress",
             title: `${number}회 심화`,
+            icon: `${score}점`,
             subTitle,
             score,
-            color,
-            number: index + 1,
+            mainColor: color,
             onClickMain: () => {
               navigate(`/question/mock-exam?round=${number}`);
             },
@@ -68,12 +69,7 @@ function ExamListPage() {
   if (!examList) {
     return <div>Loading...</div>;
   }
-  return (
-    <QuestionMenuTemplate
-      questionMenuList={questionMenuList}
-      category={"문제 분류"}
-    />
-  );
+  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
 }
 
 export default ExamListPage;

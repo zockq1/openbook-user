@@ -1,10 +1,10 @@
 import Layout from "../../atoms/layout/Layout";
-import MenuList from "../../organisms/list/MenuList";
 import TitleBox from "../../organisms/ui/TitleBox";
 import { MenuModel } from "../../../types/commonTypes";
 import { IconType } from "../../atoms/icon/Icon";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import { ReactNode } from "react";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 
 interface MenuTemplateProps {
   icon?: IconType;
@@ -23,7 +23,7 @@ function MenuTemplate({
     <Layout>
       <TitleBox icon={icon} category={category}></TitleBox>
       <MainContentLayout>
-        <MenuList list={menuList} />
+        <MenuUI menuList={menuList} />
       </MainContentLayout>
       {children}
     </Layout>

@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { MenuModel } from "../../../types/commonTypes";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
+import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "styled-components";
+import Icon from "../../atoms/icon/Icon";
 
 function TimelineMenuPage() {
+  const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
   const { data: timelineList } = useGetTimelineListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -14,28 +19,32 @@ function TimelineMenuPage() {
 
     setMenuList([
       {
+        type: "Base",
         title: "전체 연표",
         state: "Open",
-        link: `/timeline/-1`,
-        icon: "TIMELINE_STUDY",
+        onClickMain: () => navigate(`/timeline/-1`),
+        icon: <Icon icon="TIMELINE_STUDY" />,
         description: "BC 700K ~ 현대",
+        mainColor: theme.colors.white,
       },
       ...[...timelineList]
         .sort((a, b) => a.startDate - b.startDate)
         .map((timeline, index) => {
           const result: MenuModel = {
+            type: "Base",
             title: `${timeline.era}`,
             state: "Open",
-            link: `/timeline/${timeline.id}`,
+            onClickMain: () => navigate(`/timeline/${timeline.id}`),
             icon: index + 1,
             description: `${timeline.startDate / 10000} ~ ${
               timeline.endDate / 10000
             }`,
+            mainColor: theme.colors.white,
           };
           return result;
         }),
     ]);
-  }, [setMenuList, timelineList]);
+  }, [setMenuList, timelineList, theme, navigate]);
 
   if (!timelineList) {
     return <div>Loading...</div>;

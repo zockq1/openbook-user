@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { useParams } from "react-router-dom";
@@ -9,8 +9,11 @@ import {
 } from "../../../store/api/chapterApi";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import Topic from "../../unit/topic/presenter/Topic.presenter";
+import { ThemeContext } from "styled-components";
+import Icon from "../../atoms/icon/Icon";
 
 function LearningTopicListPage() {
+  const theme = useContext(ThemeContext);
   const { chapter } = useParams();
   const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
   const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
@@ -25,27 +28,31 @@ function LearningTopicListPage() {
     let newMenu: MenuModel[] = [...topicList]
       .sort((a, b) => a.number - b.number)
       .map((item) => {
+        const { title, category, dateComment } = item;
         const result: MenuModel = {
-          title: item.title,
+          type: "Base",
+          title: title,
           state: "Open",
-          icon: item.category,
-          description: `${item.dateComment}`,
-          content: <Topic topic={item.title} />,
+          icon: <Icon icon={category} />,
+          description: `${dateComment}`,
+          content: <Topic topic={title} />,
+          mainColor: theme.colors.white,
         };
         return result;
       });
 
     if (chapterInfo.content)
       newMenu.unshift({
+        type: "Base",
         title: "단원 학습",
         state: "Open",
-        link: `/learning/${chapter}/chapter-learning`,
-        icon: "CHAPTER_INFO",
+        icon: <Icon icon="CHAPTER_INFO" />,
         description: `${chapterTitle.title}`,
+        mainColor: theme.colors.white,
       });
 
     setMenuList(newMenu);
-  }, [setMenuList, topicList, chapter, chapterTitle, chapterInfo]);
+  }, [setMenuList, topicList, chapter, chapterTitle, chapterInfo, theme]);
 
   if (!topicList || !chapterTitle) {
     return <div>Loading...</div>;

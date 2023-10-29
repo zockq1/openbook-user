@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useGetQuestionCategoryListQuery } from "../../../store/api/questionApi";
-import { QuestionMenuModel } from "../../../types/commonTypes";
+import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
-import QuestionMenuTemplate from "../../templates/menu/QuestionmenuTemplate";
 import calculateGradientColor from "../../../service/calculateGradientColor";
+import MenuTemplate from "../../templates/menu/MenuTemplate";
 
 function QuizListPage() {
   const navigate = useNavigate();
   const { data: questionCategoryList } = useGetQuestionCategoryListQuery();
-  const [questionMenuList, setMenuList] = useState<QuestionMenuModel[]>([]);
+  const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
     if (!questionCategoryList) {
@@ -19,21 +19,21 @@ function QuizListPage() {
     //   questionCategoryList.length;
     setMenuList([
       {
-        title: "전체 진행도-취약 문제 풀기",
+        type: "Progress",
+        icon: `${52}점`,
+        title: "전체 진행도 / 취약 문제 풀기",
         subTitle: "전체 주제",
-        number: 0,
         score: 52,
-        color: calculateGradientColor(52),
+        mainColor: calculateGradientColor(52),
         // score: avgScore,
         // color: calculateGradientColor(avgScore),
         onClickMain: () => {
-          navigate(
-            `/question/quiz?timelimit=${Infinity}&chapter=${0}&noq=${10}`
-          );
+          navigate(`/question/quiz?timelimit=${Infinity}&id=${0}&noq=${10}`);
         },
         onClickSub: () => {
           navigate("/learning");
         },
+        important: true,
       },
       ...[...questionCategoryList]
         .sort((a, b) => a.number - b.number)
@@ -49,12 +49,13 @@ function QuizListPage() {
             51, 23, 36, 78, 25, 97, 73, 84, 82, 67, 71, 99, 42, 38,
           ];
           const score = scoreList[index];
-          const result: QuestionMenuModel = {
+          const result: MenuModel = {
+            type: "Progress",
             title: `${title} 문제 풀기`,
+            icon: `${score}점`,
             subTitle: `관련 주제`,
             score: score,
-            color: calculateGradientColor(score),
-            number: index + 1,
+            mainColor: calculateGradientColor(score),
             onClickMain: () => {
               navigate(
                 `/question/quiz?timelimit=${Infinity}&id=${id}&noq=${10}`
@@ -72,12 +73,7 @@ function QuizListPage() {
   if (!questionCategoryList) {
     return <div>Loading...</div>;
   }
-  return (
-    <QuestionMenuTemplate
-      questionMenuList={questionMenuList}
-      category={"문제 분류"}
-    />
-  );
+  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
 }
 
 export default QuizListPage;

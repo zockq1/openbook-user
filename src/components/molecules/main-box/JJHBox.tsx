@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 import Icon from "../../atoms/icon/Icon";
 import Text from "../../atoms/text/Text";
+import calculateGradientColor from "../../../service/calculateGradientColor";
 
 const Box = styled.li`
   position: relative;
@@ -77,7 +78,7 @@ const Bar = styled.div<BarProps>`
   --progress-width: ${({ percentage }) => `${percentage}%`};
   animation: ${Load} 1s normal forwards;
   border-radius: 100px;
-  background: ${({ theme }) => theme.colors.blue};
+  background: ${({ percentage }) => calculateGradientColor(percentage)};
   height: 10px;
   width: 0;
 `;

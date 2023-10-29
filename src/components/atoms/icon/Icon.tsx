@@ -22,6 +22,7 @@ export type IconType =
   | "lock"
   | "back"
   | "arrow"
+  | "check"
   | Content
   | TopicCategory;
 
@@ -82,6 +83,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     lock: "fi fi-sr-lock",
     back: "fi fi-br-angle-left",
     arrow: "fi fi-br-angle-double-right",
+    check: "fi fi-sr-checkbox",
   };
 
   const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));

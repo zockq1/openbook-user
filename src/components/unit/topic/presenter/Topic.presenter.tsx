@@ -12,7 +12,6 @@ function Topic({ topic }: TopicProps) {
   const isKeywordCommentOn = useSelector(
     (state: RootState) => state.keyword.isKeywordCommentOn
   );
-  console.log("asd");
 
   if (!topicInfo) {
     return <div></div>;

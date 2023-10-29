@@ -53,7 +53,7 @@ export interface TimeLineModel {
 }
 
 export interface GetQuestionModel {
-  chapterNumber: number;
+  id: number;
   numberOfQuestion: number;
 }
 

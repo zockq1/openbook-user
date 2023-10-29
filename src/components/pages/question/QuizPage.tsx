@@ -8,7 +8,7 @@ function QuizPage() {
 
   const { data: questionList } = useGetRandomQuestionQuery(
     {
-      chapterNumber: Number(searchParams.get("id")) || 0,
+      id: Number(searchParams.get("id")),
       numberOfQuestion: Number(searchParams.get("noq")) || 5,
     },
     { refetchOnMountOrArgChange: true }

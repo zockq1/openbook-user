@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { QuestionMenuModel } from "../../../types/commonTypes";
+import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
-import QuestionMenuTemplate from "../../templates/menu/QuestionmenuTemplate";
 import calculateGradientColor from "../../../service/calculateGradientColor";
+import MenuTemplate from "../../templates/menu/MenuTemplate";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
   const { data: timelineList } = useGetTimelineListQuery();
-  const [questionMenuList, setMenuList] = useState<QuestionMenuModel[]>([]);
+  const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
     if (!timelineList) {
@@ -21,13 +21,14 @@ function TimelineQuestionListPage() {
 
     setMenuList([
       {
+        type: "Progress",
+        icon: `${38}점`,
         title: "전체 진행도-취약 연표 풀기",
         subTitle: "전체 연표",
         score: 38,
-        color: calculateGradientColor(38),
+        mainColor: calculateGradientColor(38),
         // score: avgScore,
         // color: calculateGradientColor(avgScore),
-        number: 0,
         onClickMain: () => {
           navigate(
             `/question/timeline?id=${
@@ -41,6 +42,7 @@ function TimelineQuestionListPage() {
         onClickSub: () => {
           navigate("/timeline/-1");
         },
+        important: true,
       },
       ...[...timelineList].map((questionCategory, index, arr) => {
         //const { title, id, score } = questionCategory;
@@ -54,19 +56,22 @@ function TimelineQuestionListPage() {
           55, 33, 12, 52, 22, 88, 79, 63, 59, 95, 30,
         ];
         const score = scoreList[index];
-        const result: QuestionMenuModel = {
+        const result: MenuModel = {
+          type: "Progress",
+          icon: `${score}점`,
           title: `${title}`,
           subTitle: `해당 연표`,
           score: score,
-          color: calculateGradientColor(score),
-          number: index + 1,
+          mainColor: calculateGradientColor(score),
           onClickMain: () => {
             navigate(`/question/timeline?id=${id}`);
           },
           onClickSub: () => {
             navigate(`/timeline/${id}`);
           },
+          important: false,
         };
+
         return result;
       }),
     ]);
@@ -75,12 +80,7 @@ function TimelineQuestionListPage() {
   if (!timelineList) {
     return <div>Loading...</div>;
   }
-  return (
-    <QuestionMenuTemplate
-      questionMenuList={questionMenuList}
-      category={"문제 분류"}
-    />
-  );
+  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
 }
 
 export default TimelineQuestionListPage;

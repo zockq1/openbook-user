@@ -31,7 +31,7 @@ export const questionApi = createApi({
     }),
     getRandomQuestion: builder.query<QuestionModel[], GetQuestionModel>({
       query: (getQuestion) =>
-        `/questions/random?num=${getQuestion.chapterNumber}&count=${getQuestion.numberOfQuestion}`,
+        `/questions/random?id=${getQuestion.id}&count=${getQuestion.numberOfQuestion}`,
     }),
     getExam: builder.query<ExamModel[], number>({
       query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
