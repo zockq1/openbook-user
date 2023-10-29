@@ -8,8 +8,7 @@ import { useCallback } from "react";
 
 function useNextContent(): () => Promise<void> {
   const navigate = useNavigate();
-  const { chapterNumber, timelineId, jjhNumber, contentNumber, title } =
-    useQuesryString();
+  const { timelineId, jjhNumber, contentNumber, title } = useQuesryString();
   const { data: contentList } = useGetContentListQuery(jjhNumber);
   const [updateProgres] = useUpdateProgressMutation();
 
@@ -26,26 +25,8 @@ function useNextContent(): () => Promise<void> {
       });
 
       if (currentIndex === contentList.length - 1) {
-        navigate(`/jeong-ju-haeng`);
+        navigate(-2);
         return;
-      }
-
-      if (contentList[currentIndex + 1].content === "TOPIC_STUDY") {
-        navigate(
-          `/jeong-ju-haeng/content/topic-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&topic=${
-            contentList[currentIndex + 1].title
-          }&content=${contentNumber + 1}`
-        );
-      }
-
-      if (
-        contentList[currentIndex + 1].content === "CHAPTER_COMPLETE_QUESTION"
-      ) {
-        navigate(
-          `/jeong-ju-haeng/content/final-question?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${
-            contentNumber + 1
-          }`
-        );
       }
 
       if (contentList[currentIndex + 1].content === "TIMELINE_QUESTION") {
@@ -54,12 +35,14 @@ function useNextContent(): () => Promise<void> {
             contentNumber + 1
           }&title${title}`
         );
+        return;
+      } else {
+        navigate(-1);
       }
     } catch (error) {
       console.error(error);
     }
   }, [
-    chapterNumber,
     jjhNumber,
     contentList,
     contentNumber,

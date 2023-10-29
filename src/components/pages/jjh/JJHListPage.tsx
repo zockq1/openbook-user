@@ -34,9 +34,15 @@ function JJHListPage() {
     const newTimelineList: JJHList[] = [...jjhList.timelineList].map(
       (item: JJHTimelineModel) => {
         const result: JJHList = {
-          title: `${item.era}(${item.startDate} ~ ${item.endDate})`,
+          title: `${item.era}(${item.startDate / 10000} ~ ${
+            item.endDate / 10000
+          })`,
           state: item.state,
-          link: `/jeong-ju-haeng/content?jjh=${item.jjhNumber}&id=${item.id}&title=${item.era}(${item.startDate} ~ ${item.endDate})`,
+          link: `/jeong-ju-haeng/content?jjh=${item.jjhNumber}&id=${
+            item.id
+          }&title=${item.era}(${item.startDate / 10000} ~ ${
+            item.endDate / 10000
+          })`,
           icon: "TIMELINE_STUDY",
           description: "진행도: " + item.progress,
           jjhNumber: item.jjhNumber,

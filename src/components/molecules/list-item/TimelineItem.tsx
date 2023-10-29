@@ -60,7 +60,7 @@ function TimelineItem({
 }: TimelineTopicProps) {
   return (
     <StyledTimelineItem isQuestion={isQuestion}>
-      <Date>{Math.floor(Number(date) / 10000)}</Date>
+      <Date>{Math.floor(Number(date) / 10000) || null}</Date>
       {disableCircle ? (
         <Transparent />
       ) : (

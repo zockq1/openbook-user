@@ -15,15 +15,14 @@ interface StyledMenuItemProps {
   state: ContentState;
 }
 
-const StyledMenuItem = styled.li<StyledMenuItemProps>`
+const StyledMenuItem = styled.div<StyledMenuItemProps>`
   display: flex;
   align-items: center;
   width: auto;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
+  padding-right: 20px;
 
-  border: ${({ theme, state }) =>
-    state === "Locked" ? theme.border.red : theme.border.black};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
@@ -36,15 +35,15 @@ const MenuDescription = styled.div`
 `;
 
 function MenuItem({ menuItem }: MenuItemProps) {
-  const { title, description, icon, state, link } = menuItem;
+  const { title, description, icon, state, link, content } = menuItem;
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleClickListItem = () => {
-    if (state === "Locked") {
+    if (state === "Locked" || content) {
       return;
     }
-    navigate(link);
+    link && navigate(link);
   };
 
   return (
@@ -73,7 +72,7 @@ function MenuItem({ menuItem }: MenuItemProps) {
         )}
       </MenuDescription>
 
-      {state !== "Open" && (
+      {state === "Locked" && (
         <Icon color={theme.colors.red} size={40} icon="lock" />
       )}
     </StyledMenuItem>

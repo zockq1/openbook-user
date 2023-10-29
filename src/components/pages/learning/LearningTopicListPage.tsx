@@ -7,6 +7,8 @@ import {
   useGetChapterTitleQuery,
   useGetChapterTopicListQuery,
 } from "../../../store/api/chapterApi";
+import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
+import Topic from "../../unit/topic/presenter/Topic.presenter";
 
 function LearningTopicListPage() {
   const { chapter } = useParams();
@@ -26,9 +28,9 @@ function LearningTopicListPage() {
         const result: MenuModel = {
           title: item.title,
           state: "Open",
-          link: `/learning/${chapter}/${item.title}`,
           icon: item.category,
           description: `${item.dateComment}`,
+          content: <Topic topic={item.title} />,
         };
         return result;
       });
@@ -53,7 +55,9 @@ function LearningTopicListPage() {
     <MenuTemplate
       menuList={menuList}
       category={String(chapter) + ". " + chapterTitle.title}
-    />
+    >
+      <KeywordToggleButton />
+    </MenuTemplate>
   );
 }
 

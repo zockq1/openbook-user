@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { IconType } from "../components/atoms/icon/Icon";
 import { ContentState } from "./chapterTypes";
 
@@ -6,17 +7,21 @@ export interface MenuModel {
   description?: string;
   state: ContentState;
   icon: IconType | number;
-  link: string;
+  link?: string;
+  content?: ReactNode;
 }
 
 export interface QuestionMenuModel {
   title: string;
-  subTitle: string;
+  subTitle: ReactNode;
   number: number;
-  score: number;
+  score: number | null;
   onClickMain: () => void;
   onClickSub: () => void;
   color: string;
+
+  icon?: IconType;
+  description?: string;
 }
 
 export interface OptionModel {

@@ -11,7 +11,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
   position: absolute;
   width: 86px;
   height: 26px;
-  top: 45px;
+  top: 25px;
   right: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -93,11 +93,7 @@ function KeywordToggleButton() {
   };
 
   return (
-    <ToggleContainer
-      // 클릭하면 토글이 켜진 상태(isOn)를 boolean 타입으로 변경하는 메소드가 실행
-      onClick={handleToggle}
-      open={isKeywordCommentOn}
-    >
+    <ToggleContainer onClick={handleToggle} open={isKeywordCommentOn}>
       <div
         className={`toggle-container ${
           isKeywordCommentOn ? "toggle--checked" : null

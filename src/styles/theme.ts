@@ -42,6 +42,9 @@ const colors = {
   lightPurple: "#A56EFF",
 
   bg: "#f2f5f9",
+
+  bgBlue: "#e0f2ff",
+  textBlue: "#000066",
 };
 
 const shadow = {
