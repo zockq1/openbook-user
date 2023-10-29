@@ -7,7 +7,7 @@ interface LayoutProps {
 
 const StyledMainContentLayout = styled.div`
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   margin-bottom: 80px;
 `;

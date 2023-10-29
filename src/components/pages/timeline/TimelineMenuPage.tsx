@@ -28,7 +28,9 @@ function TimelineMenuPage() {
             state: "Open",
             link: `/timeline/${timeline.id}`,
             icon: index + 1,
-            description: `${timeline.startDate} ~ ${timeline.endDate}`,
+            description: `${timeline.startDate / 10000} ~ ${
+              timeline.endDate / 10000
+            }`,
           };
           return result;
         }),

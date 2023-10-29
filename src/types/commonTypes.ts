@@ -9,6 +9,16 @@ export interface MenuModel {
   link: string;
 }
 
+export interface QuestionMenuModel {
+  title: string;
+  subTitle: string;
+  number: number;
+  score: number;
+  onClickMain: () => void;
+  onClickSub: () => void;
+  color: string;
+}
+
 export interface OptionModel {
   value: number;
   key: number;

@@ -1,0 +1,79 @@
+import { useContext, useEffect, useState } from "react";
+import { useGetRoundListQuery } from "../../../store/api/questionApi";
+import { QuestionMenuModel } from "../../../types/commonTypes";
+import { useNavigate } from "react-router-dom";
+import QuestionMenuTemplate from "../../templates/menu/QuestionmenuTemplate";
+import calculateGradientColor from "../../../service/calculateGradientColor";
+import { ThemeContext } from "styled-components";
+
+function ExamListPage() {
+  const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
+  const { data: examList } = useGetRoundListQuery();
+  const [questionMenuList, setMenuList] = useState<QuestionMenuModel[]>([]);
+
+  useEffect(() => {
+    if (!examList) {
+      return;
+    }
+
+    setMenuList([
+      ...[...examList]
+        .sort((a, b) => a.number - b.number)
+        .map((questionCategory, index, arr) => {
+          const { number } = questionCategory;
+
+          const scoreList = [
+            30, 85, 67, 82, 74, 0, 26, 22, 16, 21, 69, 20, 53, 56, 66, 69, 3,
+            52, 16, 0, 28, 66, 71, 19, 50, 88, 48, 96, 18, 44, 7, 8, 27, 72, 57,
+            98, 73, 56, 1, 76, 26, 30, 79, 37, 17, 36, 10, 36, 71, 19, 29, 19,
+            88, 78, 7, 82, 4, 54, 90, 19, 15, 56, 17, 72, 69, 94, 31, 33, 39,
+            28, 67, 31, 15, 3, 34, 87, 41, 65, 92, 47, 22, 88, 84, 59, 30, 85,
+            90, 23, 22, 68, 84, 3, 73, 9, 63, 87, 41, 44, 38, 87,
+          ];
+          const score = scoreList[index];
+          const subTitle =
+            score >= 80
+              ? "1급"
+              : score >= 70
+              ? "2급"
+              : score >= 60
+              ? "3급"
+              : "불합격";
+          const color =
+            score >= 80
+              ? theme.colors.blue
+              : score >= 70
+              ? theme.colors.purple
+              : score >= 60
+              ? calculateGradientColor(30)
+              : theme.colors.red;
+
+          const result: QuestionMenuModel = {
+            title: `${number}회 심화`,
+            subTitle,
+            score,
+            color,
+            number: index + 1,
+            onClickMain: () => {
+              navigate(`/question/mock-exam?round=${number}`);
+            },
+            onClickSub: () => {},
+          };
+          return result;
+        }),
+    ]);
+  }, [setMenuList, examList, navigate, theme]);
+
+  if (!examList) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <QuestionMenuTemplate
+      questionMenuList={questionMenuList}
+      category={"문제 분류"}
+    />
+  );
+}
+
+export default ExamListPage;

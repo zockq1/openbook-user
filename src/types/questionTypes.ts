@@ -67,3 +67,10 @@ export interface WrongCounterModel {
   wrongCount: number;
   correctCount: number;
 }
+
+export interface QuestionCategoryModel {
+  id: number;
+  title: string;
+  number: number;
+  score: number;
+}

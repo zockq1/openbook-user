@@ -1,16 +1,14 @@
 import styled, { ThemeContext } from "styled-components";
 import { ContentState } from "../../../types/chapterTypes";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
-import Icon, { IconType } from "../../atoms/icon/Icon";
+import Icon from "../../atoms/icon/Icon";
 import Text from "../../atoms/text/Text";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { MenuModel } from "../../../types/commonTypes";
 
 interface MenuItemProps {
-  title: string;
-  description?: string;
-  icon: IconType | number;
-  state: ContentState;
-  onClickItem: () => void;
+  menuItem: MenuModel;
 }
 
 interface StyledMenuItemProps {
@@ -37,16 +35,20 @@ const MenuDescription = styled.div`
   margin-right: auto;
 `;
 
-function MenuItem({
-  title,
-  description,
-  icon,
-  state,
-  onClickItem,
-}: MenuItemProps) {
+function MenuItem({ menuItem }: MenuItemProps) {
+  const { title, description, icon, state, link } = menuItem;
   const theme = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+  const handleClickListItem = () => {
+    if (state === "Locked") {
+      return;
+    }
+    navigate(link);
+  };
+
   return (
-    <StyledMenuItem state={state} onClick={onClickItem}>
+    <StyledMenuItem state={state} onClick={handleClickListItem}>
       <MenuLabelBox state={state}>
         {typeof icon === "number" ? icon : <Icon icon={icon} />}
       </MenuLabelBox>

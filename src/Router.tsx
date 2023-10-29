@@ -19,12 +19,12 @@ import LearningChapterPage from "./components/pages/learning/LearningChapterPage
 import QuizPage from "./components/pages/question/QuizPage";
 import TimelineQuestionPage from "./components/pages/question/TimelineQuestionPage";
 import MockExamPage from "./components/pages/question/MockExamPage";
-import MockExamSettingPage from "./components/pages/question/MockExamSettingPage";
-import TimelineQuestionSettingPage from "./components/pages/question/TimelineQuestionSettingPage.tsx";
-import QuizSettingPage from "./components/pages/question/QuizSettingPage";
 import JJHListPage from "./components/pages/jjh/JJHListPage";
 import LoginPage from "./components/pages/main/LoginPage";
 import JJHTimelineQuestionPage from "./components/pages/jjh/TimelineQuestionPage";
+import TimelineQuestionListPage from "./components/pages/question/TimelineQuestionListPage";
+import QuizListPage from "./components/pages/question/QuizListPage";
+import ExamListPage from "./components/pages/question/ExamListPage";
 
 const router = createBrowserRouter([
   {
@@ -44,24 +44,24 @@ const router = createBrowserRouter([
         element: <QuestionPage />,
       },
       {
-        path: "/question/mock-exam/setting",
-        element: <MockExamSettingPage />,
+        path: "/question/mock-exam-list",
+        element: <ExamListPage />,
       },
       {
         path: "/question/mock-exam",
         element: <MockExamPage />,
       },
       {
-        path: "/question/timeline/setting",
-        element: <TimelineQuestionSettingPage />,
+        path: "/question/timeline-list",
+        element: <TimelineQuestionListPage />,
       },
       {
         path: "/question/timeline",
         element: <TimelineQuestionPage />,
       },
       {
-        path: "/question/quiz/setting",
-        element: <QuizSettingPage />,
+        path: "/question/quiz-list",
+        element: <QuizListPage />,
       },
       {
         path: "/question/quiz",

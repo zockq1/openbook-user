@@ -16,7 +16,7 @@ function QuestionPageTemplate() {
         <RowList>
           <QuestionBox
             title="퀴즈"
-            link="/question/quiz/setting"
+            link="/question/quiz-list"
             image={quiz}
             icon={<Icon icon="question" />}
             descriptionTime="무제한"
@@ -25,7 +25,7 @@ function QuestionPageTemplate() {
           ></QuestionBox>
           <QuestionBox
             title="연표 문제"
-            link="/question/timeline/setting"
+            link="/question/timeline-list"
             image={timeline}
             icon={<Icon icon="TIMELINE_QUESTION" />}
             descriptionTime="무제한"
@@ -33,12 +33,12 @@ function QuestionPageTemplate() {
             description="연표 순서 맞추기"
           ></QuestionBox>
           <QuestionBox
-            title="모의고사"
-            link="/question/mock-exam/setting"
+            title="기출문제"
+            link="/question/mock-exam-list"
             image={mock}
             icon={<Icon icon="pen" />}
-            descriptionTime="30분"
-            descriptionCount="20문제, 모든 단원"
+            descriptionTime="80분"
+            descriptionCount="50문제, 모든 단원"
             description="한능검 기출문제"
           ></QuestionBox>
         </RowList>

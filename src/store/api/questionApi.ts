@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import {
   ExamModel,
   GetQuestionModel,
+  QuestionCategoryModel,
   QuestionModel,
   RoundModel,
   TimeLineModel,
@@ -13,7 +14,7 @@ export const questionApi = createApi({
   reducerPath: "questionApi",
   baseQuery: baseQueryWithJWT,
   endpoints: (builder) => ({
-    getRounds: builder.query<RoundModel[], void>({
+    getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
     }),
     getTimeline: builder.query<TimeLineModel[], number>({
@@ -24,16 +25,19 @@ export const questionApi = createApi({
       query: (topicTitle: string) =>
         `/questions/get-keywords/?title=${topicTitle}`,
     }),
-    getRandomQuestion: builder.query<QuestionModel[], GetQuestionModel>({
-      query: (getQuestion) =>
-        `/questions/random?num=${getQuestion.chapterNumber}&count=${getQuestion.numberOfQuestion}`,
-    }),
     getKtoTQuestion: builder.query<QuestionModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/get-topics-keywords/?num=${chapterNumber}`,
     }),
+    getRandomQuestion: builder.query<QuestionModel[], GetQuestionModel>({
+      query: (getQuestion) =>
+        `/questions/random?num=${getQuestion.chapterNumber}&count=${getQuestion.numberOfQuestion}`,
+    }),
     getExam: builder.query<ExamModel[], number>({
       query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
+    }),
+    getQuestionCategoryList: builder.query<QuestionCategoryModel[], void>({
+      query: () => `/question-categories`,
     }),
     updateTimelineWrongCounter: builder.mutation<void, WrongCounterModel>({
       query: (counter: WrongCounterModel) => {
@@ -57,12 +61,13 @@ export const questionApi = createApi({
 });
 
 export const {
-  useGetRoundsQuery,
+  useGetRoundListQuery,
   useGetTimelineQuery,
   useGetExamQuery,
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,
+  useGetQuestionCategoryListQuery,
   useUpdateTimelineWrongCounterMutation,
   useUpdateKeywordWrongCounterMutation,
 } = questionApi;
