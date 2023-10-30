@@ -1,25 +1,12 @@
-import { useParams } from "react-router-dom";
 import TimelineLearningTemplate from "../../templates/learning/TimelineLearningTemplate";
-import { useGetChapterTitleQuery } from "../../../store/api/chapterApi";
 import { useGetTimelineQuery } from "../../../store/api/questionApi";
+import useQuesryString from "../../../service/useQueryString";
 
 function TimelinePage() {
-  const { chapter } = useParams();
-  const { data: chapterTitle } = useGetChapterTitleQuery(
-    Number(chapter) > 0 ? Number(chapter) : 1
-  );
-  const { data: dateList } = useGetTimelineQuery(Number(chapter));
+  const { title, timelineId } = useQuesryString();
+  const { data: dateList } = useGetTimelineQuery(timelineId);
 
-  return (
-    <TimelineLearningTemplate
-      title={
-        chapter === "-1"
-          ? "전체 연표"
-          : String(chapter) + ". " + chapterTitle?.title
-      }
-      dateList={dateList || []}
-    />
-  );
+  return <TimelineLearningTemplate title={title} dateList={dateList || []} />;
 }
 
 export default TimelinePage;

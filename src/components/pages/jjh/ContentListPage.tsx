@@ -33,8 +33,6 @@ function ContentListPage() {
         case "CHAPTER_INFO":
           return `/jeong-ju-haeng/content/chapter-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}`;
         case "TIMELINE_STUDY":
-          return `/jeong-ju-haeng/content/timeline-learning?jjh=${jjhNumber}&id=${timelineId}&content=${contentNumber}&title${title}`;
-        case "TIMELINE_QUESTION":
           return `/jeong-ju-haeng/content/timeline-question?jjh=${jjhNumber}&id=${timelineId}&content=${contentNumber}&title${title}`;
         case "TOPIC_STUDY":
           return `/jeong-ju-haeng/content/topic-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&topic=${title}&content=${contentNumber}&title${title}`;
@@ -49,10 +47,19 @@ function ContentListPage() {
         const { content, title, state, contentNumber, dateComment, category } =
           item;
         let result: MenuModel;
+
         result = {
           type: "Qustion",
-          title: content === "TOPIC_STUDY" ? title : getContentName(content),
-          description: dateComment,
+          title:
+            content === "TOPIC_STUDY"
+              ? title
+              : content === "TIMELINE_STUDY"
+              ? title.split("(")[0]
+              : getContentName(content),
+          description:
+            content === "TIMELINE_STUDY"
+              ? title.split("(")[1].split(")")[0]
+              : dateComment,
           state,
           icon:
             category !== null ? (

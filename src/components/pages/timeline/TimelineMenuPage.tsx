@@ -32,7 +32,8 @@ function TimelineMenuPage() {
           const result: MenuModel = {
             type: "Base",
             title: `${timeline.era}`,
-            onClickMain: () => navigate(`/timeline/${timeline.id}`),
+            onClickMain: () =>
+              navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
             icon: index + 1,
             description: `${timeline.startDate / 10000} ~ ${
               timeline.endDate / 10000

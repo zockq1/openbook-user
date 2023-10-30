@@ -34,7 +34,7 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
           ></MediumBox>
           <MediumBox
             title="연표 보기"
-            link="timeline"
+            link="timeline-list"
             image={timeline}
           ></MediumBox>
         </RowList>

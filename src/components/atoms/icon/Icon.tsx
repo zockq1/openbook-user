@@ -23,6 +23,10 @@ export type IconType =
   | "back"
   | "arrow"
   | "check"
+  | "one"
+  | "two"
+  | "three"
+  | "fail"
   | Content
   | TopicCategory;
 
@@ -84,6 +88,10 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     back: "fi fi-br-angle-left",
     arrow: "fi fi-br-angle-double-right",
     check: "fi fi-sr-checkbox",
+    one: "fi fi-sr-square-1",
+    two: "fi fi-sr-square-2",
+    three: "fi fi-sr-square-3",
+    fail: "fi fi-br-ban",
   };
 
   const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));

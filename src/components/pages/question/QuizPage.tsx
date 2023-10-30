@@ -22,7 +22,7 @@ function QuizPage() {
     <QuestionTemplate
       questionList={questionList}
       timeLimit={Number(searchParams.get("timelimit"))}
-      handleNextContent={() => navigate("/question")}
+      handleNextContent={() => navigate(-1)}
     />
   );
 }

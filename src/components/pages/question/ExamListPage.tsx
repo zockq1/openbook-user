@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import { ThemeContext } from "styled-components";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Icon from "../../atoms/icon/Icon";
 
 function ExamListPage() {
   const navigate = useNavigate();
@@ -33,21 +34,15 @@ function ExamListPage() {
           ];
           const score = scoreList[index];
           const subTitle =
-            score >= 80
-              ? "1급"
-              : score >= 70
-              ? "2급"
-              : score >= 60
-              ? "3급"
-              : "불합격";
-          const color =
-            score >= 80
-              ? theme.colors.blue
-              : score >= 70
-              ? theme.colors.purple
-              : score >= 60
-              ? calculateGradientColor(30)
-              : theme.colors.red;
+            score >= 80 ? (
+              <Icon icon="one" color={theme.colors.white} size={40} />
+            ) : score >= 70 ? (
+              <Icon icon="two" color={theme.colors.white} size={40} />
+            ) : score >= 60 ? (
+              <Icon icon="three" color={theme.colors.white} size={40} />
+            ) : (
+              <Icon icon="fail" color={theme.colors.white} size={40} />
+            );
 
           const result: MenuModel = {
             type: "Progress",
@@ -55,7 +50,7 @@ function ExamListPage() {
             icon: `${score}점`,
             subTitle,
             score,
-            mainColor: color,
+            mainColor: calculateGradientColor(score),
             onClickMain: () => {
               navigate(`/question/mock-exam?round=${number}`);
             },

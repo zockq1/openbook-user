@@ -25,6 +25,7 @@ import JJHTimelineQuestionPage from "./components/pages/jjh/TimelineQuestionPage
 import TimelineQuestionListPage from "./components/pages/question/TimelineQuestionListPage";
 import QuizListPage from "./components/pages/question/QuizListPage";
 import ExamListPage from "./components/pages/question/ExamListPage";
+import QustionCategoryTopicListPage from "./components/pages/learning/QuestionCategoryTopicListPage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         element: <QuizListPage />,
       },
       {
+        path: "/question/topic-list",
+        element: <QustionCategoryTopicListPage />,
+      },
+      {
         path: "/question/quiz",
         element: <QuizPage />,
       },
@@ -92,11 +97,11 @@ const router = createBrowserRouter([
         element: <LearningTopicPage />,
       },
       {
-        path: "/timeline",
+        path: "/timeline-list",
         element: <TimelineMenuPage />,
       },
       {
-        path: "/timeline/:chapter",
+        path: "/timeline",
         element: <TimelinePage />,
       },
       {

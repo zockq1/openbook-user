@@ -8,8 +8,8 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/questionApi";
 import Button from "../../atoms/button/Button";
+import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/timelineApi";
 
 interface TimelineQuestionProps {
   dateList: TimeLineModel[];
