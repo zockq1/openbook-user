@@ -105,12 +105,14 @@ const MOVE_FIRST = "MOVE_FIRST";
 const MOVE_MIDDLE = "MOVE_MIDDLE";
 const MOVE_LAST = "MOVE_LAST";
 const WRONG_MOVE = "WRONG_MOVE";
+const FINISH = "FINISH";
 
 type Action =
   | { type: "MOVE_FIRST" }
   | { type: "MOVE_MIDDLE"; destinationIndex: number }
   | { type: "MOVE_LAST" }
-  | { type: "WRONG_MOVE" };
+  | { type: "WRONG_MOVE" }
+  | { type: "FINISH" };
 
 const reducer = (state: State, action: Action): State => {
   const { playedDateList, nextDateList, lineHeight, wrongCount } = state;
@@ -143,6 +145,8 @@ const reducer = (state: State, action: Action): State => {
       };
     case WRONG_MOVE:
       return { ...state, wrongCount: wrongCount + 1 };
+    case FINISH:
+      return { ...state, isFinish: true };
     default:
       return state;
   }
@@ -168,6 +172,11 @@ function TimelineQuestion({
     setIsMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (nextDateList.length === 0) {
+      dispatch({ type: FINISH });
+    }
+  }, [nextDateList]);
 
   useEffect(() => {
     if (isFinish) {
