@@ -76,6 +76,9 @@ function ContentListPage() {
           onClickSub: () =>
             state !== "Locked" &&
             navigate(getLink(content, title, contentNumber)),
+          onClickMain: () =>
+            state !== "Locked" &&
+            navigate(getLink(content, title, contentNumber)),
           subTitle:
             state === "Locked" ? (
               <Icon icon="lock" color={theme.colors.white} size={40} />
