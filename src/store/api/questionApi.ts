@@ -13,6 +13,8 @@ import baseQueryWithJWT from "./baseApi";
 export const questionApi = createApi({
   reducerPath: "questionApi",
   baseQuery: baseQueryWithJWT,
+
+  tagTypes: ["Score"],
   endpoints: (builder) => ({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
@@ -38,15 +40,7 @@ export const questionApi = createApi({
     }),
     getQuestionCategoryList: builder.query<QuestionCategoryModel[], void>({
       query: () => `/question-categories`,
-    }),
-    updateTimelineWrongCounter: builder.mutation<void, WrongCounterModel>({
-      query: (counter: WrongCounterModel) => {
-        return {
-          url: `/timeline/wrong-count`,
-          method: "PATCH",
-          body: counter,
-        };
-      },
+      providesTags: ["Score"],
     }),
     updateKeywordWrongCounter: builder.mutation<void, WrongCounterModel[]>({
       query: (counterList: WrongCounterModel[]) => {
@@ -56,6 +50,7 @@ export const questionApi = createApi({
           body: counterList,
         };
       },
+      invalidatesTags: ["Score"],
     }),
   }),
 });
@@ -68,6 +63,5 @@ export const {
   useGetKtoTQuestionQuery,
   useGetTtoKQuestionQuery,
   useGetQuestionCategoryListQuery,
-  useUpdateTimelineWrongCounterMutation,
   useUpdateKeywordWrongCounterMutation,
 } = questionApi;
