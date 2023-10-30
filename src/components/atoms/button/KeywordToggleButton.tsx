@@ -48,6 +48,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+      white-space: nowrap;
       user-select: none;
       font-weight: ${({ theme }) => theme.fontWeight.light};
       font-size: 14px;
