@@ -21,7 +21,6 @@ function TimelineMenuPage() {
       {
         type: "Base",
         title: "전체 연표",
-        state: "Open",
         onClickMain: () => navigate(`/timeline/-1`),
         icon: <Icon icon="TIMELINE_STUDY" />,
         description: "BC 700K ~ 현대",
@@ -33,7 +32,6 @@ function TimelineMenuPage() {
           const result: MenuModel = {
             type: "Base",
             title: `${timeline.era}`,
-            state: "Open",
             onClickMain: () => navigate(`/timeline/${timeline.id}`),
             icon: index + 1,
             description: `${timeline.startDate / 10000} ~ ${

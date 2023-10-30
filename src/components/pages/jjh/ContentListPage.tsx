@@ -45,26 +45,39 @@ function ContentListPage() {
 
     setMenuList([
       ...contentList.map((item) => {
-        const { content, title, state, contentNumber } = item;
+        const { content, title, state, contentNumber, dateComment } = item;
         let result: MenuModel;
         result = {
           type: "Qustion",
           title: content === "TOPIC_STUDY" ? title : getContentName(content),
+          description: dateComment,
           state,
           icon: <Icon icon={content} />,
           content: content === "TOPIC_STUDY" && (
             <Topic topic={item.title} key={item.title} />
           ),
-          subTitle:
-            state === "Locked" ? (
-              <Icon icon="lock" color={theme.colors.white} size={40} />
-            ) : (
-              "문제 풀기"
-            ),
-          mainColor: state === "Locked" ? theme.colors.red : theme.colors.blue,
           onClickSub: () =>
             state !== "Locked" &&
             navigate(getLink(content, title, contentNumber)),
+          subTitle:
+            state === "Locked" ? (
+              <Icon icon="lock" color={theme.colors.white} size={40} />
+            ) : state === "Complete" ? (
+              <Icon icon="check" color={theme.colors.white} size={40} />
+            ) : (
+              state === "InProgress" && (
+                <Icon icon="run" color={theme.colors.white} size={40} />
+              )
+            ),
+          mainColor:
+            state === "Locked"
+              ? theme.colors.red
+              : state === "Complete"
+              ? theme.colors.green
+              : state === "InProgress"
+              ? theme.colors.blue
+              : theme.colors.white,
+          important: state === "InProgress",
         };
 
         return result;

@@ -1,4 +1,4 @@
-export type ContentState = "Open" | "Locked" | "Updated";
+export type ContentState = "Complete" | "InProgress" | "Locked" | "Updated";
 export type Content =
   | "CHAPTER_INFO"
   | "TIMELINE_STUDY"
@@ -31,8 +31,8 @@ export interface JJHChapterModel {
   title: string;
   number: number;
   state: ContentState;
-  progress: string;
   jjhNumber: number;
+  dateComment: string;
 }
 
 export interface JJHTimelineModel {
@@ -40,7 +40,6 @@ export interface JJHTimelineModel {
   startDate: number;
   endDate: number;
   state: ContentState;
-  progress: string;
   jjhNumber: number;
   id: number;
 }
@@ -50,4 +49,5 @@ export interface ContentModel {
   title: string;
   state: ContentState;
   contentNumber: number;
+  dateComment: string;
 }

@@ -32,7 +32,6 @@ function LearningTopicListPage() {
         const result: MenuModel = {
           type: "Base",
           title: title,
-          state: "Open",
           icon: <Icon icon={category} />,
           description: `${dateComment}`,
           content: <Topic topic={title} />,
@@ -45,7 +44,6 @@ function LearningTopicListPage() {
       newMenu.unshift({
         type: "Base",
         title: "단원 학습",
-        state: "Open",
         icon: <Icon icon="CHAPTER_INFO" />,
         description: `${chapterTitle.title}`,
         mainColor: theme.colors.white,

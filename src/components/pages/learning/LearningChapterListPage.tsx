@@ -24,7 +24,6 @@ function LearningChapterListPage() {
           const result: MenuModel = {
             type: "Base",
             title: title,
-            state: "Open",
             onClickMain: () => navigate(`/learning/${number}`),
             onClickSub: () => navigate(`/learning/${number}`),
             mainColor: theme.colors.white,

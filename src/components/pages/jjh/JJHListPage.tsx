@@ -24,7 +24,7 @@ function JJHListPage() {
 
     const newChapterList: JJHList[] = [...jjhList.chapterList].map(
       (item: JJHChapterModel) => {
-        const { title, state, jjhNumber, progress, number } = item;
+        const { title, state, jjhNumber, number, dateComment } = item;
         const result: JJHList = {
           type: "Base",
           title,
@@ -35,27 +35,27 @@ function JJHListPage() {
               `/jeong-ju-haeng/content?jjh=${jjhNumber}&chapter=${number}&title=${number}.${title}`
             ),
           icon: number,
-          description: "진행도: " + progress,
+          description: dateComment,
           jjhNumber: jjhNumber,
           subTitle:
             state === "Locked" ? (
               <Icon icon="lock" color={theme.colors.white} size={40} />
-            ) : progress === "완료" ? (
+            ) : state === "Complete" ? (
               <Icon icon="check" color={theme.colors.white} size={40} />
             ) : (
-              progress === "진행 중" && (
+              state === "InProgress" && (
                 <Icon icon="run" color={theme.colors.white} size={40} />
               )
             ),
           mainColor:
             state === "Locked"
               ? theme.colors.red
-              : progress === "완료"
+              : state === "Complete"
               ? theme.colors.green
-              : progress === "진행 중"
+              : state === "InProgress"
               ? theme.colors.blue
               : theme.colors.white,
-          important: progress === "진행 중",
+          important: state === "InProgress",
         };
 
         return result;
@@ -64,11 +64,10 @@ function JJHListPage() {
 
     const newTimelineList: JJHList[] = [...jjhList.timelineList].map(
       (item: JJHTimelineModel) => {
-        const { endDate, era, startDate, state, jjhNumber, progress, id } =
-          item;
+        const { endDate, era, startDate, state, jjhNumber, id } = item;
         const result: JJHList = {
           type: "Base",
-          title: `${era}(${startDate / 10000} ~ ${item.endDate / 10000})`,
+          title: era,
           state,
           onClickMain: () =>
             state !== "Locked" &&
@@ -78,27 +77,27 @@ function JJHListPage() {
               } ~ ${endDate / 10000})`
             ),
           icon: <Icon icon="TIMELINE_STUDY" />,
-          description: "진행도: " + progress,
+          description: `${startDate / 10000} ~ ${item.endDate / 10000}`,
           jjhNumber: jjhNumber,
           subTitle:
             state === "Locked" ? (
               <Icon icon="lock" color={theme.colors.white} size={40} />
-            ) : progress === "완료" ? (
+            ) : state === "Complete" ? (
               <Icon icon="check" color={theme.colors.white} size={40} />
             ) : (
-              progress === "진행 중" && (
+              state === "InProgress" && (
                 <Icon icon="run" color={theme.colors.white} size={40} />
               )
             ),
           mainColor:
             state === "Locked"
               ? theme.colors.red
-              : progress === "완료"
+              : state === "Complete"
               ? theme.colors.green
-              : progress === "진행 중"
+              : state === "InProgress"
               ? theme.colors.blue
               : theme.colors.white,
-          important: progress === "진행 중",
+          important: state === "InProgress",
         };
         return result;
       }
