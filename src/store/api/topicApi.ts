@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { TopicModel } from "../../types/topicTypes";
+import { TopicListModel, TopicModel } from "../../types/topicTypes";
 import baseQueryWithJWT from "./baseApi";
 
 export const topicApi = createApi({
@@ -9,7 +9,11 @@ export const topicApi = createApi({
     getTopic: builder.query<TopicModel, string>({
       query: (title) => `/topics/${title}`,
     }),
+    getQuestionCategoryTopicList: builder.query<TopicListModel[], number>({
+      query: (id) => `/question-categories/${id}/topics`,
+    }),
   }),
 });
 
-export const { useGetTopicQuery } = topicApi;
+export const { useGetTopicQuery, useGetQuestionCategoryTopicListQuery } =
+  topicApi;
