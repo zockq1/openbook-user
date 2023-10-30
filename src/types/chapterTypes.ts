@@ -1,3 +1,5 @@
+import { IconType } from "../components/atoms/icon/Icon";
+
 export type ContentState = "Complete" | "InProgress" | "Locked" | "Updated";
 export type Content =
   | "CHAPTER_INFO"
@@ -50,4 +52,5 @@ export interface ContentModel {
   state: ContentState;
   contentNumber: number;
   dateComment: string;
+  category: IconType | null;
 }

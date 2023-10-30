@@ -191,7 +191,7 @@ function MenuUI({ menuList }: MenuUIProps) {
                 {subTitle}
               </SubMenuItem>
             </StyledQuestionMenuItem>
-            {state === "Open" && content}
+            {state !== "Locked" && content}
           </li>
         );
       })}

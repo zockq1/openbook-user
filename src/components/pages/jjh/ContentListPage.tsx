@@ -11,6 +11,7 @@ import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../atoms/icon/Icon";
 import { ThemeContext } from "styled-components";
+import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -45,17 +46,26 @@ function ContentListPage() {
 
     setMenuList([
       ...contentList.map((item) => {
-        const { content, title, state, contentNumber, dateComment } = item;
+        const { content, title, state, contentNumber, dateComment, category } =
+          item;
         let result: MenuModel;
         result = {
           type: "Qustion",
           title: content === "TOPIC_STUDY" ? title : getContentName(content),
           description: dateComment,
           state,
-          icon: <Icon icon={content} />,
-          content: content === "TOPIC_STUDY" && (
-            <Topic topic={item.title} key={item.title} />
-          ),
+          icon:
+            category !== null ? (
+              <Icon icon={category} />
+            ) : (
+              <Icon icon={content} />
+            ),
+          content:
+            content === "TOPIC_STUDY" ? (
+              <Topic topic={item.title} key={item.title} />
+            ) : (
+              content === "TIMELINE_STUDY" && <TimelineList id={timelineId} />
+            ),
           onClickSub: () =>
             state !== "Locked" &&
             navigate(getLink(content, title, contentNumber)),
