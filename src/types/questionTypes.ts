@@ -73,4 +73,5 @@ export interface QuestionCategoryModel {
   title: string;
   number: number;
   score: number;
+  topicCount: number;
 }

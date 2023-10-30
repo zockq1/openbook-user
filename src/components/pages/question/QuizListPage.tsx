@@ -36,12 +36,17 @@ function QuizListPage() {
       ...[...questionCategoryList]
         .sort((a, b) => a.number - b.number)
         .map((questionCategory, index, arr) => {
-          const { title, id, score } = questionCategory;
+          const { title, id, score, topicCount } = questionCategory;
           const result: MenuModel = {
             type: "Progress",
             title: `${title} 문제 풀기`,
             icon: `${score}점`,
-            subTitle: `관련 주제`,
+            subTitle: (
+              <>
+                <div>관련 주제</div>
+                <div>({topicCount})</div>
+              </>
+            ),
             score: score,
             mainColor: calculateGradientColor(score),
             onClickMain: () => {

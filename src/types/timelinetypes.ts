@@ -5,6 +5,7 @@ export interface TimelineModel {
   endDate: number;
   id: number;
   score: number;
+  timelineCount: number;
 }
 
 export type GetTimelineModel = TimelineModel[];

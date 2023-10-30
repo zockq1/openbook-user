@@ -22,10 +22,10 @@ function TimelineQuestionListPage() {
     setMenuList([
       {
         type: "Progress",
-        icon: `${38}점`,
+        icon: `${Math.floor(avgScore)}점`,
         title: "전체 진행도-취약 연표 풀기",
         subTitle: "전체 연표",
-        score: avgScore,
+        score: Math.floor(avgScore),
         mainColor: calculateGradientColor(avgScore),
         onClickMain: () => {
           navigate(
@@ -43,13 +43,18 @@ function TimelineQuestionListPage() {
         important: true,
       },
       ...[...timelineList].map((questionCategory, index, arr) => {
-        const { title, id, score } = questionCategory;
+        const { title, id, score, timelineCount } = questionCategory;
         const result: MenuModel = {
           type: "Progress",
-          icon: `${score}점`,
+          icon: `${Math.floor(score)}점`,
           title: `${title}`,
-          subTitle: `해당 연표`,
-          score: score,
+          subTitle: (
+            <>
+              <div>연표 보기</div>
+              <div>({timelineCount})</div>
+            </>
+          ),
+          score: Math.floor(score),
           mainColor: calculateGradientColor(score),
           onClickMain: () => {
             navigate(`/question/timeline?id=${id}`);
