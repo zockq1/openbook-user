@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { ContentState } from "../../../types/chapterTypes";
+import { ContentState } from "../../../types/jjhTypes";
 
 interface ChapterNumberProps {
   state: ContentState | string;

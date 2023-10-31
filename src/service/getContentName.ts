@@ -1,4 +1,4 @@
-import { Content } from "../types/chapterTypes";
+import { Content } from "../types/jjhTypes";
 
 function getContentName(content: Content) {
   switch (content) {

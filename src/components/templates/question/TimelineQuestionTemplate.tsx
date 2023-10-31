@@ -1,13 +1,13 @@
-import { TimeLineModel } from "../../../types/questionTypes";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import TimelineQuestion from "../../organisms/question/TimelineQuestion";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import { TimeLineItemModel } from "../../../types/timelinetypes";
 
 interface TimelineQuestionTemplateProps {
   title?: string;
   id: number;
-  dateList: TimeLineModel[];
+  dateList: TimeLineItemModel[];
   handleNextContent: () => void;
 }
 

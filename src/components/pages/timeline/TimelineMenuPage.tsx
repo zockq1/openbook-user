@@ -21,7 +21,7 @@ function TimelineMenuPage() {
       {
         type: "Base",
         title: "전체 연표",
-        onClickMain: () => navigate(`/timeline/-1`),
+        onClickMain: () => navigate(`/timeline?id=-1&title=전체 연표`),
         icon: <Icon icon="TIMELINE_STUDY" />,
         description: "BC 700K ~ 현대",
         mainColor: theme.colors.white,

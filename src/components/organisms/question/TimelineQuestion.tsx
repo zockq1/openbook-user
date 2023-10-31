@@ -1,5 +1,4 @@
 import TimelineItem from "../../molecules/list-item/TimelineItem";
-import { TimeLineModel } from "../../../types/questionTypes";
 import styled from "styled-components";
 import { useEffect, useReducer, useState } from "react";
 import {
@@ -10,9 +9,10 @@ import {
 } from "react-beautiful-dnd";
 import Button from "../../atoms/button/Button";
 import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/timelineApi";
+import { TimeLineItemModel } from "../../../types/timelinetypes";
 
 interface TimelineQuestionProps {
-  dateList: TimeLineModel[];
+  dateList: TimeLineItemModel[];
   handleNextContent: () => void;
   id: number;
 }
@@ -94,8 +94,8 @@ const Box = styled.div`
 `;
 
 type State = {
-  nextDateList: TimeLineModel[];
-  playedDateList: TimeLineModel[];
+  nextDateList: TimeLineItemModel[];
+  playedDateList: TimeLineItemModel[];
   lineHeight: number;
   wrongCount: number;
   isFinish: boolean;

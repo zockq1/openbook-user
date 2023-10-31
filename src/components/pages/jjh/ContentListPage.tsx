@@ -1,9 +1,7 @@
-import { useGetContentListQuery } from "../../../store/api/chapterApi";
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
-import { Content } from "../../../types/chapterTypes";
 import useQuesryString from "../../../service/useQueryString";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import Topic from "../../unit/topic/presenter/Topic.presenter";
@@ -12,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../../atoms/icon/Icon";
 import { ThemeContext } from "styled-components";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
+import { useGetContentListQuery } from "../../../store/api/jjhApi";
+import { Content } from "../../../types/jjhTypes";
 
 function ContentListPage() {
   const navigate = useNavigate();

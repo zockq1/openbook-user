@@ -1,4 +1,4 @@
-import { useGetTimelineQuery } from "../../../../store/api/questionApi";
+import { useGetTimelineQuery } from "../../../../store/api/timelineApi";
 import TimelineListUI from "../container/TimelineListUI.container";
 
 interface TimelineListProps {

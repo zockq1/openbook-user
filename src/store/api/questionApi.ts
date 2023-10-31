@@ -5,7 +5,6 @@ import {
   QuestionCategoryModel,
   QuestionModel,
   RoundModel,
-  TimeLineModel,
   WrongCounterModel,
 } from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
@@ -18,10 +17,6 @@ export const questionApi = createApi({
   endpoints: (builder) => ({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
-    }),
-    getTimeline: builder.query<TimeLineModel[], number>({
-      query: (chapterNumber: number) =>
-        `/questions/time-flow/?id=${chapterNumber}`,
     }),
     getTtoKQuestion: builder.query<QuestionModel[], string>({
       query: (topicTitle: string) =>
@@ -57,7 +52,6 @@ export const questionApi = createApi({
 
 export const {
   useGetRoundListQuery,
-  useGetTimelineQuery,
   useGetExamQuery,
   useGetRandomQuestionQuery,
   useGetKtoTQuestionQuery,

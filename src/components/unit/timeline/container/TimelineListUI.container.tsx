@@ -1,9 +1,9 @@
+import { TimeLineItemModel } from "../../../../types/timelinetypes";
 import TimelineItemUI from "./TimelineItemUI.container";
-import { TimeLineModel } from "../../../../types/questionTypes";
 import styled from "styled-components";
 
 interface TimelineListProps {
-  dateList: TimeLineModel[];
+  dateList: TimeLineItemModel[];
 }
 
 const Line = styled.li`

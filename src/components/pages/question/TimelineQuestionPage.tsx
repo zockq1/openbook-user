@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TimelineQuestionTemplate from "../../templates/question/TimelineQuestionTemplate";
-import { useGetTimelineQuery } from "../../../store/api/questionApi";
+import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelineQuestionPage() {
   const navigate = useNavigate();

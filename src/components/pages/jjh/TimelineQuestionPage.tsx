@@ -1,8 +1,8 @@
-import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import TimelineQuestionTemplate from "../../templates/question/TimelineQuestionTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useNextContent from "../../../service/useNextContent";
 import useQuesryString from "../../../service/useQueryString";
+import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelineQuestionPage() {
   const handleNextContent = useNextContent();

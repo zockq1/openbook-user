@@ -1,6 +1,6 @@
 import TimelineLearningTemplate from "../../templates/learning/TimelineLearningTemplate";
-import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import useQuesryString from "../../../service/useQueryString";
+import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelinePage() {
   const { title, timelineId } = useQuesryString();

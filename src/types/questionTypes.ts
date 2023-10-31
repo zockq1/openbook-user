@@ -1,6 +1,13 @@
 export type QuestionType = "TtoK" | "KtoT";
 export type ChoiceType = "String" | "Image";
 
+/* EXAM */
+
+export interface RoundModel {
+  date: number;
+  number: number;
+}
+
 export interface ExamCommentModel {
   topicTitle: string;
   topicDateComment: string | null;
@@ -13,20 +20,6 @@ export interface ExamChoiceModel {
   choice: string;
   number: number;
   commentList: ExamCommentModel[];
-}
-
-export interface QuestionChoiceModel {
-  choice: string;
-  key: string;
-}
-
-export interface QuestionModel {
-  questionType: QuestionType;
-  answer: string;
-  choiceType: ChoiceType;
-  description: string[];
-  choiceList: QuestionChoiceModel[];
-  keywordIdList: number[];
 }
 
 export interface ExamModel {
@@ -45,11 +38,20 @@ export interface ExamListModel extends ExamModel {
   isChecked: boolean;
 }
 
-export interface TimeLineModel {
-  comment: string;
-  date: number;
-  topicTitle: string;
-  keywordList: string[] | null;
+/* Question */
+
+export interface QuestionChoiceModel {
+  choice: string;
+  key: string;
+}
+
+export interface QuestionModel {
+  questionType: QuestionType;
+  answer: string;
+  choiceType: ChoiceType;
+  description: string[];
+  choiceList: QuestionChoiceModel[];
+  keywordIdList: number[];
 }
 
 export interface GetQuestionModel {
@@ -57,16 +59,13 @@ export interface GetQuestionModel {
   numberOfQuestion: number;
 }
 
-export interface RoundModel {
-  date: number;
-  number: number;
-}
-
 export interface WrongCounterModel {
   id: number;
   wrongCount: number;
   correctCount: number;
 }
+
+/* QuestionCategory */
 
 export interface QuestionCategoryModel {
   id: number;

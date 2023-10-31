@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useGetChaptersQuery } from "../../../store/api/chapterApi";
+import { useGetChapterListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { ThemeContext } from "styled-components";
 function LearningChapterListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: chapterList } = useGetChaptersQuery();
+  const { data: chapterList } = useGetChapterListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {

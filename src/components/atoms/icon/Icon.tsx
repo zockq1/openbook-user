@@ -1,5 +1,5 @@
 import "../../../styles/flaticons.css";
-import { Content } from "../../../types/chapterTypes";
+import { Content } from "../../../types/jjhTypes";
 import { TopicCategory } from "../../../types/topicTypes";
 import styled from "styled-components";
 

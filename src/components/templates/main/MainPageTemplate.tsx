@@ -1,4 +1,3 @@
-import { ProgressModel } from "../../../types/progressTypes";
 import Layout from "../../atoms/layout/Layout";
 import { RowList } from "../../atoms/layout/List";
 import Header from "../../organisms/ui/Header";
@@ -10,6 +9,7 @@ import MediumBox from "../../molecules/main-box/MediumBox";
 import NavigationBar from "../../organisms/ui/NavigationBar";
 import JJHBox from "../../molecules/main-box/JJHBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import { ProgressModel } from "../../../types/jjhTypes";
 
 interface MainPageTemplateProps {
   progress: ProgressModel;

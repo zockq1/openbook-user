@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { useGetJJHListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
-import { JJHChapterModel, JJHTimelineModel } from "../../../types/chapterTypes";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import { useNavigate } from "react-router-dom";
+import { useGetJJHListQuery } from "../../../store/api/jjhApi";
+import { JJHChapterModel, JJHTimelineModel } from "../../../types/jjhTypes";
 
 interface JJHList extends MenuModel {
   jjhNumber: number;

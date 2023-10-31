@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import useQuesryString from "./useQueryString";
+import { useCallback } from "react";
 import {
   useGetContentListQuery,
   useUpdateProgressMutation,
-} from "../store/api/chapterApi";
-import { useCallback } from "react";
+} from "../store/api/jjhApi";
 
 function useNextContent(): () => Promise<void> {
   const navigate = useNavigate();

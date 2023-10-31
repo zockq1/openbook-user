@@ -2,12 +2,12 @@ import TitleBox from "../../organisms/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
 import TimelineList from "../../organisms/list/TimelineList";
 import Button from "../../atoms/button/Button";
-import { TimeLineModel } from "../../../types/questionTypes";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import { TimeLineItemModel } from "../../../types/timelinetypes";
 
 interface TimelineLearningTemplateProps {
   title: string;
-  dateList: TimeLineModel[];
+  dateList: TimeLineItemModel[];
   handleNextContent?: () => void;
 }
 

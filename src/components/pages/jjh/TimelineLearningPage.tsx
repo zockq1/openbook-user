@@ -1,9 +1,9 @@
 import TimelineLearningTemplate from "../../templates/learning/TimelineLearningTemplate";
 
-import { useGetTimelineQuery } from "../../../store/api/questionApi";
 import withAuth from "../../../hoc/withAuth";
 import useNextContent from "../../../service/useNextContent";
 import useQuesryString from "../../../service/useQueryString";
+import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelineLearningPage() {
   const handleNextContent = useNextContent();

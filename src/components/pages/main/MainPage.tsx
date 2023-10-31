@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useLazyGetTotalProgressQuery } from "../../../store/api/chapterApi";
 import MainPageTemplate from "../../templates/main/MainPageTemplate";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useLazyGetTotalProgressQuery } from "../../../store/api/jjhApi";
 
 function Main() {
   const [getProgressTriger, { data: progress }] =
