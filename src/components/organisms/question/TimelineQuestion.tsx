@@ -1,4 +1,3 @@
-import TimelineItem from "../../molecules/list-item/TimelineItem";
 import styled from "styled-components";
 import { useEffect, useReducer, useState } from "react";
 import {
@@ -10,6 +9,7 @@ import {
 import Button from "../../atoms/button/Button";
 import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/timelineApi";
 import { TimeLineItemModel } from "../../../types/timelinetypes";
+import TimelineItemUI from "../../unit/timeline/container/TimelineItemUI.container";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -253,9 +253,9 @@ function TimelineQuestion({
                             ref={provided.innerRef}
                           >
                             <Item>
-                              <TimelineItem
-                                date={item.date}
-                                comment={item.comment}
+                              <TimelineItemUI
+                                dateItem={item}
+                                isKeywordOpen={false}
                                 key={i}
                                 isQuestion={true}
                               />
@@ -287,15 +287,20 @@ function TimelineQuestion({
                             >
                               {nextDateList[0] && (
                                 <Item>
-                                  <TimelineItem
-                                    date={null}
-                                    comment={nextDateList[0].comment.replace(
-                                      /\([^)]*\)/g,
-                                      ""
-                                    )}
+                                  <TimelineItemUI
+                                    dateItem={{
+                                      date: null,
+                                      comment: nextDateList[0].comment.replace(
+                                        /\([^)]*\)/g,
+                                        ""
+                                      ),
+                                      keywordList: [],
+                                      topicTitle: "",
+                                    }}
                                     key={0}
                                     disableCircle={true}
                                     isQuestion={true}
+                                    isKeywordOpen={false}
                                   />
                                 </Item>
                               )}

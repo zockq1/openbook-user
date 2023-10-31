@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
+import KeywordUI from "../../topic/container/KeywordUI.container";
+import { useEffect, useRef, useState } from "react";
 
 interface TimelineTopicProps {
-  date: number | null;
-  comment: string;
+  dateItem: {
+    comment: string;
+    date: number | null;
+    topicTitle: string;
+    keywordList: string[] | null;
+  };
   disableCircle?: boolean;
   isQuestion?: boolean;
+  isKeywordOpen: boolean;
 }
 
 interface StyledTimelineItemProps {
@@ -52,24 +59,97 @@ const Date = styled.div`
   padding: 10px;
 `;
 
+const KeywordList = styled.div<{ open: boolean; maxHeight: number }>`
+  margin-left: 120px;
+  overflow: hidden;
+  max-height: ${({ open, maxHeight }) => (open ? `${maxHeight}px` : "0")};
+  transition: 0.1s ease-in-out;
+`;
+
+const CheckKeywordList = styled.div`
+  position: absolute;
+  z-index: -999;
+  margin-left: 120px;
+  overflow: hidden;
+  transition: 0.1s ease-in-out;
+`;
+
 function TimelineItemUI({
-  date,
-  comment,
+  dateItem,
+  isKeywordOpen,
   disableCircle = false,
   isQuestion = false,
 }: TimelineTopicProps) {
+  const { comment, date, keywordList } = dateItem;
+  const myDivRef = useRef<HTMLDivElement | null>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (myDivRef.current) {
+      const divHeight = myDivRef.current.clientHeight;
+      setHeight(divHeight);
+    }
+  }, []);
   return (
-    <StyledTimelineItem isQuestion={isQuestion}>
-      <Date>{Math.floor(Number(date) / 10000) || null}</Date>
-      {disableCircle ? (
-        <Transparent />
-      ) : (
-        <OuterCircle>
-          <InnerCircle />
-        </OuterCircle>
+    <>
+      <StyledTimelineItem isQuestion={isQuestion}>
+        <Date>{Math.floor(Number(date) / 10000) || null}</Date>
+        {disableCircle ? (
+          <Transparent />
+        ) : (
+          <OuterCircle>
+            <InnerCircle />
+          </OuterCircle>
+        )}
+        <TextBox maxWidth="half">{comment}</TextBox>
+      </StyledTimelineItem>
+      {!isQuestion && (
+        <>
+          <CheckKeywordList ref={myDivRef}>
+            {keywordList &&
+              keywordList.map((keyword, index) => {
+                return (
+                  <KeywordUI
+                    key={index}
+                    keyword={{
+                      name: keyword,
+                      comment: "",
+                      dateComment: "",
+                      extraDateList: [],
+                      id: index,
+                      file: "",
+                      questionList: [],
+                      number: index,
+                    }}
+                    isCommentOn={false}
+                  />
+                );
+              })}
+          </CheckKeywordList>
+          <KeywordList open={isKeywordOpen} maxHeight={height}>
+            {keywordList &&
+              keywordList.map((keyword, index) => {
+                return (
+                  <KeywordUI
+                    key={index}
+                    keyword={{
+                      name: keyword,
+                      comment: "",
+                      dateComment: "",
+                      extraDateList: [],
+                      id: index,
+                      file: "",
+                      questionList: [],
+                      number: index,
+                    }}
+                    isCommentOn={false}
+                  />
+                );
+              })}
+          </KeywordList>
+        </>
       )}
-      <TextBox maxWidth="half">{comment}</TextBox>
-    </StyledTimelineItem>
+    </>
   );
 }
 

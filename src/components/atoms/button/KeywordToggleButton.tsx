@@ -8,7 +8,7 @@ import {
 } from "../../../store/slices/keywordSlice";
 
 const ToggleContainer = styled.div<{ open: boolean }>`
-  position: absolute;
+  position: fixed;
   width: 86px;
   height: 26px;
   top: 25px;
@@ -25,7 +25,8 @@ const ToggleContainer = styled.div<{ open: boolean }>`
     width: ${({ open }) => (open ? "83px" : "86px")};
     height: 26px;
     border-radius: 30px;
-    border: 1px solid ${({ theme }) => theme.colors.bg};
+    border: 1px solid
+      ${({ theme, open }) => (open ? theme.colors.bg : theme.colors.blue)};
     background-color: ${({ theme }) => theme.colors.bg};
   }
 

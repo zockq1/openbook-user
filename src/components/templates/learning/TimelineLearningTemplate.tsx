@@ -1,28 +1,29 @@
 import TitleBox from "../../organisms/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
-import TimelineList from "../../organisms/list/TimelineList";
 import Button from "../../atoms/button/Button";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
-import { TimeLineItemModel } from "../../../types/timelinetypes";
+import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
+import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 
 interface TimelineLearningTemplateProps {
   title: string;
-  dateList: TimeLineItemModel[];
+  timelineId: number;
   handleNextContent?: () => void;
 }
 
 function TimelineLearningTemplate({
   title,
-  dateList,
+  timelineId,
   handleNextContent,
 }: TimelineLearningTemplateProps) {
   return (
     <Layout>
       <TitleBox title={title} icon="TIMELINE_STUDY" category="연표 학습" />
       <MainContentLayout>
-        <TimelineList dateList={dateList} />
+        <TimelineList id={timelineId} />
         {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}
       </MainContentLayout>
+      <KeywordToggleButton />
     </Layout>
   );
 }

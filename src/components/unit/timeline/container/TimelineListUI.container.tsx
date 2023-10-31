@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 interface TimelineListProps {
   dateList: TimeLineItemModel[];
+  isKeywordOpen: boolean;
 }
 
 const Line = styled.li`
@@ -28,16 +29,16 @@ const StyledTimelineList = styled.ul`
   }
 `;
 
-function TimelineListUI({ dateList }: TimelineListProps) {
+function TimelineListUI({ dateList, isKeywordOpen }: TimelineListProps) {
   return (
     <StyledTimelineList>
       <Line />
       {dateList.map((item, index) => {
         return (
           <TimelineItemUI
-            date={item.date}
-            comment={item.comment}
+            dateItem={item}
             key={index}
+            isKeywordOpen={isKeywordOpen}
           ></TimelineItemUI>
         );
       })}
