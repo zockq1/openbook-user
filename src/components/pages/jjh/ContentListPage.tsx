@@ -10,8 +10,12 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../../atoms/icon/Icon";
 import { ThemeContext } from "styled-components";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
-import { useGetContentListQuery } from "../../../store/api/jjhApi";
+import {
+  useGetContentListQuery,
+  useUpdateProgressMutation,
+} from "../../../store/api/jjhApi";
 import { Content } from "../../../types/jjhTypes";
+import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -19,6 +23,7 @@ function ContentListPage() {
   const { chapterNumber, jjhNumber, timelineId, title } = useQuesryString();
   const { data: contentList } = useGetContentListQuery(jjhNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
+  const [updateProgres] = useUpdateProgressMutation();
   useEffect(() => {
     if (!contentList) {
       return;
@@ -30,8 +35,6 @@ function ContentListPage() {
       contentNumber: number
     ): string => {
       switch (contentName) {
-        case "CHAPTER_INFO":
-          return `/jeong-ju-haeng/content/chapter-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}`;
         case "TIMELINE_STUDY":
           return `/jeong-ju-haeng/content/timeline-question?jjh=${jjhNumber}&id=${timelineId}&content=${contentNumber}&title${title}`;
         case "TOPIC_STUDY":
@@ -70,15 +73,27 @@ function ContentListPage() {
           content:
             content === "TOPIC_STUDY" ? (
               <Topic topic={item.title} key={item.title} />
+            ) : content === "TIMELINE_STUDY" ? (
+              <TimelineList id={timelineId} />
             ) : (
-              content === "TIMELINE_STUDY" && <TimelineList id={timelineId} />
+              content === "CHAPTER_INFO" && <ChapterInfo />
             ),
-          onClickSub: () =>
-            state !== "Locked" &&
-            navigate(getLink(content, title, contentNumber)),
-          onClickMain: () =>
-            state !== "Locked" &&
-            navigate(getLink(content, title, contentNumber)),
+          onClickSub: async () => {
+            if (state === "Locked") return;
+            if (content === "CHAPTER_INFO") {
+              await updateProgres({ contentNumber: contentNumber });
+              return;
+            }
+            navigate(getLink(content, title, contentNumber));
+          },
+          onClickMain: async () => {
+            if (state === "Locked") return;
+            if (content === "CHAPTER_INFO") {
+              await updateProgres({ contentNumber: contentNumber });
+              return;
+            }
+            navigate(getLink(content, title, contentNumber));
+          },
           subTitle:
             state === "Locked" ? (
               <Icon icon="lock" color={theme.colors.white} size={40} />
@@ -111,6 +126,7 @@ function ContentListPage() {
     jjhNumber,
     theme,
     navigate,
+    updateProgres,
   ]);
 
   if (!contentList) {

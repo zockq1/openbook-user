@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
-import { useParams } from "react-router-dom";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
@@ -11,13 +10,15 @@ import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import Topic from "../../unit/topic/presenter/Topic.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
+import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
+import useQuesryString from "../../../service/useQueryString";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
-  const { chapter } = useParams();
-  const { data: chapterTitle } = useGetChapterTitleQuery(Number(chapter));
-  const { data: topicList } = useGetChapterTopicListQuery(Number(chapter));
-  const { data: chapterInfo } = useGetChapterInfoQuery(Number(chapter));
+  const { chapterNumber } = useQuesryString();
+  const { data: chapterTitle } = useGetChapterTitleQuery(chapterNumber);
+  const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
+  const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -47,10 +48,11 @@ function LearningTopicListPage() {
         icon: <Icon icon="CHAPTER_INFO" />,
         description: `${chapterTitle.title}`,
         mainColor: theme.colors.white,
+        content: <ChapterInfo />,
       });
 
     setMenuList(newMenu);
-  }, [setMenuList, topicList, chapter, chapterTitle, chapterInfo, theme]);
+  }, [setMenuList, topicList, chapterNumber, chapterTitle, chapterInfo, theme]);
 
   if (!topicList || !chapterTitle) {
     return <div>Loading...</div>;
@@ -59,7 +61,7 @@ function LearningTopicListPage() {
   return (
     <MenuTemplate
       menuList={menuList}
-      category={String(chapter) + ". " + chapterTitle.title}
+      category={String(chapterNumber) + ". " + chapterTitle.title}
     >
       <KeywordToggleButton />
     </MenuTemplate>

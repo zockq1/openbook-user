@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         element: <LearningChapterListPage />,
       },
       {
-        path: "/learning/:chapter",
+        path: "/learning/chapter",
         element: <LearningTopicListPage />,
       },
       {
