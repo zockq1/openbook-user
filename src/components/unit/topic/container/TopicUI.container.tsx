@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import KeywordUI from "./KeywordUI.container";
+import { KeywordModel } from "../../../../types/topicTypes";
 
 interface TopicUIProps {
-  keywordList: {
-    name: string;
-    comment: string;
-    file: string;
-  }[];
+  keywordList: KeywordModel[];
   isKeywordCommentOn: boolean;
 }
 
@@ -23,12 +20,11 @@ function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {
       <Topic direction={"row"}>
         {keywordList
           .filter((keyword) => !keyword.comment)
-          .map((item, index) => {
+          .map((keyword, index) => {
             return (
               <KeywordUI
                 key={index}
-                name={item.name}
-                comment={item.comment}
+                keyword={keyword}
                 isCommentOn={isKeywordCommentOn}
               />
             );
@@ -37,12 +33,11 @@ function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {
       <Topic direction={isKeywordCommentOn ? "column" : "row"}>
         {keywordList
           .filter((keyword) => !!keyword.comment)
-          .map((item, index) => {
+          .map((keyword, index) => {
             return (
               <KeywordUI
                 key={index}
-                name={item.name}
-                comment={item.comment}
+                keyword={keyword}
                 isCommentOn={isKeywordCommentOn}
               />
             );

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useGetTopicQuery } from "../../../../store/api/topicApi";
+import { useGetKeywordListQuery } from "../../../../store/api/topicApi";
 import { RootState } from "../../../../store/store";
 import TopicUI from "../container/TopicUI.container";
 
@@ -8,19 +8,19 @@ interface TopicProps {
 }
 
 function Topic({ topic }: TopicProps) {
-  const { data: topicInfo } = useGetTopicQuery(topic);
+  const { data: keywordList } = useGetKeywordListQuery(topic);
   const isKeywordCommentOn = useSelector(
     (state: RootState) => state.keyword.isKeywordCommentOn
   );
 
-  if (!topicInfo) {
+  if (!keywordList) {
     return <div></div>;
   }
 
   return (
     <TopicUI
       isKeywordCommentOn={isKeywordCommentOn}
-      keywordList={topicInfo.keywordList}
+      keywordList={keywordList}
     />
   );
 }
