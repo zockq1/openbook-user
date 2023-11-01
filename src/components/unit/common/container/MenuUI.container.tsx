@@ -90,11 +90,13 @@ const Bar = styled.div<{ score: number; color: string }>`
 const Title = styled.div`
   position: absolute;
   max-width: 100%;
+  height: 100%;
   overflow: scroll;
   white-space: nowrap;
   top: 15px;
   left: 5px;
   color: ${({ theme }) => theme.colors.textBlue};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 
   &::-webkit-scrollbar {
     display: none;
@@ -155,7 +157,7 @@ function MenuUI({ menuList }: MenuUIProps) {
                     <MenuLabelBox state={state}>{icon}</MenuLabelBox>
                     <MenuDescription>
                       <Text
-                        weight={theme.fontWeight.medium}
+                        weight={theme.fontWeight.bold}
                         size={theme.fontSizes.small}
                         padding={theme.padding.xs_Lsmall}
                         color={
