@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
 import CommentUI from "../../topic/container/CommentUI.container";
-import Icon from "../../../atoms/icon/Icon";
 
 interface TimelineTopicProps {
   dateItem: {
@@ -56,17 +55,6 @@ const CommentContainer = styled.div`
   margin-left: 84px;
 `;
 
-const Keyword = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.textBlue};
-  line-height: 150%;
-  overflow: hidden;
-`;
-
 function TimelineItemUI({
   dateItem,
   isKeywordOpen,
@@ -83,15 +71,7 @@ function TimelineItemUI({
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && (
-          <CommentUI isCommentOpen={isKeywordOpen}>
-            {keywordList.map((keyword, index) => (
-              <Keyword key={keyword}>
-                <Icon icon="check" />
-                &nbsp;
-                {keyword}
-              </Keyword>
-            ))}
-          </CommentUI>
+          <CommentUI isCommentOpen={isKeywordOpen} commentList={keywordList} />
         )}
       </CommentContainer>
     </>

@@ -1,7 +1,5 @@
-import styled, { ThemeContext } from "styled-components";
-import Text from "../../../atoms/text/Text";
+import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
-import { useContext } from "react";
 import { KeywordModel } from "../../../../types/topicTypes";
 import CommentUI from "./CommentUI.container";
 
@@ -29,15 +27,14 @@ const Badge = styled.div`
   left: -7px;
   padding: 5px;
   border-radius: 100%;
-  border: 2px solid ${({ theme }) => theme.colors.bg};
-  background-color: ${({ theme }) => theme.colors.blue};
-  color: ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.textBlue};
   font-size: ${({ theme }) => theme.fontSizes.xxs};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 function KeywordUI({ keyword, isCommentOn }: KeywordCommentBoxProps) {
-  const theme = useContext(ThemeContext);
   const { name, comment, questionList } = keyword;
 
   return (
@@ -47,21 +44,10 @@ function KeywordUI({ keyword, isCommentOn }: KeywordCommentBoxProps) {
         {name}
       </TextBox>
       {comment && (
-        <CommentUI isCommentOpen={isCommentOn}>
-          {comment
-            .trim()
-            .split(".")
-            .filter(Boolean)
-            .map((sentence) => (
-              <Text
-                key={sentence}
-                weight={theme.fontWeight.light}
-                lineHeight="120%"
-              >
-                {`${sentence}.`}
-              </Text>
-            ))}
-        </CommentUI>
+        <CommentUI
+          isCommentOpen={isCommentOn}
+          commentList={comment.trim().split(".").filter(Boolean)}
+        />
       )}
     </Keyword>
   );
