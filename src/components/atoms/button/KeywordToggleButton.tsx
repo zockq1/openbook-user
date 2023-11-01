@@ -11,7 +11,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
   position: fixed;
   width: 86px;
   height: 26px;
-  top: 25px;
+  bottom: 25px;
   right: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -26,12 +26,12 @@ const ToggleContainer = styled.div<{ open: boolean }>`
     height: 26px;
     border-radius: 30px;
     border: 1px solid
-      ${({ theme, open }) => (open ? theme.colors.bg : theme.colors.blue)};
+      ${({ theme, open }) => (open ? theme.colors.bg : theme.colors.textBlue)};
     background-color: ${({ theme }) => theme.colors.bg};
   }
 
   > .toggle--checked {
-    background-color: ${({ theme }) => theme.colors.blue};
+    background-color: ${({ theme }) => theme.colors.textBlue};
     transition: 0.5s;
   }
 
@@ -63,7 +63,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
 
     > .toggle-text.off {
       color: ${({ theme, open }) =>
-        !open ? theme.colors.blue : "transparent"};
+        !open ? theme.colors.textBlue : "transparent"};
     }
 
     > .toggle-circle {
@@ -72,7 +72,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
       margin: 0 4px;
       border-radius: 50%;
       background-color: ${({ theme, open }) =>
-        open ? theme.colors.bg : theme.colors.blue};
+        open ? theme.colors.bg : theme.colors.textBlue};
       transition: 0.5s;
     }
   }

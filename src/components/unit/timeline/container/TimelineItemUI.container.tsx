@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
-import KeywordUI from "../../topic/container/KeywordUI.container";
-import { useEffect, useRef, useState } from "react";
+import CommentUI from "../../topic/container/CommentUI.container";
+import Icon from "../../../atoms/icon/Icon";
 
 interface TimelineTopicProps {
   dateItem: {
@@ -21,29 +21,23 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 81px 44px max-content;
+  grid-template-columns: 50px 34px max-content;
   align-items: center;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "15px 0")};
-  margin-right: 125px;
+  margin-right: 84px;
 `;
 
 const InnerCircle = styled.div`
   margin: 10px;
-  background-color: ${({ theme }) => theme.colors.bg};
+  background-color: ${({ theme }) => theme.colors.bgBlue};
   width: 14px;
   height: 14px;
   border-radius: 50%;
+  border: 4px solid ${({ theme }) => theme.colors.textBlue};
   z-index: 99;
   position: relative;
 `;
 
-const OuterCircle = styled.div`
-  background-color: ${({ theme }) => theme.colors.blue};
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  z-index: 98;
-`;
 const Transparent = styled.div`
   background-color: transparent;
   width: 34px;
@@ -51,27 +45,26 @@ const Transparent = styled.div`
 `;
 
 const Date = styled.div`
-  color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.large};
-
+  font-size: ${({ theme }) => theme.fontSizes.base};
   text-align: right;
-  padding: 10px;
 `;
 
-const KeywordList = styled.div<{ open: boolean; maxHeight: number }>`
-  margin-left: 120px;
-  overflow: hidden;
-  max-height: ${({ open, maxHeight }) => (open ? `${maxHeight}px` : "0")};
-  transition: 0.1s ease-in-out;
+const CommentContainer = styled.div`
+  position: relative;
+  margin-left: 84px;
 `;
 
-const CheckKeywordList = styled.div`
-  position: absolute;
-  z-index: -999;
-  margin-left: 120px;
+const Keyword = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.textBlue};
+  line-height: 150%;
   overflow: hidden;
-  transition: 0.1s ease-in-out;
 `;
 
 function TimelineItemUI({
@@ -81,76 +74,77 @@ function TimelineItemUI({
   isQuestion = false,
 }: TimelineTopicProps) {
   const { comment, date, keywordList } = dateItem;
-  const myDivRef = useRef<HTMLDivElement | null>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (myDivRef.current) {
-      const divHeight = myDivRef.current.clientHeight;
-      setHeight(divHeight);
-    }
-  }, []);
   return (
     <>
       <StyledTimelineItem isQuestion={isQuestion}>
         <Date>{Math.floor(Number(date) / 10000) || null}</Date>
-        {disableCircle ? (
-          <Transparent />
-        ) : (
-          <OuterCircle>
-            <InnerCircle />
-          </OuterCircle>
-        )}
+        {disableCircle ? <Transparent /> : <InnerCircle />}
         <TextBox maxWidth="half">{comment}</TextBox>
       </StyledTimelineItem>
-      {!isQuestion && (
-        <>
-          <CheckKeywordList ref={myDivRef}>
-            {keywordList &&
-              keywordList.map((keyword, index) => {
-                return (
-                  <KeywordUI
-                    key={index}
-                    keyword={{
-                      name: keyword,
-                      comment: "",
-                      dateComment: "",
-                      extraDateList: [],
-                      id: index,
-                      file: "",
-                      questionList: [],
-                      number: index,
-                    }}
-                    isCommentOn={false}
-                  />
-                );
-              })}
-          </CheckKeywordList>
-          <KeywordList open={isKeywordOpen} maxHeight={height}>
-            {keywordList &&
-              keywordList.map((keyword, index) => {
-                return (
-                  <KeywordUI
-                    key={index}
-                    keyword={{
-                      name: keyword,
-                      comment: "",
-                      dateComment: "",
-                      extraDateList: [],
-                      id: index,
-                      file: "",
-                      questionList: [],
-                      number: index,
-                    }}
-                    isCommentOn={false}
-                  />
-                );
-              })}
-          </KeywordList>
-        </>
-      )}
+      <CommentContainer>
+        {!isQuestion && keywordList && (
+          <>
+            <CommentUI isCommentOpen={isKeywordOpen}>
+              {keywordList.map((keyword, index) => (
+                <Keyword>
+                  <Icon icon="check" />
+                  &nbsp;
+                  {` ${keyword}`}
+                </Keyword>
+              ))}
+            </CommentUI>
+          </>
+        )}
+      </CommentContainer>
     </>
   );
 }
 
 export default TimelineItemUI;
+
+// {!isQuestion && (
+//   <>
+//     <CheckKeywordList ref={myDivRef}>
+//       {keywordList &&
+//         keywordList.map((keyword, index) => {
+//           return (
+//             <KeywordUI
+//               key={index}
+//               keyword={{
+//                 name: keyword,
+//                 comment: "",
+//                 dateComment: "",
+//                 extraDateList: [],
+//                 id: index,
+//                 file: "",
+//                 questionList: [],
+//                 number: index,
+//               }}
+//               isCommentOn={false}
+//             />
+//           );
+//         })}
+//     </CheckKeywordList>
+//     <KeywordList open={isKeywordOpen} maxHeight={height}>
+//       {keywordList &&
+//         keywordList.map((keyword, index) => {
+//           return (
+//             <KeywordUI
+//               key={index}
+//               keyword={{
+//                 name: keyword,
+//                 comment: "",
+//                 dateComment: "",
+//                 extraDateList: [],
+//                 id: index,
+//                 file: "",
+//                 questionList: [],
+//                 number: index,
+//               }}
+//               isCommentOn={false}
+//             />
+//           );
+//         })}
+//     </KeywordList>
+//   </>
+// )}

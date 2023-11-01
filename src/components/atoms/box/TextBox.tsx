@@ -26,9 +26,12 @@ const StyledTextBox = styled.div<TextBoxProps>`
     }[maxWidth] || "initial")};
 
   background-color: ${({ theme, color }) =>
-    color === "blue" ? theme.colors.blue : theme.colors.bgBlue};
+    color === "blue" ? theme.colors.bgBlue : theme.colors.bgBlue};
   color: ${({ theme, color }) =>
-    color === "blue" ? theme.colors.white : theme.colors.textBlue};
+    color === "blue" ? theme.colors.textBlue : theme.colors.textBlue};
+  border: 2px solid
+    ${({ theme, color }) =>
+      color === "blue" ? theme.colors.textBlue : theme.colors.textBlue};
   box-shadow: ${({ theme, shadow }) =>
     shadow ? theme.shadow.defaultShadow : "none"};
   font-weight: ${({ theme }) => theme.fontWeight.medium};

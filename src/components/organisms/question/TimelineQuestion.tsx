@@ -23,11 +23,11 @@ interface LineProps {
 
 const Line = styled.div<LineProps>`
   position: absolute;
-  background-color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.textBlue};
   border-radius: ${({ theme }) => theme.borderRadius.base};
-  width: 16px;
+  width: 6px;
   height: ${({ height }) => `${height}px`};
-  left: 90px;
+  left: 64px;
   z-index: 0;
   transition: 0.5s ease;
 `;

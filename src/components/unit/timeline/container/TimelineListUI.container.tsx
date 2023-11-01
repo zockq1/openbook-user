@@ -9,12 +9,12 @@ interface TimelineListProps {
 
 const Line = styled.li`
   position: absolute;
-  background-color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.textBlue};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   border-radius: ${({ theme }) => theme.borderRadius.base};
-  width: 16px;
+  width: 6px;
   height: 100%;
-  left: 90px;
+  left: 64px;
   z-index: 0;
 `;
 
@@ -23,10 +23,6 @@ const StyledTimelineList = styled.ul`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
-
-  & > :last-child {
-    margin-bottom: 30px;
-  }
 `;
 
 function TimelineListUI({ dateList, isKeywordOpen }: TimelineListProps) {
@@ -39,7 +35,7 @@ function TimelineListUI({ dateList, isKeywordOpen }: TimelineListProps) {
             dateItem={item}
             key={index}
             isKeywordOpen={isKeywordOpen}
-          ></TimelineItemUI>
+          />
         );
       })}
     </StyledTimelineList>
