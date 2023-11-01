@@ -15,12 +15,7 @@ function TopicLearningTemplate({
 }: TopicLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox
-        title={topicTitle}
-        icon="TOPIC_STUDY"
-        category="주제 학습"
-        dateComment={topicInfo.dateComment}
-      />
+      <TitleBox icon="TOPIC_STUDY" category={topicTitle} />
 
       <KeywordToggleButton />
       <Topic topic={topicTitle} />

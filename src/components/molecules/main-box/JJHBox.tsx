@@ -37,7 +37,7 @@ const BoxTitle = styled.div`
   align-items: center;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Percentage = styled.div`
@@ -47,7 +47,7 @@ const Percentage = styled.div`
   margin: ${({ theme }) => theme.margin.small};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: 60px;
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Progress = styled.div`

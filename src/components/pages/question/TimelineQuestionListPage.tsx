@@ -34,7 +34,7 @@ function TimelineQuestionListPage() {
                 (min, current) => (current.score < min.score ? current : min),
                 timelineList[0]
               ).id
-            }`
+            }&title=전체 연표`
           );
         },
         onClickSub: () => {
@@ -57,7 +57,7 @@ function TimelineQuestionListPage() {
           score: Math.floor(score),
           mainColor: calculateGradientColor(score),
           onClickMain: () => {
-            navigate(`/question/timeline?id=${id}`);
+            navigate(`/question/timeline?id=${id}&title=${title}`);
           },
           onClickSub: () => {
             navigate(`/timeline?id=${id}&title=${title}`);

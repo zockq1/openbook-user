@@ -20,7 +20,7 @@ function QuestionTemplate({
 }: QuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} icon="question" category="퀴즈" />
+      <TitleBox icon="question" category="퀴즈" />
       <MainContentLayout>
         {questionList.length === 0 ? (
           <Button onClick={handleNextContent}>다음</Button>

@@ -8,6 +8,7 @@ const StyledLogo = styled.div<LogoProps>`
   font-size: ${({ size }) => `${size}px`};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-family: "Giants-Inline";
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 interface LogoProps {

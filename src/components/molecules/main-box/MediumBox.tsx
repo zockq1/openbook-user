@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Box = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   width: calc((100% - 60px) / 2);
   margin: 10px 0px 10px 20px;
@@ -17,6 +14,10 @@ const Box = styled.li`
 `;
 
 const InnerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
 `;
@@ -34,7 +35,7 @@ const BoxTitle = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 interface MediumBoxProps {

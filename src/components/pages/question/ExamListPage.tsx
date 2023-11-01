@@ -52,9 +52,15 @@ function ExamListPage() {
             score,
             mainColor: calculateGradientColor(score),
             onClickMain: () => {
-              navigate(`/question/mock-exam?round=${number}`);
+              navigate(
+                `/question/mock-exam?round=${number}&title=${number}회 기출문제`
+              );
             },
-            onClickSub: () => {},
+            onClickSub: () => {
+              navigate(
+                `/question/mock-exam?round=${number}&title=${number}회 기출문제`
+              );
+            },
           };
           return result;
         }),

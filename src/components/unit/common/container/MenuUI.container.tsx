@@ -160,7 +160,7 @@ function MenuUI({ menuList }: MenuUIProps) {
                         color={
                           state === "Locked"
                             ? theme.colors.red
-                            : theme.colors.black
+                            : theme.colors.textBlue
                         }
                       >
                         {title}

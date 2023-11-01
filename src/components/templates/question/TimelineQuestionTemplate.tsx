@@ -5,7 +5,7 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import { TimeLineItemModel } from "../../../types/timelinetypes";
 
 interface TimelineQuestionTemplateProps {
-  title?: string;
+  title: string;
   id: number;
   dateList: TimeLineItemModel[];
   handleNextContent: () => void;
@@ -19,7 +19,7 @@ function TimelineQuestionTemplate({
 }: TimelineQuestionTemplateProps) {
   return (
     <Layout>
-      <TitleBox icon="TIMELINE_QUESTION" category="연표 문제" title={title} />
+      <TitleBox icon="TIMELINE_QUESTION" category={title} />
       <MainContentLayout>
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}

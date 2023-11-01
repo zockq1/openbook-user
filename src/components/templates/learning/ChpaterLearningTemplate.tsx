@@ -17,7 +17,7 @@ function ChapterLearningTemplate({
 }: ChapterLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} icon="CHAPTER_INFO" category="단원 학습" />
+      <TitleBox icon="CHAPTER_INFO" category={title} />
       <MainContentLayout>
         <ContentBox>
           <img

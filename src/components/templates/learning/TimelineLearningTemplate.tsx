@@ -18,7 +18,7 @@ function TimelineLearningTemplate({
 }: TimelineLearningTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} icon="TIMELINE_STUDY" category="연표 학습" />
+      <TitleBox icon="TIMELINE_STUDY" category={title} />
       <MainContentLayout>
         <TimelineList id={timelineId} />
         {handleNextContent && <Button onClick={handleNextContent}>다음</Button>}

@@ -35,7 +35,7 @@ const BoxTitle = styled.div`
   align-items: center;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 interface QuizBoxProps {
@@ -54,7 +54,7 @@ const Description = styled.span`
   align-items: center;
   text-align: center;
   margin: 5px 5px 5px 10px;
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.textBlue};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

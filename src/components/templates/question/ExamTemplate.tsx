@@ -7,7 +7,7 @@ import TitleBox from "../../organisms/ui/TitleBox";
 
 interface ExamTemplateProps {
   examList: ExamModel[];
-  title?: string;
+  title: string;
   timeLimit?: number;
   handleNextContent: () => void;
 }
@@ -20,7 +20,7 @@ function ExamTemplate({
 }: ExamTemplateProps) {
   return (
     <Layout>
-      <TitleBox title={title} icon="pen" category="모의 고사" />
+      <TitleBox icon="pen" category={title} />
       <MainContentLayout>
         {examList.length === 0 ? (
           <Button onClick={handleNextContent}>다음</Button>
