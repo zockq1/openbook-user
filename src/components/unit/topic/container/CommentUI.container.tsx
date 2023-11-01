@@ -46,7 +46,6 @@ const Description = styled.li<{ open: boolean }>`
 `;
 
 const CommentIcon = styled.div`
-  margin-top: 2px;
   margin-right: 5px;
 `;
 
