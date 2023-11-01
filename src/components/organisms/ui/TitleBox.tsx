@@ -10,6 +10,8 @@ interface TitleBoxProps {
 }
 
 const StyledTitleBox = styled.div`
+  position: fixed;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;

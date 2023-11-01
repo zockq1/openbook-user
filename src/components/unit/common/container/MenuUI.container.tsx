@@ -94,6 +94,7 @@ const Title = styled.div`
   white-space: nowrap;
   top: 15px;
   left: 5px;
+  color: ${({ theme }) => theme.colors.textBlue};
 
   &::-webkit-scrollbar {
     display: none;

@@ -83,17 +83,15 @@ function TimelineItemUI({
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && (
-          <>
-            <CommentUI isCommentOpen={isKeywordOpen}>
-              {keywordList.map((keyword, index) => (
-                <Keyword>
-                  <Icon icon="check" />
-                  &nbsp;
-                  {` ${keyword}`}
-                </Keyword>
-              ))}
-            </CommentUI>
-          </>
+          <CommentUI isCommentOpen={isKeywordOpen}>
+            {keywordList.map((keyword, index) => (
+              <Keyword key={keyword}>
+                <Icon icon="check" />
+                &nbsp;
+                {keyword}
+              </Keyword>
+            ))}
+          </CommentUI>
         )}
       </CommentContainer>
     </>

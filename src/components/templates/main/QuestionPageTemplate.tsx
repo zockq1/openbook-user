@@ -7,12 +7,13 @@ import timeline from "../../../styles/images/timeline.svg";
 import QuestionBox from "../../molecules/main-box/QuestionBox";
 import Icon from "../../atoms/icon/Icon";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import Layout from "../../atoms/layout/Layout";
 
 function QuestionPageTemplate() {
   return (
-    <>
-      <Header />
+    <Layout>
       <MainContentLayout>
+        <Header />
         <RowList>
           <QuestionBox
             title="퀴즈"
@@ -44,7 +45,7 @@ function QuestionPageTemplate() {
         </RowList>
       </MainContentLayout>
       <NavigationBar />
-    </>
+    </Layout>
   );
 }
 
