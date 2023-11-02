@@ -9,6 +9,8 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding.large};
+  background-color: ${({ theme }) => theme.colors.bg};
+  z-index: 100;
 `;
 
 function Header() {

@@ -8,8 +8,8 @@ import timeline from "../../../styles/images/timeline.svg";
 import MediumBox from "../../molecules/main-box/MediumBox";
 import NavigationBar from "../../organisms/ui/NavigationBar";
 import JJHBox from "../../molecules/main-box/JJHBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import { ProgressModel } from "../../../types/jjhTypes";
+import MainPageLayout from "../../atoms/layout/MainPageLayout";
 
 interface MainPageTemplateProps {
   progress: ProgressModel;
@@ -19,7 +19,7 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
   return (
     <Layout>
       <Header />
-      <MainContentLayout>
+      <MainPageLayout>
         <RowList>
           <JJHBox
             title="정주행"
@@ -38,7 +38,7 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
             image={timeline}
           ></MediumBox>
         </RowList>
-      </MainContentLayout>
+      </MainPageLayout>
 
       <NavigationBar />
     </Layout>

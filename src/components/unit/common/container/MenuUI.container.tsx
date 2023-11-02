@@ -91,6 +91,7 @@ const Title = styled.div`
   position: absolute;
   max-width: 100%;
   height: 100%;
+  padding: 2px;
   overflow: scroll;
   white-space: nowrap;
   top: 15px;

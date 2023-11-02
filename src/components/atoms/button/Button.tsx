@@ -7,6 +7,7 @@ const StyledButton = styled.button`
 
   padding: 16px 24px;
   margin: ${({ theme }) => theme.padding.base};
+  margin-top: auto;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: ${({ theme }) => theme.border.black};
 

@@ -6,10 +6,12 @@ interface LayoutProps {
 }
 
 const StyledMainContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 500px;
-  margin: 82px auto;
-  margin-bottom: 80px;
+  min-height: calc(100vh - 82px);
+  margin: 82px auto 0;
 `;
 
 function MainContentLayout({ children }: LayoutProps) {
