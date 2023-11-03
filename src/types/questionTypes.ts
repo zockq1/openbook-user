@@ -1,5 +1,27 @@
-export type QuestionType = "TtoK" | "KtoT";
+export type QuestionType = "TtoK" | "KtoT" | "Exam";
 export type ChoiceType = "String" | "Image";
+export type QuestionMode = "Quiz" | "Exam";
+
+export interface QuestionModel {
+  questionType: QuestionType;
+  choiceType: ChoiceType;
+  descriptionList: { description: string[]; commentList: string[] };
+  choiceList: {
+    choice: string;
+    key: string;
+    commentList: string[];
+  }[];
+  answer: string;
+
+  checkedChoiceKey: string;
+  isCorrect: boolean;
+  isChecked: boolean;
+  isFinish: boolean;
+  isOpen: boolean;
+
+  score: number;
+  keywordIdList?: number[]; //퀴즈 모드만
+}
 
 /* EXAM */
 
@@ -23,6 +45,8 @@ export interface ExamChoiceModel {
 }
 
 export interface ExamModel {
+  id: number;
+  savedAnswernote: boolean;
   number: number;
   description: string;
   descriptionCommentList: ExamCommentModel[];
@@ -30,6 +54,7 @@ export interface ExamModel {
   choiceType: ChoiceType;
   choiceList: ExamChoiceModel[];
   score: number;
+  checkedChoiceKey: number | null;
 }
 
 export interface ExamListModel extends ExamModel {
@@ -40,21 +65,21 @@ export interface ExamListModel extends ExamModel {
 
 /* Question */
 
-export interface QuestionChoiceModel {
+export interface QuizChoiceModel {
   choice: string;
   key: string;
 }
 
-export interface QuestionModel {
+export interface QuizModel {
   questionType: QuestionType;
   answer: string;
   choiceType: ChoiceType;
   description: string[];
-  choiceList: QuestionChoiceModel[];
+  choiceList: QuizChoiceModel[];
   keywordIdList: number[];
 }
 
-export interface GetQuestionModel {
+export interface GetQuizModel {
   id: number;
   numberOfQuestion: number;
 }

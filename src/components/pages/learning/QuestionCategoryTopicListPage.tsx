@@ -29,7 +29,6 @@ function QustionCategoryTopicListPage() {
           icon: <Icon icon={category} />,
           description: `${dateComment}`,
           content: <Topic topic={title} />,
-          mainColor: theme.colors.white,
         };
         return result;
       });

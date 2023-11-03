@@ -36,7 +36,6 @@ function LearningTopicListPage() {
           icon: <Icon icon={category} />,
           description: `${dateComment}`,
           content: <Topic topic={title} />,
-          mainColor: theme.colors.white,
         };
         return result;
       });
@@ -47,7 +46,6 @@ function LearningTopicListPage() {
         title: "단원 학습",
         icon: <Icon icon="CHAPTER_INFO" />,
         description: `${chapterTitle.title}`,
-        mainColor: theme.colors.white,
         content: <ChapterInfo />,
       });
 

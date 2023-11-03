@@ -12,7 +12,7 @@ interface AnswerCheckProps {
 
 interface ChoiceProps {
   handleChoiceClick: (checkboxId: string) => void;
-  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCheckboxChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   choiceKey: string;
   choice: string;
   isCorrect: boolean;
@@ -24,24 +24,25 @@ interface ChoiceProps {
 const LongChoice = styled.div<AnswerCheckProps>`
   display: flex;
   align-items: center;
-  width: calc(100% - 30px);
+  width: calc(100% - 40px);
   height: max-content;
-  margin: 10px 15px;
-  padding: 0 12px;
-  border-radius: 10px;
-  border: ${({ theme, isFinish, isCorrect }) =>
-    isFinish
-      ? isCorrect
-        ? theme.border.blue
-        : theme.border.red
-      : theme.border.black};
+  margin: ${({ theme }) => theme.margin.base};
+  padding: 0 0 0 12px;
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  border: 2px solid
+    ${({ theme, isFinish, isCorrect }) =>
+      isFinish
+        ? isCorrect
+          ? theme.colors.blue
+          : theme.colors.red
+        : theme.colors.textBlue};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const LongComment = styled.span<AnswerCheckProps>`
-  margin: 12px;
+  margin-left: 5px;
 
   color: ${({ theme, isCorrect, isFinish }) =>
     isFinish
@@ -49,15 +50,14 @@ export const LongComment = styled.span<AnswerCheckProps>`
         ? theme.colors.blue
         : theme.colors.red
       : theme.colors.black};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  word-break: keep-all;
   line-height: 120%;
 `;
 
 function LongChoiceItem({
   handleChoiceClick,
-  handleCheckboxChange,
   choiceKey,
   choice,
   isCorrect,
@@ -74,7 +74,7 @@ function LongChoiceItem({
       >
         <CheckBoxInput
           choiceKey={choiceKey}
-          handleCheckboxChange={handleCheckboxChange}
+          handleCheckboxChange={(e) => handleChoiceClick(e.target.id)}
           selectedCheckbox={selectedCheckbox}
         />
         <CheckBoxLabel

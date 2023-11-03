@@ -22,9 +22,12 @@ function TimelineMenuPage() {
         type: "Base",
         title: "전체 연표",
         onClickMain: () => navigate(`/timeline?id=-1&title=전체 연표`),
+        onClickSub: () => {
+          navigate(`/timeline?id=-1&title=전체 연표`);
+          navigate(`/`);
+        },
         icon: <Icon icon="TIMELINE_STUDY" />,
         description: "BC 700K ~ 현대",
-        mainColor: theme.colors.white,
       },
       ...[...timelineList]
         .sort((a, b) => a.startDate - b.startDate)
@@ -34,11 +37,12 @@ function TimelineMenuPage() {
             title: `${timeline.era}`,
             onClickMain: () =>
               navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
+            onClickSub: () =>
+              navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
             icon: index + 1,
             description: `${timeline.startDate / 10000} ~ ${
               timeline.endDate / 10000
             }`,
-            mainColor: theme.colors.white,
           };
           return result;
         }),

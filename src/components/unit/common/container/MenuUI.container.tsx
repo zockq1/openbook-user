@@ -16,33 +16,40 @@ const StyledQuestionMenuItem = styled.div<{ color: string; total: boolean }>`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
 
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
-  border-radius: 16px;
-  border: ${({ color, total }) => (total ? `5px solid ${color}` : "")};
+  border-radius: 10px;
+  border: ${({ color, total, theme }) =>
+    total ? `5px solid ${color}` : `2px solid ${theme.colors.textBlue}`};
+  overflow: hidden;
 `;
 
-const MainMenuItem = styled.div<{ color: string; total: boolean }>`
+const MainMenuItem = styled.div<{ color: string; important: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
   width: calc(75%);
   padding: ${({ theme }) => theme.padding.base};
 
-  border-radius: 10px 0 0 10px;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const SubMenuItem = styled.div<{ color: string; total: boolean }>`
+const SubMenuItem = styled.div<{ color: string; important: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  border-radius: 0 10px 10px 0;
   white-space: nowrap;
   width: calc(25%);
-  background-color: ${({ color }) => color};
+  background-color: ${({ color, theme }) =>
+    color ? color : theme.colors.white};
   color: ${({ theme }) => theme.colors.white};
+  border-left: ${({ color, important, theme }) =>
+    !color
+      ? "0"
+      : important
+      ? `5px solid ${color}`
+      : `2px solid ${theme.colors.textBlue}`};
   line-height: 120%;
 `;
 
@@ -139,7 +146,7 @@ function MenuUI({ menuList }: MenuUIProps) {
               <MainMenuItem
                 onClick={onClickMain}
                 color={mainColor}
-                total={important}
+                important={important}
               >
                 {type === "Progress" ? (
                   <>
@@ -187,10 +194,11 @@ function MenuUI({ menuList }: MenuUIProps) {
                   </>
                 )}
               </MainMenuItem>
+
               <SubMenuItem
                 onClick={onClickSub}
                 color={mainColor}
-                total={important}
+                important={important}
               >
                 {subTitle}
               </SubMenuItem>

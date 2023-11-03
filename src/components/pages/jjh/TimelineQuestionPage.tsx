@@ -6,7 +6,7 @@ import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelineQuestionPage() {
   const handleNextContent = useNextContent();
-  const { timelineId, title } = useQuesryString();
+  const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
   const { data: dateList } = useGetTimelineQuery(timelineId);
 
   if (!dateList) {
@@ -18,7 +18,7 @@ function TimelineQuestionPage() {
       title={title}
       id={timelineId}
       dateList={dateList}
-      handleNextContent={handleNextContent}
+      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
     />
   );
 }

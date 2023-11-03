@@ -17,7 +17,7 @@ const StyledTextBox = styled.div<TextBoxProps>`
   margin: ${({ margin }) => margin};
 
   border-radius: ${({ theme }) => theme.padding.base};
-  height: inherit;
+  height: fit-content;
   width: max-content;
   max-width: ${({ maxWidth }) =>
     ({

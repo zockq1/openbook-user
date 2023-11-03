@@ -4,9 +4,9 @@ import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
 import useNextContent from "../../../service/useNextContent";
 
-function FinalLearningPage() {
+function ChapterQuestionPage() {
   const handleNextContent = useNextContent();
-  const { chapterNumber } = useQuesryString();
+  const { chapterNumber, jjhNumber, contentNumber } = useQuesryString();
   const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber, {
     refetchOnMountOrArgChange: true,
   });
@@ -18,9 +18,9 @@ function FinalLearningPage() {
   return (
     <QuestionTemplate
       questionList={KtoTQuestionList || []}
-      handleNextContent={handleNextContent}
+      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
     />
   );
 }
 
-export default withAuth(FinalLearningPage);
+export default withAuth(ChapterQuestionPage);

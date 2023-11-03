@@ -38,7 +38,7 @@ const CheckboxInput = styled.input`
 `;
 
 const CheckboxLabel = styled.label<AnswerCheckProps>`
-  --checkbox-size: 18px;
+  --checkbox-size: 32px;
   --tick-color: ${({ theme, isCorrect, isFinish }) =>
     isFinish
       ? isCorrect
@@ -51,7 +51,7 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
   margin: 10px 0;
   width: var(--checkbox-size);
   height: var(--checkbox-size);
-  border: calc(var(--checkbox-size) * 0.125) solid
+  border: calc(var(--checkbox-size) * 0.075) solid
     ${({ theme, isCorrect, isFinish }) =>
       isFinish
         ? isCorrect

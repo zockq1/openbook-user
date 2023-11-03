@@ -3,10 +3,8 @@ import App from "./App";
 import MainPage from "./components/pages/main/MainPage";
 import LoginLoadingRedirectPage from "./components/pages/main/LoginLoadingRedirectPage";
 import ContentListPage from "./components/pages/jjh/ContentListPage";
-import ChapterLearningPage from "./components/pages/jjh/ChapterLearningPage";
-import TimelineLearningPage from "./components/pages/jjh/TimelineLearningPage";
-import TopicLearningPage from "./components/pages/jjh/TopicLearningPage";
-import FinalLearningPage from "./components/pages/jjh/FinalLearningPage";
+import TopicQuestionPage from "./components/pages/jjh/TopicQuestionPage";
+import ChapterQuestionPage from "./components/pages/jjh/ChapterQuestionPage";
 import QuestionPage from "./components/pages/main/QuestionPage";
 import MyInfoPage from "./components/pages/main/MyInfoPage";
 import OptionPage from "./components/pages/main/OptionPage";
@@ -110,23 +108,15 @@ const router = createBrowserRouter([
       },
       {
         path: "jeong-ju-haeng/content/final-question",
-        element: <FinalLearningPage />,
+        element: <ChapterQuestionPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter/timeline-learning",
-        element: <TimelineLearningPage />,
-      },
-      {
-        path: "jeong-ju-haeng/:chapter/timeline-question",
+        path: "jeong-ju-haeng/content/timeline-question",
         element: <JJHTimelineQuestionPage />,
       },
       {
-        path: "jeong-ju-haeng/:chapter/chapter-learning",
-        element: <ChapterLearningPage />,
-      },
-      {
         path: "jeong-ju-haeng/content/topic-learning",
-        element: <TopicLearningPage />,
+        element: <TopicQuestionPage />,
       },
       {
         path: "jeong-ju-haeng/content",

@@ -1,9 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import {
   ExamModel,
-  GetQuestionModel,
+  GetQuizModel,
   QuestionCategoryModel,
-  QuestionModel,
+  QuizModel,
   RoundModel,
   WrongCounterModel,
 } from "../../types/questionTypes";
@@ -18,15 +18,15 @@ export const questionApi = createApi({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
     }),
-    getTtoKQuestion: builder.query<QuestionModel[], string>({
+    getTtoKQuestion: builder.query<QuizModel[], string>({
       query: (topicTitle: string) =>
         `/questions/get-keywords/?title=${topicTitle}`,
     }),
-    getKtoTQuestion: builder.query<QuestionModel[], number>({
+    getKtoTQuestion: builder.query<QuizModel[], number>({
       query: (chapterNumber: number) =>
         `/questions/get-topics-keywords/?num=${chapterNumber}`,
     }),
-    getRandomQuestion: builder.query<QuestionModel[], GetQuestionModel>({
+    getRandomQuestion: builder.query<QuizModel[], GetQuizModel>({
       query: (getQuestion) =>
         `/questions/random?id=${getQuestion.id}&count=${getQuestion.numberOfQuestion}`,
     }),

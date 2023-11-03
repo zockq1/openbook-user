@@ -26,7 +26,6 @@ function LearningChapterListPage() {
             title: title,
             onClickMain: () => navigate(`/learning/chapter?chapter=${number}`),
             onClickSub: () => navigate(`/learning/chapter?chapter=${number}`),
-            mainColor: theme.colors.white,
             icon: number,
             description: "주제 수: " + topicCount,
           };

@@ -19,7 +19,7 @@ function TimelineQuestionPage() {
     <TimelineQuestionTemplate
       title={title}
       id={timelineId}
-      handleNextContent={() => navigate(-1)}
+      onNextContent={() => navigate(-1)}
       dateList={dateList}
     />
   );

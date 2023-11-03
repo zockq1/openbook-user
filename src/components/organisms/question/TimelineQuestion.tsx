@@ -13,7 +13,7 @@ import TimelineItemUI from "../../unit/timeline/container/TimelineItemUI.contain
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
-  handleNextContent: () => void;
+  onNextContent: () => void;
   id: number;
 }
 
@@ -154,7 +154,7 @@ const reducer = (state: State, action: Action): State => {
 
 function TimelineQuestion({
   dateList,
-  handleNextContent,
+  onNextContent,
   id,
 }: TimelineQuestionProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -318,7 +318,7 @@ function TimelineQuestion({
           </DragDropContext>
         )}
       </StyledTimelineQuestion>
-      {isFinish && <Button onClick={handleNextContent}>다음</Button>}
+      {isFinish && <Button onClick={onNextContent}>다음</Button>}
     </>
   );
 }

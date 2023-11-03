@@ -8,14 +8,14 @@ interface TimelineQuestionTemplateProps {
   title: string;
   id: number;
   dateList: TimeLineItemModel[];
-  handleNextContent: () => void;
+  onNextContent: () => void;
 }
 
 function TimelineQuestionTemplate({
   title,
   id,
   dateList,
-  handleNextContent,
+  onNextContent,
 }: TimelineQuestionTemplateProps) {
   return (
     <Layout>
@@ -23,7 +23,7 @@ function TimelineQuestionTemplate({
       <MainContentLayout>
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
-          handleNextContent={handleNextContent}
+          onNextContent={onNextContent}
           id={id}
         />
       </MainContentLayout>

@@ -27,6 +27,7 @@ export type IconType =
   | "two"
   | "three"
   | "fail"
+  | "back"
   | Content
   | TopicCategory;
 
@@ -85,7 +86,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     login: "fi fi-br-sign-in-alt",
     user: "fi fi-rr-circle-user",
     lock: "fi fi-sr-lock",
-    back: "fi fi-br-angle-left",
+    back: "fi fi-rr-left",
     arrow: "fi fi-br-angle-double-right",
     check: "fi fi-sr-checkbox",
     one: "fi fi-sr-square-1",

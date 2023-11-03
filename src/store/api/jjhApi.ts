@@ -39,6 +39,7 @@ export const jjhApi = createApi({
 
 export const {
   useGetJJHListQuery,
+  useLazyGetJJHListQuery,
   useGetContentListQuery,
   useLazyGetTotalProgressQuery,
   useLazyGetContentListQuery,

@@ -4,8 +4,8 @@ import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
 import useNextContent from "../../../service/useNextContent";
 
-function TopicLearningPage() {
-  const { topicTitle } = useQuesryString();
+function TopicQuestionPage() {
+  const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
   const handleNextContent = useNextContent();
   const { data: TtoKQuestionList, isLoading: isTtoKQuestionListLoading } =
     useGetTtoKQuestionQuery(topicTitle, { refetchOnMountOrArgChange: true });
@@ -18,10 +18,8 @@ function TopicLearningPage() {
     <QuestionTemplate
       title={""}
       questionList={TtoKQuestionList || []}
-      handleNextContent={() => {
-        handleNextContent();
-      }}
+      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
     />
   );
 }
-export default withAuth(TopicLearningPage);
+export default withAuth(TopicQuestionPage);

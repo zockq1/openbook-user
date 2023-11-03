@@ -6,13 +6,13 @@ import quiz from "../../../styles/images/quiz.svg";
 import timeline from "../../../styles/images/timeline.svg";
 import QuestionBox from "../../molecules/main-box/QuestionBox";
 import Icon from "../../atoms/icon/Icon";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Layout from "../../atoms/layout/Layout";
+import MainPageLayout from "../../atoms/layout/MainPageLayout";
 
 function QuestionPageTemplate() {
   return (
     <Layout>
-      <MainContentLayout>
+      <MainPageLayout>
         <Header />
         <RowList>
           <QuestionBox
@@ -43,7 +43,7 @@ function QuestionPageTemplate() {
             description="한능검 기출문제"
           ></QuestionBox>
         </RowList>
-      </MainContentLayout>
+      </MainPageLayout>
       <NavigationBar />
     </Layout>
   );
