@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { GlobalStyle } from "./styles/global-style";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
+import "./App.css";
 
 function App() {
   return (
