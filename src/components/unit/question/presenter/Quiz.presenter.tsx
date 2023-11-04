@@ -18,13 +18,14 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import ScoreUI from "../container/ScoreUI.container";
+import QuizScoreUI from "../container/QuizScoreUI.container";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
 interface QuestionProps {
   quizList: QuizModel[];
   onNextContent: () => void;
+  onFinish?: () => void;
 }
 
 type State = {
@@ -156,7 +157,7 @@ function getKeywordList(
   return newMap;
 }
 
-function Quiz({ quizList, onNextContent }: QuestionProps) {
+function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
   const [updateKeywordWrongCount] = useUpdateKeywordWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
@@ -175,7 +176,7 @@ function Quiz({ quizList, onNextContent }: QuestionProps) {
           choiceType,
           descriptionList: {
             description,
-            commentList: questionType === "KtoT" ? [answer] : [],
+            commentList: [],
           },
           choiceList: [...choiceList]
             .sort(() => Math.random() - 0.5)
@@ -252,6 +253,10 @@ function Quiz({ quizList, onNextContent }: QuestionProps) {
         });
       });
       await updateKeywordWrongCount(newKeywordList);
+
+      if (Math.ceil(questionList.length * 0.8) >= score) {
+        onFinish && onFinish();
+      }
       return;
     }
     dispatch({ type: NEXT_QUESTION });
@@ -285,7 +290,7 @@ function Quiz({ quizList, onNextContent }: QuestionProps) {
         isFinish={isFinish}
       />
       {questionList.length === currentNumber ? (
-        <ScoreUI score={score} questionList={questionList} />
+        <QuizScoreUI score={score} questionList={questionList} />
       ) : (
         <>
           <QuestionUI

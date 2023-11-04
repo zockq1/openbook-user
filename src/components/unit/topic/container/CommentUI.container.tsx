@@ -34,13 +34,13 @@ const Triangle = styled.li<{ open: boolean }>`
   transition: 0.15s ease-in-out;
 `;
 
-const Description = styled.li<{ open: boolean }>`
+const Description = styled.li<{ open: boolean; color: string }>`
   display: flex;
   width: fit-content;
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
-  color: ${({ theme }) => theme.colors.textBlue};
+  color: ${({ color }) => color};
   line-height: 120%;
   overflow: hidden;
 `;
@@ -52,15 +52,20 @@ const CommentIcon = styled.div`
 interface CommentUIProps {
   isCommentOpen: boolean;
   commentList: string[];
+  color?: string;
 }
 
-function CommentUI({ isCommentOpen, commentList }: CommentUIProps) {
+function CommentUI({
+  isCommentOpen,
+  commentList,
+  color = "theme.colors.textBlue",
+}: CommentUIProps) {
   return (
     <Comment open={isCommentOpen}>
       <Triangle open={isCommentOpen} />
       {commentList.map((comment) => {
         return (
-          <Description key={comment} open={isCommentOpen}>
+          <Description key={comment} open={isCommentOpen} color={color}>
             <CommentIcon>
               <Icon icon="check" />
             </CommentIcon>

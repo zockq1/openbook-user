@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { QuestionModel } from "../../../../types/questionTypes";
 import TextBox from "../../../atoms/box/TextBox";
-import { RowList } from "../../../atoms/layout/List";
+import { ColumnList } from "../../../atoms/layout/List";
 import { LongChoiceItem } from "../../../molecules/list-item/LongChoiceItem";
+import CommentUI from "../../topic/container/CommentUI.container";
+import { useContext } from "react";
 
 interface QuestionProps {
   quetion: QuestionModel;
@@ -38,7 +40,8 @@ const Image = styled.img`
 function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
   const { descriptionList, choiceList, answer, isFinish, checkedChoiceKey } =
     quetion;
-
+  const theme = useContext(ThemeContext);
+  console.log(quetion.questionType);
   return (
     <>
       <Description>
@@ -51,19 +54,35 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
           );
         })}
       </Description>
-      <RowList>
+      {descriptionList.commentList.length > 0 && (
+        <CommentUI
+          isCommentOpen={isFinish}
+          commentList={descriptionList.commentList}
+        />
+      )}
+      <ColumnList>
         {choiceList.map((item, index) => (
-          <LongChoiceItem
-            handleChoiceClick={onChoiceClick}
-            choiceKey={String(index) + item.key}
-            isCorrect={answer === item.key}
-            choice={item.choice}
-            isFinish={isFinish}
-            selectedCheckbox={checkedChoiceKey}
-            key={String(index) + item.key}
-          />
+          <li key={String(index) + item.key}>
+            <LongChoiceItem
+              handleChoiceClick={onChoiceClick}
+              choiceKey={String(index) + item.key}
+              isCorrect={answer === item.key}
+              choice={item.choice}
+              isFinish={isFinish}
+              selectedCheckbox={checkedChoiceKey}
+            />
+            {item.commentList.length > 0 && (
+              <CommentUI
+                isCommentOpen={isFinish}
+                commentList={item.commentList}
+                color={
+                  answer === item.key ? theme.colors.blue : theme.colors.red
+                }
+              />
+            )}
+          </li>
         ))}
-      </RowList>
+      </ColumnList>
     </>
   );
 }
