@@ -25,7 +25,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
     width: ${({ open }) => (open ? "83px" : "86px")};
     height: 26px;
     border-radius: 30px;
-    border: 1px solid
+    border: 2px solid
       ${({ theme, open }) => (open ? theme.colors.bg : theme.colors.textBlue)};
     background-color: ${({ theme }) => theme.colors.bg};
   }
@@ -40,8 +40,8 @@ const ToggleContainer = styled.div<{ open: boolean }>`
     align-items: center;
     position: absolute;
     width: 127px;
-    top: 2px;
-    left: -48px;
+    top: 3px;
+    left: -47px;
     background-color: transparent;
     transition: 0.5s;
 
@@ -67,8 +67,8 @@ const ToggleContainer = styled.div<{ open: boolean }>`
     }
 
     > .toggle-circle {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       margin: 0 4px;
       border-radius: 50%;
       background-color: ${({ theme, open }) =>

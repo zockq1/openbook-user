@@ -32,7 +32,7 @@ function JJHListPage() {
           onClickMain: () =>
             state !== "Locked" &&
             navigate(
-              `/jeong-ju-haeng/content?jjh=${jjhNumber}&chapter=${number}&title=${number}.${title}`
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&chapter=${number}&title=${title}`
             ),
           icon: number,
           description: dateComment,

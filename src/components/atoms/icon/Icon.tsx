@@ -28,6 +28,8 @@ export type IconType =
   | "three"
   | "fail"
   | "back"
+  | "next"
+  | "again"
   | "o"
   | "x"
   | Content
@@ -89,6 +91,8 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     user: "fi fi-rr-circle-user",
     lock: "fi fi-sr-lock",
     back: "fi fi-rr-left",
+    next: "fi fi-rr-right",
+    again: "fi fi-br-rotate-left",
     arrow: "fi fi-br-angle-double-right",
     check: "fi fi-sr-checkbox",
     one: "fi fi-sr-square-1",

@@ -53,38 +53,27 @@ const SubMenuItem = styled.div<{ color: string; important: boolean }>`
   line-height: 120%;
 `;
 
-const QuestionMenuDescription = styled.div`
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: space-between;
-  margin-right: auto;
-  height: 50px;
-  width: 100%;
-`;
-
 const MenuDescription = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: auto;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  padding-left: 12px;
 `;
 
 const Progress = styled.div`
-  position: absolute;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 
-  bottom: 12px;
-  left: 20px;
-
   border-radius: 10px;
-  width: calc(100% - 32px);
+  width: calc(100%);
   height: 15px;
-  padding-right: 5px;
+  padding: 5px;
+  margin-top: 10px;
   background: ${({ theme }) => theme.colors.bg};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Bar = styled.div<{ score: number; color: string }>`
@@ -94,29 +83,7 @@ const Bar = styled.div<{ score: number; color: string }>`
   height: 5px;
 `;
 
-const Title = styled.div`
-  position: absolute;
-  max-width: 100%;
-  height: 100%;
-  padding: 2px;
-  overflow: scroll;
-  white-space: nowrap;
-  top: 15px;
-  left: 5px;
-  color: ${({ theme }) => theme.colors.textBlue};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-`;
-
 const Score = styled.div`
-  position: absolute;
-  top: 28px;
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
 `;
@@ -153,12 +120,22 @@ function MenuUI({ menuList }: MenuUIProps) {
                     <MenuLabelBox state={mainColor}>
                       <Score>{score}%</Score>
                     </MenuLabelBox>
-                    <QuestionMenuDescription>
-                      <Title>{title}</Title>
-                    </QuestionMenuDescription>
-                    <Progress>
-                      <Bar score={score} color={mainColor} />
-                    </Progress>
+                    <MenuDescription>
+                      <Text
+                        weight={theme.fontWeight.bold}
+                        size={theme.fontSizes.xs}
+                        color={
+                          state === "Locked"
+                            ? theme.colors.red
+                            : theme.colors.textBlue
+                        }
+                      >
+                        {title}
+                      </Text>
+                      <Progress>
+                        <Bar score={score} color={mainColor} />
+                      </Progress>
+                    </MenuDescription>
                   </>
                 ) : (
                   <>

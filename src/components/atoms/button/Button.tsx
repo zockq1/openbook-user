@@ -14,8 +14,8 @@ const StyledButton = styled.button`
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
-  z-index: 9999;
 `;
+
 interface ButtonProps {
   children?: ReactNode;
   onClick: () => void;

@@ -63,7 +63,7 @@ const Progress = styled.div`
   height: 20px;
   width: calc(100% - 24px);
   background: ${({ theme }) => theme.colors.bg};
-  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Load = keyframes`
