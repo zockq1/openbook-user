@@ -20,6 +20,7 @@ import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
 import ScoreUI from "../container/ScoreUI.container";
 import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
+import ResultButtonUI from "../container/ResultButtonUI.container";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -27,6 +28,7 @@ interface QuestionProps {
   quizList: QuizModel[];
   onNextContent: () => void;
   onFinish?: () => void;
+  isJJH?: boolean;
 }
 
 type State = {
@@ -161,7 +163,12 @@ function getKeywordList(
   return newMap;
 }
 
-function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
+function Quiz({
+  quizList,
+  onNextContent,
+  onFinish,
+  isJJH = false,
+}: QuestionProps) {
   const [updateKeywordWrongCount] = useUpdateKeywordWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
@@ -296,7 +303,13 @@ function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
       />
       {questionList.length === currentNumber ? (
         <>
-          <ScoreUI score={score} questionList={questionList} />
+          <ScoreUI score={score} questionList={questionList} isJJH={isJJH} />
+          <ResultButtonUI
+            isSuccess={
+              isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
+            }
+            onNextContent={onNextContent}
+          />
           <IncorrectAnswerListUI questionList={questionList} />
         </>
       ) : (

@@ -21,7 +21,7 @@ function QuizListPage() {
       {
         type: "Progress",
         icon: `${Math.floor(avgScore)}점`,
-        title: "전체 진행도 / 취약 문제 풀기",
+        title: "전체 진행도",
         subTitle: "전체 주제",
         score: Math.floor(avgScore),
         mainColor: calculateGradientColor(avgScore),
@@ -39,7 +39,7 @@ function QuizListPage() {
           const { title, id, score, topicCount } = questionCategory;
           const result: MenuModel = {
             type: "Progress",
-            title: `${title} 문제 풀기`,
+            title: `${title}`,
             icon: `${score}점`,
             subTitle: (
               <>

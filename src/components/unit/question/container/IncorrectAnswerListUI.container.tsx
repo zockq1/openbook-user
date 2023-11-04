@@ -79,27 +79,11 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
             <WrongQuestion key={index}>
               <MenuLabelBox state="Locked">{index + 1}</MenuLabelBox>
               <WrongQuestionTextContainer>
-                {descriptionList.map((description) => (
-                  <WrongQuestionText color="" key={description}>
-                    <div>
-                      <Icon icon="description" />
-                    </div>{" "}
-                    {description}
-                  </WrongQuestionText>
-                ))}
-                <WrongQuestionText color={theme.colors.red}>
+                <WrongQuestionText color="">
                   <div>
-                    <Icon icon="x" />
+                    <Icon icon="description" />
                   </div>
-                  {`${
-                    choiceList[Number(checkedChoiceKey.substring(0, 1))].choice
-                  }(${choiceList[
-                    Number(checkedChoiceKey.substring(0, 1))
-                  ].commentList.map(
-                    (comment, index, arr) =>
-                      `${comment}${index < arr.length - 1 ? ", " : ""}`
-                  )})
-                  `}
+                  {descriptionList.map((description) => description).join(", ")}
                 </WrongQuestionText>
                 <WrongQuestionText color={theme.colors.blue}>
                   <div>
@@ -107,12 +91,37 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                   </div>
                   {choiceList.map((choice) => {
                     if (choice.key.includes(answer))
-                      return `${choice.choice}(${choice.commentList.map(
-                        (comment, index, arr) =>
-                          `${comment}${index < arr.length - 1 ? ", " : ""}`
-                      )})`;
+                      return (
+                        `${choice.choice}` +
+                        (choice.commentList.length > 0
+                          ? `(${choice.commentList.map(
+                              (comment, index, arr) =>
+                                `${comment}${
+                                  index < arr.length - 1 ? ", " : ""
+                                }`
+                            )})`
+                          : "")
+                      );
                     return null;
                   })}
+                </WrongQuestionText>
+                <WrongQuestionText color={theme.colors.red}>
+                  <div>
+                    <Icon icon="x" />
+                  </div>
+                  {`${
+                    choiceList[Number(checkedChoiceKey.substring(0, 1))].choice
+                  }` +
+                    (choiceList[Number(checkedChoiceKey.substring(0, 1))]
+                      .commentList.length > 0
+                      ? `(${choiceList[
+                          Number(checkedChoiceKey.substring(0, 1))
+                        ].commentList.map(
+                          (comment, index, arr) =>
+                            `${comment}${index < arr.length - 1 ? ", " : ""}`
+                        )})
+                  `
+                      : "")}
                 </WrongQuestionText>
               </WrongQuestionTextContainer>
             </WrongQuestion>

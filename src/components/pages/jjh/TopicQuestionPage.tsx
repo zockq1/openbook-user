@@ -10,7 +10,7 @@ import Quiz from "../../unit/question/presenter/Quiz.presenter";
 
 function TopicQuestionPage() {
   const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
-  const handleNextContent = useNextContent();
+  const { handleNextContent } = useNextContent();
   const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(topicTitle, {
     refetchOnMountOrArgChange: true,
   });
@@ -28,6 +28,7 @@ function TopicQuestionPage() {
           quizList={TtoKQuestionList}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
           onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+          isJJH
         />
       </MainContentLayout>
     </Layout>

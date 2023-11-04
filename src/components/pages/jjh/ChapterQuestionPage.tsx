@@ -1,25 +1,37 @@
 import { useGetKtoTQuestionQuery } from "../../../store/api/questionApi";
-import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
 import useNextContent from "../../../service/useNextContent";
+import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import Quiz from "../../unit/question/presenter/Quiz.presenter";
 
 function ChapterQuestionPage() {
-  const handleNextContent = useNextContent();
+  const { handleNextContent } = useNextContent();
   const { chapterNumber, jjhNumber, contentNumber } = useQuesryString();
   const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber, {
     refetchOnMountOrArgChange: true,
   });
+  const [updateProgres] = useUpdateProgressMutation();
 
   if (!KtoTQuestionList) {
     return <div>Loading...</div>;
   }
 
   return (
-    <QuestionTemplate
-      questionList={KtoTQuestionList || []}
-      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-    />
+    <Layout>
+      <TitleBox icon="question" category="퀴즈" />
+      <MainContentLayout>
+        <Quiz
+          quizList={KtoTQuestionList}
+          onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
+          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+          isJJH
+        />
+      </MainContentLayout>
+    </Layout>
   );
 }
 

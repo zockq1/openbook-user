@@ -1,6 +1,9 @@
-import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetRandomQuestionQuery } from "../../../store/api/questionApi";
+import Layout from "../../atoms/layout/Layout";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import Quiz from "../../unit/question/presenter/Quiz.presenter";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -19,10 +22,12 @@ function QuizPage() {
   }
 
   return (
-    <QuestionTemplate
-      questionList={questionList}
-      onNextContent={() => navigate(-1)}
-    />
+    <Layout>
+      <TitleBox icon="question" category="퀴즈" />
+      <MainContentLayout>
+        <Quiz quizList={questionList} onNextContent={() => navigate(-1)} />
+      </MainContentLayout>
+    </Layout>
   );
 }
 

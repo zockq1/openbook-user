@@ -5,7 +5,7 @@ import useQuesryString from "../../../service/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 
 function TimelineQuestionPage() {
-  const handleNextContent = useNextContent();
+  const { handleNextContent } = useNextContent();
   const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
   const { data: dateList } = useGetTimelineQuery(timelineId);
 
