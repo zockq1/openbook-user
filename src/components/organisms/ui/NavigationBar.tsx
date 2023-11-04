@@ -11,6 +11,7 @@ const StyledNavigationBar = styled.nav`
   height: 70px;
   width: 100%;
   border-radius: 25px 25px 0 0;
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 `;

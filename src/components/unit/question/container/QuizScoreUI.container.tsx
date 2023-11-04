@@ -92,7 +92,7 @@ const Sub = styled.div`
   margin: 10px 0 20px;
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   font-family: "Giants-Regular";
   text-align: center;
   word-break: keep-all;
@@ -139,7 +139,8 @@ function ScoreUI({ score, questionList }: ScoreUIProps) {
           {Math.floor(persentage)}%({score}/{questionList.length})
         </Score>
         <Sub>
-          80%를 넘기지 못했습니다.
+          80%({Math.ceil(questionList.length * 0.8)}/{questionList.length})를
+          넘기지 못했습니다.
           <br />
           다시 공부해주세요.
         </Sub>

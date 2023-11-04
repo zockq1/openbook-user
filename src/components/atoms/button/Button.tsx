@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledButton = styled.button`
   height: 50px;
-  width: calc(100% - 40px);
+  width: 100%;
 
   margin: ${({ theme }) => theme.margin.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};

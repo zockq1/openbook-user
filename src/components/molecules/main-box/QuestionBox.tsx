@@ -7,13 +7,14 @@ import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 
 const Box = styled.li`
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   height: 150px;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   overflow: hidden;
 `;
 

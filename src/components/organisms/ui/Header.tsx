@@ -5,11 +5,14 @@ import Logo from "../../atoms/icon/Logo";
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding.large};
-  background-color: ${({ theme }) => theme.colors.bg};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 0 0 25px 25px;
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   z-index: 100;
 `;
 

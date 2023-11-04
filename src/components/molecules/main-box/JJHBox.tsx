@@ -8,7 +8,7 @@ import calculateGradientColor from "../../../service/calculateGradientColor";
 
 const Box = styled.li`
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   height: 55vw;
   max-height: 300px;
   margin: ${({ theme }) => theme.margin.base};
@@ -16,6 +16,7 @@ const Box = styled.li`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   overflow: hidden;
 `;
 

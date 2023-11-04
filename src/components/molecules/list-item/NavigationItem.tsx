@@ -36,7 +36,7 @@ const Navigation = styled(Link)<NavigationProps>`
   background-color: ${({ $isCurrent, theme }) =>
     $isCurrent ? theme.colors.lightBlue : theme.colors.white};
   color: ${({ $isCurrent, theme }) =>
-    $isCurrent ? theme.colors.blue : theme.colors.lightGrey};
+    $isCurrent ? theme.colors.textBlue : theme.colors.lightGrey};
 
   animation: ${({ $isCurrent }) =>
     $isCurrent

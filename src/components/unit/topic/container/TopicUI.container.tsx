@@ -11,7 +11,6 @@ const Topic = styled.div<{ direction: "row" | "column" }>`
   display: flex;
   flex-direction: ${({ direction }) => direction};
   flex-wrap: wrap;
-  padding: 0 20px;
 `;
 
 function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {

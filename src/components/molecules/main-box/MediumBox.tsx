@@ -4,12 +4,13 @@ import styled from "styled-components";
 
 const Box = styled.li`
   position: relative;
-  width: calc((100% - 60px) / 2);
-  margin: 10px 0px 10px 20px;
+  width: calc((50% - 10px));
+  margin: 10px 0;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   overflow: hidden;
 `;
 

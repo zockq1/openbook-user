@@ -10,6 +10,12 @@ import NavigationBar from "../../organisms/ui/NavigationBar";
 import JJHBox from "../../molecules/main-box/JJHBox";
 import { ProgressModel } from "../../../types/jjhTypes";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
+import styled from "styled-components";
+
+const SubMenu = styled.ul`
+  display: flex;
+  justify-content: space-between;
+`;
 
 interface MainPageTemplateProps {
   progress: ProgressModel;
@@ -27,16 +33,14 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
             image={run}
             percentage={progress.totalProgress}
           />
-          <MediumBox
-            title="학습 자료 모음"
-            link="learning"
-            image={books}
-          ></MediumBox>
-          <MediumBox
-            title="연표 보기"
-            link="timeline-list"
-            image={timeline}
-          ></MediumBox>
+          <SubMenu>
+            <MediumBox title="학습 자료 모음" link="learning" image={books} />
+            <MediumBox
+              title="연표 보기"
+              link="timeline-list"
+              image={timeline}
+            />
+          </SubMenu>
         </RowList>
       </MainPageLayout>
 

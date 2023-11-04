@@ -55,7 +55,7 @@ const shadow = {
 
 const margin = {
   small: "5px",
-  base: "10px 20px",
+  base: "10px 0px",
 };
 
 const padding = {
