@@ -38,15 +38,21 @@ const Image = styled.img`
 `;
 
 function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
-  const { descriptionList, choiceList, answer, isFinish, checkedChoiceKey } =
-    quetion;
+  const {
+    descriptionList,
+    choiceList,
+    answer,
+    isFinish,
+    checkedChoiceKey,
+    descriptionCommentList,
+  } = quetion;
   const theme = useContext(ThemeContext);
-  console.log(quetion.questionType);
+
   return (
     <>
       <Description>
         <Image src={image} />
-        {descriptionList.description.map((item) => {
+        {descriptionList.map((item) => {
           return (
             <TextBox maxWidth="full" key={item}>
               {item}
@@ -54,10 +60,10 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
           );
         })}
       </Description>
-      {descriptionList.commentList.length > 0 && (
+      {descriptionCommentList.length > 0 && (
         <CommentUI
           isCommentOpen={isFinish}
-          commentList={descriptionList.commentList}
+          commentList={descriptionCommentList}
         />
       )}
       <ColumnList>

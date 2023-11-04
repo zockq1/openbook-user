@@ -28,6 +28,8 @@ export type IconType =
   | "three"
   | "fail"
   | "back"
+  | "o"
+  | "x"
   | Content
   | TopicCategory;
 
@@ -93,6 +95,8 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     two: "fi fi-sr-square-2",
     three: "fi fi-sr-square-3",
     fail: "fi fi-br-ban",
+    o: "fi fi-sr-square-o",
+    x: "fi fi-sr-square-x",
   };
 
   const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));

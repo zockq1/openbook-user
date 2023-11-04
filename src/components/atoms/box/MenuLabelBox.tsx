@@ -15,15 +15,17 @@ const StyledChapterNumber = styled.div<StateProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 50px;
   height: 50px;
   border-radius: ${({ theme }) => theme.borderRadius.xs};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme, state }) =>
     state === "Locked"
-      ? theme.colors.lightRed
+      ? theme.colors.red
       : state === "Oepn"
       ? theme.colors.grey
       : state};

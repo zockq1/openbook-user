@@ -115,41 +115,45 @@ interface ScoreUIProps {
 function ScoreUI({ score, questionList }: ScoreUIProps) {
   const persentage = (score / questionList.length) * 100;
   const isSuccess = persentage >= 80;
-  return isSuccess ? (
-    <ScoreContainer>
-      <Image src={success} />
-      <DescriptionContainer>
-        <Title isSuccess={isSuccess}>합격!</Title>
-        <Score isSuccess={isSuccess}>
-          {Math.floor(persentage)}%({score}/{questionList.length})
-        </Score>
-        <Sub>다음 학습으로 넘어가세요!</Sub>
-      </DescriptionContainer>
-      <Flag src={blueFlag} />
-      <Progress>
-        <Bar percentage={persentage} />
-      </Progress>
-    </ScoreContainer>
-  ) : (
-    <ScoreContainer>
-      <Image src={isSuccess ? success : fail} />
-      <DescriptionContainer>
-        <Title isSuccess={isSuccess}>불합격!</Title>
-        <Score isSuccess={isSuccess}>
-          {Math.floor(persentage)}%({score}/{questionList.length})
-        </Score>
-        <Sub>
-          80%({Math.ceil(questionList.length * 0.8)}/{questionList.length})를
-          넘기지 못했습니다.
-          <br />
-          다시 공부해주세요.
-        </Sub>
-      </DescriptionContainer>
-      <Flag src={redFlag} />
-      <Progress>
-        <Bar percentage={persentage} />
-      </Progress>
-    </ScoreContainer>
+  return (
+    <>
+      {isSuccess ? (
+        <ScoreContainer>
+          <Image src={success} />
+          <DescriptionContainer>
+            <Title isSuccess={isSuccess}>합격!</Title>
+            <Score isSuccess={isSuccess}>
+              {Math.floor(persentage)}%({score}/{questionList.length})
+            </Score>
+            <Sub>다음 학습으로 넘어가세요!</Sub>
+          </DescriptionContainer>
+          <Flag src={blueFlag} />
+          <Progress>
+            <Bar percentage={persentage} />
+          </Progress>
+        </ScoreContainer>
+      ) : (
+        <ScoreContainer>
+          <Image src={isSuccess ? success : fail} />
+          <DescriptionContainer>
+            <Title isSuccess={isSuccess}>불합격!</Title>
+            <Score isSuccess={isSuccess}>
+              {Math.floor(persentage)}%({score}/{questionList.length})
+            </Score>
+            <Sub>
+              80%({Math.ceil(questionList.length * 0.8)}/{questionList.length}
+              )를 넘기지 못했습니다.
+              <br />
+              다시 공부해주세요.
+            </Sub>
+          </DescriptionContainer>
+          <Flag src={redFlag} />
+          <Progress>
+            <Bar percentage={persentage} />
+          </Progress>
+        </ScoreContainer>
+      )}
+    </>
   );
 }
 export default ScoreUI;

@@ -1,25 +1,36 @@
 import { useGetTtoKQuestionQuery } from "../../../store/api/questionApi";
-import QuestionTemplate from "../../templates/question/QuestionTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
 import useNextContent from "../../../service/useNextContent";
+import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import Quiz from "../../unit/question/presenter/Quiz.presenter";
 
 function TopicQuestionPage() {
   const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
   const handleNextContent = useNextContent();
-  const { data: TtoKQuestionList, isLoading: isTtoKQuestionListLoading } =
-    useGetTtoKQuestionQuery(topicTitle, { refetchOnMountOrArgChange: true });
+  const { data: TtoKQuestionList } = useGetTtoKQuestionQuery(topicTitle, {
+    refetchOnMountOrArgChange: true,
+  });
+  const [updateProgres] = useUpdateProgressMutation();
 
-  if (isTtoKQuestionListLoading) {
+  if (!TtoKQuestionList) {
     return <div>Loading...</div>;
   }
 
   return (
-    <QuestionTemplate
-      title={""}
-      questionList={TtoKQuestionList || []}
-      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-    />
+    <Layout>
+      <TitleBox icon="question" category="퀴즈" />
+      <MainContentLayout>
+        <Quiz
+          quizList={TtoKQuestionList}
+          onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
+          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+        />
+      </MainContentLayout>
+    </Layout>
   );
 }
 export default withAuth(TopicQuestionPage);

@@ -18,7 +18,8 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import QuizScoreUI from "../container/QuizScoreUI.container";
+import ScoreUI from "../container/ScoreUI.container";
+import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -43,7 +44,10 @@ const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 
 export type Action =
-  | { type: "SELECT_CHOICE"; checkedChoiceKey: string }
+  | {
+      type: "SELECT_CHOICE";
+      checkedChoiceKey: string;
+    }
   | { type: "CHECK_ANSWER"; correctAlert: () => Id; wrongAlert: () => Id }
   | { type: "NEXT_QUESTION" }
   | { type: "FINISH" }
@@ -174,10 +178,8 @@ function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
         return {
           questionType,
           choiceType,
-          descriptionList: {
-            description,
-            commentList: [],
-          },
+          descriptionList: description,
+          descriptionCommentList: [],
           choiceList: [...choiceList]
             .sort(() => Math.random() - 0.5)
             .map((choice) => {
@@ -228,7 +230,10 @@ function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
     );
 
   const handleChoiceClick = (key: string) => {
-    dispatch({ type: SELECT_CHOICE, checkedChoiceKey: key });
+    dispatch({
+      type: SELECT_CHOICE,
+      checkedChoiceKey: key,
+    });
   };
 
   const handleCheckAnswer = () => {
@@ -254,7 +259,7 @@ function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
       });
       await updateKeywordWrongCount(newKeywordList);
 
-      if (Math.ceil(questionList.length * 0.8) >= score) {
+      if (Math.ceil(questionList.length * 0.8) <= score) {
         onFinish && onFinish();
       }
       return;
@@ -290,7 +295,10 @@ function Quiz({ quizList, onNextContent, onFinish }: QuestionProps) {
         isFinish={isFinish}
       />
       {questionList.length === currentNumber ? (
-        <QuizScoreUI score={score} questionList={questionList} />
+        <>
+          <ScoreUI score={score} questionList={questionList} />
+          <IncorrectAnswerListUI questionList={questionList} />
+        </>
       ) : (
         <>
           <QuestionUI

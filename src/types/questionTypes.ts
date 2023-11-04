@@ -5,7 +5,8 @@ export type QuestionMode = "Quiz" | "Exam";
 export interface QuestionModel {
   questionType: QuestionType;
   choiceType: ChoiceType;
-  descriptionList: { description: string[]; commentList: string[] };
+  descriptionList: string[];
+  descriptionCommentList: string[];
   choiceList: {
     choice: string;
     key: string;

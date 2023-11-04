@@ -40,8 +40,9 @@ const Description = styled.li<{ open: boolean; color: string }>`
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
-  color: ${({ color }) => color};
+  color: ${({ color, theme }) => (color ? color : theme.colors.textBlue)};
   line-height: 120%;
+  word-break: keep-all;
   overflow: hidden;
 `;
 
@@ -55,11 +56,7 @@ interface CommentUIProps {
   color?: string;
 }
 
-function CommentUI({
-  isCommentOpen,
-  commentList,
-  color = "theme.colors.textBlue",
-}: CommentUIProps) {
+function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
   return (
     <Comment open={isCommentOpen}>
       <Triangle open={isCommentOpen} />
