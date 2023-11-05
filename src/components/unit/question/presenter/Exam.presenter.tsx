@@ -4,11 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../../../styles/images/correct.svg";
 import incorrct from "../../../../styles/images/incorrect.svg";
 import {
+  ExamModel,
+  QuestionCommentModel,
   QuestionModel,
-  QuizModel,
-  WrongCounterModel,
 } from "../../../../types/questionTypes";
-import { useUpdateKeywordWrongCounterMutation } from "../../../../store/api/questionApi";
 import QuestionUI from "../container/QuestionUI.container";
 import Button from "../../../atoms/button/Button";
 import QuestionNavigationUI from "../container/QuestionNavigationUI.container";
@@ -25,8 +24,8 @@ import Icon from "../../../atoms/icon/Icon";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
-interface QuestionProps {
-  quizList: QuizModel[];
+interface ExamProps {
+  examList: ExamModel[];
   onNextContent: () => void;
   onFinish?: () => void;
   isJJH?: boolean;
@@ -37,7 +36,6 @@ type State = {
   isFinish: boolean;
   currentNumber: number;
   score: number;
-  keywordList: Map<number, { wrongCount: number; correctCount: number }>; //퀴즈 모드만
 };
 
 const SELECT_CHOICE = "SELECT_CHOICE";
@@ -92,18 +90,6 @@ const reducer = (state: State, action: Action): State => {
         if (index === state.currentNumber) {
           //맞았으면 점수 증가
           if (item.isCorrect) score += 1;
-          //키워드별 정답, 오답 횟수 기록
-          if (item.keywordIdList && item.keywordIdList.length > 0) {
-            item.keywordIdList.forEach((keywordId) => {
-              let keyword = state.keywordList.get(keywordId);
-              if (keyword) {
-                item.isCorrect
-                  ? (keyword.correctCount += 1)
-                  : (keyword.wrongCount += 1);
-                state.keywordList.set(keywordId, keyword);
-              }
-            });
-          }
           //알림 창 출력
           item.isCorrect ? action.correctAlert() : action.wrongAlert();
 
@@ -151,71 +137,79 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-function getKeywordList(
-  quizList: QuizModel[]
-): Map<number, { wrongCount: number; correctCount: number }> {
-  let newMap = new Map<number, { wrongCount: number; correctCount: number }>();
-  quizList.forEach((quiz) => {
-    if (!quiz.keywordIdList) return newMap;
-    quiz.keywordIdList.forEach((keywordId) => {
-      newMap.set(keywordId, { wrongCount: 0, correctCount: 0 });
-    });
-  });
-  return newMap;
-}
-
-function Quiz({
-  quizList,
-  onNextContent,
-  onFinish,
-  isJJH = false,
-}: QuestionProps) {
-  const [updateKeywordWrongCount] = useUpdateKeywordWrongCounterMutation();
+function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
-    questionList: [...quizList]
-      .sort(() => Math.random() - 0.5)
-      .map((item, index): QuestionModel => {
-        const {
-          questionType,
-          answer,
-          choiceList,
-          choiceType,
-          description,
-          keywordIdList,
-        } = item;
-        return {
-          questionType,
-          choiceType,
-          descriptionList: description,
-          descriptionCommentList: [],
-          choiceList: [...choiceList]
-            .sort(() => Math.random() - 0.5)
-            .map((choice) => {
-              return {
-                choice: choice.choice,
-                key: choice.key,
-                commentList:
-                  questionType === "TtoK"
-                    ? [{ comment: choice.key, icon: <Icon icon="check" /> }]
-                    : [],
-              };
-            }),
-          answer,
-          checkedChoiceKey: "",
-          isCorrect: false,
-          isChecked: false,
-          isFinish: false,
-          isOpen: !index,
-          score: 0,
-          keywordIdList,
-        };
-      }),
+    questionList: [...examList].map((item, index): QuestionModel => {
+      const {
+        answer,
+        choiceList,
+        choiceType,
+        description,
+        descriptionCommentList,
+      } = item;
+      return {
+        questionType: "Exam",
+        choiceType,
+        descriptionList: [description],
+        descriptionCommentList: descriptionCommentList.reduce(
+          (acc: QuestionCommentModel[], cur) => {
+            const {
+              keywordComment,
+              keywordDateComment,
+              keywordName,
+              topicDateComment,
+              topicTitle,
+            } = cur;
+            let comment = topicTitle;
+            comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
+            comment += keywordName;
+            comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+            acc.push({ comment, icon: <Icon icon="check" /> });
+            keywordComment && acc.push({ comment: keywordComment, icon: null });
+            return acc;
+          },
+          []
+        ),
+        choiceList: [...choiceList].map((choice) => {
+          return {
+            choice: choice.choice,
+            key: String(choice.number),
+            commentList: choice.commentList.reduce(
+              (acc: QuestionCommentModel[], cur) => {
+                const {
+                  keywordComment,
+                  keywordDateComment,
+                  keywordName,
+                  topicDateComment,
+                  topicTitle,
+                } = cur;
+                let comment = topicTitle;
+                comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
+                comment += keywordName;
+                comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+                acc.push({ comment, icon: <Icon icon="check" /> });
+                keywordComment &&
+                  acc.push({ comment: keywordComment, icon: null });
+                return acc;
+              },
+              []
+            ),
+          };
+        }),
+        answer: String(answer),
+        checkedChoiceKey: "",
+        isCorrect: false,
+        isChecked: false,
+        isFinish: false,
+        isOpen: !index,
+        score: 0,
+      };
+    }),
     isFinish: false,
     currentNumber: 0,
     score: 0,
-    keywordList: getKeywordList(quizList),
   });
-  const { questionList, currentNumber, keywordList, isFinish, score } = state;
+  const { questionList, currentNumber, isFinish, score } = state;
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
@@ -260,15 +254,6 @@ function Quiz({
     toast.dismiss();
     if (questionList.length === currentNumber + 1) {
       dispatch({ type: FINISH });
-      let newKeywordList: WrongCounterModel[] = [];
-      keywordList.forEach((value, key) => {
-        newKeywordList.push({
-          id: key,
-          wrongCount: value.wrongCount,
-          correctCount: value.correctCount,
-        });
-      });
-      await updateKeywordWrongCount(newKeywordList);
 
       if (Math.ceil(questionList.length * 0.8) <= score) {
         onFinish && onFinish();
@@ -334,5 +319,4 @@ function Quiz({
   );
 }
 
-export default Quiz;
-//194 + 304 = 498
+export default Exam;

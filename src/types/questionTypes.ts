@@ -1,16 +1,23 @@
+import { ReactNode } from "react";
+
 export type QuestionType = "TtoK" | "KtoT" | "Exam";
 export type ChoiceType = "String" | "Image";
 export type QuestionMode = "Quiz" | "Exam";
+
+export interface QuestionCommentModel {
+  comment: string;
+  icon: ReactNode;
+}
 
 export interface QuestionModel {
   questionType: QuestionType;
   choiceType: ChoiceType;
   descriptionList: string[];
-  descriptionCommentList: string[];
+  descriptionCommentList: QuestionCommentModel[];
   choiceList: {
     choice: string;
     key: string;
-    commentList: string[];
+    commentList: QuestionCommentModel[];
   }[];
   answer: string;
 

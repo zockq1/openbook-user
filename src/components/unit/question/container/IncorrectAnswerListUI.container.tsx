@@ -90,7 +90,7 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                     <Icon icon="o" />
                   </div>
                   {choiceList.map((choice) => {
-                    if (choice.key.includes(answer))
+                    if (choice.key === answer)
                       return (
                         `${choice.choice}` +
                         (choice.commentList.length > 0

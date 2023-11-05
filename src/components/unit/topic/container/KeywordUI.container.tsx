@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
 import { KeywordModel } from "../../../../types/topicTypes";
 import CommentUI from "./CommentUI.container";
+import Icon from "../../../atoms/icon/Icon";
 
 interface KeywordCommentBoxProps {
   keyword: KeywordModel;
@@ -46,7 +47,13 @@ function KeywordUI({ keyword, isCommentOn }: KeywordCommentBoxProps) {
       {comment && (
         <CommentUI
           isCommentOpen={isCommentOn}
-          commentList={comment.trim().split(".").filter(Boolean)}
+          commentList={comment
+            .trim()
+            .split(".")
+            .filter(Boolean)
+            .map((item) => {
+              return { comment: item, icon: <Icon icon="check" /> };
+            })}
         />
       )}
     </Keyword>

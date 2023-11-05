@@ -6,6 +6,7 @@ import { ColumnList } from "../../../atoms/layout/List";
 import { LongChoiceItem } from "../../../molecules/list-item/LongChoiceItem";
 import CommentUI from "../../topic/container/CommentUI.container";
 import { useContext } from "react";
+import { ShortChoiceItem } from "../../../molecules/list-item/ShortChoiceItem";
 
 interface QuestionProps {
   quetion: QuestionModel;
@@ -37,6 +38,17 @@ const Image = styled.img`
   opacity: 0.15;
 `;
 
+const ImageChoiceList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const ImageChoice = styled.li`
+  width: calc((100% - 20px) / 2);
+  margin-bottom: 10px;
+`;
+
 function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
   const {
     descriptionList,
@@ -45,20 +57,32 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
     isFinish,
     checkedChoiceKey,
     descriptionCommentList,
+    choiceType,
+    questionType,
   } = quetion;
   const theme = useContext(ThemeContext);
 
   return (
     <>
       <Description>
-        <Image src={image} />
-        {descriptionList.map((item) => {
-          return (
-            <TextBox maxWidth="full" key={item}>
-              {item}
-            </TextBox>
-          );
-        })}
+        {questionType === "Exam" ? (
+          <img
+            style={{ width: "100%", height: "auto" }}
+            src={descriptionList[0]}
+            alt=""
+          />
+        ) : (
+          <>
+            <Image src={image} />
+            {descriptionList.map((item) => {
+              return (
+                <TextBox maxWidth="full" key={item}>
+                  {item}
+                </TextBox>
+              );
+            })}
+          </>
+        )}
       </Description>
       {descriptionCommentList.length > 0 && (
         <CommentUI
@@ -66,29 +90,59 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
           commentList={descriptionCommentList}
         />
       )}
-      <ColumnList>
-        {choiceList.map((item, index) => (
-          <li key={String(index) + item.key}>
-            <LongChoiceItem
-              handleChoiceClick={onChoiceClick}
-              choiceKey={String(index) + item.key}
-              isCorrect={answer === item.key}
-              choice={item.choice}
-              isFinish={isFinish}
-              selectedCheckbox={checkedChoiceKey}
-            />
-            {item.commentList.length > 0 && (
-              <CommentUI
-                isCommentOpen={isFinish}
-                commentList={item.commentList}
-                color={
-                  answer === item.key ? theme.colors.blue : theme.colors.red
-                }
-              />
-            )}
-          </li>
-        ))}
-      </ColumnList>
+      {choiceType === "String" ? (
+        <>
+          <ColumnList>
+            {choiceList.map((item, index) => (
+              <li key={String(index) + item.key}>
+                <LongChoiceItem
+                  handleChoiceClick={onChoiceClick}
+                  choiceKey={String(index) + item.key}
+                  isCorrect={answer === item.key}
+                  choice={item.choice}
+                  isFinish={isFinish}
+                  selectedCheckbox={checkedChoiceKey}
+                />
+                {item.commentList.length > 0 && (
+                  <CommentUI
+                    isCommentOpen={isFinish}
+                    commentList={item.commentList}
+                    color={
+                      answer === item.key ? theme.colors.blue : theme.colors.red
+                    }
+                  />
+                )}
+              </li>
+            ))}
+          </ColumnList>
+        </>
+      ) : (
+        <>
+          <ImageChoiceList>
+            {choiceList.map((item, index) => (
+              <ImageChoice key={String(index) + item.key}>
+                <ShortChoiceItem
+                  handleChoiceClick={onChoiceClick}
+                  choiceKey={String(index) + item.key}
+                  isCorrect={answer === item.key}
+                  choice={item.choice}
+                  isFinish={isFinish}
+                  selectedCheckbox={checkedChoiceKey}
+                />
+                {item.commentList.length > 0 && (
+                  <CommentUI
+                    isCommentOpen={isFinish}
+                    commentList={item.commentList}
+                    color={
+                      answer === item.key ? theme.colors.blue : theme.colors.red
+                    }
+                  />
+                )}
+              </ImageChoice>
+            ))}
+          </ImageChoiceList>
+        </>
+      )}
     </>
   );
 }

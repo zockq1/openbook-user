@@ -11,7 +11,6 @@ interface AnswerCheckProps {
 
 interface ChoiceProps {
   handleChoiceClick: (checkboxId: string) => void;
-  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   choiceKey: string;
   choice: string;
   isFinish: boolean;
@@ -23,16 +22,18 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc((100vw - 45px) / 2);
-  margin: 10px 0px 10px 15px;
+  width: 100%;
+  height: 200px;
+  margin: 0;
   padding: 12px;
   border-radius: 10px;
-  border: ${({ theme, isFinish, isCorrect }) =>
-    isFinish
-      ? isCorrect
-        ? theme.border.blue
-        : theme.border.red
-      : theme.border.black};
+  border: 2px solid
+    ${({ theme, isFinish, isCorrect }) =>
+      isFinish
+        ? isCorrect
+          ? theme.colors.blue
+          : theme.colors.red
+        : theme.colors.textBlue};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
@@ -40,13 +41,11 @@ const ShortChoice = styled.div<AnswerCheckProps>`
 
 const ShortComment = styled.img<AnswerCheckProps>`
   border-radius: 10px;
-  width: 90%;
-  height: 90%;
+  height: 70%;
 `;
 
 function ShortChoiceItem({
   handleChoiceClick,
-  handleCheckboxChange,
   isCorrect,
   choiceKey,
   choice,
@@ -67,7 +66,7 @@ function ShortChoiceItem({
       />
       <CheckBoxInput
         choiceKey={choiceKey}
-        handleCheckboxChange={handleCheckboxChange}
+        handleCheckboxChange={(e) => handleChoiceClick(e.target.id)}
         selectedCheckbox={selectedCheckbox}
       />
       <CheckBoxLabel

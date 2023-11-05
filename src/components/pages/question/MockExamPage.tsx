@@ -1,8 +1,10 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetExamQuery } from "../../../store/api/questionApi";
-import ExamTemplate from "../../templates/question/ExamTemplate";
 import useQuesryString from "../../../service/useQueryString";
-
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import Exam from "../../unit/question/presenter/Exam.presenter";
 function MockExamPage() {
   const { title } = useQuesryString();
   const navigate = useNavigate();
@@ -16,12 +18,12 @@ function MockExamPage() {
   }
 
   return (
-    <ExamTemplate
-      title={title}
-      examList={mockExamList}
-      timeLimit={Number(searchParams.get("timelimit"))}
-      handleNextContent={() => navigate(-1)}
-    />
+    <Layout>
+      <TitleBox icon="question" category={title} />
+      <MainContentLayout>
+        <Exam examList={mockExamList} onNextContent={() => navigate(-1)} />
+      </MainContentLayout>
+    </Layout>
   );
 }
 

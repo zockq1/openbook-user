@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Icon from "../../../atoms/icon/Icon";
+import { ReactNode } from "react";
 
 const Comment = styled.ul<{ open: boolean }>`
   position: relative;
@@ -47,12 +47,15 @@ const Description = styled.li<{ open: boolean; color: string }>`
 `;
 
 const CommentIcon = styled.div`
+  width: 12px;
+  height: 12px;
   margin-right: 5px;
+  flex-shrink: 0;
 `;
 
 interface CommentUIProps {
   isCommentOpen: boolean;
-  commentList: string[];
+  commentList: { comment: string; icon: ReactNode }[];
   color?: string;
 }
 
@@ -60,12 +63,11 @@ function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
   return (
     <Comment open={isCommentOpen}>
       <Triangle open={isCommentOpen} />
-      {commentList.map((comment) => {
+      {commentList.map((item) => {
+        const { comment, icon } = item;
         return (
           <Description key={comment} open={isCommentOpen} color={color}>
-            <CommentIcon>
-              <Icon icon="check" />
-            </CommentIcon>
+            <CommentIcon>{icon}</CommentIcon>
             {comment}
           </Description>
         );

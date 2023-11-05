@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TextBox from "../../../atoms/box/TextBox";
 import CommentUI from "../../topic/container/CommentUI.container";
+import Icon from "../../../atoms/icon/Icon";
 
 interface TimelineTopicProps {
   dateItem: {
@@ -71,7 +72,12 @@ function TimelineItemUI({
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && (
-          <CommentUI isCommentOpen={isKeywordOpen} commentList={keywordList} />
+          <CommentUI
+            isCommentOpen={isKeywordOpen}
+            commentList={keywordList.map((item) => {
+              return { comment: item, icon: <Icon icon="check" /> };
+            })}
+          />
         )}
       </CommentContainer>
     </>
@@ -79,50 +85,3 @@ function TimelineItemUI({
 }
 
 export default TimelineItemUI;
-
-// {!isQuestion && (
-//   <>
-//     <CheckKeywordList ref={myDivRef}>
-//       {keywordList &&
-//         keywordList.map((keyword, index) => {
-//           return (
-//             <KeywordUI
-//               key={index}
-//               keyword={{
-//                 name: keyword,
-//                 comment: "",
-//                 dateComment: "",
-//                 extraDateList: [],
-//                 id: index,
-//                 file: "",
-//                 questionList: [],
-//                 number: index,
-//               }}
-//               isCommentOn={false}
-//             />
-//           );
-//         })}
-//     </CheckKeywordList>
-//     <KeywordList open={isKeywordOpen} maxHeight={height}>
-//       {keywordList &&
-//         keywordList.map((keyword, index) => {
-//           return (
-//             <KeywordUI
-//               key={index}
-//               keyword={{
-//                 name: keyword,
-//                 comment: "",
-//                 dateComment: "",
-//                 extraDateList: [],
-//                 id: index,
-//                 file: "",
-//                 questionList: [],
-//                 number: index,
-//               }}
-//               isCommentOn={false}
-//             />
-//           );
-//         })}
-//     </KeywordList>
-//   </>
-// )}
