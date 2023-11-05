@@ -96,7 +96,7 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                         (choice.commentList.length > 0
                           ? `(${choice.commentList.map(
                               (comment, index, arr) =>
-                                `${comment}${
+                                `${comment.comment}${
                                   index < arr.length - 1 ? ", " : ""
                                 }`
                             )})`
@@ -118,7 +118,9 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                           Number(checkedChoiceKey.substring(0, 1))
                         ].commentList.map(
                           (comment, index, arr) =>
-                            `${comment}${index < arr.length - 1 ? ", " : ""}`
+                            `${comment.comment}${
+                              index < arr.length - 1 ? ", " : ""
+                            }`
                         )})
                   `
                       : "")}

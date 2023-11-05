@@ -13,7 +13,6 @@ const ButtonContainer = styled.div`
 
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.large};
-  color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
@@ -30,6 +29,8 @@ const Button = styled.button`
   flex-grow: 1;
   font-family: "Giants-Regular";
   word-break: keep-all;
+
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 interface ResultButtonUIProps {
