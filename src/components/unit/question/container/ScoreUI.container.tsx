@@ -103,7 +103,7 @@ const Flag = styled.img`
   bottom: 20px;
   right: 20%;
   transform: translate(-5px, 0);
-  z-index: 999;
+  z-index: 9;
 `;
 
 interface ScoreUIProps {
@@ -159,14 +159,3 @@ function ScoreUI({ score, questionList, isJJH }: ScoreUIProps) {
   );
 }
 export default ScoreUI;
-
-/*
-합격
-  1.컨텐츠 목록으로 돌아가기
-  2.다시 풀어보기
-  3.다음 문제로 바로가기
-    a.다음 문제가 같은 컨텐츠 목록에 있을 경우
-불합격
-  1.컨텐츠 목록으로 돌아가기
-  2.다시 풀어보기
-*/

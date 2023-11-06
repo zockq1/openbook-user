@@ -1,8 +1,5 @@
-import { useMemo, useReducer } from "react";
-import { Id, ToastContainer, Zoom, toast } from "react-toastify";
+import { useEffect, useMemo, useReducer } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import corrct from "../../../../styles/images/correct.svg";
-import incorrct from "../../../../styles/images/incorrect.svg";
 import {
   ExamModel,
   QuestionCommentModel,
@@ -21,6 +18,7 @@ import ScoreUI from "../container/ScoreUI.container";
 import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
+import useQuesryString from "../../../../service/useQueryString";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -38,24 +36,46 @@ type State = {
   score: number;
 };
 
+interface SaveState {
+  questionList: {
+    checkedChoiceKey: string;
+    isCorrect: boolean;
+    isChecked: boolean;
+    isFinish: boolean;
+  }[];
+  score: number;
+}
+
 const SELECT_CHOICE = "SELECT_CHOICE";
 const FINISH = "FINISH";
 const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
+const LOAD = "LOAD";
 
 export type Action =
   | {
       type: "SELECT_CHOICE";
       checkedChoiceKey: string;
     }
-  | { type: "CHECK_ANSWER"; correctAlert: () => Id; wrongAlert: () => Id }
+  | { type: "CHECK_ANSWER" }
   | { type: "NEXT_QUESTION" }
   | { type: "FINISH" }
-  | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
+  | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
+  | { type: "LOAD"; loadedState: SaveState };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case LOAD:
+      const updatedQuestionListLoad = state.questionList.map((item, index) => {
+        return { ...item, ...action.loadedState.questionList[index] };
+      });
+      return {
+        ...state,
+        questionList: updatedQuestionListLoad,
+        score: action.loadedState.score,
+      };
+
     case SELECT_CHOICE:
       if (state.questionList[state.currentNumber].isFinish) {
         return state;
@@ -85,14 +105,10 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, questionList: updatedQuestionListSelect };
 
     case CHECK_ANSWER:
-      let score = state.score;
+      let score = 0;
       const updatedQuestionListCheck = state.questionList.map((item, index) => {
-        if (index === state.currentNumber) {
-          //맞았으면 점수 증가
-          if (item.isCorrect) score += 1;
-          //알림 창 출력
-          item.isCorrect ? action.correctAlert() : action.wrongAlert();
-
+        if (item.isChecked) {
+          score += item.score;
           return { ...item, isFinish: true };
         }
         return { ...item, score };
@@ -105,15 +121,8 @@ const reducer = (state: State, action: Action): State => {
       };
 
     case NEXT_QUESTION:
-      const updatedQuestionListNext = state.questionList.map((item, index) => {
-        if (index === state.currentNumber + 1) {
-          return { ...item, isOpen: true };
-        }
-        return item;
-      });
       return {
         ...state,
-        questionList: updatedQuestionListNext,
         currentNumber: state.currentNumber + 1,
       };
 
@@ -146,6 +155,7 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
         choiceType,
         description,
         descriptionCommentList,
+        score,
       } = item;
       return {
         questionType: "Exam",
@@ -201,38 +211,41 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
         isCorrect: false,
         isChecked: false,
         isFinish: false,
-        isOpen: !index,
-        score: 0,
+        isOpen: true,
+        score,
       };
     }),
     isFinish: false,
     currentNumber: 0,
     score: 0,
   });
-  const { questionList, currentNumber, isFinish, score } = state;
+  const { questionList, currentNumber, score } = state;
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
+  const { round } = useQuesryString();
 
-  const correctAnswer = () =>
-    toast(
-      <img
-        src={corrct}
-        width="200px"
-        style={{ margin: "auto", display: "block" }}
-        alt="correct"
-      />
-    );
+  useEffect(() => {
+    let loadedState = localStorage.getItem(round);
+    if (loadedState) {
+      dispatch({ type: "LOAD", loadedState: JSON.parse(loadedState) });
+    }
+  }, [round]);
 
-  const wrongAnswer = () =>
-    toast(
-      <img
-        src={incorrct}
-        width="200px"
-        style={{ margin: "auto", display: "block" }}
-        alt="correct"
-      />
-    );
+  useEffect(() => {
+    let saveState: SaveState = {
+      questionList: questionList.map((item) => {
+        return {
+          checkedChoiceKey: item.checkedChoiceKey,
+          isCorrect: item.isCorrect,
+          isChecked: item.isChecked,
+          isFinish: item.isFinish,
+        };
+      }),
+      score: score,
+    };
+    localStorage.setItem(round, JSON.stringify(saveState));
+  }, [questionList, score, round]);
 
   const handleChoiceClick = (key: string) => {
     dispatch({
@@ -242,24 +255,14 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
   };
 
   const handleCheckAnswer = () => {
-    if (questionList[currentNumber].checkedChoiceKey === "") return;
     dispatch({
       type: CHECK_ANSWER,
-      correctAlert: correctAnswer,
-      wrongAlert: wrongAnswer,
     });
+
+    dispatch({ type: MOVE_QUESTION, moveQuestionNumber: questionList.length });
   };
 
   const handleNextQuestion = async () => {
-    toast.dismiss();
-    if (questionList.length === currentNumber + 1) {
-      dispatch({ type: FINISH });
-
-      if (Math.ceil(questionList.length * 0.8) <= score) {
-        onFinish && onFinish();
-      }
-      return;
-    }
     dispatch({ type: NEXT_QUESTION });
   };
 
@@ -269,26 +272,11 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
 
   return (
     <>
-      <ToastContainer
-        toastStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
-        position="top-center"
-        autoClose={10}
-        limit={1}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        transition={Zoom}
-        draggable={false}
-        theme="light"
-        closeButton={false}
-      />
       <QuestionNavigationUI
         onClickMove={handleMove}
         questionList={questionList}
         currentNumber={currentNumber}
-        isFinish={isFinish}
+        isFinish={true}
       />
       {questionList.length === currentNumber ? (
         <>
@@ -308,11 +296,8 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
             onChoiceClick={handleChoiceClick}
             image={image}
           />
-          {!questionList[currentNumber].isFinish ? (
-            <Button onClick={handleCheckAnswer}>정답 확인</Button>
-          ) : (
-            <Button onClick={handleNextQuestion}>다음</Button>
-          )}
+          <Button onClick={handleCheckAnswer}>정답 확인</Button>
+          <Button onClick={handleNextQuestion}>다음</Button>
         </>
       )}
     </>

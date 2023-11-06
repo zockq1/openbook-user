@@ -8,6 +8,7 @@ function useQuesryString() {
   const id = searchParams.get("id");
   const content = searchParams.get("content");
   const title = searchParams.get("title");
+  const round = searchParams.get("round");
   return {
     jjhNumber: Number(jjh),
     chapterNumber: Number(chapter),
@@ -15,6 +16,7 @@ function useQuesryString() {
     title: title ? title : "",
     timelineId: Number(id),
     contentNumber: Number(content),
+    round: round ? round : "",
   };
 }
 

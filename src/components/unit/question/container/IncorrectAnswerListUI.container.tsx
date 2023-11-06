@@ -67,6 +67,7 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
     <WrongQuestionList>
       <WrongQuestionTitle>오답 목록</WrongQuestionTitle>
       {questionList.map((question, index) => {
+        if (question.choiceList.length === 0 || !question.isFinish) return null;
         const {
           isCorrect,
           descriptionList,
