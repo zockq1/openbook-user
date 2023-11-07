@@ -82,13 +82,13 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
               <WrongQuestionTextContainer>
                 <WrongQuestionText color="">
                   <div>
-                    <Icon icon="description" />
+                    <Icon icon="description" size={12} />
                   </div>
                   {descriptionList.map((description) => description).join(", ")}
                 </WrongQuestionText>
                 <WrongQuestionText color={theme.colors.blue}>
                   <div>
-                    <Icon icon="o" />
+                    <Icon icon="o" size={12} />
                   </div>
                   {choiceList.map((choice) => {
                     if (choice.key === answer)
@@ -108,7 +108,7 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                 </WrongQuestionText>
                 <WrongQuestionText color={theme.colors.red}>
                   <div>
-                    <Icon icon="x" />
+                    <Icon icon="x" size={12} />
                   </div>
                   {`${
                     choiceList[Number(checkedChoiceKey.substring(0, 1))].choice

@@ -26,7 +26,7 @@ const InnerBox = styled.div`
 const BoxImage = styled.img`
   margin-top: 15px;
   width: 90%;
-  height: auto;
+  height: 90%;
 `;
 
 const BoxTitle = styled.div`

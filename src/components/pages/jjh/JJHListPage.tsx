@@ -76,7 +76,7 @@ function JJHListPage() {
                 startDate / 10000
               } ~ ${endDate / 10000})`
             ),
-          icon: <Icon icon="TIMELINE_STUDY" />,
+          icon: <Icon icon="TIMELINE_STUDY" size={22} />,
           description: `${startDate / 10000} ~ ${item.endDate / 10000}`,
           jjhNumber: jjhNumber,
           subTitle:

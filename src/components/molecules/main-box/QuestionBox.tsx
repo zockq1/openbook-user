@@ -81,17 +81,17 @@ function QuestionBox({
           </BoxTitle>
           <br />
           <Description>
-            <Icon icon="clock" />
+            <Icon icon="clock" size={14} />
             <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
           </Description>
           <Description>
-            <Icon icon="listNumber" />
+            <Icon icon="hashtag" size={14} />
             <Text size={theme.fontSizes.xs}>
               &nbsp;&nbsp;{descriptionCount}
             </Text>
           </Description>
           <Description>
-            <Icon icon="description" />
+            <Icon icon="description" size={14} />
             <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
           </Description>
           {children}

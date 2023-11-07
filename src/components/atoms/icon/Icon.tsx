@@ -1,17 +1,58 @@
-import "../../../styles/flaticons.css";
+import "../../../styles/icon/flaticons.css";
 import { Content } from "../../../types/jjhTypes";
 import { TopicCategory } from "../../../types/topicTypes";
-import styled from "styled-components";
+import { ReactComponent as Run } from "../../../styles/icon/running.svg";
+import { ReactComponent as Arrow } from "../../../styles/icon/fi-br-angle-double-right.svg";
+import { ReactComponent as Fail } from "../../../styles/icon/fi-br-ban.svg";
+import { ReactComponent as Infinity } from "../../../styles/icon/fi-br-infinity.svg";
+import { ReactComponent as Question } from "../../../styles/icon/fi-br-question.svg";
+import { ReactComponent as Again } from "../../../styles/icon/fi-br-rotate-left.svg";
+import { ReactComponent as Exclamation } from "../../../styles/icon/fi-br-exclamation.svg";
+import { ReactComponent as Flag } from "../../../styles/icon/fi-br-flag.svg";
+import { ReactComponent as Home } from "../../../styles/icon/house-chimney.svg";
+import { ReactComponent as QuestionSquare } from "../../../styles/icon/question-square.svg";
+import { ReactComponent as MyInfo } from "../../../styles/icon/book-open-reader.svg";
+import { ReactComponent as Clock } from "../../../styles/icon/clock-five.svg";
+import { ReactComponent as Hashtag } from "../../../styles/icon/hastag.svg";
+import { ReactComponent as Pen } from "../../../styles/icon/pen-clip.svg";
+import { ReactComponent as Description } from "../../../styles/icon/poll-h.svg";
+import { ReactComponent as Setting } from "../../../styles/icon/settings.svg";
+
+import { ReactComponent as O } from "../../../styles/icon/square-o.svg";
+import { ReactComponent as X } from "../../../styles/icon/square-x.svg";
+import { ReactComponent as One } from "../../../styles/icon/square-1.svg";
+import { ReactComponent as Two } from "../../../styles/icon/square-2.svg";
+import { ReactComponent as Three } from "../../../styles/icon/square-3.svg";
+import { ReactComponent as Back } from "../../../styles/icon/left.svg";
+import { ReactComponent as Next } from "../../../styles/icon/right.svg";
+import { ReactComponent as Lock } from "../../../styles/icon/lock.svg";
+import { ReactComponent as Login } from "../../../styles/icon/sign-in-alt.svg";
+import { ReactComponent as Check } from "../../../styles/icon/checkbox.svg";
+import { ReactComponent as User } from "../../../styles/icon/circle-user.svg";
+import { ReactComponent as Dice } from "../../../styles/icon/dice-alt.svg";
+
+import { ReactComponent as Person } from "../../../styles/icon/user.svg";
+import { ReactComponent as Organization } from "../../../styles/icon/users-alt.svg";
+import { ReactComponent as King } from "../../../styles/icon/user-crown.svg";
+import { ReactComponent as Society } from "../../../styles/icon/share.svg";
+import { ReactComponent as Policy } from "../../../styles/icon/pen-field.svg";
+import { ReactComponent as Identity } from "../../../styles/icon/id-card-clip-alt.svg";
+import { ReactComponent as Era } from "../../../styles/icon/hourglass-end.svg";
+import { ReactComponent as Culture } from "../../../styles/icon/book-open-cover.svg";
+import { ReactComponent as Office } from "../../../styles/icon/bank.svg";
+import { ReactComponent as Topic } from "../../../styles/icon/blog-text.svg";
+import { ReactComponent as Timeline } from "../../../styles/icon/calendar-clock.svg";
+import { ReactComponent as Chapter } from "../../../styles/icon/rectangle-list.svg";
+//import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
   | "run"
   | "home"
-  | "fileQuestion"
+  | "questionSquare"
   | "myInfo"
-  | "option"
-  | "인물"
+  | "setting"
   | "clock"
-  | "listNumber"
+  | "hashtag"
   | "description"
   | "pen"
   | "question"
@@ -35,16 +76,6 @@ export type IconType =
   | Content
   | TopicCategory;
 
-const StyledIcon = styled.i<{ size: number | undefined; color: string }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: ${({ size }) => (size ? size + "px" : "auto")};
-  width: ${({ size }) => (size ? size + "px" : "auto")};
-  font-size: ${({ size }) => (size ? size + "px" : "auto")};
-  color: ${({ color }) => color};
-`;
-
 interface Iconprops {
   icon: IconType;
   color?: string;
@@ -52,61 +83,67 @@ interface Iconprops {
 }
 
 function Icon({ icon, size, color = "inherit" }: Iconprops) {
-  const icons: { [key: string]: string } = {
+  const icons: {
+    [key: string]: React.FunctionComponent<
+      React.SVGProps<SVGSVGElement> & {
+        title?: string | undefined;
+      }
+    >;
+  } = {
     //콘텐트
-    CHAPTER_INFO: "fi fi-rr-rectangle-list",
-    TIMELINE_STUDY: "fi fi-rr-calendar-clock",
-    TIMELINE_QUESTION: "fi fi-rr-calendar-clock",
-    TOPIC_STUDY: "fi fi-rr-blog-text",
-    TOPIC_QUESTION: "fi fi-rr-question-square",
-    CHAPTER_COMPLETE_QUESTION: "fi fi-rr-question-square",
+    CHAPTER_INFO: Chapter,
+    TIMELINE_STUDY: Timeline,
+    TIMELINE_QUESTION: Timeline,
+    TOPIC_STUDY: Topic,
+    TOPIC_QUESTION: QuestionSquare,
+    CHAPTER_COMPLETE_QUESTION: QuestionSquare,
 
-    // 주제
-    인물: "fi fi-rr-user",
-    국가: "fi fi-br-flag",
-    왕: "fi fi-bs-user-crown",
-    시대: "fi fi-rr-hourglass-end",
-    사건: "fi fi-br-exclamation",
-    조직: "fi fi-rr-users-alt",
-    기구: "fi fi-rr-bank",
-    문화: "fi fi-rs-book-open-cover",
-    사회: "fi fi-rr-share",
-    제도: "fi fi-rr-pen-field",
-    신분: "fi fi-rr-id-card-clip-alt",
+    //주제
+    인물: Person,
+    국가: Flag,
+    왕: King,
+    시대: Era,
+    사건: Exclamation,
+    조직: Organization,
+    기구: Office,
+    문화: Culture,
+    사회: Society,
+    제도: Policy,
+    신분: Identity,
 
     //아이콘
-    run: "fi fi-br-running",
-    home: "fi fi-rr-house-chimney",
-    fileQuestion: "fi fi-rr-question-square",
-    myInfo: "fi fi-rs-book-open-reader",
-    option: "fi fi-rr-settings",
-    clock: "fi fi-sr-clock-five",
-    listNumber: "fi fi-br-hastag",
-    description: "fi fi-sr-poll-h",
-    pen: "fi fi-sr-pen-clip",
-    question: "fi fi-br-question",
-    infinity: "fi fi-br-infinity",
-    dice: "fi fi-sr-dice-alt",
-    login: "fi fi-br-sign-in-alt",
-    user: "fi fi-rr-circle-user",
-    lock: "fi fi-sr-lock",
-    back: "fi fi-rr-left",
-    next: "fi fi-rr-right",
-    again: "fi fi-br-rotate-left",
-    arrow: "fi fi-br-angle-double-right",
-    check: "fi fi-sr-checkbox",
-    one: "fi fi-sr-square-1",
-    two: "fi fi-sr-square-2",
-    three: "fi fi-sr-square-3",
-    fail: "fi fi-br-ban",
-    o: "fi fi-sr-square-o",
-    x: "fi fi-sr-square-x",
+    run: Run,
+    home: Home,
+    questionSquare: QuestionSquare,
+    myInfo: MyInfo,
+    setting: Setting,
+    clock: Clock,
+    hashtag: Hashtag,
+    description: Description,
+    pen: Pen,
+    question: Question,
+    infinity: Infinity,
+    again: Again,
+    arrow: Arrow,
+    fail: Fail,
+    dice: Dice,
+    login: Login,
+    user: User,
+    lock: Lock,
+    back: Back,
+    next: Next,
+    check: Check,
+    one: One,
+    two: Two,
+    three: Three,
+    o: O,
+    x: X,
   };
 
-  const matchedIcon = Object.keys(icons).find((key) => icon.includes(key));
-  return matchedIcon ? (
-    <StyledIcon className={icons[matchedIcon]} size={size} color={color} />
-  ) : null;
+  if (!icons[icon]) return null;
+
+  const SelectedIcon = icons[icon];
+  return <SelectedIcon width={size} height={size} color={color} />;
 }
 
 export default Icon;

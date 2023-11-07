@@ -10,6 +10,7 @@ const StyledMainPageLayout = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 500px;
+  min-width: 260px;
   min-height: calc(100vh - 164px);
   margin: 82px auto;
   padding: 0 20px;

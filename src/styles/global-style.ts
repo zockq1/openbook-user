@@ -65,4 +65,13 @@ body{
     transform: translate(-50%, -50%);
 }
 
+path {
+  fill: currentColor
+}
+
+svg {
+  width: current;
+  height: current;
+}
+
 `;

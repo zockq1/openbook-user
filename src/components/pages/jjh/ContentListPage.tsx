@@ -66,9 +66,9 @@ function ContentListPage() {
           state,
           icon:
             category !== null ? (
-              <Icon icon={category} />
+              <Icon icon={category} size={22} />
             ) : (
-              <Icon icon={content} />
+              <Icon icon={content} size={22} />
             ),
           content:
             content === "TOPIC_STUDY" ? (

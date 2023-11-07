@@ -26,7 +26,7 @@ function TimelineMenuPage() {
           navigate(`/timeline?id=-1&title=전체 연표`);
           navigate(`/`);
         },
-        icon: <Icon icon="TIMELINE_STUDY" />,
+        icon: <Icon icon="TIMELINE_STUDY" size={22} />,
         description: "BC 700K ~ 현대",
       },
       ...[...timelineList]

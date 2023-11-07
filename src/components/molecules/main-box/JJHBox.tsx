@@ -8,9 +8,8 @@ import calculateGradientColor from "../../../service/calculateGradientColor";
 
 const Box = styled.li`
   position: relative;
-  width: 100%;
-  height: 55vw;
-  max-height: 300px;
+  min-width: 100%;
+  height: 230px;
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -117,7 +116,9 @@ function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
       <Link to={link}>
         <InnerBox>
           <BoxTitle>
-            <MenuLabelBox state="Open">{<Icon icon="run" />}</MenuLabelBox>
+            <MenuLabelBox state="Open">
+              {<Icon icon="run" size={22} />}
+            </MenuLabelBox>
             &nbsp;&nbsp;{title}
           </BoxTitle>
           <BoxImage src={image} alt={title + " 이미지"} />

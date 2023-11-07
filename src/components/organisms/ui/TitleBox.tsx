@@ -1,5 +1,5 @@
 import styled, { ThemeContext } from "styled-components";
-import Icon, { IconType } from "../../atoms/icon/Icon";
+import { IconType } from "../../atoms/icon/Icon";
 import BackButton from "../../atoms/button/BackButton";
 import { useContext } from "react";
 import HomeButton from "../../atoms/button/HomeButton";
@@ -28,7 +28,7 @@ const StyledTitleBox = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
 
   color: ${({ theme }) => theme.colors.textBlue};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
@@ -41,38 +41,10 @@ const TitleBox = ({ icon, category }: TitleBoxProps) => {
   return (
     <StyledTitleBox>
       <BackButton color={theme.colors.textBlue} />
-      <Title>
-        {icon && <Icon icon={icon} />}
-        &nbsp;
-        {category}
-      </Title>
+      <Title>{category}</Title>
       <HomeButton color={theme.colors.textBlue} />
     </StyledTitleBox>
   );
 };
 
 export default TitleBox;
-
-// {title && <br />}
-// {title && (
-//   <Text
-//     weight={theme.fontWeight.bold}
-//     size={theme.fontSizes.xxl}
-//     textAlign="center"
-//     margin="auto"
-//   >
-//     {title}
-//   </Text>
-// )}
-// {dateComment && (
-//   <Text
-//     weight={theme.fontWeight.light}
-//     size={theme.fontSizes.small}
-//     color={theme.colors.lightBlue}
-//     margin="auto"
-//     textAlign="center"
-//     lineHeight="200%"
-//   >
-//     {dateComment}
-//   </Text>
-// )}

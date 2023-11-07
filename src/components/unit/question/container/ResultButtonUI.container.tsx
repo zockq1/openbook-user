@@ -44,25 +44,25 @@ function ResultButtonUI({ isSuccess, onNextContent }: ResultButtonUIProps) {
     <ButtonContainer>
       <Button onClick={() => navigate(-1)}>
         목록 &nbsp;
-        <Icon icon="CHAPTER_INFO" />
+        <Icon icon="CHAPTER_INFO" size={22} />
       </Button>
       <Button onClick={() => window.location.reload()}>
         다시 풀기 &nbsp;
-        <Icon icon="again" />
+        <Icon icon="again" size={22} />
       </Button>
       <Button onClick={onNextContent}>
         다음 문제&nbsp;
-        <Icon icon="next" />
+        <Icon icon="next" size={22} />
       </Button>
     </ButtonContainer>
   ) : (
     <ButtonContainer>
       <Button onClick={() => navigate(-1)}>
-        <Icon icon="CHAPTER_INFO" />
-        &nbsp;목록으로 돌아가기
+        <Icon icon="CHAPTER_INFO" size={22} />
+        &nbsp;목록
       </Button>
       <Button onClick={() => window.location.reload()}>
-        <Icon icon="again" />
+        <Icon icon="again" size={22} />
         &nbsp;다시 풀기
       </Button>
     </ButtonContainer>

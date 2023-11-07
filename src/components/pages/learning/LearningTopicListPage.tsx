@@ -33,7 +33,7 @@ function LearningTopicListPage() {
         const result: MenuModel = {
           type: "Base",
           title: title,
-          icon: <Icon icon={category} />,
+          icon: <Icon icon={category} size={22} />,
           description: `${dateComment}`,
           content: <Topic topic={title} />,
         };
@@ -44,7 +44,7 @@ function LearningTopicListPage() {
       newMenu.unshift({
         type: "Base",
         title: "단원 학습",
-        icon: <Icon icon="CHAPTER_INFO" />,
+        icon: <Icon icon="CHAPTER_INFO" size={22} />,
         description: `${chapterTitle.title}`,
         content: <ChapterInfo />,
       });

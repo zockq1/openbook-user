@@ -1,5 +1,5 @@
 import Layout from "../../atoms/layout/Layout";
-import { RowList } from "../../atoms/layout/List";
+import { ColumnList } from "../../atoms/layout/List";
 import Header from "../../organisms/ui/Header";
 
 import run from "../../../styles/images/run.svg";
@@ -26,13 +26,16 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
     <Layout>
       <Header />
       <MainPageLayout>
-        <RowList>
-          <JJHBox
-            title="정주행"
-            link="jeong-ju-haeng"
-            image={run}
-            percentage={progress.totalProgress}
-          />
+        <ColumnList>
+          <SubMenu>
+            <JJHBox
+              title="정주행"
+              link="jeong-ju-haeng"
+              image={run}
+              percentage={progress.totalProgress}
+            />
+          </SubMenu>
+
           <SubMenu>
             <MediumBox title="학습 자료 모음" link="learning" image={books} />
             <MediumBox
@@ -41,7 +44,7 @@ function MainPageTemplate({ progress }: MainPageTemplateProps) {
               image={timeline}
             />
           </SubMenu>
-        </RowList>
+        </ColumnList>
       </MainPageLayout>
 
       <NavigationBar />

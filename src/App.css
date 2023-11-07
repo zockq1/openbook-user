@@ -1,16 +1,22 @@
 @font-face {
   font-family: "Giants-Inline";
-  src: url("./styles/fonts/Giants/Giants-Inline.ttf");
+  src: url("./styles/fonts/Giants/Giants-Inline.woff2") format("woff2"),
+    url("./styles/fonts/Giants/Giants-Inline.woff") format("woff"),
+    url("./styles/fonts/Giants/Giants-Inline.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Giants-Bold";
-  src: url("./styles/fonts/Giants/Giants-Bold.ttf") format("truetype");
+  src: url("./styles/fonts/Giants/Giants-Bold.woff2") format("woff2"),
+    url("./styles/fonts/Giants/Giants-Bold.woff") format("woff"),
+    url("./styles/fonts/Giants/Giants-Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Giants-Regular";
-  src: url("./styles/fonts/Giants/Giants-Regular.ttf") format("truetype");
+  src: url("./styles/fonts/Giants/Giants-Regular.woff2") format("woff2"),
+    url("./styles/fonts/Giants/Giants-Regular.woff") format("woff"),
+    url("./styles/fonts/Giants/Giants-Regular.ttf") format("truetype");
 }
 
 @font-face {

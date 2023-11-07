@@ -22,11 +22,11 @@ function NavigationBar() {
       <NavigationItem to="/" icon="home" />
       <NavigationItem
         to="/question"
-        icon="fileQuestion"
+        icon="questionSquare"
         aria-label="question"
       />
       <NavigationItem to="/my-info" icon="myInfo" />
-      <NavigationItem to="/option" icon="option" />
+      <NavigationItem to="/option" icon="setting" />
     </StyledNavigationBar>
   );
 }
