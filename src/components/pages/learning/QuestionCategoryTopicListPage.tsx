@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
-import Topic from "../../unit/topic/presenter/Topic.presenter";
+import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import useQuesryString from "../../../service/useQueryString";
@@ -28,7 +28,7 @@ function QustionCategoryTopicListPage() {
           title: title,
           icon: <Icon icon={category} />,
           description: `${dateComment}`,
-          content: <Topic topic={title} />,
+          content: <Topic keywordList={item.keywordList} />,
         };
         return result;
       });

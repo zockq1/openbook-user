@@ -7,7 +7,7 @@ import {
   useGetChapterTopicListQuery,
 } from "../../../store/api/chapterApi";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
-import Topic from "../../unit/topic/presenter/Topic.presenter";
+import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
@@ -20,6 +20,7 @@ function LearningTopicListPage() {
   const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
   const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
+  console.log(topicList);
 
   useEffect(() => {
     if (!topicList || !chapterTitle || chapterInfo === undefined) {
@@ -29,13 +30,13 @@ function LearningTopicListPage() {
     let newMenu: MenuModel[] = [...topicList]
       .sort((a, b) => a.number - b.number)
       .map((item) => {
-        const { title, category, dateComment } = item;
+        const { title, category, dateComment, keywordList } = item;
         const result: MenuModel = {
           type: "Base",
           title: title,
           icon: <Icon icon={category} size={22} />,
           description: `${dateComment}`,
-          content: <Topic topic={title} />,
+          content: <Topic keywordList={keywordList} />,
         };
         return result;
       });

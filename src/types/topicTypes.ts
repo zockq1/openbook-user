@@ -29,13 +29,6 @@ export interface TopicModel {
   }[];
 }
 
-export interface TopicListModel {
-  title: string;
-  category: TopicCategory;
-  dateComment: string;
-  number: number;
-}
-
 interface QuestionModel {
   roundNumber: number;
   questionNumber: number;
@@ -51,4 +44,13 @@ export interface KeywordModel {
   extraDateList: extraDateModel[];
   questionList: QuestionModel[];
   number: number;
+}
+
+export interface TopicListModel {
+  title: string;
+  category: TopicCategory;
+  dateComment: string;
+  number: number;
+  extraDateList: extraDateModel[];
+  keywordList: KeywordModel[];
 }

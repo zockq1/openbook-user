@@ -4,7 +4,7 @@ import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
-import Topic from "../../unit/topic/presenter/Topic.presenter";
+import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../atoms/icon/Icon";
@@ -16,16 +16,18 @@ import {
 } from "../../../store/api/jjhApi";
 import { Content } from "../../../types/jjhTypes";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
+import { useGetChapterTopicListQuery } from "../../../store/api/chapterApi";
 
 function ContentListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
   const { chapterNumber, jjhNumber, timelineId, title } = useQuesryString();
   const { data: contentList } = useGetContentListQuery(jjhNumber);
+  const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
   const [updateProgres] = useUpdateProgressMutation();
   useEffect(() => {
-    if (!contentList) {
+    if (!contentList || !topicList) {
       return;
     }
 
@@ -72,7 +74,13 @@ function ContentListPage() {
             ),
           content:
             content === "TOPIC_STUDY" ? (
-              <Topic topic={item.title} key={item.title} />
+              <Topic
+                keywordList={
+                  topicList.find((topic) => topic.title === item.title)
+                    ?.keywordList || []
+                }
+                key={item.title}
+              />
             ) : content === "TIMELINE_STUDY" ? (
               <TimelineList id={timelineId} />
             ) : (
@@ -127,6 +135,7 @@ function ContentListPage() {
     theme,
     navigate,
     updateProgres,
+    topicList,
   ]);
 
   if (!contentList) {

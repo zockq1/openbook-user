@@ -2,21 +2,24 @@ import styled from "styled-components";
 import KeywordUI from "./KeywordUI.container";
 import { KeywordModel } from "../../../../types/topicTypes";
 
-interface TopicUIProps {
+interface KeywordListUIProps {
   keywordList: KeywordModel[];
   isKeywordCommentOn: boolean;
 }
 
-const Topic = styled.div<{ direction: "row" | "column" }>`
+const KeywordList = styled.div<{ direction: "row" | "column" }>`
   display: flex;
   flex-direction: ${({ direction }) => direction};
   flex-wrap: wrap;
 `;
 
-function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {
+function KeywordListUI({
+  keywordList,
+  isKeywordCommentOn,
+}: KeywordListUIProps) {
   return (
     <>
-      <Topic direction={"row"}>
+      <KeywordList direction={"row"}>
         {keywordList
           .filter((keyword) => !keyword.comment)
           .map((keyword, index) => {
@@ -28,8 +31,8 @@ function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {
               />
             );
           })}
-      </Topic>
-      <Topic direction={isKeywordCommentOn ? "column" : "row"}>
+      </KeywordList>
+      <KeywordList direction={isKeywordCommentOn ? "column" : "row"}>
         {keywordList
           .filter((keyword) => !!keyword.comment)
           .map((keyword, index) => {
@@ -41,9 +44,9 @@ function TopicUI({ keywordList, isKeywordCommentOn }: TopicUIProps) {
               />
             );
           })}
-      </Topic>
+      </KeywordList>
     </>
   );
 }
 
-export default TopicUI;
+export default KeywordListUI;

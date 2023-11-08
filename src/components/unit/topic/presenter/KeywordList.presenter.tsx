@@ -1,27 +1,22 @@
 import { useSelector } from "react-redux";
-import { useGetKeywordListQuery } from "../../../../store/api/topicApi";
 import { RootState } from "../../../../store/store";
-import TopicUI from "../container/TopicUI.container";
+import KeywordListUI from "../container/KeywordListUI.container";
+import { KeywordModel } from "../../../../types/topicTypes";
 
 interface TopicProps {
-  topic: string;
+  keywordList: KeywordModel[];
 }
 
-function Topic({ topic }: TopicProps) {
-  const { data: keywordList } = useGetKeywordListQuery(topic);
+function KeywordList({ keywordList }: TopicProps) {
   const isKeywordCommentOn = useSelector(
     (state: RootState) => state.keyword.isKeywordCommentOn
   );
 
-  if (!keywordList) {
-    return <div></div>;
-  }
-
   return (
-    <TopicUI
+    <KeywordListUI
       isKeywordCommentOn={isKeywordCommentOn}
       keywordList={keywordList}
     />
   );
 }
-export default Topic;
+export default KeywordList;
