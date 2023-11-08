@@ -18,10 +18,10 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import ScoreUI from "../container/ScoreUI.container";
 import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
+import QuizScore from "./QuizScore.presenter";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -151,6 +151,44 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+function createQuestion(question: QuizModel) {
+  const {
+    questionType,
+    answer,
+    choiceList,
+    choiceType,
+    description,
+    keywordIdList,
+  } = question;
+
+  return {
+    questionType,
+    choiceType,
+    descriptionList: description,
+    descriptionCommentList: [],
+    choiceList: [...choiceList]
+      .sort(() => Math.random() - 0.5)
+      .map((choice) => {
+        return {
+          choice: choice.choice,
+          key: choice.key,
+          commentList:
+            questionType === "TtoK"
+              ? [{ comment: choice.key, icon: <Icon icon="check" /> }]
+              : [],
+        };
+      }),
+    answer,
+    checkedChoiceKey: "",
+    isCorrect: false,
+    isChecked: false,
+    isFinish: false,
+    isOpen: false,
+    score: 0,
+    keywordIdList,
+  };
+}
+
 function getKeywordList(
   quizList: QuizModel[]
 ): Map<number, { wrongCount: number; correctCount: number }> {
@@ -174,42 +212,7 @@ function Quiz({
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
       .sort(() => Math.random() - 0.5)
-      .map((item, index): QuestionModel => {
-        const {
-          questionType,
-          answer,
-          choiceList,
-          choiceType,
-          description,
-          keywordIdList,
-        } = item;
-        return {
-          questionType,
-          choiceType,
-          descriptionList: description,
-          descriptionCommentList: [],
-          choiceList: [...choiceList]
-            .sort(() => Math.random() - 0.5)
-            .map((choice) => {
-              return {
-                choice: choice.choice,
-                key: choice.key,
-                commentList:
-                  questionType === "TtoK"
-                    ? [{ comment: choice.key, icon: <Icon icon="check" /> }]
-                    : [],
-              };
-            }),
-          answer,
-          checkedChoiceKey: "",
-          isCorrect: false,
-          isChecked: false,
-          isFinish: false,
-          isOpen: !index,
-          score: 0,
-          keywordIdList,
-        };
-      }),
+      .map((item, index) => createQuestion(item)),
     isFinish: false,
     currentNumber: 0,
     score: 0,
@@ -307,7 +310,7 @@ function Quiz({
       />
       {questionList.length === currentNumber ? (
         <>
-          <ScoreUI score={score} questionList={questionList} isJJH={isJJH} />
+          <QuizScore score={score} totalScore={questionList.length} />
           <ResultButtonUI
             isSuccess={
               isJJH ? Math.ceil(questionList.length * 0.8) <= score : false

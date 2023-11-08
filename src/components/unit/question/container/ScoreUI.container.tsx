@@ -1,9 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import { QuestionModel } from "../../../../types/questionTypes";
-import fail from "../../../../styles/images/fail.svg";
-import success from "../../../../styles/images/success.svg";
-import redFlag from "../../../../styles/images/red-flag.svg";
-import blueFlag from "../../../../styles/images/blue-flag.svg";
 
 const ScoreContainer = styled.div`
   display: flex;
@@ -46,14 +41,14 @@ const Load = keyframes`
 
 interface BarProps {
   percentage: number;
+  color: string;
 }
 
 const Bar = styled.div<BarProps>`
   --progress-width: ${({ percentage }) => `${percentage}%`};
   animation: ${Load} 1s normal forwards;
   border-radius: 100px;
-  background: ${({ percentage, theme }) =>
-    percentage < 80 ? theme.colors.red : theme.colors.blue};
+  background: ${({ color }) => color};
   height: 10px;
   width: 0;
 `;
@@ -62,11 +57,10 @@ const Image = styled.img`
   width: 40%;
 `;
 
-const Title = styled.div<{ isSuccess: boolean }>`
+const Title = styled.div<{ color: string }>`
   width: 100%;
   margin: 10px 0;
-  color: ${({ theme, isSuccess }) =>
-    isSuccess ? theme.colors.blue : theme.colors.red};
+  color: ${({ color }) => color};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: 30px;
   font-family: "Giants-Regular";
@@ -74,11 +68,10 @@ const Title = styled.div<{ isSuccess: boolean }>`
   white-space: nowrap;
 `;
 
-const Score = styled.div<{ isSuccess: boolean }>`
+const Score = styled.div<{ color: string }>`
   width: 100%;
   margin: 10px 0;
-  color: ${({ theme, isSuccess }) =>
-    isSuccess ? theme.colors.blue : theme.colors.red};
+  color: ${({ color }) => color};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-family: "Giants-Regular";
@@ -97,65 +90,35 @@ const Sub = styled.div`
   word-break: keep-all;
 `;
 
-const Flag = styled.img`
-  position: absolute;
-  width: 40px;
-  bottom: 20px;
-  right: 20%;
-  transform: translate(-5px, 0);
-  z-index: 9;
-`;
-
 interface ScoreUIProps {
-  score: number;
-  questionList: QuestionModel[];
-  isJJH: boolean;
+  title: string;
+  score: string;
+  percentage: number;
+  description: string;
+  color: string;
+  image: string;
 }
 
-function ScoreUI({ score, questionList, isJJH }: ScoreUIProps) {
-  const persentage = (score / questionList.length) * 100;
-  const isSuccess = persentage >= 80;
+function ScoreUI({
+  title,
+  score,
+  percentage,
+  description,
+  color,
+  image,
+}: ScoreUIProps) {
   return (
-    <>
-      {isSuccess ? (
-        <ScoreContainer>
-          <Image src={success} />
-          <DescriptionContainer>
-            <Title isSuccess={isSuccess}>합격!</Title>
-            <Score isSuccess={isSuccess}>
-              {Math.floor(persentage)}%({score}/{questionList.length})
-            </Score>
-            {isJJH && <Sub>다음 학습으로 넘어가세요!</Sub>}
-          </DescriptionContainer>
-          <Flag src={blueFlag} />
-          <Progress>
-            <Bar percentage={persentage} />
-          </Progress>
-        </ScoreContainer>
-      ) : (
-        <ScoreContainer>
-          <Image src={isSuccess ? success : fail} />
-          <DescriptionContainer>
-            <Title isSuccess={isSuccess}>불합격!</Title>
-            <Score isSuccess={isSuccess}>
-              {Math.floor(persentage)}%({score}/{questionList.length})
-            </Score>
-            {isJJH && (
-              <Sub>
-                80%({Math.ceil(questionList.length * 0.8)}/{questionList.length}
-                )를 넘기지 못했습니다.
-                <br />
-                다시 공부해주세요.
-              </Sub>
-            )}
-          </DescriptionContainer>
-          <Flag src={redFlag} />
-          <Progress>
-            <Bar percentage={persentage} />
-          </Progress>
-        </ScoreContainer>
-      )}
-    </>
+    <ScoreContainer>
+      <Image src={image} />
+      <DescriptionContainer>
+        <Title color={color}>{title}</Title>
+        <Score color={color}>{score}</Score>
+        <Sub>{description}</Sub>
+      </DescriptionContainer>
+      <Progress>
+        <Bar percentage={percentage} color={color} />
+      </Progress>
+    </ScoreContainer>
   );
 }
 export default ScoreUI;

@@ -14,11 +14,11 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import ScoreUI from "../container/ScoreUI.container";
 import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
 import useQuesryString from "../../../../service/useQueryString";
+import ExamScore from "./ExamScore.presenter";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -108,10 +108,10 @@ const reducer = (state: State, action: Action): State => {
       let score = 0;
       const updatedQuestionListCheck = state.questionList.map((item, index) => {
         if (item.isChecked) {
-          score += item.score;
+          if (item.isCorrect) score += item.score;
           return { ...item, isFinish: true };
         }
-        return { ...item, score };
+        return item;
       });
 
       return {
@@ -146,75 +146,83 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+const createQuestion = (question: ExamModel): QuestionModel => {
+  const {
+    answer,
+    choiceList,
+    choiceType,
+    description,
+    descriptionCommentList,
+    score,
+  } = question;
+
+  const descriptionList = [description];
+
+  const descriptionCommentListTransformed = descriptionCommentList.reduce(
+    (acc: QuestionCommentModel[], cur) => {
+      const {
+        keywordComment,
+        keywordDateComment,
+        keywordName,
+        topicDateComment,
+        topicTitle,
+      } = cur;
+      let comment = `${topicTitle}${
+        topicDateComment ? `(${topicDateComment}): ` : `: `
+      }${keywordName}`;
+      comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+      acc.push({ comment, icon: <Icon icon="check" /> });
+      keywordComment && acc.push({ comment: keywordComment, icon: null });
+      return acc;
+    },
+    []
+  );
+
+  const choiceListTransformed = choiceList.map((choice) => {
+    return {
+      choice: choice.choice,
+      key: String(choice.number),
+      commentList: choice.commentList.reduce(
+        (acc: QuestionCommentModel[], cur) => {
+          const {
+            keywordComment,
+            keywordDateComment,
+            keywordName,
+            topicDateComment,
+            topicTitle,
+          } = cur;
+          let comment = `${topicTitle}${
+            topicDateComment ? `(${topicDateComment}): ` : `: `
+          }${keywordName}`;
+          comment += keywordDateComment ? `(${keywordDateComment})` : ``;
+          acc.push({ comment, icon: <Icon icon="check" /> });
+          keywordComment && acc.push({ comment: keywordComment, icon: null });
+          return acc;
+        },
+        []
+      ),
+    };
+  });
+
+  return {
+    questionType: "Exam",
+    choiceType,
+    descriptionList,
+    descriptionCommentList: descriptionCommentListTransformed,
+    choiceList: choiceListTransformed,
+    answer: String(answer),
+    checkedChoiceKey: "",
+    isCorrect: false,
+    isChecked: false,
+    isFinish: false,
+    isOpen: true,
+    score,
+  };
+};
+
 function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
-    questionList: [...examList].map((item, index): QuestionModel => {
-      const {
-        answer,
-        choiceList,
-        choiceType,
-        description,
-        descriptionCommentList,
-        score,
-      } = item;
-      return {
-        questionType: "Exam",
-        choiceType,
-        descriptionList: [description],
-        descriptionCommentList: descriptionCommentList.reduce(
-          (acc: QuestionCommentModel[], cur) => {
-            const {
-              keywordComment,
-              keywordDateComment,
-              keywordName,
-              topicDateComment,
-              topicTitle,
-            } = cur;
-            let comment = topicTitle;
-            comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
-            comment += keywordName;
-            comment += keywordDateComment ? `(${keywordDateComment})` : ``;
-            acc.push({ comment, icon: <Icon icon="check" /> });
-            keywordComment && acc.push({ comment: keywordComment, icon: null });
-            return acc;
-          },
-          []
-        ),
-        choiceList: [...choiceList].map((choice) => {
-          return {
-            choice: choice.choice,
-            key: String(choice.number),
-            commentList: choice.commentList.reduce(
-              (acc: QuestionCommentModel[], cur) => {
-                const {
-                  keywordComment,
-                  keywordDateComment,
-                  keywordName,
-                  topicDateComment,
-                  topicTitle,
-                } = cur;
-                let comment = topicTitle;
-                comment += topicDateComment ? `(${topicDateComment}): ` : `: `;
-                comment += keywordName;
-                comment += keywordDateComment ? `(${keywordDateComment})` : ``;
-                acc.push({ comment, icon: <Icon icon="check" /> });
-                keywordComment &&
-                  acc.push({ comment: keywordComment, icon: null });
-                return acc;
-              },
-              []
-            ),
-          };
-        }),
-        answer: String(answer),
-        checkedChoiceKey: "",
-        isCorrect: false,
-        isChecked: false,
-        isFinish: false,
-        isOpen: true,
-        score,
-      };
-    }),
+    questionList: [...examList].map(createQuestion),
     isFinish: false,
     currentNumber: 0,
     score: 0,
@@ -280,7 +288,7 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
       />
       {questionList.length === currentNumber ? (
         <>
-          <ScoreUI score={score} questionList={questionList} isJJH={isJJH} />
+          <ExamScore totalScore={100} score={60} />
           <ResultButtonUI
             isSuccess={
               isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
