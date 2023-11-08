@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import styled, { ThemeContext, keyframes } from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 import Icon from "../../atoms/icon/Icon";
 import Text from "../../atoms/text/Text";
 import calculateGradientColor from "../../../service/calculateGradientColor";
+import useCountAnimation from "../../../service/useCountAnimation";
 
 const Box = styled.li`
   position: relative;
@@ -92,24 +93,7 @@ interface LargeBoxProps {
 
 function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
   const theme = useContext(ThemeContext);
-  const [count, setCount] = useState<number>(0);
-
-  useEffect(() => {
-    let animationFrame: number;
-
-    const step = () => {
-      if (count < percentage) {
-        setCount((prevCount) => prevCount + 1);
-        animationFrame = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(step);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-    };
-  }, [percentage, count]);
+  const count = useCountAnimation(0, percentage);
 
   return (
     <Box>
