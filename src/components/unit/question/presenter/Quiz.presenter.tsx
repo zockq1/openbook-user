@@ -151,7 +151,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-function createQuestion(question: QuizModel) {
+function createQuestion(question: QuizModel, index: number): QuestionModel {
   const {
     questionType,
     answer,
@@ -162,6 +162,7 @@ function createQuestion(question: QuizModel) {
   } = question;
 
   return {
+    number: index,
     questionType,
     choiceType,
     descriptionList: description,
@@ -174,7 +175,13 @@ function createQuestion(question: QuizModel) {
           key: choice.key,
           commentList:
             questionType === "TtoK"
-              ? [{ comment: choice.key, icon: <Icon icon="check" /> }]
+              ? [
+                  {
+                    comment: choice.key,
+                    icon: <Icon icon="check" />,
+                    type: "Comment",
+                  },
+                ]
               : [],
         };
       }),
@@ -183,7 +190,7 @@ function createQuestion(question: QuizModel) {
     isCorrect: false,
     isChecked: false,
     isFinish: false,
-    isOpen: false,
+    isOpen: index === 0 ? true : false,
     score: 0,
     keywordIdList,
   };
@@ -212,7 +219,7 @@ function Quiz({
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
       .sort(() => Math.random() - 0.5)
-      .map((item, index) => createQuestion(item)),
+      .map((item, index) => createQuestion(item, index)),
     isFinish: false,
     currentNumber: 0,
     score: 0,

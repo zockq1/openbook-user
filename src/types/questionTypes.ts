@@ -7,9 +7,11 @@ export type QuestionMode = "Quiz" | "Exam";
 export interface QuestionCommentModel {
   comment: string;
   icon: ReactNode;
+  type: "Topic" | "Keyword" | "Comment";
 }
 
 export interface QuestionModel {
+  number: number;
   questionType: QuestionType;
   choiceType: ChoiceType;
   descriptionList: string[];

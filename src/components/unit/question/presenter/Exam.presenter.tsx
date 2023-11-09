@@ -14,11 +14,11 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
 import useQuesryString from "../../../../service/useQueryString";
 import ExamScore from "./ExamScore.presenter";
+import ExamIncorrect from "./ExamIncorrect.presenter";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -154,12 +154,14 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     description,
     descriptionCommentList,
     score,
+    number,
   } = question;
 
   const descriptionList = [description];
 
-  const descriptionCommentListTransformed = descriptionCommentList.reduce(
-    (acc: QuestionCommentModel[], cur) => {
+  const descriptionCommentListTransformed = [...descriptionCommentList]
+    .sort((a, b) => a.topicTitle.localeCompare(b.topicTitle))
+    .reduce((acc: QuestionCommentModel[], cur) => {
       const {
         keywordComment,
         keywordDateComment,
@@ -167,23 +169,48 @@ const createQuestion = (question: ExamModel): QuestionModel => {
         topicDateComment,
         topicTitle,
       } = cur;
-      let comment = `${topicTitle}${
-        topicDateComment ? `(${topicDateComment}): ` : `: `
-      }${keywordName}`;
-      comment += keywordDateComment ? `(${keywordDateComment})` : ``;
-      acc.push({ comment, icon: <Icon icon="check" /> });
-      keywordComment && acc.push({ comment: keywordComment, icon: null });
+      let topic = `${topicTitle}${
+        topicDateComment ? `(${topicDateComment})` : ``
+      }`;
+      let keyword = `${keywordName}${
+        keywordDateComment ? `(${keywordDateComment}): ` : ``
+      }`;
+      if (acc.find((item) => item.comment === topic)) {
+        let findIndex = acc.findIndex((item) => item.comment === topic);
+
+        if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
+          acc[findIndex + 1].comment += ", " + keyword;
+        }
+      } else {
+        acc.push({
+          comment: topic,
+          icon: <Icon icon="description" size={12} />,
+          type: "Topic",
+        });
+        acc.push({
+          comment: keyword,
+          icon: <Icon icon="key" size={12} />,
+          type: "Keyword",
+        });
+      }
+
+      keywordComment &&
+        acc.push({
+          comment: keywordComment,
+          icon: <Icon icon="comment" size={12} />,
+          type: "Comment",
+        });
       return acc;
-    },
-    []
-  );
+    }, []);
 
   const choiceListTransformed = choiceList.map((choice) => {
+    let isCorrect = choice.number === answer;
     return {
       choice: choice.choice,
       key: String(choice.number),
-      commentList: choice.commentList.reduce(
-        (acc: QuestionCommentModel[], cur) => {
+      commentList: [...choice.commentList]
+        .sort((a, b) => a.topicTitle.localeCompare(b.topicTitle))
+        .reduce((acc: QuestionCommentModel[], cur) => {
           const {
             keywordComment,
             keywordDateComment,
@@ -191,20 +218,48 @@ const createQuestion = (question: ExamModel): QuestionModel => {
             topicDateComment,
             topicTitle,
           } = cur;
-          let comment = `${topicTitle}${
-            topicDateComment ? `(${topicDateComment}): ` : `: `
-          }${keywordName}`;
-          comment += keywordDateComment ? `(${keywordDateComment})` : ``;
-          acc.push({ comment, icon: <Icon icon="check" /> });
-          keywordComment && acc.push({ comment: keywordComment, icon: null });
+          let topic = `${topicTitle}${
+            topicDateComment ? `(${topicDateComment})` : ``
+          }`;
+          let keyword = `${keywordName}${
+            keywordDateComment ? `(${keywordDateComment})` : ``
+          }`;
+          if (acc.find((item) => item.comment === topic)) {
+            let findIndex = acc.findIndex((item) => item.comment === topic);
+
+            if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
+              acc[findIndex + 1].comment += ", " + keyword;
+            }
+          } else {
+            acc.push({
+              comment: topic,
+              icon: isCorrect ? (
+                <Icon icon="o" size={12} />
+              ) : (
+                <Icon icon="x" size={12} />
+              ),
+              type: "Topic",
+            });
+            acc.push({
+              comment: keyword,
+              icon: <Icon icon="key" size={12} />,
+              type: "Keyword",
+            });
+          }
+
+          keywordComment &&
+            acc.push({
+              comment: keywordComment,
+              icon: <Icon icon="comment" size={12} />,
+              type: "Comment",
+            });
           return acc;
-        },
-        []
-      ),
+        }, []),
     };
   });
 
   return {
+    number,
     questionType: "Exam",
     choiceType,
     descriptionList,
@@ -288,14 +343,14 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
       />
       {questionList.length === currentNumber ? (
         <>
-          <ExamScore totalScore={100} score={60} />
+          <ExamScore totalScore={100} score={score} />
           <ResultButtonUI
             isSuccess={
               isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
             }
             onNextContent={onNextContent}
           />
-          <IncorrectAnswerListUI questionList={questionList} />
+          <ExamIncorrect questionList={questionList} />
         </>
       ) : (
         <>

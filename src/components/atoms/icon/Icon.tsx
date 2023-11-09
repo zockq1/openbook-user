@@ -43,6 +43,8 @@ import { ReactComponent as Office } from "../../../styles/icon/bank.svg";
 import { ReactComponent as Topic } from "../../../styles/icon/blog-text.svg";
 import { ReactComponent as Timeline } from "../../../styles/icon/calendar-clock.svg";
 import { ReactComponent as Chapter } from "../../../styles/icon/rectangle-list.svg";
+import { ReactComponent as Key } from "../../../styles/icon/key.svg";
+import { ReactComponent as Comment } from "../../../styles/icon/comment.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -73,6 +75,8 @@ export type IconType =
   | "again"
   | "o"
   | "x"
+  | "key"
+  | "comment"
   | Content
   | TopicCategory;
 
@@ -138,6 +142,8 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     three: Three,
     o: O,
     x: X,
+    key: Key,
+    comment: Comment,
   };
 
   if (!icons[icon]) return null;

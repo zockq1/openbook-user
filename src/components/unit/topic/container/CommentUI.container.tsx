@@ -63,10 +63,10 @@ function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
   return (
     <Comment open={isCommentOpen}>
       <Triangle open={isCommentOpen} />
-      {commentList.map((item) => {
+      {commentList.map((item, index) => {
         const { comment, icon } = item;
         return (
-          <Description key={comment} open={isCommentOpen} color={color}>
+          <Description key={index + comment} open={isCommentOpen} color={color}>
             <CommentIcon>{icon}</CommentIcon>
             {comment}
           </Description>

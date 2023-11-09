@@ -58,6 +58,10 @@ const WrongQuestionText = styled.div<{ color: string }>`
 
 interface IncorrectAnswerListUIProps {
   questionList: QuestionModel[];
+  commentList?: {
+    number: number;
+    description: string;
+  };
 }
 
 function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
@@ -79,17 +83,20 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
           return (
             <WrongQuestion key={index}>
               <MenuLabelBox state="Locked">{index + 1}</MenuLabelBox>
+
               <WrongQuestionTextContainer>
+                {/* 보기 */}
                 <WrongQuestionText color="">
-                  <div>
+                  <i>
                     <Icon icon="description" size={12} />
-                  </div>
+                  </i>
                   {descriptionList.map((description) => description).join(", ")}
                 </WrongQuestionText>
+                {/* 정답 선지 */}
                 <WrongQuestionText color={theme.colors.blue}>
-                  <div>
+                  <i>
                     <Icon icon="o" size={12} />
-                  </div>
+                  </i>
                   {choiceList.map((choice) => {
                     if (choice.key === answer)
                       return (
@@ -106,10 +113,11 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                     return null;
                   })}
                 </WrongQuestionText>
+                {/* {오답 선지} */}
                 <WrongQuestionText color={theme.colors.red}>
-                  <div>
+                  <i>
                     <Icon icon="x" size={12} />
-                  </div>
+                  </i>
                   {`${
                     choiceList[Number(checkedChoiceKey.substring(0, 1))].choice
                   }` +
