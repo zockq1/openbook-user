@@ -19,6 +19,7 @@ const IncorrectList = styled.ul`
 `;
 
 const Title = styled.li`
+  color: ${({ theme }) => theme.colors.textBlue};
   padding: ${({ theme }) => theme.padding.small};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};

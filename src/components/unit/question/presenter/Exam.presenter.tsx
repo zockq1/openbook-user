@@ -333,12 +333,14 @@ function Exam({ examList }: ExamProps) {
     dispatch({ type: NEXT_QUESTION });
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
   };
 
   const handleMove = (index: number) => {
     dispatch({ type: MOVE_QUESTION, moveQuestionNumber: index });
+    window.scrollTo({
+      top: 0,
+    });
   };
 
   return (

@@ -73,7 +73,7 @@ const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
       ? isCorrect
         ? theme.colors.blue
         : theme.colors.red
-      : theme.colors.black};
+      : theme.colors.textBlue};
 
   text-align: center;
   list-style-type: none;

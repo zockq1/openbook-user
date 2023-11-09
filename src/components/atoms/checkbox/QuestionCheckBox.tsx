@@ -57,7 +57,7 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
         ? isCorrect
           ? theme.colors.semiLightBlue
           : theme.colors.lightRed
-        : theme.colors.black};
+        : theme.colors.textBlue};
   border-radius: 12.5%;
   background-color: ${({ theme }) => theme.colors.white};
 

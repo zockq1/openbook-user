@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useGetExamQuery } from "../../../store/api/questionApi";
 import useQuesryString from "../../../service/useQueryString";
 import Layout from "../../atoms/layout/Layout";
@@ -7,7 +7,6 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Exam from "../../unit/question/presenter/Exam.presenter";
 function MockExamPage() {
   const { title } = useQuesryString();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { data: mockExamList } = useGetExamQuery(
     Number(searchParams.get("round")) || 0

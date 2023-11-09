@@ -37,7 +37,7 @@ const LongChoice = styled.div<AnswerCheckProps>`
           : theme.colors.red
         : theme.colors.textBlue};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -49,7 +49,7 @@ export const LongComment = styled.span<AnswerCheckProps>`
       ? isCorrect
         ? theme.colors.blue
         : theme.colors.red
-      : theme.colors.black};
+      : theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   word-break: keep-all;
