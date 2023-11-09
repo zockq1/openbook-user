@@ -21,7 +21,7 @@ function MockExamPage() {
     <Layout>
       <TitleBox icon="question" category={title} />
       <MainContentLayout>
-        <Exam examList={mockExamList} onNextContent={() => navigate(-1)} />
+        <Exam examList={mockExamList} />
       </MainContentLayout>
     </Layout>
   );

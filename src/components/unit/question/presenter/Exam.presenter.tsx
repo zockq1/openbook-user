@@ -6,7 +6,6 @@ import {
   QuestionModel,
 } from "../../../../types/questionTypes";
 import QuestionUI from "../container/QuestionUI.container";
-import Button from "../../../atoms/button/Button";
 import QuestionNavigationUI from "../container/QuestionNavigationUI.container";
 import flag from "../../../../styles/images/flag.svg";
 import hat from "../../../../styles/images/hat.svg";
@@ -14,19 +13,17 @@ import mask from "../../../../styles/images/mask.svg";
 import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
-import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
 import useQuesryString from "../../../../service/useQueryString";
 import ExamScore from "./ExamScore.presenter";
 import ExamIncorrect from "./ExamIncorrect.presenter";
+import MultiButtonUI from "../../common/container/MultiButtonUI.container";
+import { useNavigate } from "react-router-dom";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
 interface ExamProps {
   examList: ExamModel[];
-  onNextContent: () => void;
-  onFinish?: () => void;
-  isJJH?: boolean;
 }
 
 type State = {
@@ -224,6 +221,14 @@ const createQuestion = (question: ExamModel): QuestionModel => {
           let keyword = `${keywordName}${
             keywordDateComment ? `(${keywordDateComment})` : ``
           }`;
+          if (acc.find((item) => item.comment === keyword)) {
+            let findIndex = acc.findIndex((item) => item.comment === keyword);
+
+            if (acc[findIndex - 1] && acc[findIndex - 1].comment) {
+              acc[findIndex - 1].comment += ", " + topic;
+            }
+            return acc;
+          }
           if (acc.find((item) => item.comment === topic)) {
             let findIndex = acc.findIndex((item) => item.comment === topic);
 
@@ -275,7 +280,8 @@ const createQuestion = (question: ExamModel): QuestionModel => {
   };
 };
 
-function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
+function Exam({ examList }: ExamProps) {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
     isFinish: false,
@@ -321,12 +327,14 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
     dispatch({
       type: CHECK_ANSWER,
     });
-
-    dispatch({ type: MOVE_QUESTION, moveQuestionNumber: questionList.length });
   };
 
   const handleNextQuestion = async () => {
     dispatch({ type: NEXT_QUESTION });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleMove = (index: number) => {
@@ -344,11 +352,30 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
       {questionList.length === currentNumber ? (
         <>
           <ExamScore totalScore={100} score={score} />
-          <ResultButtonUI
-            isSuccess={
-              isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
-            }
-            onNextContent={onNextContent}
+          <MultiButtonUI
+            buttonList={[
+              {
+                onClick: () => navigate(-1),
+                contents: (
+                  <>
+                    <Icon icon="CHAPTER_INFO" size={12} />
+                    &nbsp;목록
+                  </>
+                ),
+              },
+              {
+                onClick: () => {
+                  localStorage.removeItem(round);
+                  window.location.reload();
+                },
+                contents: (
+                  <>
+                    <Icon icon="again" size={12} />
+                    &nbsp;초기화
+                  </>
+                ),
+              },
+            ]}
           />
           <ExamIncorrect questionList={questionList} />
         </>
@@ -359,8 +386,28 @@ function Exam({ examList, onNextContent, onFinish, isJJH = false }: ExamProps) {
             onChoiceClick={handleChoiceClick}
             image={image}
           />
-          <Button onClick={handleCheckAnswer}>정답 확인</Button>
-          <Button onClick={handleNextQuestion}>다음</Button>
+          <MultiButtonUI
+            buttonList={[
+              {
+                onClick: handleCheckAnswer,
+                contents: (
+                  <>
+                    <Icon icon="pen" size={12} />
+                    &nbsp;정답 확인
+                  </>
+                ),
+              },
+              {
+                onClick: handleNextQuestion,
+                contents: (
+                  <>
+                    <Icon icon="next" size={12} />
+                    &nbsp;다음 문제
+                  </>
+                ),
+              },
+            ]}
+          />
         </>
       )}
     </>
