@@ -3,7 +3,25 @@ import styled, { css, keyframes } from "styled-components";
 import { QuestionModel } from "../../../../types/questionTypes";
 import Icon from "../../../atoms/icon/Icon";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ResultContainer = styled.ul`
+  display: flex;
+  justify-content: center;
+  width: 18%;
+  margin: ${({ theme }) => theme.margin.base};
+  padding: 5px;
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+`;
+
 const ExamNavigation = styled.ul`
+  width: 80%;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
@@ -58,6 +76,7 @@ const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
       : theme.colors.black};
 
   text-align: center;
+  list-style-type: none;
   animation: ${({ isCurrent }) =>
     isCurrent
       ? css`
@@ -124,7 +143,7 @@ function QuestionNavigationUI({
         return scrollPosition;
       }
     }
-    return 0; // 스크롤 위치 계산 실패 시 0으로 설정
+    return examNavigationRef.current?.scrollLeft || 0; // 스크롤 위치 계산 실패 시 0으로 설정
   };
 
   useEffect(() => {
@@ -135,39 +154,43 @@ function QuestionNavigationUI({
   }, [currentNumber]);
 
   return (
-    <ExamNavigation ref={examNavigationRef}>
-      {questionList.map((item, index) => {
-        return (
-          <ExamNavigationItem
-            key={index}
-            isCurrent={index === currentNumber}
-            onClick={() => onClickMove(index)}
-            isCorrect={item.isCorrect}
-            isFinish={item.isFinish}
-          >
-            {index + 1}
-            {item.isChecked && (
-              <Check isCorrect={item.isCorrect} isFinish={item.isFinish} />
-            )}
-            {!item.isOpen && (
-              <Lock>
-                <Icon icon="lock" size={8} />
-              </Lock>
-            )}
-          </ExamNavigationItem>
-        );
-      })}
-      <ExamNavigationItem
-        isCurrent={currentNumber === questionList.length}
-        onClick={() => {
-          isFinish && onClickMove(questionList.length);
-        }}
-        isFinish={false}
-        isCorrect
-      >
-        결과
-      </ExamNavigationItem>
-    </ExamNavigation>
+    <Container>
+      <ExamNavigation ref={examNavigationRef}>
+        {questionList.map((item, index) => {
+          return (
+            <ExamNavigationItem
+              key={index}
+              isCurrent={index === currentNumber}
+              onClick={() => onClickMove(index)}
+              isCorrect={item.isCorrect}
+              isFinish={item.isFinish}
+            >
+              {index + 1}
+              {item.isChecked && (
+                <Check isCorrect={item.isCorrect} isFinish={item.isFinish} />
+              )}
+              {!item.isOpen && (
+                <Lock>
+                  <Icon icon="lock" size={8} />
+                </Lock>
+              )}
+            </ExamNavigationItem>
+          );
+        })}
+      </ExamNavigation>
+      <ResultContainer>
+        <ExamNavigationItem
+          isCurrent={currentNumber === questionList.length}
+          onClick={() => {
+            isFinish && onClickMove(questionList.length);
+          }}
+          isFinish={false}
+          isCorrect
+        >
+          결과
+        </ExamNavigationItem>
+      </ResultContainer>
+    </Container>
   );
 }
 
