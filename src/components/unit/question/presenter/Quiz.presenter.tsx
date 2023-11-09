@@ -264,6 +264,12 @@ function Quiz({
       correctAlert: correctAnswer,
       wrongAlert: wrongAnswer,
     });
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 160);
   };
 
   const handleNextQuestion = async () => {
@@ -286,6 +292,10 @@ function Quiz({
       return;
     }
     dispatch({ type: NEXT_QUESTION });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleMove = (index: number) => {
