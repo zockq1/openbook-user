@@ -42,9 +42,13 @@ interface ResultButtonUIProps {
 function MultiButtonUI({ buttonList }: ResultButtonUIProps) {
   return (
     <ButtonContainer>
-      {buttonList.map((button) => {
+      {buttonList.map((button, index) => {
         const { onClick, contents } = button;
-        return <Button onClick={onClick}>{contents}</Button>;
+        return (
+          <Button onClick={onClick} key={index}>
+            {contents}
+          </Button>
+        );
       })}
     </ButtonContainer>
   );
