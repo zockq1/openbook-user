@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { KeywordModel } from "../../../../types/topicTypes";
 import Bookmark from "../presenter/Bookmark.presenter";
 import Keyword from "../presenter/Keyword.presenter";
+import TimelineListUI from "../../timeline/container/TimelineListUI.container";
 
 interface KeywordListUIProps {
   keywordList: KeywordModel[];
@@ -13,7 +14,7 @@ interface KeywordListUIProps {
 
 const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
   overflow: hidden;
-  max-height: ${({ isVisible }) => (isVisible ? "1000px" : "32px")};
+  max-height: ${({ isVisible }) => (isVisible ? "2000px" : "32px")};
   margin-bottom: ${({ isVisible }) => (isVisible ? "0" : "20px")};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
@@ -74,18 +75,30 @@ function KeywordListUI({
         </KeywordTitleContainer>
         <KeywordList>
           {keywordList
-            .filter((keyword) => !keyword.comment)
+            .filter((keyword) => !keyword.comment && !keyword.dateComment)
             .map((keyword, index) => (
               <Keyword key={index} keyword={keyword} />
             ))}
         </KeywordList>
         <KeywordList>
           {keywordList
-            .filter((keyword) => !!keyword.comment)
+            .filter((keyword) => !!keyword.comment && !keyword.dateComment)
             .map((keyword, index) => (
               <Keyword key={index} keyword={keyword} />
             ))}
         </KeywordList>
+        <TimelineListUI
+          dateList={keywordList
+            .filter((keyword) => !!keyword.dateComment)
+            .map((keyword, index) => {
+              return {
+                date: keyword.dateComment,
+                topicTitle: topicTitle,
+                comment: keyword.name,
+                keywordList: keyword.comment.trim().split(".").filter(Boolean),
+              };
+            })}
+        />
       </KeywordListWrapper>
     </>
   );

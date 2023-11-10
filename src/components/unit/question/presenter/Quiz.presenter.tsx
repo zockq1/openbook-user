@@ -269,7 +269,7 @@ function Quiz({
         top: document.body.scrollHeight,
         behavior: "smooth",
       });
-    }, 160);
+    }, 110);
   };
 
   const handleNextQuestion = async () => {

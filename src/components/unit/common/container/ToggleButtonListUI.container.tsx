@@ -4,8 +4,11 @@ import styled from "styled-components";
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 35px;
   width: 100%;
+  bottom: 0;
+  left: 0;
 
   & > button:not(:last-child) {
     margin-left: 0;
@@ -17,6 +20,8 @@ const Button = styled.button<{ isActive: boolean }>`
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
+  padding: 2px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   font-size: ${({ theme }) => theme.fontSizes.small};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
@@ -31,7 +36,8 @@ const Button = styled.button<{ isActive: boolean }>`
   background-color: ${({ theme, isActive }) =>
     isActive ? theme.colors.green : theme.colors.white};
 
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
 `;
 interface ToggleButtonUIProps {
   buttonList: {
@@ -40,7 +46,6 @@ interface ToggleButtonUIProps {
     isActive: boolean;
   }[];
 }
-
 function ToggleButtonUI({ buttonList }: ToggleButtonUIProps) {
   return (
     <ButtonContainer>

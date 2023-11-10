@@ -32,7 +32,7 @@ const Triangle = styled.li<{ open: boolean }>`
   top: ${({ open }) => (open ? "-10px" : "0px")};
   left: 20px;
   z-index: 0;
-  transition: 0.15s ease-in-out;
+  transition: 0.1s ease-in-out;
 `;
 
 const Description = styled.li<{ open: boolean; color: string }>`

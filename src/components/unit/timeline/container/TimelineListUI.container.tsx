@@ -1,10 +1,13 @@
-import { TimeLineItemModel } from "../../../../types/timelinetypes";
-import TimelineItemUI from "./TimelineItemUI.container";
+import TimelineItem from "../presenter/TimelineItem.presenter";
 import styled from "styled-components";
 
 interface TimelineListProps {
-  dateList: TimeLineItemModel[];
-  isKeywordOpen: boolean;
+  dateList: {
+    comment: string;
+    date: number | string | null;
+    topicTitle: string;
+    keywordList: string[] | null;
+  }[];
 }
 
 const Line = styled.li`
@@ -14,7 +17,7 @@ const Line = styled.li`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: 100%;
-  left: 64px;
+  left: 54px;
   z-index: 0;
 `;
 
@@ -23,20 +26,16 @@ const StyledTimelineList = styled.ul`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  padding: 10px;
 `;
 
-function TimelineListUI({ dateList, isKeywordOpen }: TimelineListProps) {
+function TimelineListUI({ dateList }: TimelineListProps) {
+  if (dateList.length === 0) return null;
   return (
     <StyledTimelineList>
       <Line />
       {dateList.map((item, index) => {
-        return (
-          <TimelineItemUI
-            dateItem={item}
-            key={index}
-            isKeywordOpen={isKeywordOpen}
-          />
-        );
+        return <TimelineItem dateItem={item} key={index} />;
       })}
     </StyledTimelineList>
   );

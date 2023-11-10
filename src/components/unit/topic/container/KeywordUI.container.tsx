@@ -45,7 +45,7 @@ function KeywordUI({
   const { name, comment, questionList } = keyword;
 
   return (
-    <Keyword isCommentOn={isCommentOn}>
+    <Keyword isCommentOn={comment ? isCommentOn : false}>
       {questionList.length !== 0 && <Badge>{questionList.length}</Badge>}
       <TextBox
         maxWidth="full"

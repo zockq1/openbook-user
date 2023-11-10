@@ -86,7 +86,7 @@ const ToggleContainer = styled.div<{ open: boolean }>`
 function KeywordToggleButton() {
   const dispatch = useDispatch();
   const isKeywordCommentOn = useSelector(
-    (state: RootState) => state.keyword.isKeywordCommentOn
+    (state: RootState) => state.keyword.isCommentOn
   );
 
   const handleToggle = () => {

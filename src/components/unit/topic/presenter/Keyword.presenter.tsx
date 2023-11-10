@@ -9,7 +9,7 @@ interface KeywordProps {
 }
 
 function Keyword({ keyword }: KeywordProps) {
-  const { isKeywordCommentOn: isCommentOnGlobal } = useSelector(
+  const { isCommentOn: isCommentOnGlobal } = useSelector(
     (state: RootState) => state.keyword
   );
   const [isCommentOn, setIsCommentOn] = useState(isCommentOnGlobal);

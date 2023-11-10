@@ -6,13 +6,14 @@ import Icon from "../../../atoms/icon/Icon";
 interface TimelineTopicProps {
   dateItem: {
     comment: string;
-    date: number | null;
+    date: number | string | null;
     topicTitle: string;
     keywordList: string[] | null;
   };
   disableCircle?: boolean;
   isQuestion?: boolean;
-  isKeywordOpen: boolean;
+  isCommentOn: boolean;
+  onCommentToggle: () => void;
 }
 
 interface StyledTimelineItemProps {
@@ -21,10 +22,10 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 50px 34px max-content;
+  grid-template-columns: 30px 34px max-content;
   align-items: center;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "15px 0")};
-  margin-right: 84px;
+  margin-right: 64px;
 `;
 
 const InnerCircle = styled.div`
@@ -47,18 +48,19 @@ const Transparent = styled.div`
 const Date = styled.div`
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   text-align: right;
 `;
 
 const CommentContainer = styled.div`
   position: relative;
-  margin-left: 84px;
+  margin-left: 64px;
 `;
 
 function TimelineItemUI({
   dateItem,
-  isKeywordOpen,
+  isCommentOn,
+  onCommentToggle,
   disableCircle = false,
   isQuestion = false,
 }: TimelineTopicProps) {
@@ -66,14 +68,18 @@ function TimelineItemUI({
   return (
     <>
       <StyledTimelineItem isQuestion={isQuestion}>
-        <Date>{Math.floor(Number(date) / 10000) || null}</Date>
+        <Date>
+          {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
+        </Date>
         {disableCircle ? <Transparent /> : <InnerCircle />}
-        <TextBox maxWidth="half">{comment}</TextBox>
+        <TextBox maxWidth="half" onClick={onCommentToggle}>
+          {comment}
+        </TextBox>
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && (
           <CommentUI
-            isCommentOpen={isKeywordOpen}
+            isCommentOpen={isCommentOn}
             commentList={keywordList.map((item) => {
               return { comment: item, icon: <Icon icon="check" /> };
             })}

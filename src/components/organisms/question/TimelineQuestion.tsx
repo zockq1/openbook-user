@@ -9,7 +9,7 @@ import {
 import Button from "../../atoms/button/Button";
 import { useUpdateTimelineWrongCounterMutation } from "../../../store/api/timelineApi";
 import { TimeLineItemModel } from "../../../types/timelinetypes";
-import TimelineItemUI from "../../unit/timeline/container/TimelineItemUI.container";
+import TimelineItem from "../../unit/timeline/presenter/TimelineItem.presenter";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -27,7 +27,7 @@ const Line = styled.div<LineProps>`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: ${({ height }) => `${height}px`};
-  left: 64px;
+  left: 44px;
   z-index: 0;
   transition: 0.5s ease;
 `;
@@ -253,9 +253,8 @@ function TimelineQuestion({
                             ref={provided.innerRef}
                           >
                             <Item>
-                              <TimelineItemUI
+                              <TimelineItem
                                 dateItem={item}
-                                isKeywordOpen={false}
                                 key={i}
                                 isQuestion={true}
                               />
@@ -287,7 +286,7 @@ function TimelineQuestion({
                             >
                               {nextDateList[0] && (
                                 <Item>
-                                  <TimelineItemUI
+                                  <TimelineItem
                                     dateItem={{
                                       date: null,
                                       comment: nextDateList[0].comment.replace(
@@ -300,7 +299,6 @@ function TimelineQuestion({
                                     key={0}
                                     disableCircle={true}
                                     isQuestion={true}
-                                    isKeywordOpen={false}
                                   />
                                 </Item>
                               )}

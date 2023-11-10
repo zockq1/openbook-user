@@ -19,7 +19,7 @@ const StyledTitleBox = styled.div`
 
   left: 0;
 
-  padding: ${({ theme }) => theme.padding.large};
+  padding: 15px 24px;
   margin-bottom: 10px;
   border-radius: 0 0 15px 15px;
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
@@ -29,7 +29,7 @@ const StyledTitleBox = styled.div`
 
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
 const Title = styled.span`

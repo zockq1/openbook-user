@@ -11,12 +11,12 @@ import {
 
 function KeywordToggleButton() {
   const dispatch = useDispatch();
-  const { isKeywordCommentOn, isKeywordOn } = useSelector(
+  const { isCommentOn, isKeywordOn } = useSelector(
     (state: RootState) => state.keyword
   );
 
   const handleCommentToggle = () => {
-    if (isKeywordCommentOn) dispatch(keywordCommentOff());
+    if (isCommentOn) dispatch(keywordCommentOff());
     else dispatch(keywordCommentOn());
   };
 
@@ -34,8 +34,8 @@ function KeywordToggleButton() {
           onClick: handleKeywordToggle,
         },
         {
-          contents: isKeywordCommentOn ? "해설 On" : "해설 Off",
-          isActive: isKeywordCommentOn,
+          contents: isCommentOn ? "해설 On" : "해설 Off",
+          isActive: isCommentOn,
           onClick: handleCommentToggle,
         },
       ]}
