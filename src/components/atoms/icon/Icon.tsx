@@ -45,6 +45,8 @@ import { ReactComponent as Timeline } from "../../../styles/icon/calendar-clock.
 import { ReactComponent as Chapter } from "../../../styles/icon/rectangle-list.svg";
 import { ReactComponent as Key } from "../../../styles/icon/key.svg";
 import { ReactComponent as Comment } from "../../../styles/icon/comment.svg";
+import { ReactComponent as BookmarkOn } from "../../../styles/icon/bookmark-on.svg";
+import { ReactComponent as BookmarkOff } from "../../../styles/icon/bookmark-off.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -77,6 +79,8 @@ export type IconType =
   | "x"
   | "key"
   | "comment"
+  | "bookmarkOn"
+  | "bookmarkOff"
   | Content
   | TopicCategory;
 
@@ -144,6 +148,8 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     x: X,
     key: Key,
     comment: Comment,
+    bookmarkOff: BookmarkOff,
+    bookmarkOn: BookmarkOn,
   };
 
   if (!icons[icon]) return null;

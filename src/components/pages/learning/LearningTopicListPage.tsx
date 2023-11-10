@@ -4,8 +4,8 @@ import MenuTemplate from "../../templates/menu/MenuTemplate";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
-  useGetChapterTopicListQuery,
 } from "../../../store/api/chapterApi";
+import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
@@ -30,13 +30,20 @@ function LearningTopicListPage() {
     let newMenu: MenuModel[] = [...topicList]
       .sort((a, b) => a.number - b.number)
       .map((item) => {
-        const { title, category, dateComment, keywordList } = item;
+        const { title, category, dateComment, keywordList, savedBookmark } =
+          item;
         const result: MenuModel = {
           type: "Base",
           title: title,
           icon: <Icon icon={category} size={22} />,
           description: `${dateComment}`,
-          content: <Topic keywordList={keywordList} />,
+          content: (
+            <Topic
+              keywordList={keywordList}
+              topicTitle={title}
+              isBookmarked={savedBookmark}
+            />
+          ),
         };
         return result;
       });

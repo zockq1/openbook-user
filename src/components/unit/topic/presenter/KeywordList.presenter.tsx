@@ -5,9 +5,11 @@ import { KeywordModel } from "../../../../types/topicTypes";
 
 interface TopicProps {
   keywordList: KeywordModel[];
+  isBookmarked: boolean;
+  topicTitle: string;
 }
 
-function KeywordList({ keywordList }: TopicProps) {
+function KeywordList({ keywordList, isBookmarked, topicTitle }: TopicProps) {
   const isKeywordCommentOn = useSelector(
     (state: RootState) => state.keyword.isKeywordCommentOn
   );
@@ -16,6 +18,8 @@ function KeywordList({ keywordList }: TopicProps) {
     <KeywordListUI
       isKeywordCommentOn={isKeywordCommentOn}
       keywordList={keywordList}
+      isBookmarked={isBookmarked}
+      topicTitle={topicTitle}
     />
   );
 }

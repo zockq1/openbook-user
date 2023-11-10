@@ -42,6 +42,7 @@ export interface ContentModel {
   contentNumber: number;
   dateComment: string;
   category: IconType | null;
+  savedBookmark: boolean;
 }
 
 export interface ProgressModel {

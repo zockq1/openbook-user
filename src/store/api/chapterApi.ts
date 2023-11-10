@@ -5,7 +5,6 @@ import {
   ChapterTitleModel,
 } from "../../types/chapterTypes";
 import baseQueryWithJWT from "./baseApi";
-import { TopicListModel } from "../../types/topicTypes";
 
 export const chapterApi = createApi({
   reducerPath: "chapterApi",
@@ -13,9 +12,6 @@ export const chapterApi = createApi({
   endpoints: (builder) => ({
     getChapterList: builder.query<ChapterModel[], void>({
       query: () => "/chapters",
-    }),
-    getChapterTopicList: builder.query<TopicListModel[], number>({
-      query: (chapter) => `/chapters/${chapter}/topics`,
     }),
     getChapterTitle: builder.query<ChapterTitleModel, number>({
       query: (chapterNumber) => `/chapters/chapter-title?num=${chapterNumber}`,
@@ -30,5 +26,4 @@ export const {
   useGetChapterListQuery,
   useGetChapterTitleQuery,
   useGetChapterInfoQuery,
-  useGetChapterTopicListQuery,
 } = chapterApi;

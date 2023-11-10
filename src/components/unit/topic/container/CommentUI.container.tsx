@@ -22,7 +22,8 @@ const Comment = styled.ul<{ open: boolean }>`
 `;
 
 const Triangle = styled.li<{ open: boolean }>`
-  border-bottom: 10px solid ${({ open }) => (open ? "white" : "transparent")};
+  border-bottom: 10px solid
+    ${({ open, theme }) => (open ? theme.colors.white : "transparent")};
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 0px solid transparent;

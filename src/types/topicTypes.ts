@@ -53,4 +53,10 @@ export interface TopicListModel {
   number: number;
   extraDateList: extraDateModel[];
   keywordList: KeywordModel[];
+  savedBookmark: false;
+}
+
+export interface BookmarkedTopicListModel {
+  chapterTitle: string;
+  topicList: TopicListModel[];
 }

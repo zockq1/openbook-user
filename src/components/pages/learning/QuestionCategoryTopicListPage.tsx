@@ -6,7 +6,7 @@ import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import useQuesryString from "../../../service/useQueryString";
-import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/topicApi";
+import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
 
 function QustionCategoryTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -28,7 +28,13 @@ function QustionCategoryTopicListPage() {
           title: title,
           icon: <Icon icon={category} />,
           description: `${dateComment}`,
-          content: <Topic keywordList={item.keywordList} />,
+          content: (
+            <Topic
+              keywordList={item.keywordList}
+              isBookmarked={item.savedBookmark}
+              topicTitle={item.title}
+            />
+          ),
         };
         return result;
       });

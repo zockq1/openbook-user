@@ -6,11 +6,15 @@ import {
   ProgressModel,
   UpdateProgressModel,
 } from "../../types/jjhTypes";
+import {
+  BookmarkedTopicListModel,
+  TopicListModel,
+} from "../../types/topicTypes";
 
 export const jjhApi = createApi({
   reducerPath: "jjhApi",
   baseQuery: baseQueryWithJWT,
-  tagTypes: ["jjhUpdate"],
+  tagTypes: ["jjhUpdate", "Bookmark"],
   endpoints: (builder) => ({
     getJJHList: builder.query<JJHModel, void>({
       query: () => "/jjh",
@@ -18,7 +22,7 @@ export const jjhApi = createApi({
     }),
     getContentList: builder.query<ContentModel[], number>({
       query: (jjhNumber) => `/jjh/${jjhNumber}/contents-table`,
-      providesTags: ["jjhUpdate"],
+      providesTags: ["jjhUpdate", "Bookmark"],
     }),
     getTotalProgress: builder.query<ProgressModel, void>({
       query: () => `/total-progress`,
@@ -34,6 +38,44 @@ export const jjhApi = createApi({
       },
       invalidatesTags: ["jjhUpdate"],
     }),
+
+    getChapterTopicList: builder.query<TopicListModel[], number>({
+      query: (chapter) => `/chapters/${chapter}/topics`,
+      providesTags: ["Bookmark"],
+    }),
+    getQuestionCategoryTopicList: builder.query<TopicListModel[], number>({
+      query: (id) => `/question-categories/${id}/topics`,
+      providesTags: ["Bookmark"],
+    }),
+
+    getBookmarkedTopic: builder.query<BookmarkedTopicListModel[], void>({
+      query: (title) => `/topics/bookmarked`,
+      providesTags: ["Bookmark"],
+    }),
+    updateBookmark: builder.mutation<void, string>({
+      query: (topicTitle: string) => {
+        return {
+          url: `/bookmarks`,
+          method: "PATCH",
+          body: {
+            topicTitle,
+          },
+        };
+      },
+      invalidatesTags: ["Bookmark"],
+    }),
+    deleteBookmark: builder.mutation<void, string>({
+      query: (topicTitle: string) => {
+        return {
+          url: `/bookmarks`,
+          method: "DELETE",
+          body: {
+            topicTitle,
+          },
+        };
+      },
+      invalidatesTags: ["Bookmark"],
+    }),
   }),
 });
 
@@ -44,4 +86,9 @@ export const {
   useLazyGetTotalProgressQuery,
   useLazyGetContentListQuery,
   useUpdateProgressMutation,
+  useDeleteBookmarkMutation,
+  useGetBookmarkedTopicQuery,
+  useGetChapterTopicListQuery,
+  useGetQuestionCategoryTopicListQuery,
+  useUpdateBookmarkMutation,
 } = jjhApi;

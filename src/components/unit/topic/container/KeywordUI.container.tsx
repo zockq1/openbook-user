@@ -41,7 +41,7 @@ function KeywordUI({ keyword, isCommentOn }: KeywordCommentBoxProps) {
   return (
     <Keyword isCommentOn={isCommentOn}>
       {questionList.length !== 0 && <Badge>{questionList.length}</Badge>}
-      <TextBox maxWidth="full" shadow color="bgBlue">
+      <TextBox maxWidth="full" shadow={false} color="bgBlue">
         {name}
       </TextBox>
       {comment && (
