@@ -3,7 +3,7 @@ import { MenuModel } from "../../../types/commonTypes";
 import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
-import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
+//import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ import {
 import { Content } from "../../../types/jjhTypes";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
+import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 
 function ContentListPage() {
   const navigate = useNavigate();

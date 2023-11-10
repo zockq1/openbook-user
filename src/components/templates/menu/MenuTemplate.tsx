@@ -23,9 +23,9 @@ function MenuTemplate({
     <Layout>
       <TitleBox icon={icon} category={category}></TitleBox>
       <MainContentLayout>
+        {children}
         <MenuUI menuList={menuList} />
       </MainContentLayout>
-      {children}
     </Layout>
   );
 }

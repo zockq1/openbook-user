@@ -7,6 +7,7 @@ import Icon from "../../../atoms/icon/Icon";
 interface KeywordCommentBoxProps {
   keyword: KeywordModel;
   isCommentOn: boolean;
+  onCommentToggle: () => void;
 }
 
 const Keyword = styled.div<{ isCommentOn: boolean }>`
@@ -14,6 +15,7 @@ const Keyword = styled.div<{ isCommentOn: boolean }>`
   display: flex;
   flex-direction: column;
   margin: 5px;
+  width: ${({ isCommentOn }) => (isCommentOn ? "100%" : "")};
 `;
 
 const Badge = styled.div`
@@ -35,14 +37,23 @@ const Badge = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
-function KeywordUI({ keyword, isCommentOn }: KeywordCommentBoxProps) {
+function KeywordUI({
+  keyword,
+  isCommentOn,
+  onCommentToggle,
+}: KeywordCommentBoxProps) {
   const { name, comment, questionList } = keyword;
 
   return (
     <Keyword isCommentOn={isCommentOn}>
       {questionList.length !== 0 && <Badge>{questionList.length}</Badge>}
-      <TextBox maxWidth="full" shadow={false} color="bgBlue">
-        {name}
+      <TextBox
+        maxWidth="full"
+        shadow={false}
+        color="bgBlue"
+        onClick={!comment ? () => {} : onCommentToggle}
+      >
+        {`${name}`}
       </TextBox>
       {comment && (
         <CommentUI

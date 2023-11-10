@@ -1,12 +1,12 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import KeywordUI from "./KeywordUI.container";
 import { KeywordModel } from "../../../../types/topicTypes";
 import Bookmark from "../presenter/Bookmark.presenter";
+import Keyword from "../presenter/Keyword.presenter";
 
 interface KeywordListUIProps {
   keywordList: KeywordModel[];
-  isKeywordCommentOn: boolean;
+  isKeywordOn: boolean;
+  onKeywordToggle: () => void;
   isBookmarked: boolean;
   topicTitle: string;
 }
@@ -20,9 +20,9 @@ const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
   transition: all 0.2s ease-in-out;
 `;
 
-const KeywordList = styled.div<{ direction: "row" | "column" }>`
+const KeywordList = styled.div`
   display: flex;
-  flex-direction: ${({ direction }) => direction};
+  flex-direction: row;
   flex-wrap: wrap;
   padding: 0 5px;
 `;
@@ -36,6 +36,7 @@ const KeywordTitleContainer = styled.div`
 
   border-bottom: 2px solid ${({ theme }) => theme.colors.textBlue};
   margin-bottom: 30px;
+  padding-left: 50px;
 
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-family: "Giants-Regular";
@@ -57,47 +58,32 @@ const BookmarkContainer = styled.div<{ isVisible: boolean }>`
 
 function KeywordListUI({
   keywordList,
-  isKeywordCommentOn,
+  isKeywordOn,
+  onKeywordToggle,
   isBookmarked,
   topicTitle,
 }: KeywordListUIProps) {
-  const [isKeywordListVisible, setIsKeywordListVisible] = useState(true);
-
-  const toggleKeywordList = () => {
-    setIsKeywordListVisible((prev) => !prev);
-  };
-
   return (
     <>
-      <KeywordListWrapper isVisible={isKeywordListVisible}>
-        <BookmarkContainer isVisible={isKeywordListVisible}>
+      <KeywordListWrapper isVisible={isKeywordOn}>
+        <BookmarkContainer isVisible={isKeywordOn}>
           <Bookmark isBookmarked={isBookmarked} topicTitle={topicTitle} />
         </BookmarkContainer>
-        <KeywordTitleContainer onClick={toggleKeywordList}>
-          {`${isKeywordListVisible ? "▼" : "▶"} 키워드 목록(${
-            keywordList.length
-          })`}
+        <KeywordTitleContainer onClick={onKeywordToggle}>
+          {`${isKeywordOn ? "▼" : "▶"} 키워드 목록(${keywordList.length})`}
         </KeywordTitleContainer>
-        <KeywordList direction={"row"}>
+        <KeywordList>
           {keywordList
             .filter((keyword) => !keyword.comment)
             .map((keyword, index) => (
-              <KeywordUI
-                key={index}
-                keyword={keyword}
-                isCommentOn={isKeywordCommentOn}
-              />
+              <Keyword key={index} keyword={keyword} />
             ))}
         </KeywordList>
-        <KeywordList direction={isKeywordCommentOn ? "column" : "row"}>
+        <KeywordList>
           {keywordList
             .filter((keyword) => !!keyword.comment)
             .map((keyword, index) => (
-              <KeywordUI
-                key={index}
-                keyword={keyword}
-                isCommentOn={isKeywordCommentOn}
-              />
+              <Keyword key={index} keyword={keyword} />
             ))}
         </KeywordList>
       </KeywordListWrapper>

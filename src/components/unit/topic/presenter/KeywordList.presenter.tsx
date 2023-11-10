@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import KeywordListUI from "../container/KeywordListUI.container";
 import { KeywordModel } from "../../../../types/topicTypes";
+import { useEffect, useState } from "react";
 
 interface TopicProps {
   keywordList: KeywordModel[];
@@ -10,13 +11,23 @@ interface TopicProps {
 }
 
 function KeywordList({ keywordList, isBookmarked, topicTitle }: TopicProps) {
-  const isKeywordCommentOn = useSelector(
-    (state: RootState) => state.keyword.isKeywordCommentOn
+  const { isKeywordOn: isKeywordOnGlobal } = useSelector(
+    (state: RootState) => state.keyword
   );
+  const [isKeywordOn, setIsKeywordOn] = useState(isKeywordOnGlobal);
+
+  useEffect(() => {
+    setIsKeywordOn(isKeywordOnGlobal);
+  }, [isKeywordOnGlobal]);
+
+  const toggleKeywordList = () => {
+    setIsKeywordOn((prev) => !prev);
+  };
 
   return (
     <KeywordListUI
-      isKeywordCommentOn={isKeywordCommentOn}
+      isKeywordOn={isKeywordOn}
+      onKeywordToggle={toggleKeywordList}
       keywordList={keywordList}
       isBookmarked={isBookmarked}
       topicTitle={topicTitle}

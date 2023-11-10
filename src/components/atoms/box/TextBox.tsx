@@ -7,6 +7,7 @@ interface TextBoxProps {
   shadow?: boolean;
   color?: "blue" | "bgBlue";
   maxWidth: "half" | "full";
+  onClick?: () => void;
 }
 
 const StyledTextBox = styled.div<TextBoxProps>`
@@ -45,6 +46,7 @@ function TextBox({
   margin,
   shadow = true,
   color = "blue",
+  onClick,
 }: TextBoxProps) {
   return (
     <StyledTextBox
@@ -52,6 +54,7 @@ function TextBox({
       maxWidth={maxWidth}
       shadow={shadow}
       color={color}
+      onClick={onClick}
     >
       <div style={{ width: "max-content" }}>{children}</div>
     </StyledTextBox>
