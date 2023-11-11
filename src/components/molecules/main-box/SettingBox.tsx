@@ -5,11 +5,12 @@ import { logout } from "../../../store/slices/authSlice";
 const StyledSettingBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100% - 40px);
+  width: 100%;
   margin: ${({ theme }) => theme.margin.base};
   margin-top: 30px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;

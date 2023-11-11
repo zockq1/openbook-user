@@ -49,11 +49,11 @@ export interface KeywordModel {
 export interface TopicListModel {
   title: string;
   category: TopicCategory;
+  era: string;
   dateComment: string;
-  number: number;
   extraDateList: extraDateModel[];
   keywordList: KeywordModel[];
-  savedBookmark: false;
+  savedBookmark: boolean;
 }
 
 export interface BookmarkedTopicListModel {

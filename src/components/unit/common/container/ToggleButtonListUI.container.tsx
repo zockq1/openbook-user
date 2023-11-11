@@ -10,8 +10,8 @@ const ButtonContainer = styled.div`
   bottom: 0;
   left: 0;
 
-  & > button:not(:last-child) {
-    margin-left: 0;
+  & > button:last-child {
+    margin-right: 0;
   }
 `;
 
@@ -27,17 +27,18 @@ const Button = styled.button<{ isActive: boolean }>`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   font-family: "Giants-Regular";
   word-break: keep-all;
-  flex: 1;
-  margin-left: 10px;
+  flex-grow: 1;
+  margin-right: 10px;
 
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 2px solid
+    ${({ theme, isActive }) =>
+      isActive ? theme.colors.lightGreen : theme.colors.textBlue};
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white : theme.colors.textBlue};
   background-color: ${({ theme, isActive }) =>
     isActive ? theme.colors.green : theme.colors.white};
 
-  transition: color 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 `;
 interface ToggleButtonUIProps {
   buttonList: {

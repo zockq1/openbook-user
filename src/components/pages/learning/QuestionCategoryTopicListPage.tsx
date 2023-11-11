@@ -22,25 +22,23 @@ function QustionCategoryTopicListPage() {
       return;
     }
 
-    let newMenu: MenuModel[] = [...topicList]
-      .sort((a, b) => a.number - b.number)
-      .map((item) => {
-        const { title, category, dateComment } = item;
-        const result: MenuModel = {
-          type: "Base",
-          title: title,
-          icon: <Icon icon={category} />,
-          description: `${dateComment}`,
-          content: (
-            <Topic
-              keywordList={item.keywordList}
-              isBookmarked={item.savedBookmark}
-              topicTitle={item.title}
-            />
-          ),
-        };
-        return result;
-      });
+    let newMenu: MenuModel[] = [...topicList].map((item) => {
+      const { title, category, dateComment } = item;
+      const result: MenuModel = {
+        type: "Base",
+        title: title,
+        icon: <Icon icon={category} />,
+        description: `${dateComment}`,
+        content: (
+          <Topic
+            keywordList={item.keywordList}
+            isBookmarked={item.savedBookmark}
+            topicTitle={item.title}
+          />
+        ),
+      };
+      return result;
+    });
 
     setMenuList(newMenu);
   }, [setMenuList, topicList, theme]);

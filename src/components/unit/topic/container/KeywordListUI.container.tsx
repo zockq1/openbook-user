@@ -13,12 +13,13 @@ interface KeywordListUIProps {
 }
 
 const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
-  overflow: hidden;
+  position: relative;
   max-height: ${({ isVisible }) => (isVisible ? "2000px" : "32px")};
   margin-bottom: ${({ isVisible }) => (isVisible ? "0" : "20px")};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
   transition: all 0.2s ease-in-out;
+  overflow: hidden;
 `;
 
 const KeywordList = styled.div`
@@ -53,8 +54,8 @@ const BookmarkContainer = styled.div<{ isVisible: boolean }>`
   border-radius: ${({ isVisible }) =>
     isVisible ? "10px 0 10px 0" : "10px 0 10px 10px"};
   background-color: ${({ theme }) => theme.colors.white};
-  transform: translate(-2px, -2px);
   transition: all 0.2s ease-in-out;
+  z-index: 99;
 `;
 
 function KeywordListUI({
@@ -65,11 +66,11 @@ function KeywordListUI({
   topicTitle,
 }: KeywordListUIProps) {
   return (
-    <>
+    <div style={{ position: "relative", paddingBottom: "4px" }}>
+      <BookmarkContainer isVisible={isKeywordOn}>
+        <Bookmark isBookmarked={isBookmarked} topicTitle={topicTitle} />
+      </BookmarkContainer>
       <KeywordListWrapper isVisible={isKeywordOn}>
-        <BookmarkContainer isVisible={isKeywordOn}>
-          <Bookmark isBookmarked={isBookmarked} topicTitle={topicTitle} />
-        </BookmarkContainer>
         <KeywordTitleContainer onClick={onKeywordToggle}>
           {`${isKeywordOn ? "▼" : "▶"} 키워드 목록(${keywordList.length})`}
         </KeywordTitleContainer>
@@ -100,7 +101,7 @@ function KeywordListUI({
             })}
         />
       </KeywordListWrapper>
-    </>
+    </div>
   );
 }
 

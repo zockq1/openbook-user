@@ -5,7 +5,6 @@ import authReducer from "./slices/authSlice";
 import keywordReducer from "./slices/keywordSlice";
 import storage from "redux-persist/lib/storage";
 import { topicApi } from "./api/topicApi";
-import { noteApi } from "./api/noteApi";
 import { authApi } from "./api/authApi";
 import { questionApi } from "./api/questionApi";
 import { timelineApi } from "./api/timelineApi";
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
   keyword: keywordReducer,
   [chapterApi.reducerPath]: chapterApi.reducer,
   [topicApi.reducerPath]: topicApi.reducer,
-  [noteApi.reducerPath]: noteApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [questionApi.reducerPath]: questionApi.reducer,
   [timelineApi.reducerPath]: timelineApi.reducer,
@@ -41,7 +39,6 @@ export const store = configureStore({
     }).concat(
       chapterApi.middleware,
       topicApi.middleware,
-      noteApi.middleware,
       authApi.middleware,
       questionApi.middleware,
       timelineApi.middleware,

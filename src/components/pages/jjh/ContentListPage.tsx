@@ -158,7 +158,7 @@ function ContentListPage() {
     <Layout>
       <TitleBox icon="TOPIC_STUDY" category={title} />
       <MainContentLayout>
-        <KeywordToggleButton />
+        <KeywordToggleButton comment keyword />
 
         <MenuUI menuList={menuList} />
       </MainContentLayout>

@@ -3,16 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isCommentOn: false,
   isKeywordOn: false,
+  isTopicOn: false,
 };
 
 const keywordSlice = createSlice({
   name: "keyword",
   initialState,
   reducers: {
-    keywordCommentOn(state) {
+    CommentOn(state) {
       state.isCommentOn = true;
     },
-    keywordCommentOff(state) {
+    CommentOff(state) {
       state.isCommentOn = false;
     },
     keywordOn(state) {
@@ -21,9 +22,21 @@ const keywordSlice = createSlice({
     keywordOff(state) {
       state.isKeywordOn = false;
     },
+    topicOn(state) {
+      state.isTopicOn = true;
+    },
+    topicOff(state) {
+      state.isTopicOn = false;
+    },
   },
 });
 
-export const { keywordCommentOff, keywordCommentOn, keywordOff, keywordOn } =
-  keywordSlice.actions;
+export const {
+  CommentOff,
+  CommentOn,
+  keywordOff,
+  keywordOn,
+  topicOff,
+  topicOn,
+} = keywordSlice.actions;
 export default keywordSlice.reducer;

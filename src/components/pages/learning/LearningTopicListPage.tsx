@@ -9,7 +9,7 @@ import {
   useGetChapterTitleQuery,
 } from "../../../store/api/chapterApi";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
-import Topic from "../../unit/topic/presenter/KeywordList.presenter";
+import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
@@ -29,26 +29,23 @@ function LearningTopicListPage() {
       return;
     }
 
-    let newMenu: MenuModel[] = [...topicList]
-      .sort((a, b) => a.number - b.number)
-      .map((item) => {
-        const { title, category, dateComment, keywordList, savedBookmark } =
-          item;
-        const result: MenuModel = {
-          type: "Base",
-          title: title,
-          icon: <Icon icon={category} size={22} />,
-          description: `${dateComment}`,
-          content: (
-            <Topic
-              keywordList={keywordList}
-              topicTitle={title}
-              isBookmarked={savedBookmark}
-            />
-          ),
-        };
-        return result;
-      });
+    let newMenu: MenuModel[] = [...topicList].map((item) => {
+      const { title, category, dateComment, keywordList, savedBookmark } = item;
+      const result: MenuModel = {
+        type: "Base",
+        title: title,
+        icon: <Icon icon={category} size={22} />,
+        description: `${dateComment}`,
+        content: (
+          <KeywordList
+            keywordList={keywordList}
+            topicTitle={title}
+            isBookmarked={savedBookmark}
+          />
+        ),
+      };
+      return result;
+    });
 
     if (chapterInfo.content)
       newMenu.unshift({
@@ -73,7 +70,7 @@ function LearningTopicListPage() {
         category={String(chapterNumber) + ". " + chapterTitle.title}
       />
       <MainContentLayout>
-        <KeywordToggleButton />
+        <KeywordToggleButton comment keyword />
         <MenuUI menuList={menuList} />
       </MainContentLayout>
     </Layout>

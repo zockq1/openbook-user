@@ -22,6 +22,8 @@ import TimelineQuestionListPage from "./components/pages/question/TimelineQuesti
 import QuizListPage from "./components/pages/question/QuizListPage";
 import ExamListPage from "./components/pages/question/ExamListPage";
 import QustionCategoryTopicListPage from "./components/pages/learning/QuestionCategoryTopicListPage";
+import { element } from "prop-types";
+import BookmarkPage from "./components/pages/learning/BookmarkPage";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +117,10 @@ const router = createBrowserRouter([
       {
         path: "jeong-ju-haeng",
         element: <JJHListPage />,
+      },
+      {
+        path: "my-info/bookmark",
+        element: <BookmarkPage />,
       },
     ],
   },

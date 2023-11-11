@@ -2,10 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import {
-  keywordCommentOff,
-  keywordCommentOn,
-} from "../../../store/slices/keywordSlice";
+import { CommentOff, CommentOn } from "../../../store/slices/keywordSlice";
 
 const ToggleContainer = styled.div<{ open: boolean }>`
   position: fixed;
@@ -90,8 +87,8 @@ function KeywordToggleButton() {
   );
 
   const handleToggle = () => {
-    if (isKeywordCommentOn) dispatch(keywordCommentOff());
-    else dispatch(keywordCommentOn());
+    if (isKeywordCommentOn) dispatch(CommentOff());
+    else dispatch(CommentOn());
   };
 
   return (
