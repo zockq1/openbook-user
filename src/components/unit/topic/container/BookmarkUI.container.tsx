@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import Icon from "../../../atoms/icon/Icon";
+import { useContext } from "react";
 
 const Bookmark = styled.button`
   width: 100%;
@@ -12,12 +13,13 @@ interface BookmarkUIProps {
 }
 
 function BookmarkUI({ isBookmarked, onClickBookmark }: BookmarkUIProps) {
+  const theme = useContext(ThemeContext);
   return (
     <Bookmark onClick={onClickBookmark}>
       <Icon
         icon={isBookmarked ? "bookmarkOn" : "bookmarkOff"}
         size={22}
-        color="black"
+        color={isBookmarked ? theme.colors.blue : theme.colors.textBlue}
       />
     </Bookmark>
   );

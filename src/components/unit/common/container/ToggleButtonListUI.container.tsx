@@ -32,11 +32,11 @@ const Button = styled.button<{ isActive: boolean }>`
 
   border: 2px solid
     ${({ theme, isActive }) =>
-      isActive ? theme.colors.lightGreen : theme.colors.textBlue};
+      isActive ? theme.colors.textBlue : theme.colors.textBlue};
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white : theme.colors.textBlue};
   background-color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.green : theme.colors.white};
+    isActive ? theme.colors.textBlue : theme.colors.white};
 
   transition: all 0.2s ease-in-out;
 `;
