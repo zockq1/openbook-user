@@ -4,7 +4,10 @@ import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import { ThemeContext } from "styled-components";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
 
 function ExamListPage() {
@@ -70,7 +73,14 @@ function ExamListPage() {
   if (!examList) {
     return <div>Loading...</div>;
   }
-  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
+  return (
+    <Layout>
+      <TitleBox icon="questionSquare" category="기출 문제" />
+      <MainContentLayout>
+        <MenuUI menuList={questionMenuList} />
+      </MainContentLayout>
+    </Layout>
+  );
 }
 
 export default ExamListPage;

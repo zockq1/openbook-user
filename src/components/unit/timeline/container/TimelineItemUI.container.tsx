@@ -77,7 +77,7 @@ function TimelineItemUI({
         </TextBox>
       </StyledTimelineItem>
       <CommentContainer>
-        {!isQuestion && keywordList && (
+        {!isQuestion && keywordList && keywordList.length > 0 && (
           <CommentUI
             isCommentOpen={isCommentOn}
             commentList={keywordList.map((item) => {

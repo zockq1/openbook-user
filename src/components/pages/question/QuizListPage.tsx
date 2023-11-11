@@ -3,7 +3,10 @@ import { useGetQuestionCategoryListQuery } from "../../../store/api/questionApi"
 import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 
 function QuizListPage() {
   const navigate = useNavigate();
@@ -66,7 +69,14 @@ function QuizListPage() {
   if (!questionCategoryList) {
     return <div>Loading...</div>;
   }
-  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
+  return (
+    <Layout>
+      <TitleBox icon="questionSquare" category="퀴즈" />
+      <MainContentLayout>
+        <MenuUI menuList={questionMenuList} />
+      </MainContentLayout>
+    </Layout>
+  );
 }
 
 export default QuizListPage;

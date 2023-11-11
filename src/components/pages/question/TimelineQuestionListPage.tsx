@@ -3,7 +3,10 @@ import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import calculateGradientColor from "../../../service/calculateGradientColor";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
@@ -74,7 +77,14 @@ function TimelineQuestionListPage() {
   if (!timelineList) {
     return <div>Loading...</div>;
   }
-  return <MenuTemplate menuList={questionMenuList} category={"문제 분류"} />;
+  return (
+    <Layout>
+      <TitleBox category="연표 문제" icon="questionSquare" />
+      <MainContentLayout>
+        <MenuUI menuList={questionMenuList} />
+      </MainContentLayout>
+    </Layout>
+  );
 }
 
 export default TimelineQuestionListPage;

@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useGetChapterListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 
@@ -38,7 +41,14 @@ function LearningChapterListPage() {
     return <div>Loading...</div>;
   }
 
-  return <MenuTemplate menuList={menuList} category="학습 자료 모음" />;
+  return (
+    <Layout>
+      <TitleBox icon="CHAPTER_INFO" category="학습 자료 모음" />
+      <MainContentLayout>
+        <MenuUI menuList={menuList} />
+      </MainContentLayout>
+    </Layout>
+  );
 }
 
 export default LearningChapterListPage;

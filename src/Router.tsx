@@ -12,7 +12,6 @@ import TimelineMenuPage from "./components/pages/timeline/TimelineMenuPage";
 import TimelinePage from "./components/pages/timeline/TimelinePage";
 import LearningChapterListPage from "./components/pages/learning/LearningChapterListPage";
 import LearningTopicListPage from "./components/pages/learning/LearningTopicListPage";
-import LearningChapterPage from "./components/pages/learning/LearningChapterPage";
 import QuizPage from "./components/pages/question/QuizPage";
 import TimelineQuestionPage from "./components/pages/question/TimelineQuestionPage";
 import MockExamPage from "./components/pages/question/MockExamPage";
@@ -84,10 +83,6 @@ const router = createBrowserRouter([
       {
         path: "/learning/chapter",
         element: <LearningTopicListPage />,
-      },
-      {
-        path: "learning/:chapter/chapter-learning",
-        element: <LearningChapterPage />,
       },
       {
         path: "/timeline-list",

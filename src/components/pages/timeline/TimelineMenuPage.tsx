@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
 import { MenuModel } from "../../../types/commonTypes";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
@@ -54,11 +57,12 @@ function TimelineMenuPage() {
   }
 
   return (
-    <MenuTemplate
-      menuList={menuList}
-      icon="TIMELINE_STUDY"
-      category="연표 학습"
-    />
+    <Layout>
+      <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
+      <MainContentLayout>
+        <MenuUI menuList={menuList} />
+      </MainContentLayout>
+    </Layout>
   );
 }
 

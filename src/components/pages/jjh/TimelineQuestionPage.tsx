@@ -1,8 +1,11 @@
-import TimelineQuestionTemplate from "../../templates/question/TimelineQuestionTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useNextContent from "../../../service/useNextContent";
 import useQuesryString from "../../../service/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -14,12 +17,16 @@ function TimelineQuestionPage() {
   }
 
   return (
-    <TimelineQuestionTemplate
-      title={title}
-      id={timelineId}
-      dateList={dateList}
-      onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-    />
+    <Layout>
+      <TitleBox icon="TIMELINE_QUESTION" category={title} />
+      <MainContentLayout>
+        <TimelineQuestion
+          dateList={[...dateList].sort(() => Math.random() - 0.5)}
+          onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
+          id={timelineId}
+        />
+      </MainContentLayout>
+    </Layout>
   );
 }
 export default withAuth(TimelineQuestionPage);

@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 import withAuth from "../../../hoc/withAuth";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
@@ -138,7 +141,14 @@ function JJHListPage() {
     return <div>Loading...</div>;
   }
 
-  return <MenuTemplate menuList={menuList} icon="run" category="정주행" />;
+  return (
+    <Layout>
+      <TitleBox icon="run" category="정주행" />
+      <MainContentLayout>
+        <MenuUI menuList={menuList} />
+      </MainContentLayout>
+    </Layout>
+  );
 }
 
 export default withAuth(JJHListPage);

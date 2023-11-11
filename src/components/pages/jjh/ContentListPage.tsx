@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
 import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../service/useQueryString";
-//import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +16,10 @@ import { Content } from "../../../types/jjhTypes";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -153,9 +155,14 @@ function ContentListPage() {
   }
 
   return (
-    <MenuTemplate menuList={menuList} category={title}>
-      <KeywordToggleButton />
-    </MenuTemplate>
+    <Layout>
+      <TitleBox icon="TOPIC_STUDY" category={title} />
+      <MainContentLayout>
+        <KeywordToggleButton />
+
+        <MenuUI menuList={menuList} />
+      </MainContentLayout>
+    </Layout>
   );
 }
 

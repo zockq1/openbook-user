@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import MenuTemplate from "../../templates/menu/MenuTemplate";
+import Layout from "../../atoms/layout/Layout";
+import TitleBox from "../../organisms/ui/TitleBox";
+import MainContentLayout from "../../atoms/layout/MainContentLayout";
+import MenuUI from "../../unit/common/container/MenuUI.container";
 import {
   useGetChapterInfoQuery,
   useGetChapterTitleQuery,
@@ -20,7 +23,6 @@ function LearningTopicListPage() {
   const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
   const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
-  console.log(topicList);
 
   useEffect(() => {
     if (!topicList || !chapterTitle || chapterInfo === undefined) {
@@ -65,12 +67,16 @@ function LearningTopicListPage() {
   }
 
   return (
-    <MenuTemplate
-      menuList={menuList}
-      category={String(chapterNumber) + ". " + chapterTitle.title}
-    >
-      <KeywordToggleButton />
-    </MenuTemplate>
+    <Layout>
+      <TitleBox
+        icon="TOPIC_STUDY"
+        category={String(chapterNumber) + ". " + chapterTitle.title}
+      />
+      <MainContentLayout>
+        <KeywordToggleButton />
+        <MenuUI menuList={menuList} />
+      </MainContentLayout>
+    </Layout>
   );
 }
 
