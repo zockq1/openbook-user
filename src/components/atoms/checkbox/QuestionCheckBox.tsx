@@ -38,7 +38,7 @@ const CheckboxInput = styled.input`
 `;
 
 const CheckboxLabel = styled.label<AnswerCheckProps>`
-  --checkbox-size: 32px;
+  --checkbox-size: 20px;
   --tick-color: ${({ theme, isCorrect, isFinish }) =>
     isFinish
       ? isCorrect

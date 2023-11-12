@@ -5,7 +5,9 @@ import {
   QuestionCategoryModel,
   QuizModel,
   RoundModel,
+  UpdateWrongQuestionModel,
   WrongCounterModel,
+  WrongQuestionListModel,
 } from "../../types/questionTypes";
 import baseQueryWithJWT from "./baseApi";
 
@@ -13,7 +15,7 @@ export const questionApi = createApi({
   reducerPath: "questionApi",
   baseQuery: baseQueryWithJWT,
 
-  tagTypes: ["Score"],
+  tagTypes: ["Score", "Exam"],
   endpoints: (builder) => ({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
@@ -37,6 +39,11 @@ export const questionApi = createApi({
       query: () => `/question-categories`,
       providesTags: ["Score"],
     }),
+    getWrongExamList: builder.query<WrongQuestionListModel[], void>({
+      query: () => `/questions/answer-notes`,
+      providesTags: ["Exam"],
+    }),
+
     updateKeywordWrongCounter: builder.mutation<void, WrongCounterModel[]>({
       query: (counterList: WrongCounterModel[]) => {
         return {
@@ -46,6 +53,16 @@ export const questionApi = createApi({
         };
       },
       invalidatesTags: ["Score"],
+    }),
+    updateExamWrongCounter: builder.mutation<void, UpdateWrongQuestionModel[]>({
+      query: (counterList: UpdateWrongQuestionModel[]) => {
+        return {
+          url: `/questions/record`,
+          method: "PATCH",
+          body: counterList,
+        };
+      },
+      invalidatesTags: ["Exam"],
     }),
   }),
 });
@@ -58,4 +75,6 @@ export const {
   useGetTtoKQuestionQuery,
   useGetQuestionCategoryListQuery,
   useUpdateKeywordWrongCounterMutation,
+  useGetWrongExamListQuery,
+  useUpdateExamWrongCounterMutation,
 } = questionApi;

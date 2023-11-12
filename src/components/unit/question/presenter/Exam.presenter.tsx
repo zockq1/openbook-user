@@ -4,6 +4,7 @@ import {
   ExamModel,
   QuestionCommentModel,
   QuestionModel,
+  UpdateWrongQuestionModel,
 } from "../../../../types/questionTypes";
 import QuestionUI from "../container/QuestionUI.container";
 import QuestionNavigationUI from "../container/QuestionNavigationUI.container";
@@ -19,6 +20,7 @@ import ExamScore from "./ExamScore.presenter";
 import ExamIncorrect from "./ExamIncorrect.presenter";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useNavigate } from "react-router-dom";
+import { useUpdateExamWrongCounterMutation } from "../../../../store/api/questionApi";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -152,6 +154,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     descriptionCommentList,
     score,
     number,
+    id,
   } = question;
 
   const descriptionList = [description];
@@ -264,6 +267,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
   });
 
   return {
+    id,
     number,
     questionType: "Exam",
     choiceType,
@@ -282,6 +286,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
 
 function Exam({ examList }: ExamProps) {
   const navigate = useNavigate();
+  const [updateExam] = useUpdateExamWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
     isFinish: false,
@@ -327,6 +332,17 @@ function Exam({ examList }: ExamProps) {
     dispatch({
       type: CHECK_ANSWER,
     });
+    let wrongExamList: UpdateWrongQuestionModel[] = [];
+    questionList.forEach((question) => {
+      if (question.isFinish && !question.isCorrect)
+        wrongExamList.push({
+          id: question.id,
+          checkedChoiceKey: Number(question.checkedChoiceKey[1]),
+          score: question.score,
+        });
+    });
+
+    wrongExamList.length > 0 && updateExam(wrongExamList);
   };
 
   const handleNextQuestion = async () => {

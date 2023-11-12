@@ -29,7 +29,7 @@ const KeywordList = styled.div`
   padding: 0 5px;
 `;
 
-const KeywordTitleContainer = styled.div`
+const KeywordTitleContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

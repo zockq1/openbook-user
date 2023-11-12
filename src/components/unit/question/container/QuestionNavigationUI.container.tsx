@@ -11,8 +11,9 @@ const Container = styled.div`
 const ResultContainer = styled.ul`
   display: flex;
   justify-content: center;
-  width: 18%;
+  width: 70px;
   margin: ${({ theme }) => theme.margin.base};
+  margin-left: 10px;
   padding: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
@@ -21,13 +22,13 @@ const ResultContainer = styled.ul`
 `;
 
 const ExamNavigation = styled.ul`
-  width: 80%;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  width: 100%;
   margin: ${({ theme }) => theme.margin.base};
   padding: 5px 15px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};

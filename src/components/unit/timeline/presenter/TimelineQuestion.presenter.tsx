@@ -1,9 +1,10 @@
 import { useEffect, useReducer } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import Button from "../../../atoms/button/Button";
 import { useUpdateTimelineWrongCounterMutation } from "../../../../store/api/timelineApi";
 import { TimeLineItemModel } from "../../../../types/timelinetypes";
 import TimelineQuestionUI from "../container/TimelineQuestionUI.container";
+import ResultButtonUI from "../../question/container/ResultButtonUI.container";
+import TimelineScore from "./TimelineScore.presenter";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -141,15 +142,21 @@ function TimelineQuestion({
 
   return (
     <>
-      <TimelineQuestionUI
-        dateList={dateList}
-        nextDateList={nextDateList}
-        playedDateList={playedDateList}
-        isFinish={isFinish}
-        lineHeight={lineHeight}
-        onDragEnd={handleDragEnd}
-      />
-      {isFinish && <Button onClick={onNextContent}>다음</Button>}
+      {isFinish ? (
+        <TimelineScore wrongCount={wrongCount} />
+      ) : (
+        <TimelineQuestionUI
+          dateList={dateList}
+          nextDateList={nextDateList}
+          playedDateList={playedDateList}
+          isFinish={isFinish}
+          lineHeight={lineHeight}
+          onDragEnd={handleDragEnd}
+        />
+      )}
+      {isFinish && (
+        <ResultButtonUI isSuccess={true} onNextContent={onNextContent} />
+      )}
     </>
   );
 }

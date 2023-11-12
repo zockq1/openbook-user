@@ -162,6 +162,7 @@ function createQuestion(question: QuizModel, index: number): QuestionModel {
   } = question;
 
   return {
+    id: index,
     number: index,
     questionType,
     choiceType,

@@ -22,8 +22,9 @@ import TimelineQuestionListPage from "./components/pages/question/TimelineQuesti
 import QuizListPage from "./components/pages/question/QuizListPage";
 import ExamListPage from "./components/pages/question/ExamListPage";
 import QustionCategoryTopicListPage from "./components/pages/learning/QuestionCategoryTopicListPage";
-import { element } from "prop-types";
 import BookmarkPage from "./components/pages/learning/BookmarkPage";
+import WrongExamPage from "./components/pages/question/WrongExamPage";
+import WrongExamListPage from "./components/pages/question/WrongExamListPage";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,14 @@ const router = createBrowserRouter([
       {
         path: "my-info/bookmark",
         element: <BookmarkPage />,
+      },
+      {
+        path: "my-info/wrong-notes",
+        element: <WrongExamListPage />,
+      },
+      {
+        path: "my-info/wrong-notes/exam",
+        element: <WrongExamPage />,
       },
     ],
   },

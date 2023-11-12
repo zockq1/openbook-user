@@ -11,6 +11,7 @@ export interface QuestionCommentModel {
 }
 
 export interface QuestionModel {
+  id: number;
   number: number;
   questionType: QuestionType;
   choiceType: ChoiceType;
@@ -98,6 +99,20 @@ export interface WrongCounterModel {
   id: number;
   wrongCount: number;
   correctCount: number;
+}
+
+export interface UpdateWrongQuestionModel {
+  id: number;
+  checkedChoiceKey: number;
+  score: number;
+}
+
+export interface WrongQuestionListModel {
+  roundNumber: number;
+  questionList: {
+    id: number;
+    questionNumber: number;
+  }[];
 }
 
 /* QuestionCategory */
