@@ -33,7 +33,7 @@ function WrongExamListPage() {
 
     setMenuList(
       [...examList].map((item) => {
-        const { questionList, roundNumber } = item;
+        const { questionCount, roundNumber } = item;
         const result: MenuModel = {
           type: "Base",
           title: `${roundNumber}회 기출문제 오답 노트`,
@@ -43,7 +43,7 @@ function WrongExamListPage() {
             navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`),
           icon: (
             <Label>
-              <span className="number">{`${questionList.length}`}</span>
+              <span className="number">{`${questionCount}`}</span>
               <span className="string">문제</span>
             </Label>
           ),

@@ -109,10 +109,7 @@ export interface UpdateWrongQuestionModel {
 
 export interface WrongQuestionListModel {
   roundNumber: number;
-  questionList: {
-    id: number;
-    questionNumber: number;
-  }[];
+  questionCount: number;
 }
 
 /* QuestionCategory */
