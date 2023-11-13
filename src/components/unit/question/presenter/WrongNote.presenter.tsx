@@ -16,6 +16,7 @@ import kingSejong from "../../../../styles/images/king-sejong.svg";
 import Icon from "../../../atoms/icon/Icon";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useDeleteWrongNoteMutation } from "../../../../store/api/questionApi";
+import { useNavigate } from "react-router-dom";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -33,6 +34,7 @@ const SELECT_CHOICE = "SELECT_CHOICE";
 const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
+const DELETE_QUESTION = "DELETE_QUESTION";
 
 export type Action =
   | {
@@ -41,7 +43,8 @@ export type Action =
     }
   | { type: "CHECK_ANSWER" }
   | { type: "NEXT_QUESTION" }
-  | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
+  | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
+  | { type: "DELETE_QUESTION" };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -90,6 +93,7 @@ const reducer = (state: State, action: Action): State => {
       };
 
     case NEXT_QUESTION:
+      if (state.currentNumber === state.questionList.length - 1) return state;
       return {
         ...state,
         currentNumber: state.currentNumber + 1,
@@ -102,6 +106,13 @@ const reducer = (state: State, action: Action): State => {
       )
         return state;
       return { ...state, currentNumber: action.moveQuestionNumber };
+
+    case DELETE_QUESTION:
+      state.questionList.splice(state.currentNumber, 1);
+      if (state.questionList.length === state.currentNumber) {
+        return { ...state, currentNumber: state.currentNumber - 1 };
+      }
+      return state;
     default:
       return state;
   }
@@ -117,7 +128,6 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     score,
     number,
     id,
-    checkedChoiceKey,
   } = question;
 
   const descriptionList = [description];
@@ -238,18 +248,17 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     descriptionCommentList: descriptionCommentListTransformed,
     choiceList: choiceListTransformed,
     answer: String(answer),
-    checkedChoiceKey: checkedChoiceKey
-      ? String(Number(checkedChoiceKey) * 11)
-      : "",
-    isCorrect: checkedChoiceKey ? answer === Number(checkedChoiceKey) : false,
-    isChecked: checkedChoiceKey ? true : false,
-    isFinish: checkedChoiceKey ? true : false,
+    checkedChoiceKey: "",
+    isCorrect: false,
+    isChecked: false,
+    isFinish: false,
     isOpen: true,
     score,
   };
 };
 
 function WrongNote({ examList }: ExamProps) {
+  const navigate = useNavigate();
   const [deleteWrongNote] = useDeleteWrongNoteMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
@@ -261,6 +270,7 @@ function WrongNote({ examList }: ExamProps) {
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
+  console.log(questionList);
 
   const handleChoiceClick = (key: string) => {
     dispatch({
@@ -289,6 +299,16 @@ function WrongNote({ examList }: ExamProps) {
     });
   };
 
+  const handleDelete = async () => {
+    if (questionList.length === 1) {
+      await deleteWrongNote(questionList[currentNumber].id);
+      navigate(-1);
+    } else {
+      await deleteWrongNote(questionList[currentNumber].id);
+      dispatch({ type: "DELETE_QUESTION" });
+    }
+  };
+
   return (
     <>
       <QuestionNavigationUI
@@ -306,9 +326,7 @@ function WrongNote({ examList }: ExamProps) {
       <MultiButtonUI
         buttonList={[
           {
-            onClick: () => {
-              deleteWrongNote(questionList[currentNumber].id);
-            },
+            onClick: handleDelete,
             contents: (
               <>
                 <Icon icon="fail" size={12} />

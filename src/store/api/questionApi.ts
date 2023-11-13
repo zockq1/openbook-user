@@ -35,6 +35,7 @@ export const questionApi = createApi({
     }),
     getExam: builder.query<ExamModel[], number>({
       query: (roundNumber: number) => `/rounds/${roundNumber}/questions`,
+      providesTags: ["WrongNote"],
     }),
     getQuestionCategoryList: builder.query<QuestionCategoryModel[], void>({
       query: () => `/question-categories`,
@@ -70,7 +71,7 @@ export const questionApi = createApi({
           body: counterList,
         };
       },
-      invalidatesTags: ["Exam"],
+      invalidatesTags: ["Exam", "WrongNote"],
     }),
     updateExamClear: builder.mutation<void, number>({
       query: (roundNumber) => {

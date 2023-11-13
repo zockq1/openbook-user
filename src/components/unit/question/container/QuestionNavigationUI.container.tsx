@@ -168,7 +168,7 @@ function QuestionNavigationUI({
               isCorrect={item.isCorrect}
               isFinish={item.isFinish}
             >
-              {index + 1}
+              {item.number}
               {item.isChecked && (
                 <Check isCorrect={item.isCorrect} isFinish={item.isFinish} />
               )}
