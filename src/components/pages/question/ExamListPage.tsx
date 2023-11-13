@@ -24,18 +24,9 @@ function ExamListPage() {
     setMenuList([
       ...[...examList]
         .sort((a, b) => a.number - b.number)
-        .map((questionCategory, index, arr) => {
-          const { number } = questionCategory;
+        .map((exam, index, arr) => {
+          const { number, score } = exam;
 
-          const scoreList = [
-            30, 85, 67, 82, 74, 0, 26, 22, 16, 21, 69, 20, 53, 56, 66, 69, 3,
-            52, 16, 0, 28, 66, 71, 19, 50, 88, 48, 96, 18, 44, 7, 8, 27, 72, 57,
-            98, 73, 56, 1, 76, 26, 30, 79, 37, 17, 36, 10, 36, 71, 19, 29, 19,
-            88, 78, 7, 82, 4, 54, 90, 19, 15, 56, 17, 72, 69, 94, 31, 33, 39,
-            28, 67, 31, 15, 3, 34, 87, 41, 65, 92, 47, 22, 88, 84, 59, 30, 85,
-            90, 23, 22, 68, 84, 3, 73, 9, 63, 87, 41, 44, 38, 87,
-          ];
-          const score = scoreList[index];
           const subTitle =
             score >= 80 ? (
               <Icon icon="one" color={theme.colors.white} size={40} />
