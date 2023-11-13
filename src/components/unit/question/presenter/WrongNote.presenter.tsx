@@ -15,6 +15,7 @@ import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
 import Icon from "../../../atoms/icon/Icon";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
+import { useDeleteWrongNoteMutation } from "../../../../store/api/questionApi";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -249,6 +250,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
 };
 
 function WrongNote({ examList }: ExamProps) {
+  const [deleteWrongNote] = useDeleteWrongNoteMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
     isFinish: false,
@@ -303,6 +305,17 @@ function WrongNote({ examList }: ExamProps) {
       />
       <MultiButtonUI
         buttonList={[
+          {
+            onClick: () => {
+              deleteWrongNote(questionList[currentNumber].id);
+            },
+            contents: (
+              <>
+                <Icon icon="fail" size={12} />
+                &nbsp;삭제
+              </>
+            ),
+          },
           {
             onClick: handleCheckAnswer,
             contents: (

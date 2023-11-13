@@ -15,7 +15,7 @@ export const questionApi = createApi({
   reducerPath: "questionApi",
   baseQuery: baseQueryWithJWT,
 
-  tagTypes: ["Score", "Exam"],
+  tagTypes: ["Score", "Exam", "WrongNote"],
   endpoints: (builder) => ({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
@@ -39,9 +39,10 @@ export const questionApi = createApi({
       query: () => `/question-categories`,
       providesTags: ["Score"],
     }),
+
     getWrongExamList: builder.query<WrongQuestionListModel[], void>({
       query: () => `/rounds/answer-notes`,
-      providesTags: ["Exam"],
+      providesTags: ["Exam", "WrongNote"],
     }),
 
     updateKeywordWrongCounter: builder.mutation<void, WrongCounterModel[]>({
@@ -72,6 +73,18 @@ export const questionApi = createApi({
         };
       },
     }),
+    deleteWrongNote: builder.mutation<void, number>({
+      query: (questionId: number) => {
+        return {
+          url: `/answer-notes`,
+          method: "Delete",
+          body: {
+            questionId,
+          },
+        };
+      },
+      invalidatesTags: ["WrongNote"],
+    }),
   }),
 });
 
@@ -86,4 +99,5 @@ export const {
   useGetWrongExamListQuery,
   useUpdateExamWrongCounterMutation,
   useUpdateExamClearMutation,
+  useDeleteWrongNoteMutation,
 } = questionApi;
