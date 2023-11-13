@@ -39,6 +39,7 @@ export interface QuestionModel {
 export interface RoundModel {
   date: number;
   number: number;
+  score: number;
 }
 
 export interface ExamCommentModel {
