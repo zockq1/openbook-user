@@ -63,7 +63,6 @@ const MenuDescription = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 50px;
   padding-left: 12px;
 `;
 
