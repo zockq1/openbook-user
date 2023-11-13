@@ -6,7 +6,7 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import WrongNote from "../../unit/question/presenter/WrongNote.presenter";
 
 function WrongExamPage() {
-  const { title, round } = useQuesryString();
+  const { round } = useQuesryString();
   const { data: mockExamList } = useGetExamQuery(Number(round));
 
   if (!mockExamList) {
@@ -15,7 +15,7 @@ function WrongExamPage() {
 
   return (
     <Layout>
-      <TitleBox icon="question" category={title} />
+      <TitleBox icon="question" category={`${round}회 기출문제 오답노트`} />
       <MainContentLayout>
         <WrongNote
           examList={mockExamList.filter((exam) => exam.savedAnswerNote)}

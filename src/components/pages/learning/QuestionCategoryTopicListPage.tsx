@@ -27,7 +27,7 @@ function QustionCategoryTopicListPage() {
       const result: MenuModel = {
         type: "Base",
         title: title,
-        icon: <Icon icon={category} />,
+        icon: <Icon icon={category} size={22} />,
         description: `${dateComment}`,
         content: (
           <Topic
