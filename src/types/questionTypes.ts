@@ -57,7 +57,7 @@ export interface ExamChoiceModel {
 
 export interface ExamModel {
   id: number;
-  savedAnswernote: boolean;
+  savedAnswerNote: boolean;
   number: number;
   description: string;
   descriptionCommentList: ExamCommentModel[];

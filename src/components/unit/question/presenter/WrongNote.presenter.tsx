@@ -248,7 +248,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
   };
 };
 
-function Exam({ examList }: ExamProps) {
+function WrongNote({ examList }: ExamProps) {
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
     isFinish: false,
@@ -326,4 +326,4 @@ function Exam({ examList }: ExamProps) {
   );
 }
 
-export default Exam;
+export default WrongNote;

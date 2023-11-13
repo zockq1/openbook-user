@@ -119,6 +119,7 @@ interface QuestionNuvagationProps {
   currentNumber: number;
   questionList: QuestionModel[];
   isFinish: boolean;
+  isWrongNote?: boolean;
 }
 
 function QuestionNavigationUI({
@@ -126,6 +127,7 @@ function QuestionNavigationUI({
   currentNumber,
   questionList,
   isFinish,
+  isWrongNote = false,
 }: QuestionNuvagationProps) {
   const examNavigationRef = useRef<HTMLUListElement | null>(null);
 
@@ -179,18 +181,20 @@ function QuestionNavigationUI({
           );
         })}
       </ExamNavigation>
-      <ResultContainer>
-        <ExamNavigationItem
-          isCurrent={currentNumber === questionList.length}
-          onClick={() => {
-            isFinish && onClickMove(questionList.length);
-          }}
-          isFinish={false}
-          isCorrect
-        >
-          결과
-        </ExamNavigationItem>
-      </ResultContainer>
+      {!isWrongNote && (
+        <ResultContainer>
+          <ExamNavigationItem
+            isCurrent={currentNumber === questionList.length}
+            onClick={() => {
+              isFinish && onClickMove(questionList.length);
+            }}
+            isFinish={false}
+            isCorrect
+          >
+            결과
+          </ExamNavigationItem>
+        </ResultContainer>
+      )}
     </Container>
   );
 }
