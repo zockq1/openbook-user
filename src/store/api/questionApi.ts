@@ -20,6 +20,7 @@ export const questionApi = createApi({
   endpoints: (builder) => ({
     getRoundList: builder.query<RoundModel[], void>({
       query: () => "/rounds",
+      providesTags: ["Exam"],
     }),
     getTtoKQuestion: builder.query<QuizModel[], string>({
       query: (topicTitle: string) =>
@@ -80,6 +81,7 @@ export const questionApi = createApi({
           method: "PATCH",
         };
       },
+      invalidatesTags: ["Exam"],
     }),
     deleteWrongNote: builder.mutation<void, number>({
       query: (questionId: number) => {
