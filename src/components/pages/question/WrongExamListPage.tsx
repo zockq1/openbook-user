@@ -7,27 +7,6 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import { WrongQuestionListModel } from "../../../types/questionTypes";
-
-const examList: WrongQuestionListModel[] = [
-  {
-    roundNumber: 66,
-    questionList: [
-      {
-        id: 0,
-        questionNumber: 0,
-      },
-      {
-        id: 0,
-        questionNumber: 0,
-      },
-      {
-        id: 0,
-        questionNumber: 0,
-      },
-    ],
-  },
-];
 
 const Label = styled.div`
   display: flex;
@@ -44,7 +23,7 @@ const Label = styled.div`
 function WrongExamListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  //const { data: examList } = useGetWrongExamListQuery();
+  const { data: examList } = useGetWrongExamListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {

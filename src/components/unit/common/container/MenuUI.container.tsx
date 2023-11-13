@@ -20,6 +20,11 @@ const StyledQuestionMenuItem = styled.div<{ color: string; total: boolean }>`
   border: ${({ color, total, theme }) =>
     total ? `5px solid ${color}` : `2px solid ${theme.colors.textBlue}`};
   overflow: hidden;
+
+  strong {
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.red};
+  }
 `;
 
 const MainMenuItem = styled.div<{ color: string; important: boolean }>`

@@ -10,6 +10,7 @@ import {
   BookmarkedTopicListModel,
   TopicListModel,
 } from "../../types/topicTypes";
+import { SearchModel } from "../../types/commonTypes";
 
 export const jjhApi = createApi({
   reducerPath: "jjhApi",
@@ -37,6 +38,10 @@ export const jjhApi = createApi({
         };
       },
       invalidatesTags: ["jjhUpdate"],
+    }),
+
+    getSearch: builder.query<SearchModel, string>({
+      query: (search) => `/search?searchKey=${search}`,
     }),
 
     getChapterTopicList: builder.query<TopicListModel[], number>({
@@ -91,4 +96,6 @@ export const {
   useGetChapterTopicListQuery,
   useGetQuestionCategoryTopicListQuery,
   useUpdateBookmarkMutation,
+  useGetSearchQuery,
+  useLazyGetSearchQuery,
 } = jjhApi;

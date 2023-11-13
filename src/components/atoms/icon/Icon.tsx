@@ -47,6 +47,7 @@ import { ReactComponent as Key } from "../../../styles/icon/key.svg";
 import { ReactComponent as Comment } from "../../../styles/icon/comment.svg";
 import { ReactComponent as BookmarkOn } from "../../../styles/icon/bookmark-on.svg";
 import { ReactComponent as BookmarkOff } from "../../../styles/icon/bookmark-off.svg";
+import { ReactComponent as Search } from "../../../styles/icon/search.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -81,6 +82,7 @@ export type IconType =
   | "comment"
   | "bookmarkOn"
   | "bookmarkOff"
+  | "search"
   | Content
   | TopicCategory;
 
@@ -150,6 +152,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     comment: Comment,
     bookmarkOff: BookmarkOff,
     bookmarkOn: BookmarkOn,
+    search: Search,
   };
 
   if (!icons[icon]) return null;

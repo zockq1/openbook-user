@@ -25,6 +25,7 @@ import QustionCategoryTopicListPage from "./components/pages/learning/QuestionCa
 import BookmarkPage from "./components/pages/learning/BookmarkPage";
 import WrongExamPage from "./components/pages/question/WrongExamPage";
 import WrongExamListPage from "./components/pages/question/WrongExamListPage";
+import SearchPage from "./components/pages/learning/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -130,6 +131,10 @@ const router = createBrowserRouter([
       {
         path: "my-info/wrong-notes/exam",
         element: <WrongExamPage />,
+      },
+      {
+        path: "my-info/search",
+        element: <SearchPage />,
       },
     ],
   },

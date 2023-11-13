@@ -3,11 +3,11 @@ import { ContentState } from "./jjhTypes";
 
 export interface MenuModel {
   type: "Base" | "Qustion" | "Progress";
-  title: string;
+  title: ReactNode;
   icon?: ReactNode;
   state?: ContentState;
   subTitle?: ReactNode;
-  description?: string;
+  description?: ReactNode;
   score?: number;
   onClickMain?: () => void;
   onClickSub?: () => void;
@@ -21,4 +21,23 @@ export interface OptionModel {
   value: number;
   key: number;
   description: string;
+}
+
+export interface SearchModel {
+  chapterList: {
+    chapterNumber: number;
+    chapterTitle: string;
+  }[];
+  topicList: {
+    chapterNumber: number;
+    chapterTitle: string;
+    topicTitle: string;
+  }[];
+  keywordList: {
+    chapterNumber: number;
+    chapterTitle: string;
+    topicTitle: string;
+    keywordName: string;
+    keywordComment: string;
+  }[];
 }
