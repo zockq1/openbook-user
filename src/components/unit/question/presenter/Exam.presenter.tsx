@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   ExamModel,
@@ -20,7 +20,10 @@ import ExamScore from "./ExamScore.presenter";
 import ExamIncorrect from "./ExamIncorrect.presenter";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useNavigate } from "react-router-dom";
-import { useUpdateExamWrongCounterMutation } from "../../../../store/api/questionApi";
+import {
+  useUpdateExamClearMutation,
+  useUpdateExamWrongCounterMutation,
+} from "../../../../store/api/questionApi";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -155,6 +158,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     score,
     number,
     id,
+    checkedChoiceKey,
   } = question;
 
   const descriptionList = [description];
@@ -275,10 +279,12 @@ const createQuestion = (question: ExamModel): QuestionModel => {
     descriptionCommentList: descriptionCommentListTransformed,
     choiceList: choiceListTransformed,
     answer: String(answer),
-    checkedChoiceKey: "",
-    isCorrect: false,
-    isChecked: false,
-    isFinish: false,
+    checkedChoiceKey: checkedChoiceKey
+      ? String(Number(checkedChoiceKey) * 11)
+      : "",
+    isCorrect: checkedChoiceKey ? answer === Number(checkedChoiceKey) : false,
+    isChecked: checkedChoiceKey ? true : false,
+    isFinish: checkedChoiceKey ? true : false,
     isOpen: true,
     score,
   };
@@ -287,6 +293,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
 function Exam({ examList }: ExamProps) {
   const navigate = useNavigate();
   const [updateExam] = useUpdateExamWrongCounterMutation();
+  const [clearExam] = useUpdateExamClearMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...examList].map(createQuestion),
     isFinish: false,
@@ -294,6 +301,7 @@ function Exam({ examList }: ExamProps) {
     score: 0,
   });
   const { questionList, currentNumber, score } = state;
+  const [isCheckAnswer, setIsCheckAnswer] = useState<boolean>(false);
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
@@ -332,18 +340,27 @@ function Exam({ examList }: ExamProps) {
     dispatch({
       type: CHECK_ANSWER,
     });
-    let wrongExamList: UpdateWrongQuestionModel[] = [];
-    questionList.forEach((question) => {
-      if (question.isFinish && !question.isCorrect)
-        wrongExamList.push({
-          id: question.id,
-          checkedChoiceKey: Number(question.checkedChoiceKey[1]),
-          score: question.score,
-        });
-    });
-
-    wrongExamList.length > 0 && updateExam(wrongExamList);
+    setIsCheckAnswer(true);
   };
+
+  useEffect(() => {
+    if (isCheckAnswer) {
+      setIsCheckAnswer(false);
+      let saveExamList: UpdateWrongQuestionModel[] = [];
+      questionList.forEach((question) => {
+        console.log(question);
+        if (question.isFinish) {
+          saveExamList.push({
+            id: question.id,
+            checkedChoiceKey: Number(question.checkedChoiceKey[1]),
+            score: question.isCorrect ? question.score : 0,
+          });
+        }
+      });
+
+      saveExamList.length > 0 && updateExam(saveExamList);
+    }
+  }, [isCheckAnswer, questionList, updateExam]);
 
   const handleNextQuestion = async () => {
     dispatch({ type: NEXT_QUESTION });
@@ -382,7 +399,8 @@ function Exam({ examList }: ExamProps) {
                 ),
               },
               {
-                onClick: () => {
+                onClick: async () => {
+                  await clearExam(Number(round));
                   localStorage.removeItem(round);
                   window.location.reload();
                 },

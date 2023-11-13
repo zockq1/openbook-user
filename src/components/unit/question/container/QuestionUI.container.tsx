@@ -97,7 +97,7 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
               <li key={String(index) + item.key}>
                 <LongChoiceItem
                   handleChoiceClick={onChoiceClick}
-                  choiceKey={String(index) + item.key}
+                  choiceKey={String(index + 1) + item.key}
                   isCorrect={answer === item.key}
                   choice={item.choice}
                   isFinish={isFinish}
@@ -123,7 +123,7 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
               <ImageChoice key={String(index) + item.key}>
                 <ShortChoiceItem
                   handleChoiceClick={onChoiceClick}
-                  choiceKey={String(index) + item.key}
+                  choiceKey={String(index + 1) + item.key}
                   isCorrect={answer === item.key}
                   choice={item.choice}
                   isFinish={isFinish}

@@ -64,6 +64,14 @@ export const questionApi = createApi({
       },
       invalidatesTags: ["Exam"],
     }),
+    updateExamClear: builder.mutation<void, number>({
+      query: (roundNumber) => {
+        return {
+          url: `/rounds/${roundNumber}/clear`,
+          method: "PATCH",
+        };
+      },
+    }),
   }),
 });
 
@@ -77,4 +85,5 @@ export const {
   useUpdateKeywordWrongCounterMutation,
   useGetWrongExamListQuery,
   useUpdateExamWrongCounterMutation,
+  useUpdateExamClearMutation,
 } = questionApi;

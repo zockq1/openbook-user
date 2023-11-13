@@ -24,7 +24,7 @@ function BookmarkPage() {
         {bookmarkList.map((chapter) => {
           const { topicList, chapterTitle } = chapter;
           let newMenu: MenuModel[] = [...topicList].map((item) => {
-            const { title, category, dateComment, keywordList, savedBookmark } =
+            const { title, category, dateComment, keywordList, isBookmarked } =
               item;
             const result: MenuModel = {
               type: "Base",
@@ -35,7 +35,7 @@ function BookmarkPage() {
                 <KeywordList
                   keywordList={keywordList}
                   topicTitle={title}
-                  isBookmarked={savedBookmark}
+                  isBookmarked={isBookmarked}
                 />
               ),
             };

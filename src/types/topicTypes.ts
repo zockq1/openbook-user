@@ -53,7 +53,7 @@ export interface TopicListModel {
   dateComment: string;
   extraDateList: extraDateModel[];
   keywordList: KeywordModel[];
-  savedBookmark: boolean;
+  isBookmarked: boolean;
 }
 
 export interface BookmarkedTopicListModel {

@@ -30,7 +30,7 @@ function LearningTopicListPage() {
     }
 
     let newMenu: MenuModel[] = [...topicList].map((item) => {
-      const { title, category, dateComment, keywordList, savedBookmark } = item;
+      const { title, category, dateComment, keywordList, isBookmarked } = item;
       const result: MenuModel = {
         type: "Base",
         title: title,
@@ -40,7 +40,7 @@ function LearningTopicListPage() {
           <KeywordList
             keywordList={keywordList}
             topicTitle={title}
-            isBookmarked={savedBookmark}
+            isBookmarked={isBookmarked}
           />
         ),
       };

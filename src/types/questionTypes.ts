@@ -65,11 +65,11 @@ export interface ExamModel {
   choiceType: ChoiceType;
   choiceList: ExamChoiceModel[];
   score: number;
-  checkedChoiceKey: number | null;
+  checkedChoiceKey: string | null;
 }
 
 export interface ExamListModel extends ExamModel {
-  checkedChoiceKey: number;
+  checkedChoiceKey: string;
   isCorrect: boolean;
   isChecked: boolean;
 }

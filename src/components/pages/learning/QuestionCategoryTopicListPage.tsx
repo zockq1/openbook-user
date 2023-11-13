@@ -32,7 +32,7 @@ function QustionCategoryTopicListPage() {
         content: (
           <Topic
             keywordList={item.keywordList}
-            isBookmarked={item.savedBookmark}
+            isBookmarked={item.isBookmarked}
             topicTitle={item.title}
           />
         ),
