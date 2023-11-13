@@ -43,6 +43,7 @@ const KeywordTitleContainer = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-family: "Giants-Regular";
   background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 const BookmarkContainer = styled.div<{ isVisible: boolean }>`
