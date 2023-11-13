@@ -40,7 +40,7 @@ export const questionApi = createApi({
       providesTags: ["Score"],
     }),
     getWrongExamList: builder.query<WrongQuestionListModel[], void>({
-      query: () => `/questions/answer-notes`,
+      query: () => `/rounds/answer-notes`,
       providesTags: ["Exam"],
     }),
 

@@ -14,12 +14,7 @@ import cheomseongdae from "../../../../styles/images/cheomseongdae.svg";
 import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
 import Icon from "../../../atoms/icon/Icon";
-import useQuesryString from "../../../../service/useQueryString";
-import ExamScore from "./ExamScore.presenter";
-import ExamIncorrect from "./ExamIncorrect.presenter";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
-import { useNavigate } from "react-router-dom";
-import { useUpdateExamClearMutation } from "../../../../store/api/questionApi";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
