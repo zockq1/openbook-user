@@ -90,28 +90,32 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                   <i>
                     <Icon icon="description" size={12} />
                   </i>
-                  {descriptionList.map((description) => description).join(", ")}
+                  {descriptionList.length > 0 &&
+                    descriptionList
+                      .map((description) => description)
+                      .join(", ")}
                 </WrongQuestionText>
                 {/* 정답 선지 */}
                 <WrongQuestionText color={theme.colors.blue}>
                   <i>
                     <Icon icon="o" size={12} />
                   </i>
-                  {choiceList.map((choice) => {
-                    if (choice.key === answer)
-                      return (
-                        `${choice.choice}` +
-                        (choice.commentList.length > 0
-                          ? `(${choice.commentList.map(
-                              (comment, index, arr) =>
-                                `${comment.comment}${
-                                  index < arr.length - 1 ? ", " : ""
-                                }`
-                            )})`
-                          : "")
-                      );
-                    return null;
-                  })}
+                  {choiceList.length > 0 &&
+                    choiceList.map((choice) => {
+                      if (choice.key === answer)
+                        return (
+                          `${choice.choice}` +
+                          (choice.commentList.length > 0
+                            ? `(${choice.commentList.map(
+                                (comment, index, arr) =>
+                                  `${comment.comment}${
+                                    index < arr.length - 1 ? ", " : ""
+                                  }`
+                              )})`
+                            : "")
+                        );
+                      return null;
+                    })}
                 </WrongQuestionText>
                 {/* {오답 선지} */}
                 <WrongQuestionText color={theme.colors.red}>
@@ -119,12 +123,15 @@ function IncorrectAnswerListUI({ questionList }: IncorrectAnswerListUIProps) {
                     <Icon icon="x" size={12} />
                   </i>
                   {`${
-                    choiceList[Number(checkedChoiceKey.substring(0, 1))].choice
+                    choiceList[Number(checkedChoiceKey.substring(0, 1)) - 1] &&
+                    choiceList[Number(checkedChoiceKey.substring(0, 1)) - 1]
+                      .choice
                   }` +
-                    (choiceList[Number(checkedChoiceKey.substring(0, 1))]
+                    (choiceList[Number(checkedChoiceKey.substring(0, 1)) - 1] &&
+                    choiceList[Number(checkedChoiceKey.substring(0, 1)) - 1]
                       .commentList.length > 0
                       ? `(${choiceList[
-                          Number(checkedChoiceKey.substring(0, 1))
+                          Number(checkedChoiceKey.substring(0, 1)) - 1
                         ].commentList.map(
                           (comment, index, arr) =>
                             `${comment.comment}${

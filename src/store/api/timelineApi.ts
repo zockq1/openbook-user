@@ -4,7 +4,10 @@ import {
   TimelineListModel,
   TimeLineItemModel,
 } from "../../types/timelinetypes";
-import { WrongCounterModel } from "../../types/questionTypes";
+import {
+  QuestionScoreModel,
+  WrongCounterModel,
+} from "../../types/questionTypes";
 
 export const timelineApi = createApi({
   reducerPath: "timelineApi",
@@ -19,7 +22,10 @@ export const timelineApi = createApi({
       query: (chapterNumber: number) =>
         `/questions/time-flow/?id=${chapterNumber}`,
     }),
-    updateTimelineWrongCounter: builder.mutation<void, WrongCounterModel>({
+    updateTimelineWrongCounter: builder.mutation<
+      QuestionScoreModel[],
+      WrongCounterModel
+    >({
       query: (counter: WrongCounterModel) => {
         return {
           url: `/timeline/wrong-count`,

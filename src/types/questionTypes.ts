@@ -122,3 +122,9 @@ export interface QuestionCategoryModel {
   score: number;
   topicCount: number;
 }
+
+export interface QuestionScoreModel {
+  questionCategoryName: string;
+  nextScore: number;
+  prevScore: number;
+}

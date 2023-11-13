@@ -348,7 +348,6 @@ function Exam({ examList }: ExamProps) {
       setIsCheckAnswer(false);
       let saveExamList: UpdateWrongQuestionModel[] = [];
       questionList.forEach((question) => {
-        console.log(question);
         if (question.isFinish) {
           saveExamList.push({
             id: question.id,

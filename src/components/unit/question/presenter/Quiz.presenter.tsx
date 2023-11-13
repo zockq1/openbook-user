@@ -22,6 +22,7 @@ import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container"
 import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
 import QuizScore from "./QuizScore.presenter";
+import UpdateScoreUI from "../container/UpdateScoreUI.container";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -216,7 +217,8 @@ function Quiz({
   onFinish,
   isJJH = false,
 }: QuestionProps) {
-  const [updateKeywordWrongCount] = useUpdateKeywordWrongCounterMutation();
+  const [updateKeywordWrongCount, { data: updateScoreList }] =
+    useUpdateKeywordWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     questionList: [...quizList]
       .sort(() => Math.random() - 0.5)
@@ -337,6 +339,7 @@ function Quiz({
             }
             onNextContent={onNextContent}
           />
+          <UpdateScoreUI updateScoreList={updateScoreList || []} />
           <IncorrectAnswerListUI questionList={questionList} />
         </>
       ) : (

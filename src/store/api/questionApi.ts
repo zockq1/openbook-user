@@ -3,6 +3,7 @@ import {
   ExamModel,
   GetQuizModel,
   QuestionCategoryModel,
+  QuestionScoreModel,
   QuizModel,
   RoundModel,
   UpdateWrongQuestionModel,
@@ -45,7 +46,10 @@ export const questionApi = createApi({
       providesTags: ["Exam", "WrongNote"],
     }),
 
-    updateKeywordWrongCounter: builder.mutation<void, WrongCounterModel[]>({
+    updateKeywordWrongCounter: builder.mutation<
+      QuestionScoreModel[],
+      WrongCounterModel[]
+    >({
       query: (counterList: WrongCounterModel[]) => {
         return {
           url: `/keyword/wrong-count`,
@@ -55,7 +59,10 @@ export const questionApi = createApi({
       },
       invalidatesTags: ["Score"],
     }),
-    updateExamWrongCounter: builder.mutation<void, UpdateWrongQuestionModel[]>({
+    updateExamWrongCounter: builder.mutation<
+      QuestionScoreModel[],
+      UpdateWrongQuestionModel[]
+    >({
       query: (counterList: UpdateWrongQuestionModel[]) => {
         return {
           url: `/questions/record`,
