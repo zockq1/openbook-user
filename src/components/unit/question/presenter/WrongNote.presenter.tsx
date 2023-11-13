@@ -294,6 +294,7 @@ function WrongNote({ examList }: ExamProps) {
         questionList={questionList}
         currentNumber={currentNumber}
         isFinish={true}
+        isWrongNote={true}
       />
       <QuestionUI
         quetion={questionList[currentNumber]}
