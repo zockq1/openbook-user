@@ -29,7 +29,7 @@ function JJHListPage() {
       (item: JJHChapterModel) => {
         const { title, state, jjhNumber, number, dateComment } = item;
         const result: JJHList = {
-          type: "Base",
+          type: "Qustion",
           title,
           state,
           onClickMain: () =>
@@ -69,7 +69,7 @@ function JJHListPage() {
       (item: JJHTimelineModel) => {
         const { endDate, era, startDate, state, jjhNumber, id } = item;
         const result: JJHList = {
-          type: "Base",
+          type: "Qustion",
           title: era,
           state,
           onClickMain: () =>

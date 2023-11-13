@@ -39,7 +39,13 @@ function SearchUI({
   const theme = useContext(ThemeContext);
   return (
     <SearchBox>
-      <Search value={searchValue} onChange={onChangeSearchValue} />
+      <Search
+        value={searchValue}
+        onChange={onChangeSearchValue}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") onSearch();
+        }}
+      />
       <SearchButton onClick={onSearch}>
         <Icon icon="search" size={20} color={theme.colors.textBlue} />
       </SearchButton>

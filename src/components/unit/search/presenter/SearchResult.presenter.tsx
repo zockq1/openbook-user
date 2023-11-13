@@ -5,6 +5,19 @@ import { useNavigate } from "react-router-dom";
 import MenuUI from "../../common/container/MenuUI.container";
 import formatSearchResult from "../../../../service/formatSearchResult";
 import useQuesryString from "../../../../service/useQueryString";
+import styled from "styled-components";
+
+const Label = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.textBlue};
+  .string {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+  }
+  .number {
+    font-size: ${({ theme }) => theme.fontSizes.base};
+  }
+`;
 
 type SearchType = "단원" | "주제" | "키워드";
 
@@ -28,7 +41,12 @@ function SearchResult({ searchResult }: SearchResultProps) {
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
         onClickSub: () =>
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
-        icon: chapterNumber,
+        icon: (
+          <Label>
+            <span className="number">{`${chapterNumber}`}</span>
+            <span className="string">단원</span>
+          </Label>
+        ),
       };
       return result;
     });
@@ -45,7 +63,12 @@ function SearchResult({ searchResult }: SearchResultProps) {
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
         onClickSub: () =>
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
-        icon: chapterNumber,
+        icon: (
+          <Label>
+            <span className="number">{`${chapterNumber}`}</span>
+            <span className="string">단원</span>
+          </Label>
+        ),
       };
       return result;
     });
@@ -53,17 +76,41 @@ function SearchResult({ searchResult }: SearchResultProps) {
 
   const keywordMenu: MenuModel[] = useMemo(() => {
     return keywordList.map((keyword) => {
-      const { chapterNumber, topicTitle, keywordName, keywordComment } =
-        keyword;
+      const {
+        chapterNumber,
+        topicTitle,
+        keywordName,
+        keywordComment,
+        chapterTitle,
+      } = keyword;
       const result: MenuModel = {
         type: "Base",
-        title: formatSearchResult(`${keywordName}(${topicTitle})`, search),
-        description: formatSearchResult(keywordComment, search),
+        title: formatSearchResult(`${keywordName}`, search),
+        description: (
+          <>
+            {`${chapterTitle}: ${topicTitle}`}
+            <>
+              {keywordComment && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
+            </>
+
+            {formatSearchResult(keywordComment, search)}
+          </>
+        ),
         onClickMain: () =>
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
         onClickSub: () =>
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
-        icon: chapterNumber,
+        icon: (
+          <Label>
+            <span className="number">{`${chapterNumber}`}</span>
+            <span className="string">단원</span>
+          </Label>
+        ),
       };
       return result;
     });

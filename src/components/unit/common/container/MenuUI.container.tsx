@@ -25,13 +25,17 @@ const StyledQuestionMenuItem = styled.div<{ color: string; total: boolean }>`
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.red};
   }
+
+  & > * {
+    word-break: keep-all;
+  }
 `;
 
 const MainMenuItem = styled.div<{ color: string; important: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
-  width: calc(75%);
+  width: 100%;
   padding: ${({ theme }) => theme.padding.base};
 
   background-color: ${({ theme }) => theme.colors.white};
@@ -40,6 +44,7 @@ const MainMenuItem = styled.div<{ color: string; important: boolean }>`
 const SubMenuItem = styled.div<{ color: string; important: boolean }>`
   position: relative;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -175,14 +180,15 @@ function MenuUI({ menuList }: MenuUIProps) {
                   </>
                 )}
               </MainMenuItem>
-
-              <SubMenuItem
-                onClick={onClickSub}
-                color={mainColor}
-                important={important}
-              >
-                {subTitle}
-              </SubMenuItem>
+              {type !== "Base" && (
+                <SubMenuItem
+                  onClick={onClickSub}
+                  color={mainColor}
+                  important={important}
+                >
+                  {subTitle}
+                </SubMenuItem>
+              )}
             </StyledQuestionMenuItem>
             {state !== "Locked" && content}
           </li>

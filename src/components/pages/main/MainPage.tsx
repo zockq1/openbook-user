@@ -8,11 +8,12 @@ import MainPageLayout from "../../atoms/layout/MainPageLayout";
 import { ColumnList } from "../../atoms/layout/List";
 import styled from "styled-components";
 import JJHBox from "../../molecules/main-box/JJHBox";
-import MediumBox from "../../molecules/main-box/MediumBox";
 import run from "../../../styles/images/run.svg";
 import books from "../../../styles/images/books.svg";
 import timeline from "../../../styles/images/timeline.svg";
 import NavigationBar from "../../organisms/ui/NavigationBar";
+import InfoBox from "../../molecules/main-box/InfoBox";
+import Icon from "../../atoms/icon/Icon";
 
 const SubMenu = styled.ul`
   display: flex;
@@ -44,14 +45,20 @@ function Main() {
             />
           </SubMenu>
 
-          <SubMenu>
-            <MediumBox title="학습 자료 모음" link="learning" image={books} />
-            <MediumBox
-              title="연표 보기"
-              link="timeline-list"
-              image={timeline}
-            />
-          </SubMenu>
+          <InfoBox
+            title="학습 자료 모음"
+            link="/learning"
+            image={books}
+            icon={<Icon icon="CHAPTER_INFO" size={22} />}
+            description="단원, 주제, 키워드 학습 자료"
+          />
+          <InfoBox
+            title="연표 모음"
+            link="/timeline-list"
+            image={timeline}
+            icon={<Icon icon="TIMELINE_STUDY" size={22} />}
+            description="연표 자료"
+          />
         </ColumnList>
       </MainPageLayout>
 
