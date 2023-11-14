@@ -28,7 +28,7 @@ const Line = styled.div<LineProps>`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: ${({ height }) => `${height}px`};
-  left: 44px;
+  left: 54px;
   z-index: 0;
   transition: 0.5s ease;
 `;
@@ -54,35 +54,27 @@ const NextItemPlace = styled.div`
   justify-content: center;
 `;
 
-const NextItemPlaceBox = styled.div`
-  position: absolute;
-  overflow: hidden;
-  bottom: 18px;
-  left: 15px;
-  height: 80px;
-  width: calc(100% - 30px);
-  z-index: 0;
-`;
-
 const PlayedItemPlaceBox = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 180px);
+  height: calc(100vh - 250px);
   width: 100%;
-  padding-bottom: 30px;
+  padding: 10px;
   margin-bottom: 30px;
   margin-top: 10px;
+
+  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Box = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 68px;
   left: 15px;
   height: 60px;
   width: calc(100% - 30px);
   background-color: ${({ theme }) => theme.colors.white};
-  border: ${({ theme }) => theme.border.black};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
@@ -107,7 +99,6 @@ function TimelineQuestionUI({
   return (
     <>
       <StyledTimelineQuestion>
-        {!isFinish && <Box />}
         {dateList.length !== 0 && isMounted && (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="played">
@@ -147,50 +138,49 @@ function TimelineQuestionUI({
                 </PlayedItemPlaceBox>
               )}
             </Droppable>
+            <Box />
             {!isFinish && (
-              <NextItemPlaceBox>
-                <Droppable droppableId="next">
-                  {(provided) => (
-                    <NextItemPlace
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      <Draggable draggableId={`ex`} index={0} key={`ex`}>
-                        {(provided, snapshot) => {
-                          return (
-                            <div
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                            >
-                              {nextDateList[0] && (
-                                <Item>
-                                  <TimelineItem
-                                    dateItem={{
-                                      date: null,
-                                      comment: nextDateList[0].comment.replace(
-                                        /\([^)]*\)/g,
-                                        ""
-                                      ),
-                                      keywordList: [],
-                                      topicTitle: "",
-                                    }}
-                                    key={0}
-                                    disableCircle={true}
-                                    isQuestion={true}
-                                  />
-                                </Item>
-                              )}
-                            </div>
-                          );
-                        }}
-                      </Draggable>
+              <Droppable droppableId="next">
+                {(provided) => (
+                  <NextItemPlace
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    <Draggable draggableId={`ex`} index={0} key={`ex`}>
+                      {(provided, snapshot) => {
+                        return (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            {nextDateList[0] && (
+                              <Item>
+                                <TimelineItem
+                                  dateItem={{
+                                    date: null,
+                                    comment: nextDateList[0].comment.replace(
+                                      /\([^)]*\)/g,
+                                      ""
+                                    ),
+                                    keywordList: [],
+                                    topicTitle: "",
+                                  }}
+                                  key={0}
+                                  disableCircle={true}
+                                  isQuestion={true}
+                                />
+                              </Item>
+                            )}
+                          </div>
+                        );
+                      }}
+                    </Draggable>
 
-                      {provided.placeholder}
-                    </NextItemPlace>
-                  )}
-                </Droppable>
-              </NextItemPlaceBox>
+                    {provided.placeholder}
+                  </NextItemPlace>
+                )}
+              </Droppable>
             )}
           </DragDropContext>
         )}
