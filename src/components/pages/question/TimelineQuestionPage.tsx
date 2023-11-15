@@ -5,6 +5,7 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
+import QuestionLoading from "../../unit/skeleton/LoadingUI";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();
@@ -12,7 +13,14 @@ function TimelineQuestionPage() {
   const { data: dateList } = useGetTimelineQuery(timelineId);
 
   if (!dateList) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <TitleBox icon="TIMELINE_QUESTION" category={title} />
+        <MainContentLayout>
+          <QuestionLoading image="question" />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

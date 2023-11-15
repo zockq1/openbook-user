@@ -1,14 +1,12 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import styled, { ThemeContext } from "styled-components";
-import Text from "../../atoms/text/Text";
-import Icon from "../../atoms/icon/Icon";
+import styled from "styled-components";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 
 const Box = styled.li`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: calc((100vh - 184px) / 3 - 20px);
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -40,37 +38,13 @@ const BoxTitle = styled.div`
 `;
 
 interface QuizBoxProps {
-  children?: ReactNode;
   image: string;
   link: string;
   title: string;
   icon: ReactNode;
-  descriptionTime: string;
-  descriptionCount: string;
-  description: string;
 }
 
-const Description = styled.span`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 5px 5px 5px 10px;
-  color: ${({ theme }) => theme.colors.textBlue};
-  font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
-
-function QuestionBox({
-  children,
-  image,
-  link,
-  title,
-  icon,
-  description,
-  descriptionCount,
-  descriptionTime,
-}: QuizBoxProps) {
-  const theme = useContext(ThemeContext);
+function QuestionBox({ image, link, title, icon }: QuizBoxProps) {
   return (
     <Box>
       <Link to={link}>
@@ -79,22 +53,6 @@ function QuestionBox({
             <MenuLabelBox state="Open">{icon}</MenuLabelBox>
             &nbsp;&nbsp;{title}
           </BoxTitle>
-          <br />
-          <Description>
-            <Icon icon="clock" size={14} />
-            <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{descriptionTime}</Text>
-          </Description>
-          <Description>
-            <Icon icon="hashtag" size={14} />
-            <Text size={theme.fontSizes.xs}>
-              &nbsp;&nbsp;{descriptionCount}
-            </Text>
-          </Description>
-          <Description>
-            <Icon icon="description" size={14} />
-            <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
-          </Description>
-          {children}
           <BoxImage src={image} alt={title + " 이미지"} />
         </InnerBox>
       </Link>

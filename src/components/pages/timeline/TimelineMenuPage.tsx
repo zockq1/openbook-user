@@ -8,6 +8,7 @@ import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
@@ -52,8 +53,15 @@ function TimelineMenuPage() {
     ]);
   }, [setMenuList, timelineList, theme, navigate]);
 
-  if (!timelineList) {
-    return <div>Loading...</div>;
+  if (menuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
+        <MainContentLayout>
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

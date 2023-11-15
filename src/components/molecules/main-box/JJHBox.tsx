@@ -10,7 +10,7 @@ import useCountAnimation from "../../../service/useCountAnimation";
 const Box = styled.li`
   position: relative;
   min-width: 100%;
-  height: 230px;
+  height: calc((100vh - 184px) / 2 - 20px);
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -27,7 +27,7 @@ const InnerBox = styled.div`
 
 const BoxImage = styled.img`
   position: absolute;
-  width: 50%;
+  height: 80%;
   top: 50%;
   right: 12px;
   transform: translateY(-50%);

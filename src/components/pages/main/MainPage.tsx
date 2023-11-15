@@ -50,14 +50,12 @@ function Main() {
             link="/learning"
             image={books}
             icon={<Icon icon="CHAPTER_INFO" size={22} />}
-            description="단원, 주제, 키워드 학습 자료"
           />
           <InfoBox
             title="연표 모음"
             link="/timeline-list"
             image={timeline}
             icon={<Icon icon="TIMELINE_STUDY" size={22} />}
-            description="연표 자료"
           />
         </ColumnList>
       </MainPageLayout>

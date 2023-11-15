@@ -10,6 +10,7 @@ import Icon from "../../atoms/icon/Icon";
 import { useNavigate } from "react-router-dom";
 import { useGetJJHListQuery } from "../../../store/api/jjhApi";
 import { JJHChapterModel, JJHTimelineModel } from "../../../types/jjhTypes";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 interface JJHList extends MenuModel {
   jjhNumber: number;
@@ -137,8 +138,15 @@ function JJHListPage() {
     );
   }, [setMenuList, jjhList, navigate, theme]);
 
-  if (!jjhList) {
-    return <div>Loading...</div>;
+  if (menuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox icon="run" category="정주행" />
+        <MainContentLayout>
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

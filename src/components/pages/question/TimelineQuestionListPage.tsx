@@ -7,6 +7,7 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
@@ -74,9 +75,17 @@ function TimelineQuestionListPage() {
     ]);
   }, [setMenuList, timelineList, navigate]);
 
-  if (!timelineList) {
-    return <div>Loading...</div>;
+  if (questionMenuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox category="연표 문제" icon="questionSquare" />
+        <MainContentLayout>
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
+
   return (
     <Layout>
       <TitleBox category="연표 문제" icon="questionSquare" />

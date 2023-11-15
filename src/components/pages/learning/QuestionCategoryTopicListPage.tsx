@@ -4,12 +4,13 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import KeywordToggleButton from "../../atoms/button/KeywordToggleButton";
 import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import useQuesryString from "../../../service/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 
 function QustionCategoryTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -43,8 +44,16 @@ function QustionCategoryTopicListPage() {
     setMenuList(newMenu);
   }, [setMenuList, topicList, theme]);
 
-  if (!topicList) {
-    return <div>Loading...</div>;
+  if (menuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox icon="questionSquare" category={title} />
+        <MainContentLayout>
+          <KeywordToggleButton />
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

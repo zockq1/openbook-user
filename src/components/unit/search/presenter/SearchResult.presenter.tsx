@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import ToggleButtonUI from "../../common/container/ToggleButtonListUI.container";
 import { MenuModel, SearchModel } from "../../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import MenuUI from "../../common/container/MenuUI.container";
 import formatSearchResult from "../../../../service/formatSearchResult";
 import useQuesryString from "../../../../service/useQueryString";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
+import Text from "../../../atoms/text/Text";
 
 const Label = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ interface SearchResultProps {
 }
 
 function SearchResult({ searchResult }: SearchResultProps) {
+  const theme = useContext(ThemeContext);
   const { search } = useQuesryString();
   const navigate = useNavigate();
   const [saerchType, setSearchType] = useState<SearchType>("단원");
@@ -76,30 +78,20 @@ function SearchResult({ searchResult }: SearchResultProps) {
 
   const keywordMenu: MenuModel[] = useMemo(() => {
     return keywordList.map((keyword) => {
-      const {
-        chapterNumber,
-        topicTitle,
-        keywordName,
-        keywordComment,
-        chapterTitle,
-      } = keyword;
+      const { chapterNumber, topicTitle, keywordName, keywordComment } =
+        keyword;
       const result: MenuModel = {
         type: "Base",
-        title: formatSearchResult(`${keywordName}`, search),
-        description: (
+        title: (
           <>
-            {`${chapterTitle}: ${topicTitle}`}
-            <>
-              {keywordComment && (
-                <>
-                  <br />
-                  <br />
-                </>
-              )}
-            </>
-
-            {formatSearchResult(keywordComment, search)}
+            {formatSearchResult(`${keywordName}`, search)}
+            {`(${topicTitle})`}
           </>
+        ),
+        description: (
+          <Text color={theme.colors.textBlue}>
+            {formatSearchResult(keywordComment, search)}
+          </Text>
         ),
         onClickMain: () =>
           navigate(`/learning/chapter?chapter=${chapterNumber}`),
@@ -114,7 +106,7 @@ function SearchResult({ searchResult }: SearchResultProps) {
       };
       return result;
     });
-  }, [keywordList, navigate, search]);
+  }, [keywordList, navigate, search, theme]);
 
   const handleSearchType = (type: SearchType) => {
     setSearchType(type);

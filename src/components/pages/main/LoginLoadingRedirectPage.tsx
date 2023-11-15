@@ -8,6 +8,7 @@ import {
   setRefreshToken,
 } from "../../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../unit/skeleton/LoadingUI";
 
 const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const LoginLoadingRedirectPage = () => {
     }
   }, [data, dispatch, navigate]);
 
-  return <div>로딩중</div>;
+  return <Loading image="login" />;
 };
 
 export default LoginLoadingRedirectPage;

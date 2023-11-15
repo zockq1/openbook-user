@@ -8,12 +8,21 @@ import Icon from "../../atoms/icon/Icon";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
+import Loading from "../../unit/skeleton/LoadingUI";
 
 function BookmarkPage() {
   const { data: bookmarkList } = useGetBookmarkedTopicQuery();
 
   if (!bookmarkList) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <TitleBox icon="TOPIC_STUDY" category="북마크" />
+        <MainContentLayout>
+          <KeywordToggleButton comment keyword topic />
+          <Loading image="bookmark" />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (
@@ -46,6 +55,7 @@ function BookmarkPage() {
             <BookmarkChapter
               chapterTitle={chapterTitle}
               topicCount={topicList.length}
+              key={chapterTitle}
             >
               <MenuUI menuList={newMenu} />
             </BookmarkChapter>

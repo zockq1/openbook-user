@@ -1,14 +1,12 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import styled, { ThemeContext } from "styled-components";
-import Text from "../../atoms/text/Text";
-import Icon from "../../atoms/icon/Icon";
+import styled from "styled-components";
 import MenuLabelBox from "../../atoms/box/MenuLabelBox";
 
 const Box = styled.li`
   position: relative;
   width: 100%;
-  height: 120px;
+  height: calc((100vh - 184px) / 4 - 20px);
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -19,68 +17,54 @@ const Box = styled.li`
 `;
 
 const InnerBox = styled.div`
+  display: flex;
+  justify-content: start;
   width: 100%;
   height: 100%;
 `;
 
 const BoxImage = styled.img`
-  position: absolute;
-  height: 80%;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-`;
-
-const BoxTitle = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  color: ${({ theme }) => theme.colors.textBlue};
+  height: 100%;
+  float: right;
 `;
 
 interface QuizBoxProps {
-  children?: ReactNode;
   image: string;
   link: string;
   title: string;
   icon: ReactNode;
-  description: string;
 }
 
-const Description = styled.span`
+const Description = styled.div`
   display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 5px 5px 5px 10px;
-  color: ${({ theme }) => theme.colors.textBlue};
-  font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  flex-direction: column;
+  width: 100%;
+  margin: 17px 5px 5px 10px;
+
+  & > .title {
+    color: ${({ theme }) => theme.colors.textBlue};
+    font-size: ${({ theme }) => theme.fontSizes.small};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+  }
+
+  & > .sub {
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.textBlue};
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
+  }
 `;
 
-function InfoBox({
-  children,
-  image,
-  link,
-  title,
-  icon,
-  description,
-}: QuizBoxProps) {
-  const theme = useContext(ThemeContext);
+function InfoBox({ image, link, title, icon }: QuizBoxProps) {
   return (
     <Box>
       <Link to={link}>
         <InnerBox>
-          <BoxTitle>
-            <MenuLabelBox state="Open">{icon}</MenuLabelBox>
-            &nbsp;&nbsp;{title}
-          </BoxTitle>
-          <br />
+          <MenuLabelBox state="Open">{icon}</MenuLabelBox>
           <Description>
-            <Icon icon="description" size={14} />
-            <Text size={theme.fontSizes.xs}>&nbsp;&nbsp;{description}</Text>
+            <span className="title">{title}</span>
           </Description>
-          {children}
           <BoxImage src={image} alt={title + " 이미지"} />
         </InnerBox>
       </Link>

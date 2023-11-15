@@ -4,10 +4,7 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import {
-  useGetChapterInfoQuery,
-  useGetChapterTitleQuery,
-} from "../../../store/api/chapterApi";
+import { useGetChapterInfoQuery } from "../../../store/api/chapterApi";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
@@ -15,17 +12,17 @@ import Icon from "../../atoms/icon/Icon";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import useQuesryString from "../../../service/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
-  const { chapterNumber } = useQuesryString();
-  const { data: chapterTitle } = useGetChapterTitleQuery(chapterNumber);
+  const { chapterNumber, title } = useQuesryString();
   const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
   const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
-    if (!topicList || !chapterTitle || chapterInfo === undefined) {
+    if (!topicList || chapterInfo === undefined) {
       return;
     }
 
@@ -52,23 +49,28 @@ function LearningTopicListPage() {
         type: "Base",
         title: "단원 학습",
         icon: <Icon icon="CHAPTER_INFO" size={22} />,
-        description: `${chapterTitle.title}`,
+        description: `${title}`,
         content: <ChapterInfo />,
       });
 
     setMenuList(newMenu);
-  }, [setMenuList, topicList, chapterNumber, chapterTitle, chapterInfo, theme]);
+  }, [setMenuList, topicList, chapterNumber, title, chapterInfo, theme]);
 
-  if (!topicList || !chapterTitle) {
-    return <div>Loading...</div>;
+  if (menuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox icon="TOPIC_STUDY" category={title} />
+        <MainContentLayout>
+          <KeywordToggleButton comment keyword />
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (
     <Layout>
-      <TitleBox
-        icon="TOPIC_STUDY"
-        category={String(chapterNumber) + ". " + chapterTitle.title}
-      />
+      <TitleBox icon="TOPIC_STUDY" category={title} />
       <MainContentLayout>
         <KeywordToggleButton comment keyword />
         <MenuUI menuList={menuList} />

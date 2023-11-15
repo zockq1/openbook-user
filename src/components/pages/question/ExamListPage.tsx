@@ -9,6 +9,7 @@ import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 function ExamListPage() {
   const navigate = useNavigate();
@@ -61,9 +62,17 @@ function ExamListPage() {
     ]);
   }, [setMenuList, examList, navigate, theme]);
 
-  if (!examList) {
-    return <div>Loading...</div>;
+  if (questionMenuList.length === 0) {
+    return (
+      <Layout>
+        <TitleBox icon="questionSquare" category="기출 문제" />
+        <MainContentLayout>
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
+
   return (
     <Layout>
       <TitleBox icon="questionSquare" category="기출 문제" />

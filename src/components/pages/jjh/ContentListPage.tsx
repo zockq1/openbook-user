@@ -20,6 +20,8 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import MenuSkeletonUI from "../../unit/skeleton/MenuSkeletonUI";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ function ContentListPage() {
         case "TOPIC_STUDY":
           return `/jeong-ju-haeng/content/topic-learning?jjh=${jjhNumber}&chapter=${chapterNumber}&topic=${title}&content=${contentNumber}&title=${title}`;
         case "CHAPTER_COMPLETE_QUESTION":
-          return `/jeong-ju-haeng/content/final-question?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}`;
+          return `/jeong-ju-haeng/content/final-question?jjh=${jjhNumber}&chapter=${chapterNumber}&content=${contentNumber}&title=${title}`;
       }
       return "";
     };
@@ -150,16 +152,39 @@ function ContentListPage() {
     topicList,
   ]);
 
-  if (!contentList) {
-    return <div>Loading...</div>;
+  if (menuList.length === 0) {
+    if (timelineId) {
+      return (
+        <Layout>
+          <TitleBox icon="TIMELINE_QUESTION" category={title} />
+          <MainContentLayout>
+            <KeywordToggleButton comment />
+            <MenuSkeletonUI />
+          </MainContentLayout>
+        </Layout>
+      );
+    }
+
+    return (
+      <Layout>
+        <TitleBox icon="TOPIC_STUDY" category={title} />
+        <MainContentLayout>
+          <KeywordToggleButton comment keyword />
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (
     <Layout>
       <TitleBox icon="TOPIC_STUDY" category={title} />
       <MainContentLayout>
-        <KeywordToggleButton comment keyword />
-
+        {timelineId ? (
+          <KeywordToggleButton comment />
+        ) : (
+          <KeywordToggleButton comment keyword />
+        )}
         <MenuUI menuList={menuList} />
       </MainContentLayout>
     </Layout>

@@ -7,6 +7,7 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
+import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 
 const Label = styled.div`
   display: flex;
@@ -54,7 +55,14 @@ function WrongExamListPage() {
   }, [setMenuList, navigate, theme, examList]);
 
   if (!examList) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <TitleBox icon="questionSquare" category="오답 노트" />
+        <MainContentLayout>
+          <MenuSkeletonListUI />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

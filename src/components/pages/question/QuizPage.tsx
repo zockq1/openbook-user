@@ -4,6 +4,7 @@ import Layout from "../../atoms/layout/Layout";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
+import QuestionLoading from "../../unit/skeleton/LoadingUI";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -17,8 +18,15 @@ function QuizPage() {
     { refetchOnMountOrArgChange: true }
   );
 
-  if (!questionList || questionList.length === 0) {
-    return <div>Loading...</div>;
+  if (!questionList) {
+    return (
+      <Layout>
+        <TitleBox icon="question" category="퀴즈" />
+        <MainContentLayout>
+          <QuestionLoading image="question" />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (

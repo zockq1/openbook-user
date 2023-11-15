@@ -7,22 +7,30 @@ import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../organisms/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
+import Loading from "../../unit/skeleton/LoadingUI";
 
 function ChapterQuestionPage() {
   const { handleNextContent } = useNextContent();
-  const { chapterNumber, jjhNumber, contentNumber } = useQuesryString();
+  const { chapterNumber, jjhNumber, contentNumber, title } = useQuesryString();
   const { data: KtoTQuestionList } = useGetKtoTQuestionQuery(chapterNumber, {
     refetchOnMountOrArgChange: true,
   });
   const [updateProgres] = useUpdateProgressMutation();
 
   if (!KtoTQuestionList) {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <TitleBox icon="question" category={`${title} 마무리 문제`} />
+        <MainContentLayout>
+          <Loading image="question" />
+        </MainContentLayout>
+      </Layout>
+    );
   }
 
   return (
     <Layout>
-      <TitleBox icon="question" category="퀴즈" />
+      <TitleBox icon="question" category={`${title} 마무리 문제`} />
       <MainContentLayout>
         <Quiz
           quizList={KtoTQuestionList}

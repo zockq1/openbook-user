@@ -34,7 +34,6 @@ const StyledQuestionMenuItem = styled.div<{ color: string; total: boolean }>`
 const MainMenuItem = styled.div<{ color: string; important: boolean }>`
   position: relative;
   display: flex;
-  align-items: center;
   width: 100%;
   padding: ${({ theme }) => theme.padding.base};
 
