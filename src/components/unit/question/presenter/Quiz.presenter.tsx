@@ -10,7 +10,6 @@ import {
 } from "../../../../types/questionTypes";
 import { useUpdateKeywordWrongCounterMutation } from "../../../../store/api/questionApi";
 import QuestionUI from "../container/QuestionUI.container";
-import Button from "../../../atoms/button/Button";
 import QuestionNavigationUI from "../container/QuestionNavigationUI.container";
 import flag from "../../../../styles/images/flag.svg";
 import hat from "../../../../styles/images/hat.svg";
@@ -23,6 +22,7 @@ import ResultButtonUI from "../container/ResultButtonUI.container";
 import Icon from "../../../atoms/icon/Icon";
 import QuizScore from "./QuizScore.presenter";
 import UpdateScoreUI from "../container/UpdateScoreUI.container";
+import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -350,9 +350,16 @@ function Quiz({
             image={image}
           />
           {!questionList[currentNumber].isFinish ? (
-            <Button onClick={handleCheckAnswer}>정답 확인</Button>
+            // <Button onClick={handleCheckAnswer}>정답 확인</Button>
+            <MultiButtonUI
+              buttonList={[
+                { onClick: handleCheckAnswer, contents: "정답 확인" },
+              ]}
+            />
           ) : (
-            <Button onClick={handleNextQuestion}>다음</Button>
+            <MultiButtonUI
+              buttonList={[{ onClick: handleNextQuestion, contents: "다음" }]}
+            />
           )}
         </>
       )}

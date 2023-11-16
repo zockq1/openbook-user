@@ -32,7 +32,6 @@ const StyledChapterNumber = styled.div<StateProps>`
 `;
 
 function MenuLabelBox({ state, children }: ChapterNumberProps) {
-  console.log(state);
   return <StyledChapterNumber state={state}>{children}</StyledChapterNumber>;
 }
 

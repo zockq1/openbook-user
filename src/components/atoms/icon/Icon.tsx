@@ -1,4 +1,3 @@
-import "../../../styles/icon/flaticons.css";
 import { Content } from "../../../types/jjhTypes";
 import { TopicCategory } from "../../../types/topicTypes";
 import { ReactComponent as Run } from "../../../styles/icon/running.svg";

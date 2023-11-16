@@ -25,6 +25,7 @@ const InnerBox = styled.div`
 
 const BoxImage = styled.img`
   height: 100%;
+  width: 100%;
   float: right;
 `;
 
