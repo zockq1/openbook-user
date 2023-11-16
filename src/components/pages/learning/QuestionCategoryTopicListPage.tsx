@@ -49,7 +49,7 @@ function QustionCategoryTopicListPage() {
       <Layout>
         <TitleBox icon="questionSquare" category={title} />
         <MainContentLayout>
-          <KeywordToggleButton />
+          <KeywordToggleButton keyword comment />
           <MenuSkeletonListUI />
         </MainContentLayout>
       </Layout>
@@ -60,7 +60,7 @@ function QustionCategoryTopicListPage() {
     <Layout>
       <TitleBox icon="questionSquare" category={title} />
       <MainContentLayout>
-        <KeywordToggleButton />
+        <KeywordToggleButton keyword comment />
         <MenuUI menuList={menuList} />
       </MainContentLayout>
     </Layout>

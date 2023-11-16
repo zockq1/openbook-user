@@ -26,12 +26,13 @@ const StyledChapterNumber = styled.div<StateProps>`
   color: ${({ theme, state }) =>
     state === "Locked"
       ? theme.colors.red
-      : state === "Oepn"
-      ? theme.colors.grey
+      : state === "Open" || state === "Complete" || state === "InProgress"
+      ? theme.colors.textBlue
       : state};
 `;
 
 function MenuLabelBox({ state, children }: ChapterNumberProps) {
+  console.log(state);
   return <StyledChapterNumber state={state}>{children}</StyledChapterNumber>;
 }
 
