@@ -1,10 +1,11 @@
-import { Player } from "@lottiefiles/react-lottie-player";
 import styled from "styled-components";
+import lottie from "lottie-web/build/player/lottie_light";
 import questionLoading from "../../../styles/icon/question-loading.json";
 import searchLoading from "../../../styles/icon/search-loading.json";
 import bookmarkLoading from "../../../styles/icon/bookmark-loading.json";
 import wrongLoading from "../../../styles/icon/wrong-note-loading.json";
 import loginLoading from "../../../styles/icon/user-loading.json";
+import { useEffect, useRef } from "react";
 
 const LoadingConainer = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const LoadingConainer = styled.div`
   width: 100%;
   height: calc(100vh - 150px);
 
-  #lottie {
+  svg {
     width: 90%;
     color: ${({ theme }) => theme.colors.bg};
   }
@@ -32,9 +33,23 @@ interface LoadingProps {
 }
 
 function Loading({ image }: LoadingProps) {
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (container.current) {
+      lottie.loadAnimation({
+        animationData: loadingImages[image],
+        autoplay: true,
+        container: container.current,
+        loop: true,
+        renderer: "svg",
+      });
+    }
+  }, [image]);
+
   return (
     <LoadingConainer>
-      <Player autoplay speed={1.5} loop src={loadingImages[image]} />
+      <div ref={container} />
     </LoadingConainer>
   );
 }

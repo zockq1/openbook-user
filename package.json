@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@flaticon/flaticon-uicons": "^2.4.0",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +13,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
     "@types/react-responsive": "^8.0.5",
+    "lottie-web": "^5.12.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
@@ -72,6 +72,7 @@
     "@types/react-beautiful-dnd": "^13.1.4",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "cra-bundle-analyzer": "^0.1.1",
     "eslint-plugin-storybook": "^0.6.13",
     "prop-types": "^15.8.1",
     "storybook": "^7.4.0",
