@@ -12,8 +12,8 @@ import MainPageLayout from "../../atoms/layout/MainPageLayout";
 function QuestionPage() {
   return (
     <Layout>
+      <Header />
       <MainPageLayout>
-        <Header />
         <RowList>
           <QuestionBox
             title="퀴즈"

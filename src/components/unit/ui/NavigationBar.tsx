@@ -5,7 +5,6 @@ const StyledNavigationBar = styled.nav`
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  position: fixed;
   bottom: 0;
   left: 0;
   height: 70px;

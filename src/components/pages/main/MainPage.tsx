@@ -59,7 +59,6 @@ function Main() {
           />
         </ColumnList>
       </MainPageLayout>
-
       <NavigationBar />
     </Layout>
   );

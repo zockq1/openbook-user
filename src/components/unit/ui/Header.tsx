@@ -3,7 +3,6 @@ import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
 
 const StyledHeader = styled.header`
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

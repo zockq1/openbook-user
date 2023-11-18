@@ -11,8 +11,8 @@ const StyledMainPageLayout = styled.div`
   width: 100%;
   max-width: 500px;
   min-width: 260px;
-  height: calc(100vh - 184px);
-  margin: 92px auto;
+  height: calc(100vh - 172px);
+  margin: 10px auto;
   padding: 0 20px;
 `;
 
