@@ -3,10 +3,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { QuestionModel } from "../../../../types/questionTypes";
 import TextBox from "../../../atoms/box/TextBox";
 import { ColumnList } from "../../../atoms/layout/List";
-import { LongChoiceItem } from "../../../molecules/list-item/LongChoiceItem";
+import { LongChoiceItem } from "../../topic/container/LongChoiceItem";
 import CommentUI from "../../topic/container/CommentUI.container";
 import { useContext } from "react";
-import { ShortChoiceItem } from "../../../molecules/list-item/ShortChoiceItem";
+import { ShortChoiceItem } from "../../topic/container/ShortChoiceItem";
 
 interface QuestionProps {
   quetion: QuestionModel;

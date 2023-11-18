@@ -4,7 +4,7 @@ import useQuesryString from "../../../service/useQueryString";
 import useNextContent from "../../../service/useNextContent";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";

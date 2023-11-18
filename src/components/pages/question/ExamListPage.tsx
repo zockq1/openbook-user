@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import { ThemeContext } from "styled-components";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";

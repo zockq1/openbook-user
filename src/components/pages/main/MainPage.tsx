@@ -3,16 +3,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useLazyGetTotalProgressQuery } from "../../../store/api/jjhApi";
 import Layout from "../../atoms/layout/Layout";
-import Header from "../../organisms/ui/Header";
+import Header from "../../unit/ui/Header";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
 import { ColumnList } from "../../atoms/layout/List";
 import styled from "styled-components";
-import JJHBox from "../../molecules/main-box/JJHBox";
+import JJHBox from "../../unit/ui/main-box/JJHBox";
 import run from "../../../styles/images/run.svg";
 import books from "../../../styles/images/books.svg";
 import timeline from "../../../styles/images/timeline.svg";
-import NavigationBar from "../../organisms/ui/NavigationBar";
-import InfoBox from "../../molecules/main-box/InfoBox";
+import NavigationBar from "../../unit/ui/NavigationBar";
+import InfoBox from "../../unit/ui/main-box/InfoBox";
 import Icon from "../../atoms/icon/Icon";
 
 const SubMenu = styled.ul`

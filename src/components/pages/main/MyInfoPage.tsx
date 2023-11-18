@@ -1,12 +1,12 @@
-import Header from "../../organisms/ui/Header";
-import NavigationBar from "../../organisms/ui/NavigationBar";
+import Header from "../../unit/ui/Header";
+import NavigationBar from "../../unit/ui/NavigationBar";
 import bookmark from "../../../styles/images/bookmark.svg";
 import wrong from "../../../styles/images/wrong.svg";
 import search from "../../../styles/images/search.svg";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
 import Icon from "../../atoms/icon/Icon";
 import { RowList } from "../../atoms/layout/List";
-import QuestionBox from "../../molecules/main-box/QuestionBox";
+import QuestionBox from "../../unit/ui/main-box/QuestionBox";
 
 function MyInfoPage() {
   return (

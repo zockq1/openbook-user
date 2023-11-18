@@ -3,7 +3,7 @@ import useNextContent from "../../../service/useNextContent";
 import useQuesryString from "../../../service/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useGetChapterListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useNavigate } from "react-router-dom";

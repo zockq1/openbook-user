@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import user from "../../../styles/images/user.svg";
+import user from "../../../../styles/images/user.svg";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { RootState } from "../../../../store/store";
 
 const StyledUserBox = styled.div`
   display: grid;

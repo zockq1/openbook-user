@@ -4,7 +4,7 @@ import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";

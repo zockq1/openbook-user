@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NavigationItem from "../../molecules/list-item/NavigationItem";
+import NavigationItem from "./NavigationItem";
 
 const StyledNavigationBar = styled.nav`
   display: grid;

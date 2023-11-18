@@ -1,10 +1,10 @@
 import { RowList } from "../../atoms/layout/List";
-import Header from "../../organisms/ui/Header";
-import NavigationBar from "../../organisms/ui/NavigationBar";
+import Header from "../../unit/ui/Header";
+import NavigationBar from "../../unit/ui/NavigationBar";
 import mock from "../../../styles/images/mock.svg";
 import quiz from "../../../styles/images/quiz.svg";
 import timeline from "../../../styles/images/timeline.svg";
-import QuestionBox from "../../molecules/main-box/QuestionBox";
+import QuestionBox from "../../unit/ui/main-box/QuestionBox";
 import Icon from "../../atoms/icon/Icon";
 import Layout from "../../atoms/layout/Layout";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";

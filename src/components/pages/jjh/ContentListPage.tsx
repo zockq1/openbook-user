@@ -17,7 +17,7 @@ import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import Layout from "../../atoms/layout/Layout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";

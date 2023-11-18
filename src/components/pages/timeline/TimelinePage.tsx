@@ -1,4 +1,4 @@
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";

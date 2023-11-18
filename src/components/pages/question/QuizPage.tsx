@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetRandomQuestionQuery } from "../../../store/api/questionApi";
 import Layout from "../../atoms/layout/Layout";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
-import TitleBox from "../../organisms/ui/TitleBox";
+import TitleBox from "../../unit/ui/TitleBox";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
 import QuestionLoading from "../../unit/skeleton/LoadingUI";
 

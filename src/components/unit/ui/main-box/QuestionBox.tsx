@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import MenuLabelBox from "../../atoms/box/MenuLabelBox";
+import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 
 const Box = styled.li`
   position: relative;

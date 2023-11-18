@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import styled, { ThemeContext, keyframes } from "styled-components";
 import { useContext } from "react";
-import MenuLabelBox from "../../atoms/box/MenuLabelBox";
-import Icon from "../../atoms/icon/Icon";
-import Text from "../../atoms/text/Text";
-import calculateGradientColor from "../../../service/calculateGradientColor";
-import useCountAnimation from "../../../service/useCountAnimation";
+import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
+import Icon from "../../../atoms/icon/Icon";
+import Text from "../../../atoms/text/Text";
+import calculateGradientColor from "../../../../service/calculateGradientColor";
+import useCountAnimation from "../../../../service/useCountAnimation";
 
 const Box = styled.li`
   position: relative;

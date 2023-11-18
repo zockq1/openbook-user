@@ -1,8 +1,8 @@
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
-import SettingBox from "../../molecules/main-box/SettingBox";
-import UserBox from "../../molecules/main-box/UserBox";
-import Header from "../../organisms/ui/Header";
-import NavigationBar from "../../organisms/ui/NavigationBar";
+import SettingBox from "../../unit/ui/main-box/SettingBox";
+import UserBox from "../../unit/ui/main-box/UserBox";
+import Header from "../../unit/ui/Header";
+import NavigationBar from "../../unit/ui/NavigationBar";
 
 function OptionPage() {
   return (

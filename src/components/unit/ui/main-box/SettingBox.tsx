@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { logout } from "../../../store/slices/authSlice";
+import { logout } from "../../../../store/slices/authSlice";
 
 const StyledSettingBox = styled.div`
   display: flex;

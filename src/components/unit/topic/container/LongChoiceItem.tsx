@@ -2,8 +2,8 @@ import styled from "styled-components";
 import {
   CheckBoxInput,
   CheckBoxLabel,
-} from "../../atoms/checkbox/QuestionCheckBox";
-import { ExamCommentModel } from "../../../types/questionTypes";
+} from "../../../atoms/checkbox/QuestionCheckBox";
+import { ExamCommentModel } from "../../../../types/questionTypes";
 
 interface AnswerCheckProps {
   isFinish?: boolean;
