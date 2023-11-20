@@ -14,6 +14,7 @@ import timeline from "../../../styles/images/timeline.svg";
 import NavigationBar from "../../unit/ui/NavigationBar";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
 import Icon from "../../atoms/icon/Icon";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 const SubMenu = styled.ul`
   display: flex;
@@ -24,6 +25,8 @@ function Main() {
   const [getProgressTriger, { data: progress }] =
     useLazyGetTotalProgressQuery();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
+  usePreventScroll();
 
   useEffect(() => {
     if (isLoggedIn) {

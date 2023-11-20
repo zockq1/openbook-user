@@ -8,8 +8,11 @@ import Icon from "../../atoms/icon/Icon";
 import { RowList } from "../../atoms/layout/List";
 import QuestionBox from "../../unit/ui/main-box/QuestionBox";
 import Layout from "../../atoms/layout/Layout";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 function MyInfoPage() {
+  usePreventScroll();
+
   return (
     <Layout>
       <Header />

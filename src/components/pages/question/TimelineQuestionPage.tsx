@@ -6,11 +6,14 @@ import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import QuestionLoading from "../../unit/skeleton/LoadingUI";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();
   const navigate = useNavigate();
   const { data: dateList } = useGetTimelineQuery(timelineId);
+
+  usePreventScroll();
 
   if (!dateList) {
     return (

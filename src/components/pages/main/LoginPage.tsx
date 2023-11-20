@@ -3,6 +3,7 @@ import kakao from "../../../styles/images/kakao.png";
 import { Link } from "react-router-dom";
 import Logo from "../../atoms/icon/Logo";
 import BackButton from "../../atoms/button/BackButton";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 const StyledLoginPage = styled.div`
   display: grid;
@@ -13,6 +14,7 @@ const StyledLoginPage = styled.div`
 `;
 
 function LoginPage() {
+  usePreventScroll();
   return (
     <div style={{ padding: "20px" }}>
       <BackButton />

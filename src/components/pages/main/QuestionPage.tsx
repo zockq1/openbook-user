@@ -8,8 +8,11 @@ import QuestionBox from "../../unit/ui/main-box/QuestionBox";
 import Icon from "../../atoms/icon/Icon";
 import Layout from "../../atoms/layout/Layout";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 function QuestionPage() {
+  usePreventScroll();
+
   return (
     <Layout>
       <Header />

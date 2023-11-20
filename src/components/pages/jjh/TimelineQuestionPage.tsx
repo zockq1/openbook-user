@@ -7,11 +7,14 @@ import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
+import usePreventScroll from "../../../hooks/usePreventScroll";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
   const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
   const { data: dateList } = useGetTimelineQuery(timelineId);
+
+  usePreventScroll();
 
   if (!dateList) {
     return (
