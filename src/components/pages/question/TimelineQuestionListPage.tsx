@@ -8,10 +8,18 @@ import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
-  const { data: timelineList } = useGetTimelineListQuery();
+  const {
+    data: timelineList,
+    isError,
+    isFetching,
+    isSuccess,
+    error,
+  } = useGetTimelineListQuery();
   const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -75,23 +83,35 @@ function TimelineQuestionListPage() {
     ]);
   }, [setMenuList, timelineList, navigate]);
 
-  if (questionMenuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox category="연표 문제" icon="questionSquare" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isFetching) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`연표 문제 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && questionMenuList.length === 0) {
+      return <EmptyUI message={`연표 문제 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && questionMenuList.length > 0) {
+      return <MenuUI menuList={questionMenuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox category="연표 문제" icon="questionSquare" />
-      <MainContentLayout>
-        <MenuUI menuList={questionMenuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

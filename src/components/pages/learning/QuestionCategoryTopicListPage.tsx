@@ -11,11 +11,19 @@ import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function QustionCategoryTopicListPage() {
   const theme = useContext(ThemeContext);
   const { timelineId: id, title } = useQuesryString();
-  const { data: topicList } = useGetQuestionCategoryTopicListQuery(id);
+  const {
+    data: topicList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetQuestionCategoryTopicListQuery(id);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -44,24 +52,37 @@ function QustionCategoryTopicListPage() {
     setMenuList(newMenu);
   }, [setMenuList, topicList, theme]);
 
-  if (menuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="questionSquare" category={title} />
-        <MainContentLayout>
-          <KeywordToggleButton keyword comment />
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`주제 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && menuList.length === 0) {
+      return <EmptyUI message={`주제 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && menuList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="questionSquare" category={title} />
       <MainContentLayout>
         <KeywordToggleButton keyword comment />
-        <MenuUI menuList={menuList} />
+        {renderContent()}
       </MainContentLayout>
     </Layout>
   );

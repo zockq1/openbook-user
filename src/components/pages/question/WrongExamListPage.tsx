@@ -8,6 +8,8 @@ import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 const Label = styled.div`
   display: flex;
@@ -24,7 +26,13 @@ const Label = styled.div`
 function WrongExamListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: examList } = useGetWrongExamListQuery();
+  const {
+    data: examList,
+    isFetching,
+    isError,
+    isSuccess,
+    error,
+  } = useGetWrongExamListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -54,23 +62,35 @@ function WrongExamListPage() {
     );
   }, [setMenuList, navigate, theme, examList]);
 
-  if (!examList) {
-    return (
-      <Layout>
-        <TitleBox icon="questionSquare" category="오답 노트" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isFetching) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`오답노트 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && menuList.length === 0) {
+      return <EmptyUI message={`오답노트가 비었습니다.`} />;
+    }
+
+    if (isSuccess && menuList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="questionSquare" category="오답 노트" />
-      <MainContentLayout>
-        <MenuUI menuList={menuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

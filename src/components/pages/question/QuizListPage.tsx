@@ -8,10 +8,18 @@ import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function QuizListPage() {
   const navigate = useNavigate();
-  const { data: questionCategoryList } = useGetQuestionCategoryListQuery();
+  const {
+    data: questionCategoryList,
+    isError,
+    isFetching,
+    isSuccess,
+    error,
+  } = useGetQuestionCategoryListQuery();
   const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -67,23 +75,35 @@ function QuizListPage() {
     ]);
   }, [setMenuList, questionCategoryList, navigate]);
 
-  if (questionMenuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="questionSquare" category="퀴즈" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isFetching) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`퀴즈 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && questionMenuList.length === 0) {
+      return <EmptyUI message={`퀴즈 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && questionMenuList.length > 0) {
+      return <MenuUI menuList={questionMenuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="questionSquare" category="퀴즈" />
-      <MainContentLayout>
-        <MenuUI menuList={questionMenuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

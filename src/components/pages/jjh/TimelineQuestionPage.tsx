@@ -8,35 +8,57 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
   const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
-  const { data: dateList } = useGetTimelineQuery(timelineId);
+  const {
+    data: dateList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetTimelineQuery(timelineId);
 
   usePreventScroll();
 
-  if (!dateList) {
-    return (
-      <Layout>
-        <TitleBox icon="question" category="퀴즈" />
-        <MainContentLayout>
-          <Loading image="question" />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <Loading image="question" />;
+    }
 
-  return (
-    <Layout>
-      <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <MainContentLayout>
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`연표 문제 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && dateList.length === 0) {
+      return <EmptyUI message={`연표 문제가 비었습니다.`} />;
+    }
+
+    if (isSuccess) {
+      return (
         <TimelineQuestion
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
           id={timelineId}
         />
-      </MainContentLayout>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <Layout>
+      <TitleBox icon="TIMELINE_QUESTION" category={title} />
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

@@ -7,6 +7,7 @@ import formatSearchResult from "../../../../service/formatSearchResult";
 import useQuesryString from "../../../../hooks/useQueryString";
 import styled, { ThemeContext } from "styled-components";
 import Text from "../../../atoms/text/Text";
+import EmptyUI from "../../skeleton/EmptyUI";
 
 const Label = styled.div`
   display: flex;
@@ -120,28 +121,40 @@ function SearchResult({ searchResult }: SearchResultProps) {
             onClick: () => {
               handleSearchType("단원");
             },
-            contents: "단원",
+            contents: `단원(${chapterList.length})`,
             isActive: saerchType === "단원",
           },
           {
             onClick: () => {
               handleSearchType("주제");
             },
-            contents: "주제",
+            contents: `주제(${topicList.length})`,
             isActive: saerchType === "주제",
           },
           {
             onClick: () => {
               handleSearchType("키워드");
             },
-            contents: "키워드",
+            contents: `키워드(${keywordList.length})`,
             isActive: saerchType === "키워드",
           },
         ]}
       />
-      {saerchType === "단원" && <MenuUI menuList={chapterMenu} />}
-      {saerchType === "주제" && <MenuUI menuList={topicMenu} />}
-      {saerchType === "키워드" && <MenuUI menuList={keywordMenu} />}
+      {saerchType === "단원" && chapterList.length === 0 ? (
+        <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
+      ) : (
+        <MenuUI menuList={chapterMenu} />
+      )}
+      {saerchType === "주제" && topicList.length === 0 ? (
+        <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
+      ) : (
+        <MenuUI menuList={topicMenu} />
+      )}
+      {saerchType === "키워드" && keywordList.length === 0 ? (
+        <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
+      ) : (
+        <MenuUI menuList={keywordMenu} />
+      )}
     </>
   );
 }

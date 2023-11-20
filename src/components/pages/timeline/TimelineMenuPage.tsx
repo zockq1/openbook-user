@@ -9,11 +9,19 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: timelineList } = useGetTimelineListQuery();
+  const {
+    data: timelineList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetTimelineListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -53,23 +61,35 @@ function TimelineMenuPage() {
     ]);
   }, [setMenuList, timelineList, theme, navigate]);
 
-  if (menuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`연표 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && menuList.length === 0) {
+      return <EmptyUI message={`연표 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && menuList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
-      <MainContentLayout>
-        <MenuUI menuList={menuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

@@ -13,11 +13,19 @@ import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import useQuesryString from "../../../hooks/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
   const { chapterNumber, title } = useQuesryString();
-  const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
+  const {
+    data: topicList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetChapterTopicListQuery(chapterNumber);
   const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
@@ -56,24 +64,37 @@ function LearningTopicListPage() {
     setMenuList(newMenu);
   }, [setMenuList, topicList, chapterNumber, title, chapterInfo, theme]);
 
-  if (menuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="TOPIC_STUDY" category={title} />
-        <MainContentLayout>
-          <KeywordToggleButton comment keyword />
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`주제 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && menuList.length === 0) {
+      return <EmptyUI message={`주제 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && menuList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="TOPIC_STUDY" category={title} />
       <MainContentLayout>
         <KeywordToggleButton comment keyword />
-        <MenuUI menuList={menuList} />
+        {renderContent()}
       </MainContentLayout>
     </Layout>
   );

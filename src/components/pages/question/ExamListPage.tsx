@@ -10,11 +10,19 @@ import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function ExamListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: examList } = useGetRoundListQuery();
+  const {
+    data: examList,
+    isError,
+    isFetching,
+    isSuccess,
+    error,
+  } = useGetRoundListQuery();
   const [questionMenuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -73,12 +81,35 @@ function ExamListPage() {
     );
   }
 
+  const renderContent = () => {
+    if (isFetching) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`기출문제 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && questionMenuList.length === 0) {
+      return <EmptyUI message={`기출문제 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && questionMenuList.length > 0) {
+      return <MenuUI menuList={questionMenuList} />;
+    }
+
+    return null;
+  };
+
   return (
     <Layout>
       <TitleBox icon="questionSquare" category="기출 문제" />
-      <MainContentLayout>
-        <MenuUI menuList={questionMenuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }

@@ -8,11 +8,19 @@ import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 function LearningChapterListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: chapterList } = useGetChapterListQuery();
+  const {
+    data: chapterList,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+  } = useGetChapterListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
 
   useEffect(() => {
@@ -40,23 +48,35 @@ function LearningChapterListPage() {
     );
   }, [setMenuList, chapterList, navigate, theme]);
 
-  if (menuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="CHAPTER_INFO" category="학습 자료 모음" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`단원 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && menuList.length === 0) {
+      return <EmptyUI message={`단원 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && menuList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
       <TitleBox icon="CHAPTER_INFO" category="학습 자료 모음" />
-      <MainContentLayout>
-        <MenuUI menuList={menuList} />
-      </MainContentLayout>
+      <MainContentLayout>{renderContent()}</MainContentLayout>
     </Layout>
   );
 }
