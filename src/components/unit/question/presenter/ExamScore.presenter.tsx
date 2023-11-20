@@ -3,7 +3,7 @@ import fail from "../../../../styles/images/fail.svg";
 import first from "../../../../styles/images/first.svg";
 import second from "../../../../styles/images/second.svg";
 import third from "../../../../styles/images/third.svg";
-import useCountAnimation from "../../../../service/useCountAnimation";
+import useCountAnimation from "../../../../hooks/useCountAnimation";
 import calculateGradientColor from "../../../../service/calculateGradientColor";
 
 interface QuizScoreProps {

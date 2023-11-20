@@ -1,4 +1,4 @@
-import useQuesryString from "../../../../service/useQueryString";
+import useQuesryString from "../../../../hooks/useQueryString";
 import { useGetChapterInfoQuery } from "../../../../store/api/chapterApi";
 import ChapterInfoUI from "../container/ChapterInfoUI.container";
 

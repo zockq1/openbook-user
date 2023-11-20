@@ -1,6 +1,6 @@
 import withAuth from "../../../hoc/withAuth";
-import useNextContent from "../../../service/useNextContent";
-import useQuesryString from "../../../service/useQueryString";
+import useNextContent from "../../../hooks/useNextContent";
+import useQuesryString from "../../../hooks/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";

@@ -10,7 +10,7 @@ import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
-import useQuesryString from "../../../service/useQueryString";
+import useQuesryString from "../../../hooks/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 

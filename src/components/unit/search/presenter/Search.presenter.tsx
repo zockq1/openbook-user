@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchUI from "../container/SearchUI.container";
-import useQuesryString from "../../../../service/useQueryString";
+import useQuesryString from "../../../../hooks/useQueryString";
 import { useNavigate } from "react-router-dom";
 
 function Search() {

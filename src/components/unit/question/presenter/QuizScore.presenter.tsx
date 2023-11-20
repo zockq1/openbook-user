@@ -3,7 +3,7 @@ import ScoreUI from "../container/ScoreUI.container";
 import { ThemeContext } from "styled-components";
 import fail from "../../../../styles/images/fail.svg";
 import success from "../../../../styles/images/success.svg";
-import useCountAnimation from "../../../../service/useCountAnimation";
+import useCountAnimation from "../../../../hooks/useCountAnimation";
 
 interface QuizScoreProps {
   totalScore: number;

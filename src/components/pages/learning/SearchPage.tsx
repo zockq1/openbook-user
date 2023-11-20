@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useQuesryString from "../../../service/useQueryString";
+import useQuesryString from "../../../hooks/useQueryString";
 import { useLazyGetSearchQuery } from "../../../store/api/jjhApi";
 import Layout from "../../atoms/layout/Layout";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";

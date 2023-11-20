@@ -4,7 +4,7 @@ import { MenuModel, SearchModel } from "../../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import MenuUI from "../../common/container/MenuUI.container";
 import formatSearchResult from "../../../../service/formatSearchResult";
-import useQuesryString from "../../../../service/useQueryString";
+import useQuesryString from "../../../../hooks/useQueryString";
 import styled, { ThemeContext } from "styled-components";
 import Text from "../../../atoms/text/Text";
 

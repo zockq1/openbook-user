@@ -7,7 +7,7 @@ import MenuUI from "../../unit/common/container/MenuUI.container";
 import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
-import useQuesryString from "../../../service/useQueryString";
+import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";

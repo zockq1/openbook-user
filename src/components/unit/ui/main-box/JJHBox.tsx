@@ -5,7 +5,7 @@ import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 import Icon from "../../../atoms/icon/Icon";
 import Text from "../../../atoms/text/Text";
 import calculateGradientColor from "../../../../service/calculateGradientColor";
-import useCountAnimation from "../../../../service/useCountAnimation";
+import useCountAnimation from "../../../../hooks/useCountAnimation";
 
 const Box = styled.li`
   position: relative;

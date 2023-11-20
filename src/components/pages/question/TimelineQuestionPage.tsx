@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
-import useQuesryString from "../../../service/useQueryString";
+import useQuesryString from "../../../hooks/useQueryString";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";

@@ -1,7 +1,7 @@
 import { useGetTtoKQuestionQuery } from "../../../store/api/questionApi";
 import withAuth from "../../../hoc/withAuth";
-import useQuesryString from "../../../service/useQueryString";
-import useNextContent from "../../../service/useNextContent";
+import useQuesryString from "../../../hooks/useQueryString";
+import useNextContent from "../../../hooks/useNextContent";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
 import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";

@@ -2,7 +2,7 @@ import TitleBox from "../../unit/ui/TitleBox";
 import Layout from "../../atoms/layout/Layout";
 import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
-import useQuesryString from "../../../service/useQueryString";
+import useQuesryString from "../../../hooks/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 
 function TimelinePage() {

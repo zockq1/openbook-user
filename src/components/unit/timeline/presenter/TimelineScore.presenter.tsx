@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 import fail from "../../../../styles/images/fail.svg";
 import success from "../../../../styles/images/success.svg";
-import useCountAnimation from "../../../../service/useCountAnimation";
+import useCountAnimation from "../../../../hooks/useCountAnimation";
 import ScoreUI from "../../question/container/ScoreUI.container";
 
 interface TimelineScoreProps {
