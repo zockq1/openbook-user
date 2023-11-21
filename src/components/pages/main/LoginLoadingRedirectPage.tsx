@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
+import BackButton from "../../atoms/button/BackButton";
 
 const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,12 @@ const LoginLoadingRedirectPage = () => {
 
   const renderContent = () => {
     if (isLoading) {
-      return <Loading image="question" />;
+      return (
+        <>
+          <BackButton color="black" />
+          <Loading image="question" />
+        </>
+      );
     }
 
     if (isError && error) {
@@ -43,7 +49,7 @@ const LoginLoadingRedirectPage = () => {
     return null;
   };
 
-  return <>{renderContent()}</>;
+  return <div style={{ padding: "20px" }}>{renderContent()}</div>;
 };
 
 export default LoginLoadingRedirectPage;
