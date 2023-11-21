@@ -94,7 +94,7 @@ function TimelineQuestion({
   }, [nextDateList]);
 
   useEffect(() => {
-    if (isFinish && wrongCount <= 2) {
+    if (isFinish) {
       updateTimelineWrongCounter({
         id: id,
         wrongCount: wrongCount,
