@@ -9,10 +9,10 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     getKakaoToken: builder.query<
       GetTokenModel,
-      { code: string; local: string }
+      { code: string; local: string; protocol: string }
     >({
-      query: ({ code, local }) =>
-        `${process.env.REACT_APP_API_URL}login/kakao?code=${code}&url=${local}`,
+      query: ({ code, local, protocol }) =>
+        `${process.env.REACT_APP_API_URL}login/kakao?code=${code}&url=${local}&protocol=${protocol}`,
       transformResponse: (response: { id: string }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");

@@ -9,15 +9,16 @@ import {
 } from "../../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../unit/skeleton/LoadingUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
 
 const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
-  //const { data } = useGetKakaoTokenQuery(code ? code : "");
-  const { data } = useGetKakaoTokenQuery({
+  const { data, isLoading, isError, error } = useGetKakaoTokenQuery({
     code: code ? code : "",
     local: `${process.env.REACT_APP_IP}/oauth/kakao/login`,
+    protocol: `${process.env.REACT_APP_PROTOCOL}`,
   });
 
   useEffect(() => {
@@ -30,7 +31,19 @@ const LoginLoadingRedirectPage = () => {
     }
   }, [data, dispatch, navigate]);
 
-  return <Loading image="login" />;
+  const renderContent = () => {
+    if (isLoading) {
+      return <Loading image="question" />;
+    }
+
+    if (isError && error) {
+      return <ErrorUI error={error} message={`로그인에 실패하였습니다.`} />;
+    }
+
+    return null;
+  };
+
+  return <>{renderContent()}</>;
 };
 
 export default LoginLoadingRedirectPage;
