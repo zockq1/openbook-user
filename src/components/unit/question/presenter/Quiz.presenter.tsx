@@ -277,6 +277,9 @@ function Quiz({
 
   const handleNextQuestion = async () => {
     toast.dismiss();
+    window.scrollTo({
+      top: 0,
+    });
     if (questionList.length === currentNumber + 1) {
       dispatch({ type: FINISH });
       let newKeywordList: WrongCounterModel[] = [];
@@ -295,9 +298,6 @@ function Quiz({
       return;
     }
     dispatch({ type: NEXT_QUESTION });
-    window.scrollTo({
-      top: 0,
-    });
   };
 
   const handleMove = (index: number) => {
