@@ -40,14 +40,7 @@ function TimelineQuestionListPage() {
         score: Math.floor(avgScore),
         mainColor: calculateGradientColor(avgScore),
         onClickMain: () => {
-          navigate(
-            `/question/timeline?id=${
-              timelineList.reduce(
-                (min, current) => (current.score < min.score ? current : min),
-                timelineList[0]
-              ).id
-            }&title=전체 연표`
-          );
+          navigate(`/question/timeline?id=${-1}&title=전체 연표`);
         },
         onClickSub: () => {
           navigate(`/timeline?id=-1&title=전체 연표`);

@@ -270,7 +270,6 @@ function WrongNote({ examList }: ExamProps) {
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
-  console.log(questionList);
 
   const handleChoiceClick = (key: string) => {
     dispatch({

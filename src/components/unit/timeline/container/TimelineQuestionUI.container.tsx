@@ -164,7 +164,6 @@ function TimelineQuestionUI({
                                       ""
                                     ),
                                     keywordList: [],
-                                    topicTitle: "",
                                   }}
                                   key={0}
                                   disableCircle={true}

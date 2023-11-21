@@ -7,7 +7,6 @@ interface TimelineTopicProps {
   dateItem: {
     comment: string;
     date: number | string | null;
-    topicTitle: string;
     keywordList: string[] | null;
   };
   disableCircle?: boolean;

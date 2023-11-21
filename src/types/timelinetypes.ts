@@ -1,7 +1,6 @@
 export interface TimeLineItemModel {
   comment: string;
   date: number;
-  topicTitle: string;
   keywordList: string[] | null;
 }
 

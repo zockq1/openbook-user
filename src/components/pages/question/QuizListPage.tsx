@@ -38,7 +38,7 @@ function QuizListPage() {
         score: Math.floor(avgScore),
         mainColor: calculateGradientColor(avgScore),
         onClickMain: () => {
-          navigate(`/question/quiz?timelimit=${Infinity}&id=${0}&noq=${10}`);
+          navigate(`/question/quiz?id=${-1}&noq=${10}`);
         },
         onClickSub: () => {
           navigate("/learning");
@@ -62,9 +62,7 @@ function QuizListPage() {
             score: score,
             mainColor: calculateGradientColor(score),
             onClickMain: () => {
-              navigate(
-                `/question/quiz?timelimit=${Infinity}&id=${id}&noq=${10}`
-              );
+              navigate(`/question/quiz?&id=${id}&noq=${10}`);
             },
             onClickSub: () => {
               navigate(`/question/topic-list?id=${id}&title=${title}`);

@@ -5,7 +5,6 @@ interface TimelineListProps {
   dateList: {
     comment: string;
     date: number | string | null;
-    topicTitle: string;
     keywordList: string[] | null;
   }[];
 }
