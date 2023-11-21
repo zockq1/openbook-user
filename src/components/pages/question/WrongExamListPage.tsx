@@ -76,11 +76,11 @@ function WrongExamListPage() {
       );
     }
 
-    if (isSuccess && menuList.length === 0) {
+    if (isSuccess && examList.length === 0) {
       return <EmptyUI message={`오답노트가 비었습니다.`} />;
     }
 
-    if (isSuccess && menuList.length > 0) {
+    if (isSuccess && examList.length > 0) {
       return <MenuUI menuList={menuList} />;
     }
 

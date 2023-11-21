@@ -78,11 +78,11 @@ function LearningTopicListPage() {
       );
     }
 
-    if (isSuccess && menuList.length === 0) {
+    if (isSuccess && topicList.length === 0) {
       return <EmptyUI message={`주제 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && menuList.length > 0) {
+    if (isSuccess && topicList.length > 0) {
       return <MenuUI menuList={menuList} />;
     }
 

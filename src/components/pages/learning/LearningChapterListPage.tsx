@@ -62,11 +62,11 @@ function LearningChapterListPage() {
       );
     }
 
-    if (isSuccess && menuList.length === 0) {
+    if (isSuccess && chapterList.length === 0) {
       return <EmptyUI message={`단원 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && menuList.length > 0) {
+    if (isSuccess && chapterList.length > 0) {
       return <MenuUI menuList={menuList} />;
     }
 

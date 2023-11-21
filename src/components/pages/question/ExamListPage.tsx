@@ -95,11 +95,11 @@ function ExamListPage() {
       );
     }
 
-    if (isSuccess && questionMenuList.length === 0) {
+    if (isSuccess && examList.length === 0) {
       return <EmptyUI message={`기출문제 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && questionMenuList.length > 0) {
+    if (isSuccess && examList.length > 0) {
       return <MenuUI menuList={questionMenuList} />;
     }
 

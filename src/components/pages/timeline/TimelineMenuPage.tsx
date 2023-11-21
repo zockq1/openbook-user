@@ -75,11 +75,11 @@ function TimelineMenuPage() {
       );
     }
 
-    if (isSuccess && menuList.length === 0) {
+    if (isSuccess && timelineList.length === 0) {
       return <EmptyUI message={`연표 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && menuList.length > 0) {
+    if (isSuccess && timelineList.length > 0) {
       return <MenuUI menuList={menuList} />;
     }
 

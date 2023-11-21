@@ -89,11 +89,11 @@ function QuizListPage() {
       );
     }
 
-    if (isSuccess && questionMenuList.length === 0) {
+    if (isSuccess && questionCategoryList.length === 0) {
       return <EmptyUI message={`퀴즈 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && questionMenuList.length > 0) {
+    if (isSuccess && questionCategoryList.length > 0) {
       return <MenuUI menuList={questionMenuList} />;
     }
 

@@ -33,7 +33,7 @@ function BookmarkPage() {
     }
 
     if (isSuccess && bookmarkList.length === 0) {
-      return <EmptyUI message={`오답노트가 비었습니다.`} />;
+      return <EmptyUI message={`북마크가 비었습니다.`} />;
     }
 
     if (isSuccess)

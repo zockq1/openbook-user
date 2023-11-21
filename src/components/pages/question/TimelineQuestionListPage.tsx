@@ -97,11 +97,11 @@ function TimelineQuestionListPage() {
       );
     }
 
-    if (isSuccess && questionMenuList.length === 0) {
+    if (isSuccess && timelineList.length === 0) {
       return <EmptyUI message={`연표 문제 목록이 비었습니다.`} />;
     }
 
-    if (isSuccess && questionMenuList.length > 0) {
+    if (isSuccess && timelineList.length > 0) {
       return <MenuUI menuList={questionMenuList} />;
     }
 
