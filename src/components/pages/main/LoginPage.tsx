@@ -17,7 +17,7 @@ function LoginPage() {
   usePreventScroll();
   return (
     <div style={{ padding: "20px" }}>
-      <BackButton />
+      <BackButton color="black" />
       <StyledLoginPage>
         <Logo size={40} />
 
