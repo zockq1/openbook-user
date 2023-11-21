@@ -71,17 +71,6 @@ function ExamListPage() {
     ]);
   }, [setMenuList, examList, navigate, theme]);
 
-  if (questionMenuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="questionSquare" category="기출 문제" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
-
   const renderContent = () => {
     if (isFetching) {
       return <MenuSkeletonListUI />;
