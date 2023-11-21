@@ -41,9 +41,13 @@ function SearchResult({ searchResult }: SearchResultProps) {
         type: "Base",
         title: formatSearchResult(chapterTitle, search),
         onClickMain: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         onClickSub: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         icon: (
           <Label>
             <span className="number">{`${chapterNumber}`}</span>
@@ -63,9 +67,13 @@ function SearchResult({ searchResult }: SearchResultProps) {
         title: formatSearchResult(topicTitle, search),
         description: chapterTitle,
         onClickMain: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         onClickSub: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         icon: (
           <Label>
             <span className="number">{`${chapterNumber}`}</span>
@@ -79,8 +87,13 @@ function SearchResult({ searchResult }: SearchResultProps) {
 
   const keywordMenu: MenuModel[] = useMemo(() => {
     return keywordList.map((keyword) => {
-      const { chapterNumber, topicTitle, keywordName, keywordComment } =
-        keyword;
+      const {
+        chapterNumber,
+        topicTitle,
+        keywordName,
+        keywordComment,
+        chapterTitle,
+      } = keyword;
       const result: MenuModel = {
         type: "Base",
         title: (
@@ -95,9 +108,13 @@ function SearchResult({ searchResult }: SearchResultProps) {
           </Text>
         ),
         onClickMain: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         onClickSub: () =>
-          navigate(`/learning/chapter?chapter=${chapterNumber}`),
+          navigate(
+            `/learning/chapter?chapter=${chapterNumber}&title=${chapterTitle}`
+          ),
         icon: (
           <Label>
             <span className="number">{`${chapterNumber}`}</span>
@@ -143,17 +160,17 @@ function SearchResult({ searchResult }: SearchResultProps) {
       {saerchType === "단원" && chapterList.length === 0 ? (
         <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
       ) : (
-        <MenuUI menuList={chapterMenu} />
+        saerchType === "단원" && <MenuUI menuList={chapterMenu} />
       )}
       {saerchType === "주제" && topicList.length === 0 ? (
         <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
       ) : (
-        <MenuUI menuList={topicMenu} />
+        saerchType === "주제" && <MenuUI menuList={topicMenu} />
       )}
       {saerchType === "키워드" && keywordList.length === 0 ? (
         <EmptyUI message={`${search} 검색 결과가 존재하지 않습니다.`} />
       ) : (
-        <MenuUI menuList={keywordMenu} />
+        saerchType === "키워드" && <MenuUI menuList={keywordMenu} />
       )}
     </>
   );
