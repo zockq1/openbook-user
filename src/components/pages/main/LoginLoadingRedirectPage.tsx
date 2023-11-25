@@ -37,7 +37,7 @@ const LoginLoadingRedirectPage = () => {
       return (
         <>
           <BackButton color="black" />
-          <Loading image="question" />
+          <Loading image="login" />
         </>
       );
     }
