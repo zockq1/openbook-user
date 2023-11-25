@@ -10,6 +10,7 @@ interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
   onNextContent: () => void;
   id: number;
+  onFinish?: () => void;
 }
 
 type State = {
@@ -75,6 +76,7 @@ function TimelineQuestion({
   dateList,
   onNextContent,
   id,
+  onFinish,
 }: TimelineQuestionProps) {
   const [updateTimelineWrongCounter] = useUpdateTimelineWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
@@ -100,8 +102,11 @@ function TimelineQuestion({
         wrongCount: wrongCount,
         correctCount: 10,
       });
+      if (wrongCount <= 2) {
+        onFinish && onFinish();
+      }
     }
-  }, [isFinish, updateTimelineWrongCounter, wrongCount, id]);
+  }, [isFinish, updateTimelineWrongCounter, wrongCount, id, onFinish]);
 
   const handleDragEnd = async (result: DropResult) => {
     const { destination } = result;

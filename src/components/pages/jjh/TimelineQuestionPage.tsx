@@ -10,9 +10,11 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
+  const [updateProgres] = useUpdateProgressMutation();
   const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
   const {
     data: dateList,
@@ -48,6 +50,7 @@ function TimelineQuestionPage() {
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
           id={timelineId}
+          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
         />
       );
     }
