@@ -9,7 +9,6 @@ const Comment = styled.ul<{ open: boolean }>`
   margin-top: ${({ open }) => (open ? "10px" : "0")};
   padding: ${({ theme, open }) => (open ? theme.padding.small : "0")};
   border-radius: ${({ theme }) => theme.padding.base};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   max-height: ${({ open }) => (open ? `600px` : "0")};
   font-size: ${({ open, theme }) => (open ? theme.fontSizes.small : "0px")};
   color: ${({ open }) => (open ? "inherit" : "transparent")};

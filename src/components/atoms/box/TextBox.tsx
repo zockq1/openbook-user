@@ -33,8 +33,6 @@ const StyledTextBox = styled.div<TextBoxProps>`
   border: 2px solid
     ${({ theme, color }) =>
       color === "blue" ? theme.colors.textBlue : theme.colors.textBlue};
-  box-shadow: ${({ theme, shadow }) =>
-    shadow ? theme.shadow.defaultShadow : "none"};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;
