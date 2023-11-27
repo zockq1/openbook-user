@@ -15,7 +15,6 @@ const Box = styled.li`
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
   overflow: hidden;
 `;
@@ -57,7 +56,6 @@ const Progress = styled.div`
   bottom: 12px;
   justify-content: flex-start;
   align-items: center;
-
   border-radius: 100px;
   padding: 0 5px;
   height: 20px;

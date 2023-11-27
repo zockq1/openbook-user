@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import Icon from "./Icon";
+import { useContext } from "react";
 
 const StyledLogo = styled.div<LogoProps>`
   display: flex;
@@ -16,10 +17,11 @@ interface LogoProps {
 }
 
 function Logo({ size }: LogoProps) {
+  const theme = useContext(ThemeContext);
   return (
     <StyledLogo size={size}>
       정주행
-      <Icon icon="run" size={size} />
+      <Icon icon="run" size={size} color={theme.colors.textBlue} />
       한국사
     </StyledLogo>
   );

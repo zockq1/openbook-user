@@ -11,7 +11,6 @@ const Box = styled.li`
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
   overflow: hidden;
 `;
