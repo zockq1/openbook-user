@@ -6,6 +6,7 @@ import SubPageLayout from "../../atoms/layout/SubPageLayout";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import { useState } from "react";
+import DescriptionBox from "../../unit/ui/main-box/DescriptionBox";
 
 function QuestionPage() {
   const [hover, setHover] = useState(0);
@@ -14,6 +15,12 @@ function QuestionPage() {
     <>
       <Mobile>
         <SubPageLayout>
+          <InfoBox
+            title="기출문제"
+            link="/question/mock-exam-list"
+            image={mock}
+            icon={<Icon icon="pen" size={22} />}
+          />
           <InfoBox
             title="퀴즈"
             link="/question/quiz-list"
@@ -26,17 +33,19 @@ function QuestionPage() {
             image={timeline}
             icon={<Icon icon="TIMELINE_QUESTION" size={22} />}
           />
-          <InfoBox
-            title="기출문제"
-            link="/question/mock-exam-list"
-            image={mock}
-            icon={<Icon icon="pen" size={22} />}
-          />
         </SubPageLayout>
       </Mobile>
 
       <Default>
         <SubPageLayout>
+          <InfoBox
+            title="기출문제"
+            link="/question/mock-exam-list"
+            image={mock}
+            icon={<Icon icon="pen" size={22} />}
+            hover={hover === 2}
+            setHover={() => setHover(2)}
+          />
           <InfoBox
             title="퀴즈"
             link="/question/quiz-list"
@@ -53,14 +62,7 @@ function QuestionPage() {
             hover={hover === 1}
             setHover={() => setHover(1)}
           />
-          <InfoBox
-            title="기출문제"
-            link="/question/mock-exam-list"
-            image={mock}
-            icon={<Icon icon="pen" size={22} />}
-            hover={hover === 2}
-            setHover={() => setHover(2)}
-          />
+          <DescriptionBox></DescriptionBox>
         </SubPageLayout>
       </Default>
     </>
