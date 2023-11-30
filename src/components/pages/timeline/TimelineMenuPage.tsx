@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
 import { MenuModel } from "../../../types/commonTypes";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +9,7 @@ import Icon from "../../atoms/icon/Icon";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
@@ -87,10 +86,10 @@ function TimelineMenuPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

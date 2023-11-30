@@ -7,7 +7,7 @@ const ScoreContainer = styled.div`
   padding: ${({ theme }) => theme.padding.small};
   padding-bottom: 50px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
@@ -31,7 +31,7 @@ const Progress = styled.div`
   height: 20px;
   width: calc(100% - 24px);
   background: ${({ theme }) => theme.colors.bg};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
 `;
 
 const Load = keyframes`

@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
   & > button:not(:last-child) {
-    border-right: 2px solid ${({ theme }) => theme.colors.textBlue};
+    border-right: 1px solid ${({ theme }) => theme.colors.lightGrey};
   }
 `;
 

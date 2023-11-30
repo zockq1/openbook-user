@@ -1,12 +1,11 @@
 import { useGetExamQuery } from "../../../store/api/questionApi";
 import useQuesryString from "../../../hooks/useQueryString";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import WrongNote from "../../unit/question/presenter/WrongNote.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function WrongExamPage() {
   const { round } = useQuesryString();
@@ -48,10 +47,10 @@ function WrongExamPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="question" category={`${round}회 기출문제 오답노트`} />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

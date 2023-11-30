@@ -1,8 +1,6 @@
 import { useGetBookmarkedTopicQuery } from "../../../store/api/jjhApi";
 import { MenuModel } from "../../../types/commonTypes";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
@@ -11,6 +9,7 @@ import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presente
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function BookmarkPage() {
   const {
@@ -80,13 +79,13 @@ function BookmarkPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TOPIC_STUDY" category="북마크" />
-      <MainContentLayout>
+      <ContentLayout>
         <KeywordToggleButton topic comment keyword />
         {renderContent()}
-      </MainContentLayout>
-    </Layout>
+      </ContentLayout>
+    </>
   );
 }
 

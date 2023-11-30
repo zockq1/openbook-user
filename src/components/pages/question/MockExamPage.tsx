@@ -1,12 +1,11 @@
 import { useGetExamQuery } from "../../../store/api/questionApi";
 import useQuesryString from "../../../hooks/useQueryString";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Exam from "../../unit/question/presenter/Exam.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 function MockExamPage() {
   const { title, round } = useQuesryString();
   const {
@@ -43,10 +42,10 @@ function MockExamPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="question" category={title} />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

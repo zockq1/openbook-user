@@ -2,7 +2,6 @@ import bookmark from "../../../styles/images/bookmark.svg";
 import wrong from "../../../styles/images/wrong.svg";
 import search from "../../../styles/images/search.svg";
 import Icon from "../../atoms/icon/Icon";
-import Layout from "../../atoms/layout/Layout";
 import SubPageLayout from "../../atoms/layout/SubPageLayout";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
@@ -12,7 +11,7 @@ import { Default, Mobile } from "../../atoms/layout/Responsive";
 function MyInfoPage() {
   const [hover, setHover] = useState(0);
   return (
-    <Layout>
+    <>
       <Mobile>
         <MainPageLayout>
           <InfoBox
@@ -64,7 +63,7 @@ function MyInfoPage() {
           />
         </SubPageLayout>
       </Default>
-    </Layout>
+    </>
   );
 }
 

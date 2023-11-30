@@ -10,13 +10,13 @@ const WrongQuestionList = styled.ul`
   position: relative;
   margin: ${({ theme }) => theme.margin.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
 
   & > li:not(:last-child) {
-    border-bottom: 2px solid ${({ theme }) => theme.colors.textBlue};
+    border-bottom: ${({ theme }) => theme.border.default};
   }
 `;
 

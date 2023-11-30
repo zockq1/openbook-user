@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import useQuesryString from "../../../hooks/useQueryString";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();
@@ -55,10 +54,10 @@ function TimelineQuestionPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

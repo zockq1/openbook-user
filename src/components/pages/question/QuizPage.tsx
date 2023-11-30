@@ -1,12 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetRandomQuestionQuery } from "../../../store/api/questionApi";
-import Layout from "../../atoms/layout/Layout";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -51,10 +50,10 @@ function QuizPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="question" category="퀴즈" />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

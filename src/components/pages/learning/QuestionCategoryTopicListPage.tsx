@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import Topic from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
@@ -13,6 +11,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function QustionCategoryTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -78,13 +77,13 @@ function QustionCategoryTopicListPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="questionSquare" category={title} />
-      <MainContentLayout>
+      <ContentLayout>
         <KeywordToggleButton keyword comment />
         {renderContent()}
-      </MainContentLayout>
-    </Layout>
+      </ContentLayout>
+    </>
   );
 }
 

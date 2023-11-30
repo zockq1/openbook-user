@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useLazyGetSearchQuery } from "../../../store/api/jjhApi";
-import Layout from "../../atoms/layout/Layout";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
 import Search from "../../unit/search/presenter/Search.presenter";
 import SearchResult from "../../unit/search/presenter/SearchResult.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function SearchPage() {
   const { search } = useQuesryString();
@@ -41,13 +40,13 @@ function SearchPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TOPIC_STUDY" category="검색" />
-      <MainContentLayout>
+      <ContentLayout>
         <Search />
         {renderContent()}
-      </MainContentLayout>
-    </Layout>
+      </ContentLayout>
+    </>
   );
 }
 

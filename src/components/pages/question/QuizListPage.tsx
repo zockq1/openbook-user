@@ -3,13 +3,12 @@ import { useGetQuestionCategoryListQuery } from "../../../store/api/questionApi"
 import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function QuizListPage() {
   const navigate = useNavigate();
@@ -99,10 +98,10 @@ function QuizListPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="questionSquare" category="퀴즈" />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

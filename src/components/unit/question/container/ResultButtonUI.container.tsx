@@ -9,7 +9,7 @@ const ButtonContainer = styled.div`
 
   margin: ${({ theme }) => theme.margin.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
 
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.large};
@@ -17,7 +17,7 @@ const ButtonContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
   & > button:not(:last-child) {
-    border-right: 2px solid ${({ theme }) => theme.colors.textBlue};
+    border: ${({ theme }) => theme.border.default};
   }
 `;
 

@@ -1,6 +1,4 @@
 import TitleBox from "../../unit/ui/TitleBox";
-import Layout from "../../atoms/layout/Layout";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import useQuesryString from "../../../hooks/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
@@ -8,6 +6,7 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import TimelineListUI from "../../unit/timeline/container/TimelineListUI.container";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function TimelinePage() {
   const { title, timelineId } = useQuesryString();
@@ -42,13 +41,13 @@ function TimelinePage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TIMELINE_STUDY" category={title} />
-      <MainContentLayout>
+      <ContentLayout>
         <KeywordToggleButton comment />
         {renderContent()}
-      </MainContentLayout>
-    </Layout>
+      </ContentLayout>
+    </>
   );
 }
 

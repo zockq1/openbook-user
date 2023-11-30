@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useGetChapterListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function LearningChapterListPage() {
   const navigate = useNavigate();
@@ -74,10 +73,10 @@ function LearningChapterListPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="CHAPTER_INFO" category="학습 자료 모음" />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 
