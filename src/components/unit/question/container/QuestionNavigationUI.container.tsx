@@ -6,6 +6,9 @@ import Icon from "../../../atoms/icon/Icon";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 767px) {
+    width: calc(100vw - 40px);
+  }
 `;
 
 const ResultContainer = styled.ul`
@@ -16,7 +19,7 @@ const ResultContainer = styled.ul`
   margin-left: 10px;
   padding: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 `;
@@ -28,11 +31,10 @@ const ExamNavigation = styled.ul`
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  width: 100%;
   margin: ${({ theme }) => theme.margin.base};
   padding: 5px 15px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 

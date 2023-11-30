@@ -17,7 +17,7 @@ const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
   max-height: ${({ isVisible }) => (isVisible ? "2000px" : "32px")};
   margin-bottom: ${({ isVisible }) => (isVisible ? "0" : "20px")};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   transition: all 0.2s ease-in-out;
   overflow: hidden;
 `;
@@ -36,13 +36,12 @@ const KeywordTitleContainer = styled.button`
   height: 30px;
   width: 100%;
 
-  border-bottom: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
   margin-bottom: 30px;
   padding-left: 50px;
 
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-family: "Giants-Regular";
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.textBlue};
 `;
 
@@ -51,10 +50,10 @@ const BookmarkContainer = styled.div<{ isVisible: boolean }>`
   width: 55px;
   height: 55px;
 
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   border-radius: ${({ isVisible }) =>
     isVisible ? "10px 0 10px 0" : "10px 0 10px 10px"};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.bg};
   transition: all 0.2s ease-in-out;
   z-index: 99;
 `;

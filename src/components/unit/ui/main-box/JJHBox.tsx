@@ -16,7 +16,6 @@ const Box = styled(Link)`
   margin: 8px;
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
 `;
@@ -64,7 +63,6 @@ const Progress = styled.div`
   height: 20px;
   width: calc(100% - 24px);
   background: ${({ theme }) => theme.colors.bg};
-  border: ${({ theme }) => theme.border.default};
   box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
 `;
 

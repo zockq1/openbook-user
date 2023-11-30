@@ -1,8 +1,9 @@
 import styled, { ThemeContext } from "styled-components";
 import Icon from "./Icon";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
-const StyledLogo = styled.div<LogoProps>`
+const StyledLogo = styled(Link)<LogoProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +22,7 @@ interface LogoProps {
 function Logo({ size }: LogoProps) {
   const theme = useContext(ThemeContext);
   return (
-    <StyledLogo size={size}>
+    <StyledLogo to="/" size={size}>
       정주행
       <Icon icon="run" size={size} color={theme.colors.textBlue} />
       한국사

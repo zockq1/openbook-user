@@ -26,13 +26,9 @@ const StyledTextBox = styled.div<TextBoxProps>`
       full: "100%",
     }[maxWidth] || "initial")};
 
-  background-color: ${({ theme, color }) =>
-    color === "blue" ? theme.colors.bgBlue : theme.colors.bgBlue};
-  color: ${({ theme, color }) =>
-    color === "blue" ? theme.colors.textBlue : theme.colors.textBlue};
-  border: 2px solid
-    ${({ theme, color }) =>
-      color === "blue" ? theme.colors.textBlue : theme.colors.textBlue};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textBlue};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;

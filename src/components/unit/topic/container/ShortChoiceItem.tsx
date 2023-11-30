@@ -27,13 +27,13 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   margin: 0;
   padding: 12px;
   border-radius: 10px;
-  border: 2px solid
+  border: 1px solid
     ${({ theme, isFinish, isCorrect }) =>
       isFinish
         ? isCorrect
           ? theme.colors.blue
           : theme.colors.red
-        : theme.colors.textBlue};
+        : theme.colors.lightGrey};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};

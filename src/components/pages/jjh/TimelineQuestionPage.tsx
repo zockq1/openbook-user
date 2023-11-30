@@ -2,15 +2,14 @@ import withAuth from "../../../hoc/withAuth";
 import useNextContent from "../../../hooks/useNextContent";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -59,10 +58,10 @@ function TimelineQuestionPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 export default withAuth(TimelineQuestionPage);

@@ -16,18 +16,24 @@ import { Content } from "../../../types/jjhTypes";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
-import MenuSkeletonUI from "../../unit/skeleton/MenuSkeletonUI";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function ContentListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
   const { chapterNumber, jjhNumber, timelineId, title } = useQuesryString();
-  const { data: contentList } = useGetContentListQuery(jjhNumber);
+  const {
+    data: contentList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetContentListQuery(jjhNumber);
   const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
   const [updateProgres] = useUpdateProgressMutation();
@@ -152,42 +158,43 @@ function ContentListPage() {
     topicList,
   ]);
 
-  if (menuList.length === 0) {
-    if (timelineId) {
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
       return (
-        <Layout>
-          <TitleBox icon="TIMELINE_QUESTION" category={title} />
-          <MainContentLayout>
-            <KeywordToggleButton comment />
-            <MenuSkeletonUI />
-          </MainContentLayout>
-        </Layout>
+        <ErrorUI
+          error={error}
+          message={`주제 목록 불러오기에 실패하였습니다.`}
+        />
       );
     }
 
-    return (
-      <Layout>
-        <TitleBox icon="TOPIC_STUDY" category={title} />
-        <MainContentLayout>
-          <KeywordToggleButton comment keyword />
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+    if (isSuccess && contentList.length === 0) {
+      return <EmptyUI message={`주제 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && contentList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="TOPIC_STUDY" category={title} />
-      <MainContentLayout>
+      <ContentLayout>
         {timelineId ? (
           <KeywordToggleButton comment />
         ) : (
           <KeywordToggleButton comment keyword />
         )}
-        <MenuUI menuList={menuList} />
-      </MainContentLayout>
-    </Layout>
+        {renderContent()}
+      </ContentLayout>
+    </>
   );
 }
 

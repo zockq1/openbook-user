@@ -1,36 +1,29 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import Header from "../../unit/ui/Header";
-import NavigationBar from "../../unit/ui/NavigationBar";
 import { Default, Mobile } from "./Responsive";
+import Header from "../../unit/ui/Header";
 
 interface LayoutProps {
   children?: ReactNode;
 }
 
 const StyledMainPageLayout = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  height: 100vh;
-  width: 100%;
   margin: 0 auto;
+  min-height: 100vh;
   //모바일
   @media (max-width: 767px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    padding-top: 98px;
-    padding-bottom: 8px;
-    margin-bottom: 100px;
+    width: 100vw;
+    padding: 60px 20px 20px;
   }
   //PC, 태블릿
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 2fr 2fr;
     max-width: 1200px;
     min-width: 768px;
-    max-height: 800px;
     padding: 20px;
-    padding-top: 100px;
+    padding: 100px 20px 20px;
   }
 
   .hover {
@@ -39,21 +32,27 @@ const StyledMainPageLayout = styled.div`
   }
 `;
 
-function SubPageLayout({ children }: LayoutProps) {
+const Content = styled.div`
+  @media (min-width: 768px) {
+    padding: 0 30%;
+    grid-column: 1/5;
+  }
+`;
+
+function ContentLayout({ children }: LayoutProps) {
   return (
     <>
-      <Mobile>
+      <Default>
         <Header />
-        <NavigationBar />
-      </Mobile>
+      </Default>
       <StyledMainPageLayout>
         <Default>
-          <Header />
+          <Content>{children}</Content>
         </Default>
-        {children}
+        <Mobile>{children}</Mobile>
       </StyledMainPageLayout>
     </>
   );
 }
 
-export default SubPageLayout;
+export default ContentLayout;

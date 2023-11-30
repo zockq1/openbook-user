@@ -78,7 +78,7 @@ const borderRadius = {
 };
 
 const border = {
-  default: `0px solid ${colors.textBlue}`,
+  default: `1px solid ${colors.lightGrey}`,
 };
 
 const deviceSizes = {

@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import MenuUI from "../../unit/common/container/MenuUI.container";
 import withAuth from "../../../hoc/withAuth";
 import { ThemeContext } from "styled-components";
@@ -11,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { useGetJJHListQuery } from "../../../store/api/jjhApi";
 import { JJHChapterModel, JJHTimelineModel } from "../../../types/jjhTypes";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
+import ErrorUI from "../../unit/skeleton/ErrorUI";
+import EmptyUI from "../../unit/skeleton/EmptyUI";
 
 interface JJHList extends MenuModel {
   jjhNumber: number;
@@ -19,7 +20,13 @@ interface JJHList extends MenuModel {
 function JJHListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { data: jjhList } = useGetJJHListQuery();
+  const {
+    data: jjhList,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetJJHListQuery();
   const [menuList, setMenuList] = useState<MenuModel[]>([]);
   useEffect(() => {
     if (!jjhList?.timelineList) {
@@ -138,24 +145,36 @@ function JJHListPage() {
     );
   }, [setMenuList, jjhList, navigate, theme]);
 
-  if (menuList.length === 0) {
-    return (
-      <Layout>
-        <TitleBox icon="run" category="정주행" />
-        <MainContentLayout>
-          <MenuSkeletonListUI />
-        </MainContentLayout>
-      </Layout>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <MenuSkeletonListUI />;
+    }
+
+    if (isError && error) {
+      return (
+        <ErrorUI
+          error={error}
+          message={`정주행 목록 불러오기에 실패하였습니다.`}
+        />
+      );
+    }
+
+    if (isSuccess && jjhList.chapterList.length === 0) {
+      return <EmptyUI message={`정주행 목록이 비었습니다.`} />;
+    }
+
+    if (isSuccess && jjhList.chapterList.length > 0) {
+      return <MenuUI menuList={menuList} />;
+    }
+
+    return null;
+  };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="run" category="정주행" />
-      <MainContentLayout>
-        <MenuUI menuList={menuList} />
-      </MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

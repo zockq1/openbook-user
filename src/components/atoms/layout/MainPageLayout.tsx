@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "../../unit/ui/Header";
 import NavigationBar from "../../unit/ui/NavigationBar";
 import { Default, Mobile } from "./Responsive";
-import LoginButton from "../button/LoginButton";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -26,11 +25,12 @@ const StyledMainPageLayout = styled.div`
   //PC, 태블릿
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 90px 3fr 2fr 2fr;
+    grid-template-rows: 3fr 2fr 2fr;
     max-width: 1200px;
     min-width: 768px;
-    max-height: 800px;
     padding: 20px;
+    padding-top: 100px;
+    max-height: 800px;
   }
 
   .hover {
@@ -49,8 +49,6 @@ function MainPageLayout({ children }: LayoutProps) {
       <StyledMainPageLayout>
         <Default>
           <Header />
-          <NavigationBar />
-          <LoginButton />
         </Default>
         {children}
       </StyledMainPageLayout>

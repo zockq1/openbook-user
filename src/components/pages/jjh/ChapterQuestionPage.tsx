@@ -3,13 +3,12 @@ import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../hooks/useQueryString";
 import useNextContent from "../../../hooks/useNextContent";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
-import Layout from "../../atoms/layout/Layout";
 import TitleBox from "../../unit/ui/TitleBox";
-import MainContentLayout from "../../atoms/layout/MainContentLayout";
 import Quiz from "../../unit/question/presenter/Quiz.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function ChapterQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -58,10 +57,10 @@ function ChapterQuestionPage() {
   };
 
   return (
-    <Layout>
+    <>
       <TitleBox icon="question" category={`${title} 마무리 문제`} />
-      <MainContentLayout>{renderContent()}</MainContentLayout>
-    </Layout>
+      <ContentLayout>{renderContent()}</ContentLayout>
+    </>
   );
 }
 

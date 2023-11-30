@@ -18,7 +18,7 @@ const StyledQuestionMenuItem = styled.div<{ color: string; total: boolean }>`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   border-radius: 10px;
   border: ${({ color, total, theme }) =>
-    total ? `5px solid ${color}` : `2px solid ${theme.colors.textBlue}`};
+    total ? `5px solid ${color}` : `1px solid ${theme.colors.lightGrey}`};
   overflow: hidden;
 
   strong {
@@ -53,12 +53,6 @@ const SubMenuItem = styled.div<{ color: string; important: boolean }>`
   background-color: ${({ color, theme }) =>
     color ? color : theme.colors.white};
   color: ${({ theme }) => theme.colors.white};
-  border-left: ${({ color, important, theme }) =>
-    !color
-      ? "0"
-      : important
-      ? `5px solid ${color}`
-      : `2px solid ${theme.colors.textBlue}`};
   line-height: 120%;
 `;
 

@@ -3,6 +3,7 @@ import { IconType } from "../../atoms/icon/Icon";
 import BackButton from "../../atoms/button/BackButton";
 import { useContext } from "react";
 import HomeButton from "../../atoms/button/HomeButton";
+import { Mobile } from "../../atoms/layout/Responsive";
 
 interface TitleBoxProps {
   icon: IconType | undefined | null;
@@ -38,11 +39,13 @@ const Title = styled.span`
 const TitleBox = ({ icon, category }: TitleBoxProps) => {
   const theme = useContext(ThemeContext);
   return (
-    <StyledTitleBox>
-      <BackButton color={theme.colors.textBlue} />
-      <Title>{category}</Title>
-      <HomeButton color={theme.colors.textBlue} />
-    </StyledTitleBox>
+    <Mobile>
+      <StyledTitleBox>
+        <BackButton color={theme.colors.textBlue} />
+        <Title>{category}</Title>
+        <HomeButton color={theme.colors.textBlue} />
+      </StyledTitleBox>
+    </Mobile>
   );
 };
 

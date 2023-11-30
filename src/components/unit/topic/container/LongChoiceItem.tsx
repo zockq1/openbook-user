@@ -13,6 +13,7 @@ interface AnswerCheckProps {
 interface ChoiceProps {
   handleChoiceClick: (checkboxId: string) => void;
   handleCheckboxChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  index: number;
   choiceKey: string;
   choice: string;
   isCorrect: boolean;
@@ -23,19 +24,20 @@ interface ChoiceProps {
 
 const LongChoice = styled.div<AnswerCheckProps>`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: max-content;
   margin: ${({ theme }) => theme.margin.base};
-  padding: 0 0 0 12px;
+  padding: 0 12px 0 12px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid
+  border: 1px solid
     ${({ theme, isFinish, isCorrect }) =>
       isFinish
         ? isCorrect
           ? theme.colors.blue
           : theme.colors.red
-        : theme.colors.textBlue};
+        : theme.colors.lightGrey};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
@@ -64,6 +66,7 @@ function LongChoiceItem({
   isFinish,
   selectedCheckbox,
   examCommentList,
+  index,
 }: ChoiceProps) {
   return (
     <>
@@ -72,6 +75,9 @@ function LongChoiceItem({
         isFinish={isFinish}
         isCorrect={isCorrect}
       >
+        <LongComment isFinish={isFinish} isCorrect={isCorrect}>
+          {`${index + 1}. ${choice}`}
+        </LongComment>
         <CheckBoxInput
           choiceKey={choiceKey}
           handleCheckboxChange={(e) => handleChoiceClick(e.target.id)}
@@ -82,9 +88,6 @@ function LongChoiceItem({
           isCorrect={isCorrect}
           isFinish={isFinish}
         />
-        <LongComment isFinish={isFinish} isCorrect={isCorrect}>
-          {choice}
-        </LongComment>
       </LongChoice>
       {examCommentList && isFinish && (
         <LongComment isFinish={isFinish} isCorrect={isCorrect}>

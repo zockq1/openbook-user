@@ -22,6 +22,10 @@ interface LineProps {
   height: number;
 }
 
+const Container = styled.div`
+  height: 90%;
+`;
+
 const Line = styled.div<LineProps>`
   position: absolute;
   background-color: ${({ theme }) => theme.colors.textBlue};
@@ -58,10 +62,14 @@ const PlayedItemPlaceBox = styled.div`
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 190px);
+
+  @media (min-width: 768px) {
+    height: calc(100vh - 390px);
+  }
   width: 100%;
   padding: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   margin-top: 10px;
 
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
@@ -70,15 +78,21 @@ const PlayedItemPlaceBox = styled.div`
 
 const Box = styled.div`
   position: absolute;
-  bottom: 68px;
+  bottom: 32px;
   left: 15px;
+  @media (min-width: 768px) {
+    width: 400px;
+    left: 50%;
+    bottom: 192px;
+    transform: translate(-50%, 0);
+  }
   height: 60px;
   width: calc(100% - 30px);
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   z-index: 0;
 `;
 
@@ -97,7 +111,7 @@ function TimelineQuestionUI({
   }, []);
 
   return (
-    <>
+    <Container>
       <StyledTimelineQuestion>
         {dateList.length !== 0 && isMounted && (
           <DragDropContext onDragEnd={onDragEnd}>
@@ -184,7 +198,7 @@ function TimelineQuestionUI({
           </DragDropContext>
         )}
       </StyledTimelineQuestion>
-    </>
+    </Container>
   );
 }
 

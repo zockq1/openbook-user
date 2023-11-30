@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
+import NavigationBar from "./NavigationBar";
 const MobileHeaderContainer = styled.header`
   display: flex;
   position: fixed;
@@ -14,8 +15,20 @@ const MobileHeaderContainer = styled.header`
 `;
 
 const DefualtHeader = styled.header`
-  display: flex;
-  padding: ${({ theme }) => theme.padding.large};
+  position: fixed;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 100%;
+  height: 100px;
+  max-width: 1200px;
+  min-width: 768px;
+  padding: 20px;
+  margin: 0 auto;
+  z-index: 999;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  background-color: ${({ theme }) => theme.colors.bg};
 `;
 
 function Header() {
@@ -30,6 +43,8 @@ function Header() {
       <Default>
         <DefualtHeader>
           <Logo size={30} />
+          <NavigationBar />
+          <LoginButton />
         </DefualtHeader>
       </Default>
     </>

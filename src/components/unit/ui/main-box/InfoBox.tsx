@@ -14,7 +14,6 @@ const Box = styled(Link)`
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
 `;

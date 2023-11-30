@@ -12,7 +12,7 @@ const MenuItem = styled.li`
   margin: ${({ theme }) => theme.margin.base};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   border-radius: 10px;
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   background-color: ${({ theme }) => theme.colors.white};
   .react-loading-skeleton {
   }
@@ -26,7 +26,6 @@ const MenuLabel = styled.div`
   height: 50px;
   padding: 1px;
   border-radius: ${({ theme }) => theme.borderRadius.xs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.bg};
 `;
 

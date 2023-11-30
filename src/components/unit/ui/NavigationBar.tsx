@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const StyledNavigationBar = styled.nav`
   display: grid;
   place-items: center;
-  grid-column: 2/4;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   @media (min-width: 768px) {
     width: 400px;

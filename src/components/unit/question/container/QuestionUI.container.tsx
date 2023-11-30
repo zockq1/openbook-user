@@ -20,11 +20,14 @@ const Description = styled.ul`
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
-  min-height: calc((100vh - 540px));
+  min-height: 300px;
+  @media (max-width: 767px) {
+    min-height: calc((100vh - 540px));
+  }
   margin: ${({ theme }) => theme.margin.base};
   padding: ${({ theme }) => theme.padding.small};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
@@ -102,6 +105,7 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
                   choice={item.choice}
                   isFinish={isFinish}
                   selectedCheckbox={checkedChoiceKey}
+                  index={index}
                 />
                 {item.commentList.length > 0 && (
                   <CommentUI
