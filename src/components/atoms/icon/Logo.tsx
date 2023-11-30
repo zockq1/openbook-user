@@ -6,9 +6,11 @@ const StyledLogo = styled.div<LogoProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: max-content;
   font-size: ${({ size }) => `${size}px`};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-family: "Giants-Inline";
+  font-family: "Giants-Regular";
+  font-style: italic;
   color: ${({ theme }) => theme.colors.textBlue};
 `;
 

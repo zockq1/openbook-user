@@ -7,37 +7,37 @@ import Text from "../../../atoms/text/Text";
 import calculateGradientColor from "../../../../service/calculateGradientColor";
 import useCountAnimation from "../../../../hooks/useCountAnimation";
 
-const Box = styled.li`
+const Box = styled(Link)`
   position: relative;
-  min-width: 100%;
-  height: calc((100vh - 184px) / 2 - 20px);
-  margin: ${({ theme }) => theme.margin.base};
+  @media (min-width: 768px) {
+    grid-column: 1/3;
+  }
   padding: ${({ theme }) => theme.padding.base};
+  margin: 8px;
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
 `;
-
-const InnerBox = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
 const BoxImage = styled.img`
   position: absolute;
   height: 80%;
-  top: 50%;
+  max-width: 68%;
+  bottom: 10px;
   right: 12px;
-  transform: translateY(-50%);
 `;
 
 const BoxTitle = styled.div`
   display: flex;
   align-items: center;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.textBlue};
+
+  @media (min-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.xxxl};
+  }
 `;
 
 const Percentage = styled.div`
@@ -48,6 +48,9 @@ const Percentage = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: 60px;
   color: ${({ theme }) => theme.colors.textBlue};
+  @media (min-width: 768px) {
+    font-size: 90px;
+  }
 `;
 
 const Progress = styled.div`
@@ -61,7 +64,8 @@ const Progress = styled.div`
   height: 20px;
   width: calc(100% - 24px);
   background: ${({ theme }) => theme.colors.bg};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
+  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
 `;
 
 const Load = keyframes`
@@ -87,34 +91,39 @@ interface LargeBoxProps {
   image: string;
   link: string;
   title: string;
+  hover?: boolean;
+  setHover?: () => void;
 }
 
-function JJHBox({ percentage, image, link, title }: LargeBoxProps) {
+function JJHBox({
+  percentage,
+  image,
+  link,
+  title,
+  hover = false,
+  setHover,
+}: LargeBoxProps) {
   const theme = useContext(ThemeContext);
   const count = useCountAnimation(0, percentage);
 
   return (
-    <Box>
-      <Link to={link}>
-        <InnerBox>
-          <BoxTitle>
-            <MenuLabelBox state="Open">
-              {<Icon icon="run" size={22} />}
-            </MenuLabelBox>
-            &nbsp;&nbsp;{title}
-          </BoxTitle>
-          <BoxImage src={image} alt={title + " 이미지"} />
-          <Percentage>
-            <Text size={theme.fontSizes.base} margin="5px 0">
-              진행도
-            </Text>
-            <span className="number-count">{count}%</span>
-          </Percentage>
-          <Progress>
-            <Bar percentage={percentage} />
-          </Progress>
-        </InnerBox>
-      </Link>
+    <Box to={link} onMouseEnter={setHover} className={hover ? "hover" : ""}>
+      <BoxTitle>
+        <MenuLabelBox state="Open">
+          {<Icon icon="run" size={22} />}
+        </MenuLabelBox>
+        &nbsp;&nbsp;{title}
+      </BoxTitle>
+      <BoxImage src={image} alt={title + " 이미지"} />
+      <Percentage>
+        <Text size={theme.fontSizes.xl} margin="5px 0">
+          진행도
+        </Text>
+        <span className="number-count">{count}%</span>
+      </Percentage>
+      <Progress>
+        <Bar percentage={percentage} />
+      </Progress>
     </Box>
   );
 }

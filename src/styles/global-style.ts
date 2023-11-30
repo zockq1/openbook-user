@@ -5,6 +5,8 @@ export const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
   background-color: #f2f5f9;
+  font-family: "Spoqa Han Sans Neo"
+  //background-color: #101A28
 }
 a{
     text-decoration: none;
@@ -48,9 +50,6 @@ button {
   background: rgba(255, 255, 255, 0.3);
 }
 
-body{
-  font-family: 'Nanum Gothic', sans-serif;
-}
 
 @media screen and (min-width:1024px) {
   body {

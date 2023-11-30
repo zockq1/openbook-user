@@ -8,12 +8,9 @@ const StyledUserBox = styled.div`
   grid-template-columns: 100px 20px 1fr 20px;
   place-items: center;
   position: relative;
-  width: 100%;
-  height: 120px;
-  margin: ${({ theme }) => theme.margin.base};
+  margin: 8px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;

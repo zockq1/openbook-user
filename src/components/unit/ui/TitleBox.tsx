@@ -21,9 +21,8 @@ const StyledTitleBox = styled.div`
 
   padding: 15px 24px;
   margin-bottom: 10px;
-  border-radius: 0 0 15px 15px;
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
-  //box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
 
   background-color: ${({ theme }) => theme.colors.white};
 

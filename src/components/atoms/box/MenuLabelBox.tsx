@@ -19,7 +19,8 @@ const StyledChapterNumber = styled.div<StateProps>`
   width: 50px;
   height: 50px;
   border-radius: ${({ theme }) => theme.borderRadius.xs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
+  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: ${({ theme }) => theme.colors.bg};

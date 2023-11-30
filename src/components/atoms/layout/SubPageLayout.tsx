@@ -18,7 +18,7 @@ const StyledMainPageLayout = styled.div`
   //모바일
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 3fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
     padding-top: 98px;
     padding-bottom: 8px;
     margin-bottom: 100px;
@@ -26,7 +26,7 @@ const StyledMainPageLayout = styled.div`
   //PC, 태블릿
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 90px 3fr 2fr 2fr;
+    grid-template-rows: 90px 2fr 2fr 2fr;
     max-width: 1200px;
     min-width: 768px;
     max-height: 800px;
@@ -39,7 +39,7 @@ const StyledMainPageLayout = styled.div`
   }
 `;
 
-function MainPageLayout({ children }: LayoutProps) {
+function SubPageLayout({ children }: LayoutProps) {
   return (
     <>
       <Mobile>
@@ -58,4 +58,4 @@ function MainPageLayout({ children }: LayoutProps) {
   );
 }
 
-export default MainPageLayout;
+export default SubPageLayout;

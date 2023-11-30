@@ -1,26 +1,38 @@
 import styled from "styled-components";
 import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
-
-const StyledHeader = styled.header`
-  top: 0;
-  left: 0;
-  width: 100%;
+import { Default, Mobile } from "../../atoms/layout/Responsive";
+const MobileHeaderContainer = styled.header`
   display: flex;
+  position: fixed;
+  width: 100%;
+  height: 45px;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding.large};
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 0 0 25px 25px;
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
   z-index: 100;
+`;
+
+const DefualtHeader = styled.header`
+  display: flex;
+  padding: ${({ theme }) => theme.padding.large};
 `;
 
 function Header() {
   return (
-    <StyledHeader>
-      <Logo size={24} />
-      <LoginButton />
-    </StyledHeader>
+    <>
+      <Mobile>
+        <MobileHeaderContainer>
+          <Logo size={18} />
+          <LoginButton />
+        </MobileHeaderContainer>
+      </Mobile>
+      <Default>
+        <DefualtHeader>
+          <Logo size={30} />
+        </DefualtHeader>
+      </Default>
+    </>
   );
 }
 

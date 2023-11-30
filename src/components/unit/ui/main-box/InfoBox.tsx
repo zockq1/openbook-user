@@ -3,29 +3,29 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 
-const Box = styled.li`
+const Box = styled(Link)`
   position: relative;
-  width: 100%;
-  height: calc((100vh - 184px) / 4 - 20px);
-  margin: ${({ theme }) => theme.margin.base};
+  @media (min-width: 768px) {
+    grid-column: 1/3;
+  }
+  display: flex;
+  justify-content: start;
+  margin: 8px;
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => theme.border.default};
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
 `;
 
-const InnerBox = styled.div`
-  display: flex;
-  justify-content: start;
-  width: 100%;
-  height: 100%;
-`;
-
 const BoxImage = styled.img`
-  height: 100%;
-  width: 100%;
-  float: right;
+  position: absolute;
+  height: 80%;
+  width: 40%;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 24px;
 `;
 
 interface QuizBoxProps {
@@ -33,41 +33,38 @@ interface QuizBoxProps {
   link: string;
   title: string;
   icon: ReactNode;
+  hover?: boolean;
+  setHover?: () => void;
 }
 
 const Description = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   width: 100%;
-  margin: 17px 5px 5px 10px;
-
-  & > .title {
-    color: ${({ theme }) => theme.colors.textBlue};
-    font-size: ${({ theme }) => theme.fontSizes.small};
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-  }
-
-  & > .sub {
-    display: flex;
-    align-items: center;
-    color: ${({ theme }) => theme.colors.textBlue};
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    font-weight: ${({ theme }) => theme.fontWeight.medium};
+  height: 50px;
+  color: ${({ theme }) => theme.colors.textBlue};
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  @media (min-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.xxxl};
   }
 `;
 
-function InfoBox({ image, link, title, icon }: QuizBoxProps) {
+function InfoBox({
+  image,
+  link,
+  title,
+  icon,
+  hover = false,
+  setHover,
+}: QuizBoxProps) {
   return (
-    <Box>
-      <Link to={link}>
-        <InnerBox>
-          <MenuLabelBox state="Open">{icon}</MenuLabelBox>
-          <Description>
-            <span className="title">{title}</span>
-          </Description>
-          <BoxImage src={image} alt={title + " 이미지"} />
-        </InnerBox>
-      </Link>
+    <Box to={link} onMouseEnter={setHover} className={hover ? "hover" : ""}>
+      <Description>
+        <MenuLabelBox state="Open">{icon}</MenuLabelBox>
+        &nbsp;&nbsp;{title}
+      </Description>
+      <BoxImage src={image} alt={title + " 이미지"} />
     </Box>
   );
 }

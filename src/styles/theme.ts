@@ -24,7 +24,7 @@ const fontWeight = {
 };
 
 const colors = {
-  white: "#fff",
+  white: "#fefcfc",
   black: "#000",
   lightGrey: "#DCDCDC",
   grey: "#818BA0",
@@ -47,7 +47,8 @@ const colors = {
   bg: "#f2f5f9",
 
   bgBlue: "#e0f2ff",
-  textBlue: "#000066",
+  textBlue: "#101A28",
+  //textBlue: "#000066",
 };
 
 const shadow = {
@@ -77,7 +78,7 @@ const borderRadius = {
 };
 
 const border = {
-  default: `1px solid ${colors.lightGrey}`,
+  default: `0px solid ${colors.textBlue}`,
 };
 
 const deviceSizes = {

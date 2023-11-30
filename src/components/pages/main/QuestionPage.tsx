@@ -1,42 +1,69 @@
-import { RowList } from "../../atoms/layout/List";
-import Header from "../../unit/ui/Header";
-import NavigationBar from "../../unit/ui/NavigationBar";
 import mock from "../../../styles/images/mock.svg";
 import quiz from "../../../styles/images/quiz.svg";
 import timeline from "../../../styles/images/timeline.svg";
-import QuestionBox from "../../unit/ui/main-box/QuestionBox";
 import Icon from "../../atoms/icon/Icon";
-import Layout from "../../atoms/layout/Layout";
-import MainPageLayout from "../../atoms/layout/MainPageLayout";
+import SubPageLayout from "../../atoms/layout/SubPageLayout";
+import InfoBox from "../../unit/ui/main-box/InfoBox";
+import { Default, Mobile } from "../../atoms/layout/Responsive";
+import { useState } from "react";
 
 function QuestionPage() {
+  const [hover, setHover] = useState(0);
+
   return (
-    <Layout>
-      <Header />
-      <MainPageLayout>
-        <RowList>
-          <QuestionBox
+    <>
+      <Mobile>
+        <SubPageLayout>
+          <InfoBox
             title="퀴즈"
             link="/question/quiz-list"
             image={quiz}
             icon={<Icon icon="question" size={22} />}
-          ></QuestionBox>
-          <QuestionBox
+          />
+          <InfoBox
             title="연표 문제"
             link="/question/timeline-list"
             image={timeline}
             icon={<Icon icon="TIMELINE_QUESTION" size={22} />}
-          ></QuestionBox>
-          <QuestionBox
+          />
+          <InfoBox
             title="기출문제"
             link="/question/mock-exam-list"
             image={mock}
             icon={<Icon icon="pen" size={22} />}
-          ></QuestionBox>
-        </RowList>
-      </MainPageLayout>
-      <NavigationBar />
-    </Layout>
+          />
+        </SubPageLayout>
+      </Mobile>
+
+      <Default>
+        <SubPageLayout>
+          <InfoBox
+            title="퀴즈"
+            link="/question/quiz-list"
+            image={quiz}
+            icon={<Icon icon="question" size={22} />}
+            hover={hover === 0}
+            setHover={() => setHover(0)}
+          />
+          <InfoBox
+            title="연표 문제"
+            link="/question/timeline-list"
+            image={timeline}
+            icon={<Icon icon="TIMELINE_QUESTION" size={22} />}
+            hover={hover === 1}
+            setHover={() => setHover(1)}
+          />
+          <InfoBox
+            title="기출문제"
+            link="/question/mock-exam-list"
+            image={mock}
+            icon={<Icon icon="pen" size={22} />}
+            hover={hover === 2}
+            setHover={() => setHover(2)}
+          />
+        </SubPageLayout>
+      </Default>
+    </>
   );
 }
 
