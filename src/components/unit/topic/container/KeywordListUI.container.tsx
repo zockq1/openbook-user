@@ -94,6 +94,7 @@ function KeywordListUI({
         <TimelineListUI
           dateList={keywordList
             .filter((keyword) => !!keyword.dateComment)
+            .sort((a, b) => a.number - b.number)
             .map((keyword, index) => {
               return {
                 date: keyword.dateComment,
