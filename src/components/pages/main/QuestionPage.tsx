@@ -6,7 +6,6 @@ import SubPageLayout from "../../atoms/layout/SubPageLayout";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import { useState } from "react";
-import DescriptionBox from "../../unit/ui/main-box/DescriptionBox";
 
 function QuestionPage() {
   const [hover, setHover] = useState(0);
@@ -62,7 +61,6 @@ function QuestionPage() {
             hover={hover === 1}
             setHover={() => setHover(1)}
           />
-          <DescriptionBox></DescriptionBox>
         </SubPageLayout>
       </Default>
     </>

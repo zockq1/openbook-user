@@ -31,6 +31,7 @@ const StyledTextBox = styled.div<TextBoxProps>`
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
+  word-break: keep-all;
   z-index: 1;
   -webkit-user-select: none;
   -moz-user-select: none;

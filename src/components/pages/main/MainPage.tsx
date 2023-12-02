@@ -11,7 +11,6 @@ import NavigationBar from "../../unit/ui/NavigationBar";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
 import Icon from "../../atoms/icon/Icon";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
-import DescriptionBox from "../../unit/ui/main-box/DescriptionBox";
 
 function Main() {
   const [getProgressTriger, { data: progress }] =
@@ -77,7 +76,6 @@ function Main() {
             hover={hover === 2}
             setHover={() => setHover(2)}
           />
-          <DescriptionBox></DescriptionBox>
         </MainPageLayout>
       </Default>
     </>

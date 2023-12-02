@@ -24,8 +24,8 @@ const StyledMainPageLayout = styled.div`
   }
   //PC, 태블릿
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr;
     max-width: 1200px;
     min-width: 768px;
     padding: 20px;

@@ -6,7 +6,7 @@ import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 const Box = styled(Link)`
   position: relative;
   @media (min-width: 768px) {
-    grid-column: 1/2;
+    grid-column: 2/4;
   }
   display: flex;
   justify-content: start;

@@ -10,7 +10,7 @@ import useCountAnimation from "../../../../hooks/useCountAnimation";
 const Box = styled(Link)`
   position: relative;
   @media (min-width: 768px) {
-    grid-row: 1/3;
+    grid-column: 2/4;
   }
   padding: ${({ theme }) => theme.padding.base};
   margin: 8px;

@@ -7,7 +7,6 @@ import InfoBox from "../../unit/ui/main-box/InfoBox";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
 import { useState } from "react";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
-import DescriptionBox from "../../unit/ui/main-box/DescriptionBox";
 
 function MyInfoPage() {
   const [hover, setHover] = useState(0);
@@ -62,7 +61,6 @@ function MyInfoPage() {
             hover={hover === 2}
             setHover={() => setHover(2)}
           />
-          <DescriptionBox></DescriptionBox>
         </SubPageLayout>
       </Default>
     </>
