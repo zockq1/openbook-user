@@ -1,4 +1,3 @@
-import withAuth from "../../../hoc/withAuth";
 import useNextContent from "../../../hooks/useNextContent";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
@@ -69,4 +68,4 @@ function TimelineQuestionPage() {
     </>
   );
 }
-export default withAuth(TimelineQuestionPage);
+export default TimelineQuestionPage;

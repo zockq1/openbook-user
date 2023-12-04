@@ -25,9 +25,9 @@ const StyledTextBox = styled.div<TextBoxProps>`
 
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   word-break: keep-all;
   z-index: 1;
   -webkit-user-select: none;

@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 const StyledSettingBox = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column: 2/4;
+  @media (min-width: 768px) {
+    grid-column: 2/4;
+  }
   grid-row: 2/4;
   margin: 8px;
   height: max-content;

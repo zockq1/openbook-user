@@ -18,24 +18,24 @@ const Keyword = styled.div<{ isCommentOn: boolean }>`
   width: ${({ isCommentOn }) => (isCommentOn ? "100%" : "")};
 `;
 
-const Badge = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  z-index: 10;
-  width: 20px;
-  height: 20px;
-  top: -9px;
-  left: -7px;
-  padding: 5px;
-  border-radius: 100%;
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
-  background-color: ${({ theme }) => theme.colors.bg};
-  color: ${({ theme }) => theme.colors.textBlue};
-  font-size: ${({ theme }) => theme.fontSizes.xxs};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
+// const Badge = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: absolute;
+//   z-index: 10;
+//   width: 20px;
+//   height: 20px;
+//   top: -9px;
+//   left: -7px;
+//   padding: 5px;
+//   border-radius: 100%;
+//   border: 2px solid ${({ theme }) => theme.colors.textBlue};
+//   background-color: ${({ theme }) => theme.colors.bg};
+//   color: ${({ theme }) => theme.colors.textBlue};
+//   font-size: ${({ theme }) => theme.fontSizes.xxs};
+//   font-weight: ${({ theme }) => theme.fontWeight.bold};
+// `;
 
 const Image = styled.img`
   max-width: 100px;
@@ -47,11 +47,11 @@ function KeywordUI({
   isCommentOn,
   onCommentToggle,
 }: KeywordCommentBoxProps) {
-  const { name, comment, questionList, file } = keyword;
+  const { name, comment, file } = keyword;
 
   return (
     <Keyword isCommentOn={comment ? isCommentOn : false}>
-      {questionList.length !== 0 && <Badge>{questionList.length}</Badge>}
+      {/* {questionList.length !== 0 && <Badge>{questionList.length}</Badge>} */}
       <TextBox
         maxWidth="full"
         shadow={false}

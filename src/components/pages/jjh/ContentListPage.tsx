@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
-import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../hooks/useQueryString";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import getContentName from "../../../service/getContentName";
@@ -198,4 +197,4 @@ function ContentListPage() {
   );
 }
 
-export default withAuth(ContentListPage);
+export default ContentListPage;

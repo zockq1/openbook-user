@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import withAuth from "../../../hoc/withAuth";
 import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import { useNavigate } from "react-router-dom";
@@ -178,4 +177,4 @@ function JJHListPage() {
   );
 }
 
-export default withAuth(JJHListPage);
+export default JJHListPage;

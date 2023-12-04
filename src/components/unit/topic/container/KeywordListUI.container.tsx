@@ -41,7 +41,7 @@ const KeywordTitleContainer = styled.button`
   padding-left: 50px;
 
   font-size: ${({ theme }) => theme.fontSizes.small};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.textBlue};
 `;
@@ -73,9 +73,7 @@ function KeywordListUI({
       </BookmarkContainer>
       <KeywordListWrapper isVisible={isKeywordOn}>
         <KeywordTitleContainer onClick={onKeywordToggle}>
-          {`${isKeywordOn ? "▼" : "▶"} ${topicTitle} 키워드 (${
-            keywordList.length
-          })`}
+          {`${isKeywordOn ? "▼" : "▶"}키워드 목록(${keywordList.length})`}
         </KeywordTitleContainer>
         <KeywordList>
           {keywordList

@@ -1,5 +1,4 @@
 import { useGetKtoTQuestionQuery } from "../../../store/api/questionApi";
-import withAuth from "../../../hoc/withAuth";
 import useQuesryString from "../../../hooks/useQueryString";
 import useNextContent from "../../../hooks/useNextContent";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
@@ -69,4 +68,4 @@ function ChapterQuestionPage() {
   );
 }
 
-export default withAuth(ChapterQuestionPage);
+export default ChapterQuestionPage;
