@@ -10,10 +10,13 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
   const [updateProgres] = useUpdateProgressMutation();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const { timelineId, title, jjhNumber, contentNumber } = useQuesryString();
   const {
     data: dateList,
@@ -49,7 +52,9 @@ function TimelineQuestionPage() {
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
           id={timelineId}
-          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+          onFinish={() =>
+            isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 })
+          }
         />
       );
     }

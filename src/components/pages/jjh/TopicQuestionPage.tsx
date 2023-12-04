@@ -9,9 +9,12 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 function TopicQuestionPage() {
   const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const { handleNextContent } = useNextContent();
   const {
     data: TtoKQuestionList,
@@ -47,7 +50,9 @@ function TopicQuestionPage() {
         <Quiz
           quizList={TtoKQuestionList}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+          onFinish={() =>
+            isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 })
+          }
           isJJH
         />
       );

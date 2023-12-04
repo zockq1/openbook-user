@@ -9,6 +9,8 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 function ChapterQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -23,6 +25,7 @@ function ChapterQuestionPage() {
     refetchOnMountOrArgChange: true,
   });
   const [updateProgres] = useUpdateProgressMutation();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const renderContent = () => {
     if (isLoading) {
@@ -47,7 +50,9 @@ function ChapterQuestionPage() {
         <Quiz
           quizList={KtoTQuestionList}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-          onFinish={() => updateProgres({ contentNumber: contentNumber + 1 })}
+          onFinish={() =>
+            isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 })
+          }
           isJJH
         />
       );
