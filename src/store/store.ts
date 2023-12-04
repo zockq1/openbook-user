@@ -9,6 +9,7 @@ import { authApi } from "./api/authApi";
 import { questionApi } from "./api/questionApi";
 import { timelineApi } from "./api/timelineApi";
 import { jjhApi } from "./api/jjhApi";
+import { withdrawalApi } from "./api/withdrawalApi";
 
 const persistConfig = {
   key: "root",
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   [questionApi.reducerPath]: questionApi.reducer,
   [timelineApi.reducerPath]: timelineApi.reducer,
   [jjhApi.reducerPath]: jjhApi.reducer,
+  [withdrawalApi.reducerPath]: withdrawalApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -42,7 +44,8 @@ export const store = configureStore({
       authApi.middleware,
       questionApi.middleware,
       timelineApi.middleware,
-      jjhApi.middleware
+      jjhApi.middleware,
+      withdrawalApi.middleware
     ),
 });
 

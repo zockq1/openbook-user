@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { logout } from "../../../../store/slices/authSlice";
 import ReactModal from "react-modal";
 import { useState } from "react";
-import { useWithdrawalMutation } from "../../../../store/api/authApi";
+import { useWithdrawalMutation } from "../../../../store/api/withdrawalApi";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../../store/store";
+import { useSelector } from "react-redux";
 
 const StyledSettingBox = styled.div`
   display: flex;
@@ -92,6 +94,7 @@ const customModalStyles: ReactModal.Styles = {
 
 function SettingBox() {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [withdrawal] = useWithdrawalMutation();
   const dispatch = useDispatch();
 
@@ -112,8 +115,14 @@ function SettingBox() {
   };
 
   const handleWithdrawal = async () => {
-    await withdrawal();
-    handleLogout();
+    try {
+      await withdrawal().unwrap();
+      dispatch(logout());
+      alert("회원 탈퇴 되었습니다.");
+      navigate("/");
+    } catch (error) {
+      alert("회원 탈퇴에 실패했습니다.");
+    }
   };
 
   return (
@@ -122,30 +131,34 @@ function SettingBox() {
       <Bar />
       <SettingItem>업데이트 목록</SettingItem>
       <Bar />
-      <SettingItem>데이터 초기화</SettingItem>
-      <Bar />
-      <SettingItem onClick={handleLogout}>로그아웃</SettingItem>
-      <Bar />
       <SettingItem>개인전보 처리방침</SettingItem>
       <Bar />
       <SettingItem>이용 약관</SettingItem>
       <Bar />
-      <SettingItem onClick={openModal}>회원 탈퇴</SettingItem>
-      <ReactModal
-        isOpen={modalOpen}
-        onRequestClose={closeModal}
-        style={customModalStyles}
-        ariaHideApp={false}
-        contentLabel="Pop up Message"
-      >
-        <Title>정말 탈퇴하시겠습니까?</Title>
-        <Description>
-          회원 탈퇴 버튼 선택 시 계정은
-          <br /> 즉시 삭제되며 복구되지 않습니다.
-        </Description>
-        <DeleteButton onClick={handleWithdrawal}>탈퇴</DeleteButton>
-        <CancelButton onClick={closeModal}>취소</CancelButton>
-      </ReactModal>
+      {isLoggedIn && (
+        <>
+          <SettingItem onClick={handleLogout}>로그아웃</SettingItem>
+          <Bar />
+          <SettingItem>데이터 초기화</SettingItem>
+          <Bar />
+          <SettingItem onClick={openModal}>회원 탈퇴</SettingItem>
+          <ReactModal
+            isOpen={modalOpen}
+            onRequestClose={closeModal}
+            style={customModalStyles}
+            ariaHideApp={false}
+            contentLabel="Pop up Message"
+          >
+            <Title>정말 탈퇴하시겠습니까?</Title>
+            <Description>
+              회원 탈퇴 버튼 선택 시 계정은
+              <br /> 즉시 삭제되며 복구되지 않습니다.
+            </Description>
+            <DeleteButton onClick={handleWithdrawal}>탈퇴</DeleteButton>
+            <CancelButton onClick={closeModal}>취소</CancelButton>
+          </ReactModal>
+        </>
+      )}
     </StyledSettingBox>
   );
 }
