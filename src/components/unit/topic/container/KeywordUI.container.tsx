@@ -37,12 +37,17 @@ const Badge = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
+const Image = styled.img`
+  max-width: 100px;
+  max-height: 100px;
+`;
+
 function KeywordUI({
   keyword,
   isCommentOn,
   onCommentToggle,
 }: KeywordCommentBoxProps) {
-  const { name, comment, questionList } = keyword;
+  const { name, comment, questionList, file } = keyword;
 
   return (
     <Keyword isCommentOn={comment ? isCommentOn : false}>
@@ -53,7 +58,8 @@ function KeywordUI({
         color="bgBlue"
         onClick={!comment ? () => {} : onCommentToggle}
       >
-        {`${name}`}
+        <Image src={file} />
+        <div>{name}</div>
       </TextBox>
       {comment && (
         <CommentUI

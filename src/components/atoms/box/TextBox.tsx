@@ -11,9 +11,6 @@ interface TextBoxProps {
 }
 
 const StyledTextBox = styled.div<TextBoxProps>`
-  display: flex;
-  align-items: center;
-
   padding: ${({ theme }) => theme.padding.small};
   margin: ${({ margin }) => margin};
 
@@ -39,6 +36,13 @@ const StyledTextBox = styled.div<TextBoxProps>`
   user-select: none;
 `;
 
+const Item = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 function TextBox({
   children,
   maxWidth,
@@ -55,7 +59,7 @@ function TextBox({
       color={color}
       onClick={onClick}
     >
-      <div style={{ width: "max-content" }}>{children}</div>
+      <Item style={{ width: "max-content" }}>{children}</Item>
     </StyledTextBox>
   );
 }

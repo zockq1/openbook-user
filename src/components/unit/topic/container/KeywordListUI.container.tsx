@@ -79,14 +79,7 @@ function KeywordListUI({
         </KeywordTitleContainer>
         <KeywordList>
           {keywordList
-            .filter((keyword) => !keyword.comment && !keyword.dateComment)
-            .map((keyword, index) => (
-              <Keyword key={index} keyword={keyword} />
-            ))}
-        </KeywordList>
-        <KeywordList>
-          {keywordList
-            .filter((keyword) => !!keyword.comment && !keyword.dateComment)
+            .filter((keyword) => !keyword.dateComment)
             .map((keyword, index) => (
               <Keyword key={index} keyword={keyword} />
             ))}

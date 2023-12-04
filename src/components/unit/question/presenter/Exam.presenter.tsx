@@ -179,24 +179,36 @@ const createQuestion = (question: ExamModel): QuestionModel => {
       let keyword = `${keywordName}${
         keywordDateComment ? `(${keywordDateComment}): ` : ``
       }`;
-      if (acc.find((item) => item.comment === topic)) {
-        let findIndex = acc.findIndex((item) => item.comment === topic);
 
-        if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
-          acc[findIndex + 1].comment += ", " + keyword;
-        }
-      } else {
-        acc.push({
-          comment: topic,
-          icon: <Icon icon="description" size={12} />,
-          type: "Topic",
-        });
-        acc.push({
-          comment: keyword,
-          icon: <Icon icon="key" size={12} />,
-          type: "Keyword",
-        });
-      }
+      // if (acc.find((item) => item.comment === topic)) {
+      //   let findIndex = acc.findIndex((item) => item.comment === topic);
+
+      //   if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
+      //     acc[findIndex + 1].comment += ", " + keyword;
+      //   }
+      // } else {
+      //   acc.push({
+      //     comment: topic,
+      //     icon: <Icon icon="description" size={12} />,
+      //     type: "Topic",
+      //   });
+      //   acc.push({
+      //     comment: keyword,
+      //     icon: <Icon icon="key" size={12} />,
+      //     type: "Keyword",
+      //   });
+      // }
+
+      acc.push({
+        comment: topic,
+        icon: <Icon icon="description" size={12} />,
+        type: "Topic",
+      });
+      acc.push({
+        comment: keyword,
+        icon: <Icon icon="key" size={12} />,
+        type: "Keyword",
+      });
 
       keywordComment &&
         acc.push({
