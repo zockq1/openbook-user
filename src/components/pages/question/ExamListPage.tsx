@@ -32,7 +32,6 @@ function ExamListPage() {
     setMenuList([
       ...[...examList]
         .sort((a, b) => a.number - b.number)
-        .filter((exam) => exam.number === 64)
         .map((exam, index, arr) => {
           const { number, score } = exam;
 
