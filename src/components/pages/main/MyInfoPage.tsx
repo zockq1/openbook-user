@@ -4,7 +4,6 @@ import search from "../../../styles/images/search.svg";
 import Icon from "../../atoms/icon/Icon";
 import SubPageLayout from "../../atoms/layout/SubPageLayout";
 import InfoBox from "../../unit/ui/main-box/InfoBox";
-import MainPageLayout from "../../atoms/layout/MainPageLayout";
 import { useState } from "react";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 
@@ -13,7 +12,7 @@ function MyInfoPage() {
   return (
     <>
       <Mobile>
-        <MainPageLayout>
+        <SubPageLayout>
           <InfoBox
             title="북마크"
             link="/my-info/bookmark"
@@ -32,7 +31,7 @@ function MyInfoPage() {
             image={search}
             icon={<Icon icon="search" size={22} />}
           />
-        </MainPageLayout>
+        </SubPageLayout>
       </Mobile>
 
       <Default>
