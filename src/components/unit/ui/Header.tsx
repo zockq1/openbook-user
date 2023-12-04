@@ -3,6 +3,7 @@ import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import NavigationBar from "./NavigationBar";
+import { useEffect, useState } from "react";
 const MobileHeaderContainer = styled.header`
   display: flex;
   position: fixed;
@@ -19,7 +20,7 @@ const DefualtHeader = styled.header`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   width: 100%;
-  height: 100px;
+  height: 60px;
   max-width: 1200px;
   min-width: 768px;
   padding: 20px;

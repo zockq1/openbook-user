@@ -47,8 +47,8 @@ const Transparent = styled.div`
 const Date = styled.div`
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.small};
-  text-align: right;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  text-align: center;
 `;
 
 const CommentContainer = styled.div`
