@@ -3,7 +3,7 @@ import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import NavigationBar from "./NavigationBar";
-import { useEffect, useState } from "react";
+
 const MobileHeaderContainer = styled.header`
   display: flex;
   position: fixed;
@@ -25,7 +25,7 @@ const DefualtHeader = styled.header`
   min-width: 768px;
   padding: 20px;
   margin: 0 auto;
-  z-index: 999;
+  z-index: 10;
   left: 50%;
   transform: translate(-50%, 0);
 

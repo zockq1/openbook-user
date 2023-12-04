@@ -7,7 +7,7 @@ const StyledUserBox = styled.div`
   display: grid;
   grid-template-columns: 100px 20px 1fr 20px;
   place-items: center;
-  grid-column: 1/3;
+  grid-column: 2/4;
   position: relative;
   margin: 8px;
   padding: ${({ theme }) => theme.padding.base};

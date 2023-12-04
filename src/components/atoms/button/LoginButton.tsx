@@ -11,8 +11,8 @@ const StyledLogin = styled.button`
   align-items: center;
   width: max-content;
   margin-left: auto;
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme }) => theme.fontSizes.large};
+  font-weight: ${({ theme }) => theme.fontWeight.light};
+  font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
 function LoginButton() {
@@ -25,7 +25,6 @@ function LoginButton() {
       aria-label={isLoggedIn ? "user" : "login"}
       onClick={() => navigate(isLoggedIn ? "/option" : "/login")}
     >
-      {isLoggedIn ? "" : "로그인"} &nbsp;
       <Icon
         icon={isLoggedIn ? "user" : "login"}
         size={25}

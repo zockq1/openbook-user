@@ -23,7 +23,20 @@ export const authApi = createApi({
         };
       },
     }),
+
+    withdrawal: builder.mutation<void, void>({
+      query: () => {
+        return {
+          url: `/customers`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetKakaoTokenQuery, useLazyGetKakaoTokenQuery } = authApi;
+export const {
+  useGetKakaoTokenQuery,
+  useLazyGetKakaoTokenQuery,
+  useWithdrawalMutation,
+} = authApi;
