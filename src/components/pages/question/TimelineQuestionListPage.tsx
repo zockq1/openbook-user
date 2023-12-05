@@ -9,6 +9,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
+import withAuth from "../../../hoc/withAuth";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
@@ -108,4 +109,4 @@ function TimelineQuestionListPage() {
   );
 }
 
-export default TimelineQuestionListPage;
+export default withAuth(TimelineQuestionListPage);

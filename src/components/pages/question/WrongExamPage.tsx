@@ -6,6 +6,7 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import withAuth from "../../../hoc/withAuth";
 
 function WrongExamPage() {
   const { round } = useQuesryString();
@@ -54,4 +55,4 @@ function WrongExamPage() {
   );
 }
 
-export default WrongExamPage;
+export default withAuth(WrongExamPage);

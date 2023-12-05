@@ -9,6 +9,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import withAuth from "../../../hoc/withAuth";
 
 const Label = styled.div`
   display: flex;
@@ -94,4 +95,4 @@ function WrongExamListPage() {
   );
 }
 
-export default WrongExamListPage;
+export default withAuth(WrongExamListPage);

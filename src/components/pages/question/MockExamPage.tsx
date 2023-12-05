@@ -6,6 +6,7 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import withAuth from "../../../hoc/withAuth";
 function MockExamPage() {
   const { title, round } = useQuesryString();
   const {
@@ -49,4 +50,4 @@ function MockExamPage() {
   );
 }
 
-export default MockExamPage;
+export default withAuth(MockExamPage);

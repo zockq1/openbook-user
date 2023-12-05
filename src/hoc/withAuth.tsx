@@ -10,7 +10,7 @@ const withAuth =
     useEffect(() => {
       if (!isLoggedIn) {
         alert("로그인 후 이용 가능합니다.");
-        navigate("/");
+        navigate(-1);
       }
     }, [isLoggedIn, navigate]);
 

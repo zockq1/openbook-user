@@ -23,6 +23,8 @@ import Icon from "../../../atoms/icon/Icon";
 import QuizScore from "./QuizScore.presenter";
 import UpdateScoreUI from "../container/UpdateScoreUI.container";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/store";
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -217,6 +219,7 @@ function Quiz({
   onFinish,
   isJJH = false,
 }: QuestionProps) {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [updateKeywordWrongCount, { data: updateScoreList }] =
     useUpdateKeywordWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
@@ -290,7 +293,8 @@ function Quiz({
           correctCount: value.correctCount,
         });
       });
-      await updateKeywordWrongCount(newKeywordList);
+
+      isLoggedIn && (await updateKeywordWrongCount(newKeywordList));
 
       if (Math.ceil(questionList.length * 0.8) <= score) {
         onFinish && onFinish();

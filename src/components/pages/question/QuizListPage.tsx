@@ -9,6 +9,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import withAuth from "../../../hoc/withAuth";
 
 function QuizListPage() {
   const navigate = useNavigate();
@@ -105,4 +106,4 @@ function QuizListPage() {
   );
 }
 
-export default QuizListPage;
+export default withAuth(QuizListPage);

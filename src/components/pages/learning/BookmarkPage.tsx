@@ -10,6 +10,7 @@ import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import withAuth from "../../../hoc/withAuth";
 
 function BookmarkPage() {
   const {
@@ -89,4 +90,4 @@ function BookmarkPage() {
   );
 }
 
-export default BookmarkPage;
+export default withAuth(BookmarkPage);

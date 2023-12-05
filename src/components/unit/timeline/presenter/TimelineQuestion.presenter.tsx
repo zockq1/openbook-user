@@ -5,6 +5,8 @@ import { TimeLineItemModel } from "../../../../types/timelinetypes";
 import TimelineQuestionUI from "../container/TimelineQuestionUI.container";
 import ResultButtonUI from "../../question/container/ResultButtonUI.container";
 import TimelineScore from "./TimelineScore.presenter";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/store";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -78,6 +80,7 @@ function TimelineQuestion({
   id,
   onFinish,
 }: TimelineQuestionProps) {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [updateTimelineWrongCounter] = useUpdateTimelineWrongCounterMutation();
   const [state, dispatch] = useReducer(reducer, {
     playedDateList: [dateList[0]],
@@ -97,16 +100,24 @@ function TimelineQuestion({
 
   useEffect(() => {
     if (isFinish) {
-      updateTimelineWrongCounter({
-        id: id,
-        wrongCount: wrongCount,
-        correctCount: 10,
-      });
+      isLoggedIn &&
+        updateTimelineWrongCounter({
+          id: id,
+          wrongCount: wrongCount,
+          correctCount: 10,
+        });
       if (wrongCount <= 2) {
         onFinish && onFinish();
       }
     }
-  }, [isFinish, updateTimelineWrongCounter, wrongCount, id, onFinish]);
+  }, [
+    isFinish,
+    updateTimelineWrongCounter,
+    wrongCount,
+    id,
+    onFinish,
+    isLoggedIn,
+  ]);
 
   const handleDragEnd = async (result: DropResult) => {
     const { destination } = result;
