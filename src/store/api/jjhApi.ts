@@ -48,7 +48,10 @@ export const jjhApi = createApi({
       query: (chapter) => `/chapters/${chapter}/topics`,
       providesTags: ["Bookmark"],
     }),
-    getQuestionCategoryTopicList: builder.query<TopicListModel[], number>({
+    getQuestionCategoryTopicList: builder.query<
+      BookmarkedTopicListModel[],
+      number
+    >({
       query: (id) => `/question-categories/${id}/topics`,
       providesTags: ["Bookmark"],
     }),

@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import Topic from "../../unit/topic/presenter/KeywordList.presenter";
-import { ThemeContext } from "styled-components";
 import Icon from "../../atoms/icon/Icon";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
@@ -12,9 +9,10 @@ import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
+import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
 
 function QustionCategoryTopicListPage() {
-  const theme = useContext(ThemeContext);
   const { timelineId: id, title } = useQuesryString();
   const {
     data: topicList,
@@ -23,33 +21,6 @@ function QustionCategoryTopicListPage() {
     isSuccess,
     error,
   } = useGetQuestionCategoryTopicListQuery(id);
-  const [menuList, setMenuList] = useState<MenuModel[]>([]);
-
-  useEffect(() => {
-    if (!topicList) {
-      return;
-    }
-
-    let newMenu: MenuModel[] = [...topicList].map((item) => {
-      const { title, category, dateComment } = item;
-      const result: MenuModel = {
-        type: "Base",
-        title: title,
-        icon: <Icon icon={category} size={22} />,
-        description: `${dateComment}`,
-        content: (
-          <Topic
-            keywordList={item.keywordList}
-            isBookmarked={item.isBookmarked}
-            topicTitle={item.title}
-          />
-        ),
-      };
-      return result;
-    });
-
-    setMenuList(newMenu);
-  }, [setMenuList, topicList, theme]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -70,7 +41,46 @@ function QustionCategoryTopicListPage() {
     }
 
     if (isSuccess && topicList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return (
+        <>
+          {topicList.map((chapter) => {
+            const { topicList, chapterTitle } = chapter;
+            let newMenu: MenuModel[] = [...topicList].map((item) => {
+              const {
+                title,
+                category,
+                dateComment,
+                keywordList,
+                isBookmarked,
+              } = item;
+              const result: MenuModel = {
+                type: "Base",
+                title: title,
+                icon: <Icon icon={category} size={22} />,
+                description: `${dateComment}`,
+                content: (
+                  <KeywordList
+                    keywordList={keywordList}
+                    topicTitle={title}
+                    isBookmarked={isBookmarked}
+                  />
+                ),
+              };
+              return result;
+            });
+
+            return (
+              <BookmarkChapter
+                chapterTitle={chapterTitle}
+                topicCount={topicList.length}
+                key={chapterTitle}
+              >
+                <MenuUI menuList={newMenu} />
+              </BookmarkChapter>
+            );
+          })}
+        </>
+      );
     }
 
     return null;
