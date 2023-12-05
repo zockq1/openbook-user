@@ -25,6 +25,7 @@ import BookmarkPage from "./components/pages/learning/BookmarkPage";
 import WrongExamPage from "./components/pages/question/WrongExamPage";
 import WrongExamListPage from "./components/pages/question/WrongExamListPage";
 import SearchPage from "./components/pages/learning/SearchPage";
+import NaverRedirectPage from "./components/pages/main/NaverRedirectPage";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path: "/oauth/kakao/login",
         element: <LoginLoadingRedirectPage />,
+      },
+      {
+        path: "/oauth/naver/login",
+        element: <NaverRedirectPage />,
       },
       {
         path: "jeong-ju-haeng/content/final-question",

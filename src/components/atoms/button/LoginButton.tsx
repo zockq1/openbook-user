@@ -141,7 +141,14 @@ function LoginButton() {
               <LogginImage src={kakao} alt="kakao-login" />
             </LogginImageBackground>
           </Link>
-          <Link to={""} replace={true}>
+          <Link
+            to={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
+              process.env.REACT_APP_NAVER_KEY
+            }&state=${"state"}&redirect_uri=${
+              process.env.REACT_APP_URL
+            }/oauth/naver/login`}
+            replace={true}
+          >
             <LogginImageBackground color="#2DBA2D" borderColor="#00A800">
               <LogginImage src={naver} alt="naver-login" />
             </LogginImageBackground>
