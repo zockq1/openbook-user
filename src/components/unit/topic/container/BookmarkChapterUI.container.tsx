@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 const ChapterTitle = styled.button`
+  width: 100%;
   margin: ${({ theme }) => theme.margin.base};
   margin-bottom: 0;
   padding: ${({ theme }) => theme.padding.base};
