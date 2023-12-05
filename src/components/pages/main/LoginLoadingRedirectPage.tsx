@@ -28,7 +28,8 @@ const LoginLoadingRedirectPage = () => {
       dispatch(setRefreshToken(data.refreshToken));
       dispatch(setId(data.id));
       dispatch(login());
-      navigate("/", { replace: true });
+      if (data.isNew) navigate("/policy-agree", { replace: true });
+      else navigate("/", { replace: true });
     }
   }, [data, dispatch, navigate]);
 

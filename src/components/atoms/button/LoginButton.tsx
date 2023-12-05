@@ -74,11 +74,13 @@ const LogginImageBackground = styled.div<{
   color: string;
   borderColor: string;
 }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 45px;
   width: 45px;
   background-color: ${({ color }) => color};
   border: 1px solid ${({ borderColor }) => borderColor};
-  padding: 10px;
   border-radius: 50%;
   margin: 5px;
 `;

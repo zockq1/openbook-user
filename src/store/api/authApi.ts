@@ -13,11 +13,12 @@ export const authApi = createApi({
     >({
       query: ({ code, local, protocol }) =>
         `${process.env.REACT_APP_API_URL}login/kakao?code=${code}&url=${local}&protocol=${protocol}`,
-      transformResponse: (response: { id: string }, meta) => {
+      transformResponse: (response: { id: string; isNew: boolean }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");
         return {
           id: response.id,
+          isNew: response.isNew,
           accessToken: accessToken || "",
           refreshToken: refreshToken || "",
         };
@@ -30,11 +31,12 @@ export const authApi = createApi({
     >({
       query: ({ code, local, protocol }) =>
         `${process.env.REACT_APP_API_URL}login/naver?code=${code}&url=${local}&protocol=${protocol}`,
-      transformResponse: (response: { id: string }, meta) => {
+      transformResponse: (response: { id: string; isNew: boolean }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");
         return {
           id: response.id,
+          isNew: response.isNew,
           accessToken: accessToken || "",
           refreshToken: refreshToken || "",
         };
@@ -47,11 +49,12 @@ export const authApi = createApi({
     >({
       query: ({ code, local, protocol }) =>
         `${process.env.REACT_APP_API_URL}login/apple?code=${code}&url=${local}&protocol=${protocol}`,
-      transformResponse: (response: { id: string }, meta) => {
+      transformResponse: (response: { id: string; isNew: boolean }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");
         return {
           id: response.id,
+          isNew: response.isNew,
           accessToken: accessToken || "",
           refreshToken: refreshToken || "",
         };
@@ -64,11 +67,12 @@ export const authApi = createApi({
     >({
       query: ({ code, local, protocol }) =>
         `${process.env.REACT_APP_API_URL}login/kakao?code=${code}&url=${local}&protocol=${protocol}`,
-      transformResponse: (response: { id: string }, meta) => {
+      transformResponse: (response: { id: string; isNew: boolean }, meta) => {
         const accessToken = meta?.response?.headers.get("Authorization");
         const refreshToken = meta?.response?.headers.get("Refresh-Token");
         return {
           id: response.id,
+          isNew: response.isNew,
           accessToken: accessToken || "",
           refreshToken: refreshToken || "",
         };

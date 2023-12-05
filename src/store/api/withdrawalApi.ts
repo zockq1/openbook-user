@@ -13,7 +13,29 @@ export const withdrawalApi = createApi({
         };
       },
     }),
+
+    resetUserData: builder.mutation<any, void>({
+      query: () => {
+        return {
+          url: `/customers/reset`,
+          method: "DELETE",
+        };
+      },
+    }),
+
+    policyAgree: builder.mutation<any, void>({
+      query: () => {
+        return {
+          url: `/customers/policy-agree`,
+          method: "PATCH",
+        };
+      },
+    }),
   }),
 });
 
-export const { useWithdrawalMutation } = withdrawalApi;
+export const {
+  useWithdrawalMutation,
+  useResetUserDataMutation,
+  usePolicyAgreeMutation,
+} = withdrawalApi;
