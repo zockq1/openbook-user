@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useResetUserDataMutation } from "../../../store/api/withdrawalApi";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ReactModal from "react-modal";
 
@@ -67,7 +66,6 @@ const SettingItem = styled.button`
 `;
 
 function ResetButton() {
-  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [resetUserData] = useResetUserDataMutation();
 
@@ -82,8 +80,9 @@ function ResetButton() {
   const handleWithdrawal = async () => {
     try {
       await resetUserData().unwrap();
+      window.localStorage.clear();
+      window.location.replace("/");
       alert("데이터 초기화 되었습니다.");
-      navigate("/");
     } catch (error) {
       alert("데이터 초기화에 실패했습니다.");
     }

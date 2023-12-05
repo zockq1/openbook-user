@@ -16,11 +16,14 @@ const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
-  const { data, isLoading, isError, error } = useGetKakaoTokenQuery({
-    code: code ? code : "",
-    local: `${process.env.REACT_APP_IP}/oauth/kakao/login`,
-    protocol: `${process.env.REACT_APP_PROTOCOL}`,
-  });
+  const { data, isLoading, isError, error } = useGetKakaoTokenQuery(
+    {
+      code: code ? code : "",
+      local: `${process.env.REACT_APP_IP}/oauth/kakao/login`,
+      protocol: `${process.env.REACT_APP_PROTOCOL}`,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   useEffect(() => {
     if (data) {

@@ -85,6 +85,7 @@ function WithdrawalButton() {
   const handleWithdrawal = async () => {
     try {
       await withdrawal().unwrap();
+      window.localStorage.clear();
       dispatch(logout());
       alert("회원 탈퇴 되었습니다.");
       navigate("/");

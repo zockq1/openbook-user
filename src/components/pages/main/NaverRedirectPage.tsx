@@ -16,12 +16,14 @@ const NaverRedirectPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
-  const { data, isLoading, isError, error } = useGetNaverTokenQuery({
-    code: code ? code : "",
-    local: `${process.env.REACT_APP_IP}/oauth/naver/login`,
-    protocol: `${process.env.REACT_APP_PROTOCOL}`,
-  });
-  console.log("네이버");
+  const { data, isLoading, isError, error } = useGetNaverTokenQuery(
+    {
+      code: code ? code : "",
+      local: `${process.env.REACT_APP_IP}/oauth/naver/login`,
+      protocol: `${process.env.REACT_APP_PROTOCOL}`,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   useEffect(() => {
     if (data) {
