@@ -38,7 +38,7 @@ function LearningTopicListPage() {
       const result: MenuModel = {
         type: "Base",
         title: title,
-        icon: <Icon icon={category} size={22} />,
+        icon: category,
         description: `${dateComment}`,
         content: (
           <KeywordList

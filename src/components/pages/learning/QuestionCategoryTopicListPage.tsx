@@ -1,7 +1,6 @@
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
 import MenuUI from "../../unit/common/container/MenuUI.container";
-import Icon from "../../atoms/icon/Icon";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
@@ -56,7 +55,7 @@ function QustionCategoryTopicListPage() {
               const result: MenuModel = {
                 type: "Base",
                 title: title,
-                icon: <Icon icon={category} size={22} />,
+                icon: category,
                 description: `${dateComment}`,
                 content: (
                   <KeywordList
