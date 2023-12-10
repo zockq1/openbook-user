@@ -3,6 +3,9 @@ import LoginButton from "../../atoms/button/LoginButton";
 import Logo from "../../atoms/icon/Logo";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import NavigationBar from "./NavigationBar";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import UserButton from "../../atoms/button/UserButton";
 
 const MobileHeaderContainer = styled.header`
   display: flex;
@@ -10,7 +13,7 @@ const MobileHeaderContainer = styled.header`
   width: 100%;
   height: 45px;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.padding.large};
+  padding: ${({ theme }) => theme.padding.base};
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 100;
 `;
@@ -18,12 +21,13 @@ const MobileHeaderContainer = styled.header`
 const DefualtHeader = styled.header`
   position: fixed;
   display: grid;
+  place-items: center;
   grid-template-columns: 1fr 2fr 1fr;
   width: 100%;
   height: 60px;
   max-width: 1200px;
   min-width: 768px;
-  padding: 20px;
+  padding: 15px;
   margin: 0 auto;
   z-index: 10;
   left: 50%;
@@ -33,19 +37,21 @@ const DefualtHeader = styled.header`
 `;
 
 function Header() {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   return (
     <>
       <Mobile>
         <MobileHeaderContainer>
           <Logo size={18} />
-          <LoginButton />
+          {isLoggedIn ? <UserButton /> : <LoginButton />}
         </MobileHeaderContainer>
       </Mobile>
       <Default>
         <DefualtHeader>
           <Logo size={30} />
           <NavigationBar />
-          <LoginButton />
+          {isLoggedIn ? <UserButton /> : <LoginButton />}
         </DefualtHeader>
       </Default>
     </>

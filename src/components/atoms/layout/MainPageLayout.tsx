@@ -29,12 +29,15 @@ const StyledMainPageLayout = styled.div`
     max-width: 1200px;
     min-width: 768px;
     padding: 20px;
-    padding-top: 100px;
+    padding-top: 70px;
   }
 
   .hover {
     outline: 3px solid ${({ theme }) => theme.colors.textBlue};
     transition: 0.05s ease-in-out;
+  }
+
+  & > div {
   }
 `;
 

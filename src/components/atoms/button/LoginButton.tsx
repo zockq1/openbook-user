@@ -17,10 +17,6 @@ const StyledLogin = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: max-content;
-  margin-left: auto;
-  font-weight: ${({ theme }) => theme.fontWeight.light};
-  font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
 const customModalStyles: ReactModal.Styles = {
@@ -100,11 +96,10 @@ const CloseButton = styled.button`
 
 function LoginButton() {
   const theme = useContext(ThemeContext);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
-    !isLoggedIn && setModalOpen(true);
+    setModalOpen(true);
   };
 
   const closeModal = () => {
@@ -113,15 +108,8 @@ function LoginButton() {
 
   return (
     <>
-      <StyledLogin
-        aria-label={isLoggedIn ? "user" : "login"}
-        onClick={openModal}
-      >
-        <Icon
-          icon={isLoggedIn ? "user" : "login"}
-          size={25}
-          color={theme.colors.textBlue}
-        />
+      <StyledLogin aria-label="login" onClick={openModal}>
+        <Icon icon="login" size={25} color={theme.colors.textBlue} />
       </StyledLogin>
       <ReactModal
         isOpen={modalOpen}
