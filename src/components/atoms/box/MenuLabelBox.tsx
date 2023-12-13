@@ -16,19 +16,24 @@ const StyledChapterNumber = styled.div<StateProps>`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 50px;
+  min-width: 50px;
   height: 50px;
-  border-radius: ${({ theme }) => theme.borderRadius.xs};
-  box-shadow: inset ${({ theme }) => theme.shadow.defaultShadow};
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme, state }) =>
     state === "Locked"
       ? theme.colors.red
-      : state === "Open" || state === "Complete" || state === "InProgress"
+      : state === "Complete"
+      ? theme.colors.green
+      : state === "InProgress"
+      ? theme.colors.blue
+      : state === "Open"
       ? theme.colors.textBlue
       : state};
+
+  @media (max-width: 767px) {
+    font-size: ${({ theme }) => theme.fontSizes.xxl};
+  }
 `;
 
 function MenuLabelBox({ state, children }: ChapterNumberProps) {

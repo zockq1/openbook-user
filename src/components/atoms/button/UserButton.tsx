@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import styled, { ThemeContext } from "styled-components";
 import Icon from "../icon/Icon";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/slices/authSlice";
 
@@ -29,7 +28,6 @@ const Popover = styled.button`
 
 function UserButton() {
   const theme = useContext(ThemeContext);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
   const popoverRef = useRef<HTMLDivElement | null>(null);
@@ -37,7 +35,7 @@ function UserButton() {
   const handleLogout = () => {
     dispatch(logout());
     alert("로그아웃 되었습니다.");
-    navigate("/");
+    window.location.replace("/");
   };
 
   const handleClick = () => {

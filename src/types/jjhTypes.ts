@@ -25,6 +25,7 @@ export interface JJHChapterModel {
 }
 
 export interface JJHTimelineModel {
+  title: string;
   era: string;
   startDate: number;
   endDate: number;

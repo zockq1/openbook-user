@@ -28,7 +28,7 @@ const StyledTitleBox = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
 
   color: ${({ theme }) => theme.colors.textBlue};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.fontWeight.light};
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 

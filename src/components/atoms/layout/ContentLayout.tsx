@@ -11,8 +11,8 @@ const StyledMainPageLayout = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 0 auto;
   min-height: 100vh;
+  margin: 0 auto;
   //모바일
   @media (max-width: 767px) {
     width: 100vw;
@@ -20,10 +20,9 @@ const StyledMainPageLayout = styled.div`
   }
   //PC, 태블릿
   @media (min-width: 768px) {
-    max-width: 1200px;
+    max-width: 1680px;
     min-width: 768px;
-    padding: 20px;
-    padding: 100px 20px 20px;
+    padding: 100px 50px 20px 50px;
   }
 
   .hover {
@@ -34,7 +33,7 @@ const StyledMainPageLayout = styled.div`
 
 const Content = styled.div`
   @media (min-width: 768px) {
-    padding: 0 30%;
+    padding: 0 50px;
     grid-column: 1/5;
   }
 `;

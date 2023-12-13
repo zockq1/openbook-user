@@ -1,7 +1,4 @@
 import styled, { ThemeContext } from "styled-components";
-
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 import Icon from "../icon/Icon";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";

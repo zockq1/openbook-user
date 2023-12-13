@@ -88,7 +88,7 @@ export type IconType =
 interface Iconprops {
   icon: IconType;
   color?: string;
-  size?: number;
+  size?: number | string;
 }
 
 function Icon({ icon, size, color = "inherit" }: Iconprops) {

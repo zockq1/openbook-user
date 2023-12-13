@@ -42,7 +42,7 @@ function SettingBox() {
   const handleLogout = () => {
     dispatch(logout());
     alert("로그아웃 되었습니다.");
-    navigate("/");
+    window.location.replace("/");
   };
 
   return (

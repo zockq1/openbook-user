@@ -23,9 +23,8 @@ const DefualtHeader = styled.header`
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 2fr 1fr;
-  width: 100%;
+  width: 100vw;
   height: 60px;
-  max-width: 1200px;
   min-width: 768px;
   padding: 15px;
   margin: 0 auto;
