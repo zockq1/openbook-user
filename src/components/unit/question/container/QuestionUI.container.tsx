@@ -24,13 +24,17 @@ const Description = styled.ul`
   @media (max-width: 767px) {
     min-height: calc((100vh - 540px));
   }
-  margin: ${({ theme }) => theme.margin.base};
+  margin: 5px 0;
   padding: ${({ theme }) => theme.padding.small};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: ${({ theme }) => theme.border.default};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    margin: 5px;
+  }
 `;
 
 const Image = styled.img`
@@ -67,32 +71,34 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
 
   return (
     <>
-      <Description>
-        {questionType === "Exam" ? (
-          <img
-            style={{ width: "100%", height: "auto" }}
-            src={descriptionList[0]}
-            alt=""
+      <div>
+        <Description>
+          {questionType === "Exam" ? (
+            <img
+              style={{ width: "100%", height: "auto" }}
+              src={descriptionList[0]}
+              alt=""
+            />
+          ) : (
+            <>
+              <Image src={image} />
+              {descriptionList.map((item) => {
+                return (
+                  <TextBox maxWidth="full" key={item}>
+                    {item}
+                  </TextBox>
+                );
+              })}
+            </>
+          )}
+        </Description>
+        {descriptionCommentList.length > 0 && (
+          <CommentUI
+            isCommentOpen={isFinish}
+            commentList={descriptionCommentList}
           />
-        ) : (
-          <>
-            <Image src={image} />
-            {descriptionList.map((item) => {
-              return (
-                <TextBox maxWidth="full" key={item}>
-                  {item}
-                </TextBox>
-              );
-            })}
-          </>
         )}
-      </Description>
-      {descriptionCommentList.length > 0 && (
-        <CommentUI
-          isCommentOpen={isFinish}
-          commentList={descriptionCommentList}
-        />
-      )}
+      </div>
       {choiceType === "String" ? (
         <>
           <ColumnList>

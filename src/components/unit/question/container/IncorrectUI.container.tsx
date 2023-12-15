@@ -6,6 +6,7 @@ const IncorrectList = styled.ul`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
   margin: ${({ theme }) => theme.margin.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: ${({ theme }) => theme.border.default};
@@ -14,7 +15,13 @@ const IncorrectList = styled.ul`
   overflow: hidden;
 
   & > li:not(:last-child) {
-    border: ${({ theme }) => theme.border.default};
+    border-bottom: ${({ theme }) => theme.border.default};
+  }
+
+  @media (min-width: 768px) {
+    width: auto;
+    height: auto;
+    margin: 5px;
   }
 `;
 
@@ -29,18 +36,24 @@ const Title = styled.li`
 
 const Incorrect = styled.li`
   display: flex;
+  align-items: center;
   padding: ${({ theme }) => theme.padding.small};
+  border: 0px;
+
+  span {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+  }
 `;
 const IncorrectContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100% - 50px);
   margin: auto 10px auto;
 `;
 
 const IncorrectText = styled.div<{ color: string }>`
   display: flex;
   width: fit-content;
+  height: max-content;
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -70,7 +83,9 @@ function IncorrectUI({ questionList }: IncorrectUIProps) {
       {questionList.map((question) => {
         return (
           <Incorrect key={question.number}>
-            <MenuLabelBox state="Locked">{question.number}</MenuLabelBox>
+            <MenuLabelBox state="Locked">
+              <span>{question.number}번</span>
+            </MenuLabelBox>
             <IncorrectContainer>
               {question.commentList.map((comment, index) => {
                 return (

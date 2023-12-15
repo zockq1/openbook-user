@@ -8,6 +8,10 @@ const WrongQuestionListContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    margin: 5px;
+  }
 `;
 
 const WrongQuestionList = styled.table`

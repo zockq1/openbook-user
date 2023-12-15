@@ -17,7 +17,13 @@ const ButtonContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
   & > button:not(:last-child) {
-    border: ${({ theme }) => theme.border.default};
+    border-right: ${({ theme }) => theme.border.default};
+  }
+
+  @media (min-width: 768px) {
+    grid-column: 1/3;
+    margin: 5px;
+    width: auto;
   }
 `;
 

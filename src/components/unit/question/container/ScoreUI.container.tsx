@@ -11,6 +11,12 @@ const ScoreContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    width: auto;
+    height: max-content;
+    margin: 5px;
+  }
 `;
 
 const DescriptionContainer = styled.div`

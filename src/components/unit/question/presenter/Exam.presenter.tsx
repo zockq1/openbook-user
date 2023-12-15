@@ -24,6 +24,16 @@ import {
   useUpdateExamClearMutation,
   useUpdateExamWrongCounterMutation,
 } from "../../../../store/api/questionApi";
+import styled from "styled-components";
+import { Default, Mobile } from "../../../atoms/layout/Responsive";
+
+const QuestionLayout = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    width: 800px;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -388,7 +398,7 @@ function Exam({ examList }: ExamProps) {
   };
 
   return (
-    <>
+    <QuestionLayout>
       <QuestionNavigationUI
         onClickMove={handleMove}
         questionList={questionList}
@@ -396,8 +406,7 @@ function Exam({ examList }: ExamProps) {
         isFinish={true}
       />
       {questionList.length === currentNumber ? (
-        <>
-          <ExamScore totalScore={100} score={score} />
+        <Default>
           <MultiButtonUI
             buttonList={[
               {
@@ -424,15 +433,9 @@ function Exam({ examList }: ExamProps) {
               },
             ]}
           />
-          <ExamIncorrect questionList={questionList} />
-        </>
+        </Default>
       ) : (
-        <>
-          <QuestionUI
-            quetion={questionList[currentNumber]}
-            onChoiceClick={handleChoiceClick}
-            image={image}
-          />
+        <Default>
           <MultiButtonUI
             buttonList={[
               {
@@ -455,9 +458,76 @@ function Exam({ examList }: ExamProps) {
               },
             ]}
           />
+        </Default>
+      )}
+      {questionList.length === currentNumber ? (
+        <>
+          <ExamScore totalScore={100} score={score} />
+
+          <Mobile>
+            <MultiButtonUI
+              buttonList={[
+                {
+                  onClick: () => navigate(-1),
+                  contents: (
+                    <>
+                      <Icon icon="CHAPTER_INFO" size={12} />
+                      &nbsp;목록
+                    </>
+                  ),
+                },
+                {
+                  onClick: async () => {
+                    await clearExam(Number(round));
+                    localStorage.removeItem(round);
+                    window.location.reload();
+                  },
+                  contents: (
+                    <>
+                      <Icon icon="again" size={12} />
+                      &nbsp;초기화
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </Mobile>
+          <ExamIncorrect questionList={questionList} />
+        </>
+      ) : (
+        <>
+          <QuestionUI
+            quetion={questionList[currentNumber]}
+            onChoiceClick={handleChoiceClick}
+            image={image}
+          />
+          <Mobile>
+            <MultiButtonUI
+              buttonList={[
+                {
+                  onClick: handleCheckAnswer,
+                  contents: (
+                    <>
+                      <Icon icon="pen" size={12} />
+                      &nbsp;정답 확인
+                    </>
+                  ),
+                },
+                {
+                  onClick: handleNextQuestion,
+                  contents: (
+                    <>
+                      <Icon icon="next" size={12} />
+                      &nbsp;다음 문제
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </Mobile>
         </>
       )}
-    </>
+    </QuestionLayout>
   );
 }
 

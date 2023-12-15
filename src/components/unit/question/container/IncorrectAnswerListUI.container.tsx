@@ -18,6 +18,12 @@ const WrongQuestionList = styled.ul`
   & > li:not(:last-child) {
     border-bottom: ${({ theme }) => theme.border.default};
   }
+
+  @media (min-width: 768px) {
+    width: auto;
+    height: max-content;
+    margin: 5px;
+  }
 `;
 
 const WrongQuestionTitle = styled.li`
@@ -36,7 +42,6 @@ const WrongQuestion = styled.li`
 const WrongQuestionTextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100% - 50px);
   margin: auto 10px auto;
 `;
 

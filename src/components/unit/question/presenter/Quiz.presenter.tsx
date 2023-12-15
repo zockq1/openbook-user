@@ -25,6 +25,16 @@ import UpdateScoreUI from "../container/UpdateScoreUI.container";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
+import styled from "styled-components";
+import { Default, Mobile } from "../../../atoms/layout/Responsive";
+
+const QuestionLayout = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    width: 800px;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -312,7 +322,7 @@ function Quiz({
   };
 
   return (
-    <>
+    <QuestionLayout>
       <ToastContainer
         toastStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
         position="top-center"
@@ -335,24 +345,16 @@ function Quiz({
         isFinish={isFinish}
       />
       {questionList.length === currentNumber ? (
-        <>
-          <QuizScore score={score} totalScore={questionList.length} />
+        <Default>
           <ResultButtonUI
             isSuccess={
               isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
             }
             onNextContent={onNextContent}
           />
-          <UpdateScoreUI updateScoreList={updateScoreList || []} />
-          <IncorrectAnswerListUI questionList={questionList} />
-        </>
+        </Default>
       ) : (
-        <>
-          <QuestionUI
-            quetion={questionList[currentNumber]}
-            onChoiceClick={handleChoiceClick}
-            image={image}
-          />
+        <Default>
           {!questionList[currentNumber].isFinish ? (
             // <Button onClick={handleCheckAnswer}>정답 확인</Button>
             <MultiButtonUI
@@ -365,9 +367,50 @@ function Quiz({
               buttonList={[{ onClick: handleNextQuestion, contents: "다음" }]}
             />
           )}
+        </Default>
+      )}
+
+      {questionList.length === currentNumber ? (
+        <>
+          <div>
+            <QuizScore score={score} totalScore={questionList.length} />
+            <Mobile>
+              <ResultButtonUI
+                isSuccess={
+                  isJJH ? Math.ceil(questionList.length * 0.8) <= score : false
+                }
+                onNextContent={onNextContent}
+              />
+            </Mobile>
+            <UpdateScoreUI updateScoreList={updateScoreList || []} />
+          </div>
+
+          <IncorrectAnswerListUI questionList={questionList} />
+        </>
+      ) : (
+        <>
+          <QuestionUI
+            quetion={questionList[currentNumber]}
+            onChoiceClick={handleChoiceClick}
+            image={image}
+          />
+          <Mobile>
+            {!questionList[currentNumber].isFinish ? (
+              // <Button onClick={handleCheckAnswer}>정답 확인</Button>
+              <MultiButtonUI
+                buttonList={[
+                  { onClick: handleCheckAnswer, contents: "정답 확인" },
+                ]}
+              />
+            ) : (
+              <MultiButtonUI
+                buttonList={[{ onClick: handleNextQuestion, contents: "다음" }]}
+              />
+            )}
+          </Mobile>
         </>
       )}
-    </>
+    </QuestionLayout>
   );
 }
 

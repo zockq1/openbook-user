@@ -9,13 +9,21 @@ const Container = styled.div`
   @media (max-width: 767px) {
     width: calc(100vw - 40px);
   }
+
+  @media (min-width: 768px) {
+    grid-column: 1/3;
+    margin: 5px;
+  }
 `;
 
 const ResultContainer = styled.ul`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 70px;
   margin: ${({ theme }) => theme.margin.base};
+  margin-top: 0;
+  margin-bottom: 0;
   margin-left: 10px;
   padding: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
@@ -32,11 +40,18 @@ const ExamNavigation = styled.ul`
   -ms-overflow-style: none;
   scrollbar-width: none;
   margin: ${({ theme }) => theme.margin.base};
+  margin-top: 0;
+  margin-bottom: 0;
   padding: 5px 15px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: ${({ theme }) => theme.border.default};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+
+  @media (min-width: 768px) {
+    flex-wrap: wrap;
+    width: 100%;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -66,8 +81,8 @@ const popAnimation = keyframes`
 const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
   position: relative;
   flex-shrink: 0;
-  min-width: 40px;
-  padding: 6px;
+  min-width: 41px;
+  padding: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   background-color: ${({ theme, isCurrent }) =>
     isCurrent && theme.colors.lightGrey};
@@ -86,6 +101,7 @@ const ExamNavigationItem = styled.li<ExamNavigationItemProps>`
           ${popAnimation} 400ms linear
         `
       : ""};
+  cursor: pointer;
 `;
 
 interface CheckProps {

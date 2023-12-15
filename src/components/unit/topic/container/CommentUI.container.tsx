@@ -27,11 +27,14 @@ const Triangle = styled.li<{ open: boolean }>`
   position: absolute;
   width: 10px;
   height: 10px;
-  top: ${({ open }) => (open ? "-5px" : "-20px")};
+  top: ${({ open }) => (open ? "-5px" : "-25px")};
   left: 20px;
-  border-top: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  border-left: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  background-color: ${({ theme }) => theme.colors.white};
+  border-top: 1px solid
+    ${({ theme, open }) => (open ? theme.colors.lightGrey : "transparent")};
+  border-left: 1px solid
+    ${({ theme, open }) => (open ? theme.colors.lightGrey : "transparent")};
+  background-color: ${({ theme, open }) =>
+    open ? theme.colors.white : "transparent"};
   z-index: 0;
   transform: rotate(45deg);
   transition: 0.1s ease-in-out;

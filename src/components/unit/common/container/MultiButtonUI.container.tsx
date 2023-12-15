@@ -18,6 +18,12 @@ const ButtonContainer = styled.div`
   & > button:not(:last-child) {
     border-right: 1px solid ${({ theme }) => theme.colors.lightGrey};
   }
+
+  @media (min-width: 768px) {
+    grid-column: 1/3;
+    margin: 5px;
+    width: auto;
+  }
 `;
 
 const Button = styled.button`

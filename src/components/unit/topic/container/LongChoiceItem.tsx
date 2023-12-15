@@ -26,10 +26,9 @@ const LongChoice = styled.div<AnswerCheckProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   height: max-content;
-  margin: ${({ theme }) => theme.margin.base};
-  padding: 0 12px 0 12px;
+  margin: 5px 0;
+  padding: 5px 12px 5px 12px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 1px solid
     ${({ theme, isFinish, isCorrect }) =>
@@ -41,6 +40,11 @@ const LongChoice = styled.div<AnswerCheckProps>`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.textBlue};
   background-color: ${({ theme }) => theme.colors.white};
+  z-index: 10;
+
+  @media (min-width: 768px) {
+    margin: 5px;
+  }
 `;
 
 export const LongComment = styled.span<AnswerCheckProps>`

@@ -1,6 +1,5 @@
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
@@ -10,6 +9,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
+import TopicList from "../../unit/topic/container/TopicListUI.container";
 
 function QustionCategoryTopicListPage() {
   const { timelineId: id, title } = useQuesryString();
@@ -76,7 +76,7 @@ function QustionCategoryTopicListPage() {
                 topicCount={topicList.length}
                 key={chapterTitle}
               >
-                <MenuUI menuList={newMenu} />
+                <TopicList menuList={newMenu} />
               </BookmarkChapter>
             );
           })}

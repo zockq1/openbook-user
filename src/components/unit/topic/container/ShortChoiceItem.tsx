@@ -25,6 +25,7 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   width: 100%;
   height: 200px;
   margin: 0;
+  margin-top: 10px;
   padding: 12px;
   border-radius: 10px;
   border: 1px solid
@@ -37,6 +38,7 @@ const ShortChoice = styled.div<AnswerCheckProps>`
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
+  z-index: 1;
 `;
 
 const ShortComment = styled.img<AnswerCheckProps>`
