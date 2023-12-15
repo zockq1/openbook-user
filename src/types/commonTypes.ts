@@ -15,6 +15,8 @@ export interface MenuModel {
   titleColor?: string;
   content?: ReactNode;
   important?: boolean;
+  topicTitle?: string;
+  isBookmarked?: boolean;
 }
 
 export interface OptionModel {

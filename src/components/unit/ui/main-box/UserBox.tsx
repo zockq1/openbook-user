@@ -13,6 +13,7 @@ const StyledUserBox = styled.div`
   position: relative;
   margin: 8px;
   padding: ${({ theme }) => theme.padding.base};
+  border: ${({ theme }) => theme.border.default};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};

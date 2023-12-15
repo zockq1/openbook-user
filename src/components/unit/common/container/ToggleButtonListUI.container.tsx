@@ -23,16 +23,16 @@ const Button = styled.button<{ isActive: boolean }>`
   height: 100%;
   padding: 2px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.small};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
-  font-family: "Giants-Regular";
   word-break: keep-all;
   flex-grow: 1;
   margin-right: 10px;
 
-  border: 2px solid
+  border: 1px solid
     ${({ theme, isActive }) =>
-      isActive ? theme.colors.textBlue : theme.colors.textBlue};
+      isActive ? theme.colors.lightGrey : theme.colors.lightGrey};
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white : theme.colors.textBlue};
   background-color: ${({ theme, isActive }) =>

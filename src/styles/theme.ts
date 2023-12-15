@@ -12,6 +12,9 @@ const fontSizes = {
   xl: calcRem(20),
   xxl: calcRem(22),
   xxxl: calcRem(24),
+  xxxxl: calcRem(26),
+  xxxxxl: calcRem(28),
+  xxxxxxl: calcRem(20),
   big: calcRem(50),
 };
 

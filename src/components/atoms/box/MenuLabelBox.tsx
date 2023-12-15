@@ -20,7 +20,7 @@ const StyledChapterNumber = styled.div<StateProps>`
   height: 50px;
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme, state }) =>
+  /* color: ${({ theme, state }) =>
     state === "Locked"
       ? theme.colors.red
       : state === "Complete"
@@ -28,8 +28,9 @@ const StyledChapterNumber = styled.div<StateProps>`
       : state === "InProgress"
       ? theme.colors.blue
       : state === "Open"
-      ? theme.colors.textBlue
-      : state};
+      ? "inherit"
+      : state}; */
+  color: inherit;
 
   @media (max-width: 767px) {
     font-size: ${({ theme }) => theme.fontSizes.xxl};

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import TitleBox from "../../unit/ui/TitleBox";
 import { MenuModel } from "../../../types/commonTypes";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
@@ -10,6 +9,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
@@ -37,7 +37,12 @@ function TimelineMenuPage() {
           navigate(`/timeline?id=-1&title=전체 연표`);
           navigate(`/`);
         },
-        icon: <Icon icon="TIMELINE_STUDY" size={22} />,
+        icon: (
+          <span>
+            <Icon icon="TIMELINE_STUDY" size={22} />
+            <span style={{ fontSize: theme.fontSizes.xs }}> 연표</span>
+          </span>
+        ),
         description: "BC 700K ~ 현대",
       },
       ...[...timelineList]
@@ -45,12 +50,17 @@ function TimelineMenuPage() {
         .map((timeline, index) => {
           const result: MenuModel = {
             type: "Base",
-            title: `${timeline.era}`,
+            title: `${timeline.title}`,
             onClickMain: () =>
               navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
             onClickSub: () =>
               navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
-            icon: index + 1,
+            icon: (
+              <span>
+                <Icon icon="TIMELINE_STUDY" size={22} />
+                <span style={{ fontSize: theme.fontSizes.xs }}> 연표</span>
+              </span>
+            ),
             description: `${timeline.startDate / 10000} ~ ${
               timeline.endDate / 10000
             }`,
@@ -79,7 +89,7 @@ function TimelineMenuPage() {
     }
 
     if (isSuccess && timelineList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return <ChapterMenu menuList={menuList} />;
     }
 
     return null;

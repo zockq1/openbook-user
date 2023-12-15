@@ -21,6 +21,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import TopicList from "../../unit/topic/container/TopicListUI.container";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -90,7 +91,8 @@ function ContentListPage() {
               <Icon icon={content} size={22} />
             ),
           content:
-            content === "TOPIC_STUDY" ? (
+            content === "TOPIC_STUDY" ||
+            content === "CHAPTER_COMPLETE_QUESTION" ? (
               <KeywordList
                 keywordList={
                   topicList.find((topic) => topic.title === item.title)
@@ -99,6 +101,11 @@ function ContentListPage() {
                 isBookmarked={savedBookmark}
                 topicTitle={title}
                 key={item.title}
+                state={state}
+                onClickQuestion={async () => {
+                  if (state === "Locked") return;
+                  navigate(getLink(content, title, contentNumber));
+                }}
               />
             ) : content === "TIMELINE_STUDY" ? (
               <TimelineList id={timelineId} />
@@ -140,6 +147,8 @@ function ContentListPage() {
               ? theme.colors.blue
               : theme.colors.white,
           important: state === "InProgress",
+          topicTitle: title,
+          isBookmarked: savedBookmark,
         };
 
         return result;
@@ -176,7 +185,15 @@ function ContentListPage() {
     }
 
     if (isSuccess && contentList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return (
+        <>
+          {timelineId ? (
+            <MenuUI menuList={menuList} />
+          ) : (
+            <TopicList menuList={menuList} />
+          )}
+        </>
+      );
     }
 
     return null;
@@ -185,7 +202,7 @@ function ContentListPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category={title} />
-      <ContentLayout>
+      <ContentLayout width="500px">
         {timelineId ? (
           <KeywordToggleButton comment />
         ) : (

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import TextBox from "../../../atoms/box/TextBox";
 import CommentUI from "../../topic/container/CommentUI.container";
 import Icon from "../../../atoms/icon/Icon";
 
@@ -21,10 +20,10 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 30px 34px max-content;
+  grid-template-columns: 60px 34px calc(100%);
   align-items: center;
-  margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "15px 0")};
-  margin-right: 64px;
+  margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "10px 0 5px")};
+  margin-right: 94px;
 `;
 
 const InnerCircle = styled.div`
@@ -44,16 +43,29 @@ const Transparent = styled.div`
   height: 34px;
 `;
 
+const Title = styled.div`
+  width: fit-content;
+  padding: ${({ theme }) => theme.padding.small};
+  border-radius: ${({ theme }) => theme.padding.base};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textBlue};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  z-index: 1;
+  cursor: pointer;
+`;
+
 const Date = styled.div`
   color: ${({ theme }) => theme.colors.textBlue};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  text-align: center;
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  text-align: right;
 `;
 
 const CommentContainer = styled.div`
   position: relative;
-  margin-left: 64px;
+  margin-left: 94px;
 `;
 
 function TimelineItemUI({
@@ -71,9 +83,7 @@ function TimelineItemUI({
           {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
         </Date>
         {disableCircle ? <Transparent /> : <InnerCircle />}
-        <TextBox maxWidth="half" onClick={onCommentToggle}>
-          {comment}
-        </TextBox>
+        <Title onClick={onCommentToggle}>{comment}</Title>
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && keywordList.length > 0 && (

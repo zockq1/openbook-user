@@ -5,9 +5,10 @@ import Header from "../../unit/ui/Header";
 
 interface LayoutProps {
   children?: ReactNode;
+  width?: string;
 }
 
-const StyledMainPageLayout = styled.div`
+const StyledMainPageLayout = styled.div<{ width: string }>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -20,7 +21,7 @@ const StyledMainPageLayout = styled.div`
   }
   //PC, 태블릿
   @media (min-width: 768px) {
-    max-width: 1680px;
+    max-width: ${({ width }) => width};
     min-width: 768px;
     padding: 100px 50px 20px 50px;
   }
@@ -34,17 +35,16 @@ const StyledMainPageLayout = styled.div`
 const Content = styled.div`
   @media (min-width: 768px) {
     padding: 0 50px;
-    grid-column: 1/5;
   }
 `;
 
-function ContentLayout({ children }: LayoutProps) {
+function ContentLayout({ children, width = "1680px" }: LayoutProps) {
   return (
     <>
       <Default>
         <Header />
       </Default>
-      <StyledMainPageLayout>
+      <StyledMainPageLayout width={width}>
         <Default>
           <Content>{children}</Content>
         </Default>

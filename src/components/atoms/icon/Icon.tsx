@@ -82,6 +82,7 @@ export type IconType =
   | "bookmarkOn"
   | "bookmarkOff"
   | "search"
+  | "culture"
   | Content
   | TopicCategory;
 
@@ -152,6 +153,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     bookmarkOff: BookmarkOff,
     bookmarkOn: BookmarkOn,
     search: Search,
+    culture: Culture,
   };
 
   if (!icons[icon]) return null;

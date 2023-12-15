@@ -2,13 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { useGetChapterListQuery } from "../../../store/api/chapterApi";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
 
 function LearningChapterListPage() {
   const navigate = useNavigate();
@@ -31,16 +31,22 @@ function LearningChapterListPage() {
       [...chapterList]
         .sort((a, b) => a.number - b.number)
         .map((item) => {
-          const { title, number, topicCount } = item;
+          const { title, number } = item;
           const result: MenuModel = {
             type: "Base",
-            title: title,
+            state: "Chapter",
+            title: title?.toString().split("-")[0].trim(),
             onClickMain: () =>
               navigate(`/learning/chapter?chapter=${number}&title=${title}`),
             onClickSub: () =>
               navigate(`/learning/chapter?chapter=${number}&title=${title}`),
-            icon: number,
-            description: "주제 수: " + topicCount,
+            icon: (
+              <span>
+                {number}
+                <span style={{ fontSize: theme.fontSizes.xs }}> 단원</span>
+              </span>
+            ),
+            description: title?.toString().split("-")[1] || null,
           };
           return result;
         })
@@ -66,7 +72,7 @@ function LearningChapterListPage() {
     }
 
     if (isSuccess && chapterList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return <ChapterMenu menuList={menuList} />;
     }
 
     return null;

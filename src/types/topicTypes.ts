@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { ContentState } from "./jjhTypes";
+
 export type TopicCategory =
   | "인물"
   | "왕"
@@ -59,4 +62,13 @@ export interface TopicListModel {
 export interface BookmarkedTopicListModel {
   chapterTitle: string;
   topicList: TopicListModel[];
+}
+
+export interface TopicMenuModel {
+  title: String;
+  state: ContentState;
+  date: ReactNode;
+  score?: number;
+  onClickQuestion?: () => void;
+  isBookmarked?: string;
 }

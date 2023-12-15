@@ -1,6 +1,13 @@
 import { IconType } from "../components/atoms/icon/Icon";
 
-export type ContentState = "Complete" | "InProgress" | "Locked" | "Updated";
+export type ContentState =
+  | "Complete"
+  | "InProgress"
+  | "Locked"
+  | "Updated"
+  | "Chapter"
+  | "Topic"
+  | "Timeline";
 export type Content =
   | "CHAPTER_INFO"
   | "TIMELINE_STUDY"

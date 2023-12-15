@@ -20,6 +20,7 @@ const StyledSettingBox = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  border: ${({ theme }) => theme.border.default};
   overflow: hidden;
 `;
 

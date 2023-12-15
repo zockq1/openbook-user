@@ -28,7 +28,7 @@ const DefualtHeader = styled.header`
   min-width: 768px;
   padding: 15px;
   margin: 0 auto;
-  z-index: 10;
+  z-index: 999;
   left: 50%;
   transform: translate(-50%, 0);
 

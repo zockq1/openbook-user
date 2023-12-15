@@ -16,8 +16,15 @@ const Box = styled(Link)`
   margin: 8px;
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
+
+  border: ${({ theme }) => theme.border.default};
+  transition: transform ease 0.2s, box-shadow ease 0.2s;
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
+  }
 `;
 const BoxImage = styled.img`
   position: absolute;
@@ -105,7 +112,7 @@ function JJHBox({
   const count = useCountAnimation(0, percentage);
 
   return (
-    <Box to={link} onMouseEnter={setHover} className={hover ? "hover" : ""}>
+    <Box to={link}>
       <BoxTitle>
         <MenuLabelBox state="Open">
           {<Icon icon="run" size={22} />}

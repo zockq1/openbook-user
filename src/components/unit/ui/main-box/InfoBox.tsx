@@ -14,8 +14,15 @@ const Box = styled(Link)`
   padding: ${({ theme }) => theme.padding.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   overflow: hidden;
+
+  border: ${({ theme }) => theme.border.default};
+  transition: transform ease 0.2s, box-shadow ease 0.2s;
+  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
+  }
 `;
 
 const BoxImage = styled.img`
@@ -58,7 +65,7 @@ function InfoBox({
   setHover,
 }: QuizBoxProps) {
   return (
-    <Box to={link} onMouseEnter={setHover} className={hover ? "hover" : ""}>
+    <Box to={link}>
       <Description>
         <MenuLabelBox state="Open">{icon}</MenuLabelBox>
         &nbsp;&nbsp;{title}

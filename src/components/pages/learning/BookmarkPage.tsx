@@ -59,6 +59,8 @@ function BookmarkPage() {
                     keywordList={keywordList}
                     topicTitle={title}
                     isBookmarked={isBookmarked}
+                    state="Topic"
+                    onClickQuestion={() => {}}
                   />
                 ),
               };

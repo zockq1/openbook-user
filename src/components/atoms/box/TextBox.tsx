@@ -11,10 +11,10 @@ interface TextBoxProps {
 }
 
 const StyledTextBox = styled.div<TextBoxProps>`
+  position: relative;
   padding: ${({ theme }) => theme.padding.small};
   margin: ${({ margin }) => margin};
 
-  border-radius: ${({ theme }) => theme.padding.base};
   height: fit-content;
   width: max-content;
   max-width: ${({ maxWidth }) =>
@@ -23,17 +23,14 @@ const StyledTextBox = styled.div<TextBoxProps>`
       full: "100%",
     }[maxWidth] || "initial")};
 
+  border-radius: ${({ theme }) => theme.padding.base};
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  word-break: keep-all;
+  font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  cursor: pointer;
 `;
 
 const Item = styled.div`
@@ -41,6 +38,8 @@ const Item = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  word-break: keep-all;
 `;
 
 function TextBox({

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import { useGetChapterInfoQuery } from "../../../store/api/chapterApi";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
@@ -14,6 +13,7 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import TopicList from "../../unit/topic/container/TopicListUI.container";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -45,6 +45,8 @@ function LearningTopicListPage() {
             keywordList={keywordList}
             topicTitle={title}
             isBookmarked={isBookmarked}
+            state="Topic"
+            onClickQuestion={() => {}}
           />
         ),
       };
@@ -82,7 +84,7 @@ function LearningTopicListPage() {
     }
 
     if (isSuccess && topicList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return <TopicList menuList={menuList} />;
     }
 
     return null;
@@ -91,7 +93,7 @@ function LearningTopicListPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category={title} />
-      <ContentLayout>
+      <ContentLayout width="500px">
         <KeywordToggleButton comment keyword />
         {renderContent()}
       </ContentLayout>

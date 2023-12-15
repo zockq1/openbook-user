@@ -43,7 +43,7 @@ function TimelinePage() {
   return (
     <>
       <TitleBox icon="TIMELINE_STUDY" category={title} />
-      <ContentLayout>
+      <ContentLayout width="500px">
         <KeywordToggleButton comment />
         {renderContent()}
       </ContentLayout>
