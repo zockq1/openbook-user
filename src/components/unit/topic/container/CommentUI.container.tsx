@@ -44,7 +44,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
   display: flex;
   width: fit-content;
   flex-wrap: nowrap;
-  font-weight: ${({ theme }) => theme.fontWeight.light};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
   color: ${({ color, theme }) => (color ? color : theme.colors.textBlue)};
   line-height: 120%;

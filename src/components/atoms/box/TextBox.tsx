@@ -27,8 +27,8 @@ const StyledTextBox = styled.div<TextBoxProps>`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   z-index: 1;
   cursor: pointer;
 `;

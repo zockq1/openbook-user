@@ -24,7 +24,7 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
     align-items: center;
     max-width: ${({ width }) => width};
     min-width: 900px;
-    padding: 100px 50px 20px 50px;
+    padding: 90px 50px 20px 50px;
   }
 
   .hover {

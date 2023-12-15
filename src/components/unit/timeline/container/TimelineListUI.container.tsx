@@ -16,7 +16,7 @@ const Line = styled.li`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: 100%;
-  left: 74px;
+  left: 77px;
   z-index: 0;
 `;
 

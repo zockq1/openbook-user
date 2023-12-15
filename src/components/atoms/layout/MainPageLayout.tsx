@@ -24,12 +24,12 @@ const StyledMainPageLayout = styled.div`
   }
   //PC, 태블릿
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 300px 300px 1fr;
-    grid-template-rows: 2fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1.5fr 1fr 1fr;
     max-width: 1200px;
     min-width: 768px;
     padding: 20px;
-    padding-top: 70px;
+    padding-top: 90px;
   }
 
   .hover {

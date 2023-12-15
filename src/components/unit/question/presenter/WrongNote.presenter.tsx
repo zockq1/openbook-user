@@ -17,6 +17,16 @@ import Icon from "../../../atoms/icon/Icon";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useDeleteWrongNoteMutation } from "../../../../store/api/questionApi";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Default, Mobile } from "../../../atoms/layout/Responsive";
+
+const QuestionLayout = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    width: 800px;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const images = [flag, hat, mask, cheomseongdae, gyeongbokgung, kingSejong];
 
@@ -309,7 +319,7 @@ function WrongNote({ examList }: ExamProps) {
   };
 
   return (
-    <>
+    <QuestionLayout>
       <QuestionNavigationUI
         onClickMove={handleMove}
         questionList={questionList}
@@ -317,43 +327,78 @@ function WrongNote({ examList }: ExamProps) {
         isFinish={true}
         isWrongNote={true}
       />
+      <Default>
+        <MultiButtonUI
+          buttonList={[
+            {
+              onClick: handleDelete,
+              contents: (
+                <>
+                  <Icon icon="fail" size={12} />
+                  &nbsp;삭제
+                </>
+              ),
+            },
+            {
+              onClick: handleCheckAnswer,
+              contents: (
+                <>
+                  <Icon icon="pen" size={12} />
+                  &nbsp;정답 확인
+                </>
+              ),
+            },
+            {
+              onClick: handleNextQuestion,
+              contents: (
+                <>
+                  <Icon icon="next" size={12} />
+                  &nbsp;다음 문제
+                </>
+              ),
+            },
+          ]}
+        />
+      </Default>
       <QuestionUI
         quetion={questionList[currentNumber]}
         onChoiceClick={handleChoiceClick}
         image={image}
       />
-      <MultiButtonUI
-        buttonList={[
-          {
-            onClick: handleDelete,
-            contents: (
-              <>
-                <Icon icon="fail" size={12} />
-                &nbsp;삭제
-              </>
-            ),
-          },
-          {
-            onClick: handleCheckAnswer,
-            contents: (
-              <>
-                <Icon icon="pen" size={12} />
-                &nbsp;정답 확인
-              </>
-            ),
-          },
-          {
-            onClick: handleNextQuestion,
-            contents: (
-              <>
-                <Icon icon="next" size={12} />
-                &nbsp;다음 문제
-              </>
-            ),
-          },
-        ]}
-      />
-    </>
+      <Mobile>
+        <MultiButtonUI
+          buttonList={[
+            {
+              onClick: handleDelete,
+              contents: (
+                <>
+                  <Icon icon="fail" size={12} />
+                  &nbsp;삭제
+                </>
+              ),
+            },
+            {
+              onClick: handleCheckAnswer,
+              contents: (
+                <>
+                  <Icon icon="pen" size={12} />
+                  &nbsp;정답 확인
+                </>
+              ),
+            },
+            {
+              onClick: handleNextQuestion,
+              contents: (
+                <>
+                  <Icon icon="next" size={12} />
+                  &nbsp;다음 문제
+                </>
+              ),
+            },
+          ]}
+        />
+      </Mobile>
+    </QuestionLayout>
   );
 }
 

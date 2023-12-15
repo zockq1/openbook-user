@@ -20,15 +20,16 @@ const MobileHeaderContainer = styled.header`
 
 const DefualtHeader = styled.header`
   position: fixed;
+  top: 0;
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 2fr 1fr;
   width: 100vw;
-  height: 60px;
+  height: 80px;
   min-width: 768px;
   padding: 15px;
   margin: 0 auto;
-  z-index: 999;
+  z-index: 99;
   left: 50%;
   transform: translate(-50%, 0);
 

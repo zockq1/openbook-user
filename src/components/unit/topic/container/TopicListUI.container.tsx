@@ -82,7 +82,7 @@ const BookmarkBox = styled.div<{ color: string }>`
   border-radius: 10px 0 10px 0;
   background-color: ${({ theme }) => theme.colors.white};
   transition: all 0.2s ease-in-out;
-  z-index: 99;
+  z-index: 9;
 `;
 
 function TopicList({ menuList }: MenuUIProps) {

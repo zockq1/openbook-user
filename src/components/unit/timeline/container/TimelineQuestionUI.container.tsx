@@ -32,7 +32,7 @@ const Line = styled.div<LineProps>`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: ${({ height }) => `${height}px`};
-  left: 84px;
+  left: 87px;
   z-index: 0;
   transition: 0.5s ease;
 `;

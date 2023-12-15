@@ -20,10 +20,10 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 60px 34px calc(100%);
+  grid-template-columns: 63px 34px calc(100%);
   align-items: center;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "10px 0 5px")};
-  margin-right: 94px;
+  margin-right: 97px;
 `;
 
 const InnerCircle = styled.div`
@@ -33,7 +33,7 @@ const InnerCircle = styled.div`
   height: 14px;
   border-radius: 50%;
   border: 4px solid ${({ theme }) => theme.colors.textBlue};
-  z-index: 99;
+  z-index: 9;
   position: relative;
 `;
 
@@ -50,9 +50,10 @@ const Title = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   z-index: 1;
+  word-break: keep-all;
   cursor: pointer;
 `;
 
@@ -65,8 +66,8 @@ const DateItem = styled.div`
   width: fit-content;
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  text-align: center;
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  text-align: right;
 `;
 
 const CommentContainer = styled.div`

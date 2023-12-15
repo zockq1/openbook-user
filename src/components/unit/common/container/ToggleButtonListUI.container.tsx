@@ -2,17 +2,11 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 35px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-
-  & > button:last-child {
-    margin-right: 0;
-  }
+  position: fixed;
+  flex-direction: column;
+  bottom: 30px;
+  right: 30px;
+  z-index: 98;
 `;
 
 const Button = styled.button<{ isActive: boolean }>`
@@ -20,14 +14,14 @@ const Button = styled.button<{ isActive: boolean }>`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 30px;
   padding: 2px;
+  margin: 5px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   word-break: keep-all;
-  flex-grow: 1;
   margin-right: 10px;
 
   border: 1px solid
@@ -39,6 +33,12 @@ const Button = styled.button<{ isActive: boolean }>`
     isActive ? theme.colors.textBlue : theme.colors.white};
 
   transition: all 0.2s ease-in-out;
+
+  @media (min-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSizes.large};
+    height: 40px;
+    width: 120px;
+  }
 `;
 interface ToggleButtonUIProps {
   buttonList: {

@@ -30,7 +30,7 @@ const StyledMainPageLayout = styled.div`
     min-width: 768px;
     max-height: 800px;
     padding: 20px;
-    padding-top: 70px;
+    padding-top: 90px;
   }
 
   .hover {

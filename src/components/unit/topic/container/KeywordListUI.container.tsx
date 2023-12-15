@@ -52,6 +52,10 @@ const KeywordTitleContainer = styled.div<{ isVisible: boolean }>`
   color: ${({ theme }) => theme.colors.textBlue};
   font-family: "Spoqa Han Sans Neo";
   transition: all 1s;
+
+  button:nth-child(2) {
+    border-left: 1px solid ${({ theme }) => theme.colors.lightGrey};
+  }
 `;
 
 const MoreButton = styled.button`
@@ -61,6 +65,7 @@ const MoreButton = styled.button`
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 const Questionbutton = styled.button`
@@ -68,9 +73,9 @@ const Questionbutton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: 1px solid ${({ theme }) => theme.colors.lightGrey};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.textBlue};
 `;
 
 function KeywordListUI({
@@ -84,8 +89,10 @@ function KeywordListUI({
 }: KeywordListUIProps) {
   return (
     <div style={{ position: "relative", paddingBottom: "4px" }}>
-      <KeywordListWrapper isVisible={isKeywordOn}>
-        <KeywordListContainer isVisible={isKeywordOn}>
+      <KeywordListWrapper isVisible={keywordList.length !== 0 && isKeywordOn}>
+        <KeywordListContainer
+          isVisible={keywordList.length !== 0 && isKeywordOn}
+        >
           <KeywordList>
             {keywordList
               .filter((keyword) => !keyword.dateComment)
@@ -110,7 +117,9 @@ function KeywordListUI({
               })}
           />
         </KeywordListContainer>
-        <KeywordTitleContainer isVisible={isKeywordOn}>
+        <KeywordTitleContainer
+          isVisible={keywordList.length !== 0 && isKeywordOn}
+        >
           {keywordList.length > 0 && (
             <MoreButton onClick={onKeywordToggle}>{`${
               isKeywordOn ? "▲ 키워드 접기 " : "▼ 키워드 보기 "

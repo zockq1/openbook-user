@@ -1,7 +1,6 @@
 import styled, { ThemeContext } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { QuestionModel } from "../../../../types/questionTypes";
-import TextBox from "../../../atoms/box/TextBox";
 import { ColumnList } from "../../../atoms/layout/List";
 import { LongChoiceItem } from "../../topic/container/LongChoiceItem";
 import CommentUI from "../../topic/container/CommentUI.container";
@@ -20,7 +19,7 @@ const Description = styled.ul`
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
-  min-height: 300px;
+  min-height: 240px;
   @media (max-width: 767px) {
     min-height: calc((100vh - 540px));
   }
@@ -42,7 +41,7 @@ const Image = styled.img`
   width: 90%;
   height: 90%;
   object-fit: contain;
-  opacity: 0.15;
+  opacity: 0.05;
 `;
 
 const ImageChoiceList = styled.ul`
@@ -54,6 +53,21 @@ const ImageChoiceList = styled.ul`
 const ImageChoice = styled.li`
   width: calc((100% - 20px) / 2);
   margin-bottom: 10px;
+`;
+
+const DescriptionItem = styled.div`
+  width: fit-content;
+  padding: 10px;
+  margin: 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
+  color: ${({ theme }) => theme.colors.textBlue};
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 1;
+  word-break: keep-all;
+  text-align: center;
 `;
 
 function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
@@ -83,20 +97,18 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
             <>
               <Image src={image} />
               {descriptionList.map((item) => {
-                return (
-                  <TextBox maxWidth="full" key={item}>
-                    {item}
-                  </TextBox>
-                );
+                return <DescriptionItem key={item}>{item}</DescriptionItem>;
               })}
             </>
           )}
         </Description>
         {descriptionCommentList.length > 0 && (
-          <CommentUI
-            isCommentOpen={isFinish}
-            commentList={descriptionCommentList}
-          />
+          <div style={{ margin: "0 5px" }}>
+            <CommentUI
+              isCommentOpen={isFinish}
+              commentList={descriptionCommentList}
+            />
+          </div>
         )}
       </div>
       {choiceType === "String" ? (
@@ -114,13 +126,17 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
                   index={index}
                 />
                 {item.commentList.length > 0 && (
-                  <CommentUI
-                    isCommentOpen={isFinish}
-                    commentList={item.commentList}
-                    color={
-                      answer === item.key ? theme.colors.blue : theme.colors.red
-                    }
-                  />
+                  <div style={{ margin: "0 5px" }}>
+                    <CommentUI
+                      isCommentOpen={isFinish}
+                      commentList={item.commentList}
+                      color={
+                        answer === item.key
+                          ? theme.colors.blue
+                          : theme.colors.red
+                      }
+                    />
+                  </div>
                 )}
               </li>
             ))}
