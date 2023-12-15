@@ -16,7 +16,7 @@ const Line = styled.li`
   border-radius: ${({ theme }) => theme.borderRadius.base};
   width: 6px;
   height: 100%;
-  left: 84px;
+  left: 74px;
   z-index: 0;
 `;
 
@@ -26,6 +26,7 @@ const StyledTimelineList = styled.ul`
   flex-direction: column;
   margin-bottom: 30px;
   padding: 10px;
+  padding-left: 0;
 `;
 
 function TimelineListUI({ dateList }: TimelineListProps) {

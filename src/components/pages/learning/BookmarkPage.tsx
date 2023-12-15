@@ -1,7 +1,6 @@
 import { useGetBookmarkedTopicQuery } from "../../../store/api/jjhApi";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
 import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
@@ -11,6 +10,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import TopicList from "../../unit/topic/container/TopicListUI.container";
 
 function BookmarkPage() {
   const {
@@ -73,7 +73,7 @@ function BookmarkPage() {
                 topicCount={topicList.length}
                 key={chapterTitle}
               >
-                <MenuUI menuList={newMenu} />
+                <TopicList menuList={newMenu} />
               </BookmarkChapter>
             );
           })}
@@ -84,7 +84,7 @@ function BookmarkPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category="북마크" />
-      <ContentLayout>
+      <ContentLayout width="500px">
         <KeywordToggleButton topic comment keyword />
         {renderContent()}
       </ContentLayout>

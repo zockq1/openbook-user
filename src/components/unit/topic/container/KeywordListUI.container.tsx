@@ -21,6 +21,7 @@ const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
 
 const KeywordListContainer = styled.div<{ isVisible: boolean }>`
   position: relative;
+  padding: 0 5px;
   max-height: ${({ isVisible }) => (isVisible ? "2000px" : "0px")};
   margin-bottom: ${({ isVisible }) => (isVisible ? "0" : "0px")};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};

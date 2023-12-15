@@ -19,7 +19,7 @@ function BookmarkUI({ isBookmarked, onClickBookmark }: BookmarkUIProps) {
       <Icon
         icon={isBookmarked ? "bookmarkOn" : "bookmarkOff"}
         size={22}
-        color={isBookmarked ? theme.colors.blue : theme.colors.textBlue}
+        color={theme.colors.textBlue}
       />
     </Bookmark>
   );

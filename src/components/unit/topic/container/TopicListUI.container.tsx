@@ -39,9 +39,10 @@ const Title = styled.div<{ color: string }>`
   width: 100%;
   padding: 0 50px;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSizes.xxxxl};
+  font-size: ${({ theme }) => theme.fontSizes.xxxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ color }) => color};
+  word-break: keep-all;
 `;
 
 const SubTitle = styled.div<{ color: string }>`
@@ -109,24 +110,26 @@ function TopicList({ menuList }: MenuUIProps) {
                   {description}
                 </SubTitle>
               </Description>
-              <StateBox color={mainColor} important={important}>
-                <Icon
-                  icon={
-                    state === "Locked"
-                      ? "lock"
-                      : state === "InProgress"
-                      ? "run"
-                      : state === "Complete"
-                      ? "check"
-                      : state === "Chapter"
-                      ? "culture"
-                      : state === "Timeline"
-                      ? "TIMELINE_STUDY"
-                      : "check"
-                  }
-                  size={30}
-                />
-              </StateBox>
+              {state !== "Topic" && (
+                <StateBox color={mainColor} important={important}>
+                  <Icon
+                    icon={
+                      state === "Locked"
+                        ? "lock"
+                        : state === "InProgress"
+                        ? "run"
+                        : state === "Complete"
+                        ? "check"
+                        : state === "Chapter"
+                        ? "culture"
+                        : state === "Timeline"
+                        ? "TIMELINE_STUDY"
+                        : "check"
+                    }
+                    size={30}
+                  />
+                </StateBox>
+              )}
 
               {state !== "Locked" && (
                 <BookmarkBox color={mainColor}>

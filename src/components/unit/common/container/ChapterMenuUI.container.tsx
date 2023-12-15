@@ -13,6 +13,7 @@ const ChapterMenuList = styled.ul`
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin: 20px auto;
   /* &::after {
@@ -41,7 +42,7 @@ const ChapterBox = styled.button<{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
+  width: 245px;
   height: 120px;
   margin: 20px;
   border-radius: 10px;

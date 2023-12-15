@@ -54,7 +54,7 @@ function NavigationBar() {
   return (
     <StyledNavigationBar>
       <Navigation to="/" $isCurrent={location.pathname === "/"}>
-        정주행
+        홈
       </Navigation>
       <Navigation to="/question" $isCurrent={location.pathname === "/question"}>
         문제

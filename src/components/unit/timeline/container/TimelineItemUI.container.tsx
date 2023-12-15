@@ -57,10 +57,16 @@ const Title = styled.div`
 `;
 
 const Date = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+const DateItem = styled.div`
+  width: fit-content;
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.small};
-  text-align: right;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  text-align: center;
 `;
 
 const CommentContainer = styled.div`
@@ -80,7 +86,9 @@ function TimelineItemUI({
     <>
       <StyledTimelineItem isQuestion={isQuestion}>
         <Date>
-          {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
+          <DateItem>
+            {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
+          </DateItem>
         </Date>
         {disableCircle ? <Transparent /> : <InnerCircle />}
         <Title onClick={onCommentToggle}>{comment}</Title>
