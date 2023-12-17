@@ -1,7 +1,7 @@
 import { Content } from "../../../types/jjhTypes";
 import { TopicCategory } from "../../../types/topicTypes";
 import { ReactComponent as Run } from "../../../styles/icon/running.svg";
-import { ReactComponent as Arrow } from "../../../styles/icon/fi-br-angle-double-right.svg";
+import { ReactComponent as Arrow } from "../../../styles/icon/arrow.svg";
 import { ReactComponent as Fail } from "../../../styles/icon/fi-br-ban.svg";
 import { ReactComponent as Infinity } from "../../../styles/icon/fi-br-infinity.svg";
 import { ReactComponent as Question } from "../../../styles/icon/fi-br-question.svg";
@@ -26,7 +26,8 @@ import { ReactComponent as Back } from "../../../styles/icon/left.svg";
 import { ReactComponent as Next } from "../../../styles/icon/right.svg";
 import { ReactComponent as Lock } from "../../../styles/icon/lock.svg";
 import { ReactComponent as Login } from "../../../styles/icon/sign-in-alt.svg";
-import { ReactComponent as Check } from "../../../styles/icon/checkbox.svg";
+import { ReactComponent as CheckBox } from "../../../styles/icon/checkbox.svg";
+import { ReactComponent as Check } from "../../../styles/icon/check.svg";
 import { ReactComponent as User } from "../../../styles/icon/circle-user.svg";
 import { ReactComponent as Dice } from "../../../styles/icon/dice-alt.svg";
 
@@ -47,6 +48,9 @@ import { ReactComponent as Comment } from "../../../styles/icon/comment.svg";
 import { ReactComponent as BookmarkOn } from "../../../styles/icon/bookmark-on.svg";
 import { ReactComponent as BookmarkOff } from "../../../styles/icon/bookmark-off.svg";
 import { ReactComponent as Search } from "../../../styles/icon/search.svg";
+import { ReactComponent as Dot } from "../../../styles/icon/dot.svg";
+import { ReactComponent as Up } from "../../../styles/icon/up.svg";
+import { ReactComponent as Down } from "../../../styles/icon/down.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -68,6 +72,7 @@ export type IconType =
   | "back"
   | "arrow"
   | "check"
+  | "checkBox"
   | "one"
   | "two"
   | "three"
@@ -83,6 +88,9 @@ export type IconType =
   | "bookmarkOff"
   | "search"
   | "culture"
+  | "dot"
+  | "up"
+  | "down"
   | Content
   | TopicCategory;
 
@@ -142,6 +150,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     lock: Lock,
     back: Back,
     next: Next,
+    checkBox: CheckBox,
     check: Check,
     one: One,
     two: Two,
@@ -154,6 +163,9 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     bookmarkOn: BookmarkOn,
     search: Search,
     culture: Culture,
+    dot: Dot,
+    up: Up,
+    down: Down,
   };
 
   if (!icons[icon]) return null;

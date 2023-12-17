@@ -121,9 +121,13 @@ function KeywordListUI({
           isVisible={keywordList.length !== 0 && isKeywordOn}
         >
           {keywordList.length > 0 && (
-            <MoreButton onClick={onKeywordToggle}>{`${
-              isKeywordOn ? "▲ 키워드 접기 " : "▼ 키워드 보기 "
-            }(${keywordList.length})`}</MoreButton>
+            <MoreButton onClick={onKeywordToggle}>
+              {isKeywordOn ? (
+                <Icon icon="up" size={40} />
+              ) : (
+                <Icon icon="down" size={40} />
+              )}
+            </MoreButton>
           )}
           {(state === "Complete" ||
             state === "InProgress" ||

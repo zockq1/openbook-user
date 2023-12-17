@@ -35,6 +35,7 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
 
 const Content = styled.div`
   @media (min-width: 768px) {
+    width: 100%;
     padding: 0 50px;
   }
 `;

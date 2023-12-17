@@ -44,7 +44,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
   display: flex;
   width: fit-content;
   flex-wrap: nowrap;
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
   color: ${({ color, theme }) => (color ? color : theme.colors.textBlue)};
   line-height: 120%;
@@ -55,7 +55,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
 const CommentIcon = styled.div`
   width: 12px;
   height: 12px;
-  margin-right: 5px;
+  margin-right: 4px;
   flex-shrink: 0;
 `;
 

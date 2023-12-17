@@ -16,7 +16,6 @@ const StyledQuestionMenuItem = styled.div<{
   position: relative;
   display: flex;
   height: 65px;
-  padding: ${({ theme }) => theme.padding.base};
   margin: ${({ theme }) => theme.margin.base};
   margin-bottom: 0;
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -32,14 +31,19 @@ const StyledQuestionMenuItem = styled.div<{
 `;
 
 const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 65px;
 `;
 
 const Title = styled.div<{ color: string }>`
   width: 100%;
   padding: 0 50px;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSizes.xxxl};
+  font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ color }) => color};
   word-break: keep-all;

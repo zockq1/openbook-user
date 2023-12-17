@@ -24,6 +24,7 @@ const QuestionLayout = styled.div`
   @media (min-width: 768px) {
     display: grid;
     width: 800px;
+    margin: 0 auto;
     grid-template-columns: 1fr 1fr;
   }
 `;

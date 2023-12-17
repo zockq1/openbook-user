@@ -69,7 +69,10 @@ function KeywordUI({
             .split(".")
             .filter(Boolean)
             .map((item) => {
-              return { comment: item, icon: <Icon icon="check" /> };
+              return {
+                comment: item,
+                icon: <Icon icon="checkBox" size={12} />,
+              };
             })}
         />
       )}

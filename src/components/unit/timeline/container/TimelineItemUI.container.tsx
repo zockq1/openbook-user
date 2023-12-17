@@ -50,8 +50,8 @@ const Title = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;
   word-break: keep-all;
   cursor: pointer;
@@ -72,7 +72,7 @@ const DateItem = styled.div`
 
 const CommentContainer = styled.div`
   position: relative;
-  margin-left: 94px;
+  margin-left: 98px;
 `;
 
 function TimelineItemUI({
@@ -99,7 +99,10 @@ function TimelineItemUI({
           <CommentUI
             isCommentOpen={isCommentOn}
             commentList={keywordList.map((item) => {
-              return { comment: item, icon: <Icon icon="check" /> };
+              return {
+                comment: item,
+                icon: <Icon icon="checkBox" size={12} />,
+              };
             })}
           />
         )}
