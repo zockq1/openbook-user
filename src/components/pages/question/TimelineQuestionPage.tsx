@@ -57,7 +57,7 @@ function TimelineQuestionPage() {
   return (
     <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout width="500px">{renderContent()}</ContentLayout>
     </>
   );
 }

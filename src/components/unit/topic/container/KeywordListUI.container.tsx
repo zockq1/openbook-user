@@ -133,8 +133,7 @@ function KeywordListUI({
             state === "InProgress" ||
             state === "Locked") && (
             <Questionbutton onClick={onClickQuestion}>
-              <Icon icon="pen" size={14} />
-              &nbsp;문제 풀기
+              <Icon icon="exam" size={20} />
             </Questionbutton>
           )}
         </KeywordTitleContainer>

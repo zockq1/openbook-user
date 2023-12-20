@@ -89,7 +89,7 @@ const BookmarkBox = styled.div<{ color: string }>`
   z-index: 9;
 `;
 
-function TopicList({ menuList }: MenuUIProps) {
+function TopicListUI({ menuList }: MenuUIProps) {
   return (
     <ColumnList>
       {menuList.map((menu, index) => {
@@ -152,4 +152,4 @@ function TopicList({ menuList }: MenuUIProps) {
   );
 }
 
-export default TopicList;
+export default TopicListUI;

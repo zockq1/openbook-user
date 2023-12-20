@@ -17,13 +17,13 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
   //모바일
   @media (max-width: 767px) {
     width: 100vw;
-    padding: 60px 20px 20px;
+    padding: 55px 10px 10px;
   }
   //PC, 태블릿
   @media (min-width: 768px) {
     align-items: center;
     max-width: ${({ width }) => width};
-    min-width: 900px;
+    min-width: 700px;
     padding: 90px 50px 20px 50px;
   }
 

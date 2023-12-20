@@ -51,6 +51,7 @@ import { ReactComponent as Search } from "../../../styles/icon/search.svg";
 import { ReactComponent as Dot } from "../../../styles/icon/dot.svg";
 import { ReactComponent as Up } from "../../../styles/icon/up.svg";
 import { ReactComponent as Down } from "../../../styles/icon/down.svg";
+import { ReactComponent as Exam } from "../../../styles/icon/exam.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -91,6 +92,7 @@ export type IconType =
   | "dot"
   | "up"
   | "down"
+  | "exam"
   | Content
   | TopicCategory;
 
@@ -166,6 +168,7 @@ function Icon({ icon, size, color = "inherit" }: Iconprops) {
     dot: Dot,
     up: Up,
     down: Down,
+    exam: Exam,
   };
 
   if (!icons[icon]) return null;

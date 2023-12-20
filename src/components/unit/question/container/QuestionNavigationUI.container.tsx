@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   @media (max-width: 767px) {
-    width: calc(100vw - 40px);
+    width: calc(100vw - 20px);
   }
 
   @media (min-width: 768px) {

@@ -20,10 +20,10 @@ interface StyledTimelineItemProps {
 
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
-  grid-template-columns: 63px 34px calc(100%);
+  grid-template-columns: 63px 34px 1fr;
   align-items: center;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "10px 0 5px")};
-  margin-right: 97px;
+  //margin-right: 97px;
 `;
 
 const InnerCircle = styled.div`
@@ -35,12 +35,6 @@ const InnerCircle = styled.div`
   border: 4px solid ${({ theme }) => theme.colors.textBlue};
   z-index: 9;
   position: relative;
-`;
-
-const Transparent = styled.div`
-  background-color: transparent;
-  width: 34px;
-  height: 34px;
 `;
 
 const Title = styled.div`
@@ -66,7 +60,7 @@ const DateItem = styled.div`
   width: fit-content;
   color: ${({ theme }) => theme.colors.textBlue};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   text-align: right;
 `;
 
@@ -91,17 +85,22 @@ function TimelineItemUI({
             {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
           </DateItem>
         </Date>
-        {disableCircle ? <Transparent /> : <InnerCircle />}
+        <InnerCircle />
         <Title onClick={onCommentToggle}>{comment}</Title>
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && keywordList.length > 0 && (
           <CommentUI
             isCommentOpen={isCommentOn}
-            commentList={keywordList.map((item) => {
+            commentList={keywordList.map((item, index) => {
               return {
                 comment: item,
-                icon: <Icon icon="checkBox" size={12} />,
+                icon: (
+                  <Icon
+                    icon={index === 0 ? "description" : "checkBox"}
+                    size={12}
+                  />
+                ),
               };
             })}
           />

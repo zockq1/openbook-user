@@ -23,7 +23,7 @@ interface LineProps {
 }
 
 const Container = styled.div`
-  height: 90%;
+  position: relative;
 `;
 
 const Line = styled.div<LineProps>`
@@ -35,6 +35,21 @@ const Line = styled.div<LineProps>`
   left: 87px;
   z-index: 0;
   transition: 0.5s ease;
+`;
+
+const NextLine = styled.div`
+  position: absolute;
+  background-color: ${({ theme }) => theme.colors.textBlue};
+  border-radius: ${({ theme }) => theme.borderRadius.base};
+  width: 6px;
+  height: 40px;
+  left: 89px;
+  top: calc(100vh - 158px);
+  z-index: 0;
+
+  @media (max-width: 767px) {
+    top: calc(100vh - 133px);
+  }
 `;
 
 const StyledTimelineQuestion = styled.div`
@@ -54,46 +69,44 @@ const Item = styled.div`
 `;
 
 const NextItemPlace = styled.div`
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  top: calc(100vh - 185px);
+  left: 12px;
+
+  @media (max-width: 767px) {
+    top: calc(100vh - 160px);
+  }
 `;
 
 const PlayedItemPlaceBox = styled.div`
-  position: relative;
+  position: absolute;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 190px);
+  height: calc(100vh - 185px);
 
   @media (min-width: 768px) {
-    height: calc(100vh - 390px);
+    height: calc(100vh - 200px);
   }
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   margin-top: 10px;
 
-  border-radius: ${({ theme }) => theme.borderRadius.xxs};
+  border-radius: 5px;
   border: 2px solid ${({ theme }) => theme.colors.textBlue};
-`;
 
-const Box = styled.div`
-  position: absolute;
-  bottom: 32px;
-  left: 15px;
-  @media (min-width: 768px) {
-    width: 400px;
-    left: 50%;
-    bottom: 192px;
-    transform: translate(-50%, 0);
+  &::-webkit-scrollbar {
+    width: 20px; /* 스크롤바의 너비 */
   }
-  height: 60px;
-  width: calc(100% - 30px);
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
 
-  border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: ${({ theme }) => theme.border.default};
-  z-index: 0;
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.textBlue};
+    border-radius: 100px;
+    border: 7px solid ${({ theme }) => theme.colors.bg};
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /*스크롤바 뒷 배경 색상*/
+  }
 `;
 
 function TimelineQuestionUI({
@@ -152,7 +165,7 @@ function TimelineQuestionUI({
                 </PlayedItemPlaceBox>
               )}
             </Droppable>
-            <Box />
+            <NextLine />
             {!isFinish && (
               <Droppable droppableId="next">
                 {(provided) => (
@@ -172,15 +185,11 @@ function TimelineQuestionUI({
                               <Item>
                                 <TimelineItem
                                   dateItem={{
-                                    date: null,
-                                    comment: nextDateList[0].comment.replace(
-                                      /\([^)]*\)/g,
-                                      ""
-                                    ),
+                                    date: "???",
+                                    comment: nextDateList[0].comment,
                                     keywordList: [],
                                   }}
                                   key={0}
-                                  disableCircle={true}
                                   isQuestion={true}
                                 />
                               </Item>
