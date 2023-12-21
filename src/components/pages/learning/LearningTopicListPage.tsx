@@ -1,11 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
 import { useGetChapterInfoQuery } from "../../../store/api/chapterApi";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
-import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import { ThemeContext } from "styled-components";
-import Icon from "../../atoms/icon/Icon";
 import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import useQuesryString from "../../../hooks/useQueryString";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
@@ -13,7 +10,8 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import TopicList from "../../unit/topic/container/TopicListUI.container";
+import { TopicMenuModel } from "../../../types/topicTypes";
+import TopicList from "../../unit/topic/presenter/TopicList.presenter";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -26,40 +24,36 @@ function LearningTopicListPage() {
     error,
   } = useGetChapterTopicListQuery(chapterNumber);
   const { data: chapterInfo } = useGetChapterInfoQuery(chapterNumber);
-  const [menuList, setMenuList] = useState<MenuModel[]>([]);
+  const [menuList, setMenuList] = useState<TopicMenuModel[]>([]);
 
   useEffect(() => {
     if (!topicList || chapterInfo === undefined) {
       return;
     }
 
-    let newMenu: MenuModel[] = [...topicList].map((item) => {
-      const { title, category, dateComment, keywordList, isBookmarked } = item;
-      const result: MenuModel = {
-        type: "Base",
+    let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
+      const { title, dateComment, keywordList, isBookmarked } = item;
+      const result: TopicMenuModel = {
         title: title,
-        icon: category,
-        description: `${dateComment}`,
-        content: (
-          <KeywordList
-            keywordList={keywordList}
-            topicTitle={title}
-            isBookmarked={isBookmarked}
-            state="Topic"
-            onClickQuestion={() => {}}
-          />
-        ),
+        date: dateComment,
+        onClick: () => {},
+        isBookmarked,
+        keywordList,
+        state: "Topic",
+        content: null,
       };
       return result;
     });
 
     if (chapterInfo.content)
       newMenu.unshift({
-        type: "Base",
         title: "단원 학습",
-        icon: <Icon icon="CHAPTER_INFO" size={22} />,
-        description: `${title}`,
+        date: `${title}`,
         content: <ChapterInfo />,
+        state: "Chapter",
+        isBookmarked: false,
+        keywordList: [],
+        onClick: () => {},
       });
 
     setMenuList(newMenu);
@@ -84,7 +78,7 @@ function LearningTopicListPage() {
     }
 
     if (isSuccess && topicList.length > 0) {
-      return <TopicList menuList={menuList} />;
+      return <TopicList topicList={menuList} />;
     }
 
     return null;

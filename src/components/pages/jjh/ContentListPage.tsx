@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { MenuModel } from "../../../types/commonTypes";
 import useQuesryString from "../../../hooks/useQueryString";
-import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
-import Icon from "../../atoms/icon/Icon";
 import { ThemeContext } from "styled-components";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
 import {
@@ -16,12 +13,12 @@ import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import TopicList from "../../unit/topic/container/TopicListUI.container";
+import { TopicMenuModel } from "../../../types/topicTypes";
+import TopicList from "../../unit/topic/presenter/TopicList.presenter";
 
 function ContentListPage() {
   const navigate = useNavigate();
@@ -35,7 +32,7 @@ function ContentListPage() {
     error,
   } = useGetContentListQuery(jjhNumber);
   const { data: topicList } = useGetChapterTopicListQuery(chapterNumber);
-  const [menuList, setMenuList] = useState<MenuModel[]>([]);
+  const [menuList, setMenuList] = useState<TopicMenuModel[]>([]);
   const [updateProgres] = useUpdateProgressMutation();
   useEffect(() => {
     if (!contentList || !topicList) {
@@ -66,53 +63,21 @@ function ContentListPage() {
           state,
           contentNumber,
           dateComment,
-          category,
           savedBookmark,
         } = item;
-        let result: MenuModel;
+        let result: TopicMenuModel;
 
         result = {
-          type: "Qustion",
-          title:
-            content === "TOPIC_STUDY"
-              ? title
-              : content === "TIMELINE_STUDY"
-              ? title.split("(")[0]
-              : getContentName(content),
-          description:
-            content === "TIMELINE_STUDY"
-              ? title.split("(")[1].split(")")[0]
-              : dateComment,
+          title: content === "TOPIC_STUDY" ? title : getContentName(content),
+          date: content === "TIMELINE_STUDY" ? title : dateComment,
           state,
-          icon:
-            category !== null ? (
-              <Icon icon={category} size={22} />
-            ) : (
-              <Icon icon={content} size={22} />
-            ),
           content:
-            content === "TOPIC_STUDY" ||
-            content === "CHAPTER_COMPLETE_QUESTION" ? (
-              <KeywordList
-                keywordList={
-                  topicList.find((topic) => topic.title === item.title)
-                    ?.keywordList || []
-                }
-                isBookmarked={savedBookmark}
-                topicTitle={title}
-                key={item.title}
-                state={state}
-                onClickQuestion={async () => {
-                  if (state === "Locked") return;
-                  navigate(getLink(content, title, contentNumber));
-                }}
-              />
-            ) : content === "TIMELINE_STUDY" ? (
+            content === "TIMELINE_STUDY" ? (
               <TimelineList id={timelineId} />
             ) : (
               content === "CHAPTER_INFO" && <ChapterInfo />
             ),
-          onClickSub: async () => {
+          onClick: async () => {
             if (state === "Locked") return;
             if (content === "CHAPTER_INFO") {
               await updateProgres({ contentNumber: contentNumber });
@@ -120,24 +85,6 @@ function ContentListPage() {
             }
             navigate(getLink(content, title, contentNumber));
           },
-          onClickMain: async () => {
-            if (state === "Locked") return;
-            if (content === "CHAPTER_INFO") {
-              await updateProgres({ contentNumber: contentNumber });
-              return;
-            }
-            navigate(getLink(content, title, contentNumber));
-          },
-          subTitle:
-            state === "Locked" ? (
-              <Icon icon="lock" color={theme.colors.white} size={40} />
-            ) : state === "Complete" ? (
-              <Icon icon="check" color={theme.colors.white} size={40} />
-            ) : (
-              state === "InProgress" && (
-                <Icon icon="run" color={theme.colors.white} size={40} />
-              )
-            ),
           mainColor:
             state === "Locked"
               ? theme.colors.red
@@ -146,9 +93,10 @@ function ContentListPage() {
               : state === "InProgress"
               ? theme.colors.blue
               : theme.colors.white,
-          important: state === "InProgress",
-          topicTitle: title,
           isBookmarked: savedBookmark,
+          keywordList:
+            topicList.find((topic) => topic.title === item.title)
+              ?.keywordList || [],
         };
 
         return result;
@@ -188,9 +136,9 @@ function ContentListPage() {
       return (
         <>
           {timelineId ? (
-            <MenuUI menuList={menuList} />
+            <TopicList topicList={menuList} />
           ) : (
-            <TopicList menuList={menuList} />
+            <TopicList topicList={menuList} />
           )}
         </>
       );

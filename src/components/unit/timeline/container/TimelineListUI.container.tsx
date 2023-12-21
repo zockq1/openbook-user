@@ -7,6 +7,7 @@ interface TimelineListProps {
     date: number | string | null;
     keywordList: string[] | null;
   }[];
+  isTopic?: boolean;
 }
 
 const Line = styled.li`
@@ -29,13 +30,13 @@ const StyledTimelineList = styled.ul`
   padding-left: 0;
 `;
 
-function TimelineListUI({ dateList }: TimelineListProps) {
+function TimelineListUI({ dateList, isTopic }: TimelineListProps) {
   if (dateList.length === 0) return null;
   return (
     <StyledTimelineList>
       <Line />
       {dateList.map((item, index) => {
-        return <TimelineItem dateItem={item} key={index} />;
+        return <TimelineItem dateItem={item} key={index} isTopic={isTopic} />;
       })}
     </StyledTimelineList>
   );

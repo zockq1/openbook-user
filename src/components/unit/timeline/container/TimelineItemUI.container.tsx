@@ -8,10 +8,10 @@ interface TimelineTopicProps {
     date: number | string | null;
     keywordList: string[] | null;
   };
-  disableCircle?: boolean;
   isQuestion?: boolean;
   isCommentOn: boolean;
   onCommentToggle: () => void;
+  isTopic?: boolean;
 }
 
 interface StyledTimelineItemProps {
@@ -73,8 +73,8 @@ function TimelineItemUI({
   dateItem,
   isCommentOn,
   onCommentToggle,
-  disableCircle = false,
   isQuestion = false,
+  isTopic = false,
 }: TimelineTopicProps) {
   const { comment, date, keywordList } = dateItem;
   return (
@@ -97,7 +97,7 @@ function TimelineItemUI({
                 comment: item,
                 icon: (
                   <Icon
-                    icon={index === 0 ? "description" : "checkBox"}
+                    icon={index === 0 && !isTopic ? "description" : "checkBox"}
                     size={12}
                   />
                 ),

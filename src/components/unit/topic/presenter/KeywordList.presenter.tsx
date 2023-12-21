@@ -7,16 +7,12 @@ import { ContentState } from "../../../../types/jjhTypes";
 
 interface KeywordListProps {
   keywordList: KeywordModel[];
-  isBookmarked: boolean;
-  topicTitle: string;
   onClickQuestion: () => void;
   state: ContentState;
 }
 
 function KeywordList({
   keywordList,
-  isBookmarked,
-  topicTitle,
   onClickQuestion,
   state,
 }: KeywordListProps) {
@@ -39,10 +35,7 @@ function KeywordList({
       onKeywordToggle={toggleKeywordList}
       onClickQuestion={onClickQuestion}
       keywordList={keywordList}
-      isBookmarked={isBookmarked}
-      topicTitle={topicTitle}
       state={state}
     />
   );
 }
-export default KeywordList;

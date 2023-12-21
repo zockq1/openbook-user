@@ -2,10 +2,10 @@ import styled, { ThemeContext } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { QuestionModel } from "../../../../types/questionTypes";
 import { ColumnList } from "../../../atoms/layout/List";
-import { LongChoiceItem } from "../../topic/container/LongChoiceItem";
+import { LongChoiceItem } from "./LongChoiceItem";
 import CommentUI from "../../topic/container/CommentUI.container";
 import { useContext } from "react";
-import { ShortChoiceItem } from "../../topic/container/ShortChoiceItem";
+import { ShortChoiceItem } from "./ShortChoiceItem";
 
 interface QuestionProps {
   quetion: QuestionModel;

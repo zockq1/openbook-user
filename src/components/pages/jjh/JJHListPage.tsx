@@ -79,10 +79,10 @@ function JJHListPage() {
 
     const newTimelineList: JJHList[] = [...jjhList.timelineList].map(
       (item: JJHTimelineModel) => {
-        const { endDate, era, startDate, state, jjhNumber, id, title } = item;
+        const { endDate, era, startDate, state, jjhNumber, id } = item;
         const result: JJHList = {
           type: "Qustion",
-          title,
+          title: era,
           state,
           onClickMain: () =>
             state !== "Locked" &&

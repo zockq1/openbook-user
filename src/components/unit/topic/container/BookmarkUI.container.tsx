@@ -9,13 +9,13 @@ const Bookmark = styled.button`
 
 interface BookmarkUIProps {
   isBookmarked: boolean;
-  onClickBookmark: () => void;
+  onClickBookmark: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 function BookmarkUI({ isBookmarked, onClickBookmark }: BookmarkUIProps) {
   const theme = useContext(ThemeContext);
   return (
-    <Bookmark onClick={onClickBookmark}>
+    <Bookmark onClick={(e) => onClickBookmark(e)}>
       <Icon
         icon={isBookmarked ? "bookmarkOn" : "bookmarkOff"}
         size={22}

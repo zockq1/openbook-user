@@ -9,14 +9,14 @@ interface TimelineTopicProps {
     date: number | string | null;
     keywordList: string[] | null;
   };
-  disableCircle?: boolean;
   isQuestion?: boolean;
+  isTopic?: boolean;
 }
 
 function TimelineItem({
   dateItem,
-  disableCircle = false,
   isQuestion = false,
+  isTopic,
 }: TimelineTopicProps) {
   const { isCommentOn: isCommentOnGlobal } = useSelector(
     (state: RootState) => state.keyword
@@ -33,7 +33,7 @@ function TimelineItem({
   return (
     <TimelineItemUI
       dateItem={dateItem}
-      disableCircle={disableCircle}
+      isTopic={isTopic}
       isQuestion={isQuestion}
       isCommentOn={isQuestion ? false : isCommentOn}
       onCommentToggle={isQuestion ? () => {} : toggleComment}

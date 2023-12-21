@@ -16,7 +16,10 @@ function Bookmark({ isBookmarked, topicTitle }: BookmarkProps) {
   const [updateBookmark] = useUpdateBookmarkMutation();
   const [deleteBookmark] = useDeleteBookmarkMutation();
 
-  const handleClickBookmark = () => {
+  const handleClickBookmark = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
     if (!isLoggedIn) return;
 
     if (isBookmarked) {
@@ -25,6 +28,7 @@ function Bookmark({ isBookmarked, topicTitle }: BookmarkProps) {
       updateBookmark(topicTitle);
     }
   };
+
   return (
     <BookmarkUI
       isBookmarked={isBookmarked}

@@ -115,8 +115,8 @@ function TimelineQuestion({
     updateTimelineWrongCounter,
     wrongCount,
     id,
-    onFinish,
     isLoggedIn,
+    onFinish,
   ]);
 
   const handleDragEnd = async (result: DropResult) => {

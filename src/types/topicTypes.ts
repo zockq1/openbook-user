@@ -65,10 +65,12 @@ export interface BookmarkedTopicListModel {
 }
 
 export interface TopicMenuModel {
-  title: String;
+  title: string;
+  date: string;
   state: ContentState;
-  date: ReactNode;
-  score?: number;
-  onClickQuestion?: () => void;
-  isBookmarked?: string;
+  isBookmarked: boolean;
+  keywordList: KeywordModel[];
+  onClick: () => void;
+  mainColor?: string;
+  content: ReactNode;
 }

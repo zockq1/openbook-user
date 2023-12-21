@@ -48,7 +48,7 @@ const NextLine = styled.div`
   z-index: 0;
 
   @media (max-width: 767px) {
-    top: calc(100vh - 133px);
+    top: calc(100vh - 131px);
   }
 `;
 
@@ -70,12 +70,17 @@ const Item = styled.div`
 
 const NextItemPlace = styled.div`
   position: absolute;
+  height: 90px;
+  width: 100%;
   top: calc(100vh - 185px);
-  left: 12px;
+  padding: 0 10px;
 
   @media (max-width: 767px) {
     top: calc(100vh - 160px);
   }
+
+  border-radius: 5px;
+  border: 2px solid ${({ theme }) => theme.colors.lightGrey};
 `;
 
 const PlayedItemPlaceBox = styled.div`
@@ -92,7 +97,7 @@ const PlayedItemPlaceBox = styled.div`
   margin-top: 10px;
 
   border-radius: 5px;
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 2px solid ${({ theme }) => theme.colors.lightGrey};
 
   &::-webkit-scrollbar {
     width: 20px; /* 스크롤바의 너비 */

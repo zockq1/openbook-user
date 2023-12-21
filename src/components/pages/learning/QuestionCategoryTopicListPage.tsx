@@ -1,4 +1,3 @@
-import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetQuestionCategoryTopicListQuery } from "../../../store/api/jjhApi";
@@ -7,9 +6,9 @@ import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import KeywordList from "../../unit/topic/presenter/KeywordList.presenter";
 import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
-import TopicList from "../../unit/topic/container/TopicListUI.container";
+import { TopicMenuModel } from "../../../types/topicTypes";
+import TopicList from "../../unit/topic/presenter/TopicList.presenter";
 
 function QustionCategoryTopicListPage() {
   const { timelineId: id, title } = useQuesryString();
@@ -44,28 +43,16 @@ function QustionCategoryTopicListPage() {
         <>
           {topicList.map((chapter) => {
             const { topicList, chapterTitle } = chapter;
-            let newMenu: MenuModel[] = [...topicList].map((item) => {
-              const {
-                title,
-                category,
-                dateComment,
-                keywordList,
-                isBookmarked,
-              } = item;
-              const result: MenuModel = {
-                type: "Base",
+            let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
+              const { title, dateComment, keywordList, isBookmarked } = item;
+              const result: TopicMenuModel = {
                 title: title,
-                icon: category,
-                description: `${dateComment}`,
-                content: (
-                  <KeywordList
-                    keywordList={keywordList}
-                    topicTitle={title}
-                    isBookmarked={isBookmarked}
-                    state="Topic"
-                    onClickQuestion={() => {}}
-                  />
-                ),
+                state: "Topic",
+                date: dateComment,
+                onClick: () => {},
+                isBookmarked,
+                keywordList,
+                content: null,
               };
               return result;
             });
@@ -76,7 +63,7 @@ function QustionCategoryTopicListPage() {
                 topicCount={topicList.length}
                 key={chapterTitle}
               >
-                <TopicList menuList={newMenu} />
+                <TopicList topicList={newMenu} />
               </BookmarkChapter>
             );
           })}
@@ -90,7 +77,7 @@ function QustionCategoryTopicListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category={title} />
-      <ContentLayout>
+      <ContentLayout width="500px">
         <KeywordToggleButton keyword comment />
         {renderContent()}
       </ContentLayout>

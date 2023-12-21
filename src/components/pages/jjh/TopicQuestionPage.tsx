@@ -10,6 +10,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useCallback } from "react";
 
 function TopicQuestionPage() {
   const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
@@ -25,6 +26,10 @@ function TopicQuestionPage() {
     refetchOnMountOrArgChange: true,
   });
   const [updateProgres] = useUpdateProgressMutation();
+
+  const handleFinish = useCallback(() => {
+    isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 });
+  }, [isLoggedIn, updateProgres, contentNumber]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -49,9 +54,7 @@ function TopicQuestionPage() {
         <Quiz
           quizList={TtoKQuestionList}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
-          onFinish={() =>
-            isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 })
-          }
+          onFinish={handleFinish}
           isJJH
         />
       );

@@ -23,7 +23,7 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
   @media (min-width: 768px) {
     align-items: center;
     max-width: ${({ width }) => width};
-    min-width: 700px;
+    min-width: 600px;
     padding: 90px 50px 20px 50px;
   }
 
@@ -36,11 +36,11 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
 const Content = styled.div`
   @media (min-width: 768px) {
     width: 100%;
-    padding: 0 50px;
   }
 `;
 
 function ContentLayout({ children, width = "1680px" }: LayoutProps) {
+  console.log(width);
   return (
     <>
       <Default>

@@ -5,8 +5,12 @@ export const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
   background-color: #f2f5f9;
-  font-family: "Spoqa Han Sans Neo"
+  font-family: "Spoqa Han Sans Neo";
   //background-color: #101A28
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 a{
     text-decoration: none;

@@ -4,6 +4,7 @@ import Keyword from "../presenter/Keyword.presenter";
 import TimelineListUI from "../../timeline/container/TimelineListUI.container";
 import { ContentState } from "../../../../types/jjhTypes";
 import Icon from "../../../atoms/icon/Icon";
+import { ReactNode } from "react";
 
 interface KeywordListUIProps {
   keywordList: KeywordModel[];
@@ -11,8 +12,7 @@ interface KeywordListUIProps {
   onKeywordToggle: () => void;
   onClickQuestion: () => void;
   state: ContentState;
-  isBookmarked: boolean;
-  topicTitle: string;
+  content?: ReactNode;
 }
 
 const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
@@ -82,16 +82,17 @@ function KeywordListUI({
   keywordList,
   isKeywordOn,
   onKeywordToggle,
-  isBookmarked,
   state,
-  topicTitle,
   onClickQuestion,
+  content,
 }: KeywordListUIProps) {
   return (
     <div style={{ position: "relative", paddingBottom: "4px" }}>
-      <KeywordListWrapper isVisible={keywordList.length !== 0 && isKeywordOn}>
+      <KeywordListWrapper
+        isVisible={keywordList.length === 0 && !content ? false : isKeywordOn}
+      >
         <KeywordListContainer
-          isVisible={keywordList.length !== 0 && isKeywordOn}
+          isVisible={keywordList.length === 0 && !content ? false : isKeywordOn}
         >
           <KeywordList>
             {keywordList
@@ -101,13 +102,13 @@ function KeywordListUI({
               ))}
           </KeywordList>
           <TimelineListUI
+            isTopic
             dateList={keywordList
               .filter((keyword) => !!keyword.dateComment)
               .sort((a, b) => a.number - b.number)
               .map((keyword, index) => {
                 return {
                   date: keyword.dateComment,
-                  topicTitle: topicTitle,
                   comment: keyword.name,
                   keywordList: keyword.comment
                     .trim()
@@ -116,11 +117,12 @@ function KeywordListUI({
                 };
               })}
           />
+          {content}
         </KeywordListContainer>
         <KeywordTitleContainer
-          isVisible={keywordList.length !== 0 && isKeywordOn}
+          isVisible={keywordList.length === 0 && !content ? false : isKeywordOn}
         >
-          {keywordList.length > 0 && (
+          {keywordList.length === 0 && !content ? null : (
             <MoreButton onClick={onKeywordToggle}>
               {isKeywordOn ? (
                 <Icon icon="up" size={40} />

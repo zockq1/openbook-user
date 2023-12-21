@@ -11,6 +11,7 @@ import { useUpdateProgressMutation } from "../../../store/api/jjhApi";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { useCallback } from "react";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -26,6 +27,10 @@ function TimelineQuestionPage() {
   } = useGetTimelineQuery(timelineId);
 
   usePreventScroll();
+
+  const handleFinish = useCallback(() => {
+    isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 });
+  }, [isLoggedIn, updateProgres, contentNumber]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -51,9 +56,7 @@ function TimelineQuestionPage() {
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           onNextContent={() => handleNextContent(jjhNumber, contentNumber)}
           id={timelineId}
-          onFinish={() =>
-            isLoggedIn && updateProgres({ contentNumber: contentNumber + 1 })
-          }
+          onFinish={handleFinish}
         />
       );
     }
@@ -64,7 +67,7 @@ function TimelineQuestionPage() {
   return (
     <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout width="500px">{renderContent()}</ContentLayout>
     </>
   );
 }
