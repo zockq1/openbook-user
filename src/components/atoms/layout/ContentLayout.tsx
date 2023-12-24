@@ -1,30 +1,44 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { Default, Mobile } from "./Responsive";
+import { Desktop, Mobile, Tablet } from "./Responsive";
 import Header from "../../unit/ui/Header";
 
 interface LayoutProps {
   children?: ReactNode;
-  width?: string;
+  full?: boolean;
+  leftMenu?: ReactNode;
+  rightMenu?: ReactNode;
 }
 
-const StyledMainPageLayout = styled.div<{ width: string }>`
-  display: flex;
-  flex-direction: column;
+const StyledMainPageLayout = styled.div<{ full: boolean }>`
+  display: grid;
   position: relative;
   min-height: 100vh;
   margin: 0 auto;
   //모바일
   @media (max-width: 767px) {
     width: 100vw;
-    padding: 55px 10px 10px;
+    padding: 65px 10px 10px;
   }
-  //PC, 태블릿
-  @media (min-width: 768px) {
-    align-items: center;
-    max-width: ${({ width }) => width};
-    min-width: 600px;
-    padding: 90px 50px 20px 50px;
+  //태블릿
+  @media (min-width: 768px) and (max-width: 991px) {
+    grid-template-columns: ${({ full }) =>
+      full ? "1fr" : "minmax(250px, 250px) minmax(400px, 700px)"};
+    align-items: start;
+    width: 100%;
+    max-width: 1200px;
+
+    padding: 90px 20px 20px 20px;
+  }
+  //PC,
+  @media (min-width: 992px) {
+    grid-template-columns: ${({ full }) =>
+      full
+        ? "1fr"
+        : "minmax(250px, 250px) minmax(400px, 700px) minmax(auto, 300px)"};
+    align-items: start;
+    max-width: 1300px;
+    padding: 90px 20px 20px 20px;
   }
 
   .hover {
@@ -33,25 +47,32 @@ const StyledMainPageLayout = styled.div<{ width: string }>`
   }
 `;
 
-const Content = styled.div`
-  @media (min-width: 768px) {
-    width: 100%;
-  }
-`;
-
-function ContentLayout({ children, width = "1680px" }: LayoutProps) {
-  console.log(width);
+function ContentLayout({
+  children,
+  full = false,
+  leftMenu,
+  rightMenu,
+}: LayoutProps) {
   return (
     <>
-      <Default>
+      <Desktop>
         <Header />
-      </Default>
-      <StyledMainPageLayout width={width}>
-        <Default>
-          <Content>{children}</Content>
-        </Default>
-        <Mobile>{children}</Mobile>
-      </StyledMainPageLayout>
+        <StyledMainPageLayout full={full}>
+          {leftMenu}
+          {children}
+          {rightMenu}
+        </StyledMainPageLayout>
+      </Desktop>
+      <Tablet>
+        <Header />
+        <StyledMainPageLayout full={full}>
+          {leftMenu}
+          {children}
+        </StyledMainPageLayout>
+      </Tablet>
+      <Mobile>
+        <StyledMainPageLayout full={full}>{children}</StyledMainPageLayout>
+      </Mobile>
     </>
   );
 }

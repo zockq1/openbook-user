@@ -11,6 +11,9 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import { Default, Mobile } from "../../atoms/layout/Responsive";
+import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
+import { useMediaQuery } from "react-responsive";
 
 interface JJHList extends MenuModel {
   jjhNumber: number;
@@ -18,6 +21,7 @@ interface JJHList extends MenuModel {
 
 function JJHListPage() {
   const navigate = useNavigate();
+  const isNotMobile = useMediaQuery({ minWidth: 768 });
   const theme = useContext(ThemeContext);
   const {
     data: jjhList,
@@ -79,17 +83,17 @@ function JJHListPage() {
 
     const newTimelineList: JJHList[] = [...jjhList.timelineList].map(
       (item: JJHTimelineModel) => {
-        const { endDate, era, startDate, state, jjhNumber, id } = item;
+        const { endDate, era, startDate, state, jjhNumber, id, title } = item;
         const result: JJHList = {
           type: "Qustion",
-          title: era,
+          title: title,
           state,
           onClickMain: () =>
             state !== "Locked" &&
             navigate(
-              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}(${
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${
                 startDate / 10000
-              } ~ ${endDate / 10000})`
+              } ~ ${endDate / 10000}`
             ),
           icon: (
             <span>
@@ -123,6 +127,7 @@ function JJHListPage() {
       }
     );
 
+    let find = false;
     setMenuList(
       [...newChapterList, ...newTimelineList]
         .sort((a, b) => a.jjhNumber - b.jjhNumber)
@@ -138,6 +143,11 @@ function JJHListPage() {
             subTitle,
             important,
           } = item;
+
+          if (isNotMobile && state === "InProgress" && onClickMain) {
+            onClickMain();
+            find = true;
+          }
           return {
             type,
             title,
@@ -152,7 +162,11 @@ function JJHListPage() {
           };
         })
     );
-  }, [setMenuList, jjhList, navigate, theme]);
+
+    if (isNotMobile && !find && newChapterList[0]?.onClickMain) {
+      newChapterList[0].onClickMain();
+    }
+  }, [setMenuList, jjhList, navigate, theme, isNotMobile]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -181,7 +195,12 @@ function JJHListPage() {
   return (
     <>
       <TitleBox icon="run" category="정주행" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <Mobile>
+        <ContentLayout full>{renderContent()}</ContentLayout>
+      </Mobile>
+      <Default>
+        <ContentLayout leftMenu={<JJHSideMenu />}></ContentLayout>
+      </Default>
     </>
   );
 }

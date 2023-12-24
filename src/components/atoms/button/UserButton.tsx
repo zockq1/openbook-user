@@ -7,14 +7,14 @@ import { logout } from "../../../store/slices/authSlice";
 const StyledUser = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 `;
 
 const Popover = styled.button`
   position: absolute;
-  top: 28px;
-  right: 0;
+  top: 38px;
+  left: 0;
   z-index: 1;
   width: max-content;
   padding: 8px;

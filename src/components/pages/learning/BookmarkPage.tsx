@@ -36,7 +36,7 @@ function BookmarkPage() {
 
     if (isSuccess)
       return (
-        <>
+        <div>
           {bookmarkList.map((chapter) => {
             const { topicList, chapterTitle } = chapter;
             let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
@@ -63,14 +63,14 @@ function BookmarkPage() {
               </BookmarkChapter>
             );
           })}
-        </>
+        </div>
       );
   };
 
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category="북마크" />
-      <ContentLayout width="500px">
+      <ContentLayout leftMenu={<div />}>
         <KeywordToggleButton topic comment keyword />
         {renderContent()}
       </ContentLayout>

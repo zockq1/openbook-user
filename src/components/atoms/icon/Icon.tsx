@@ -102,7 +102,7 @@ interface Iconprops {
   size?: number | string;
 }
 
-function Icon({ icon, size, color = "inherit" }: Iconprops) {
+function Icon({ icon, size = "inherit", color = "inherit" }: Iconprops) {
   const icons: {
     [key: string]: React.FunctionComponent<
       React.SVGProps<SVGSVGElement> & {

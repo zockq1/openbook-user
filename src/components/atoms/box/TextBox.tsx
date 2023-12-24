@@ -23,10 +23,10 @@ const StyledTextBox = styled.div<TextBoxProps>`
       full: "100%",
     }[maxWidth] || "initial")};
 
-  border-radius: ${({ theme }) => theme.padding.base};
+  border-radius: 10px 10px 0 0;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
-  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.lightGrey};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;

@@ -53,7 +53,7 @@ function QuizPage() {
   return (
     <>
       <TitleBox icon="question" category="퀴즈" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>{renderContent()}</ContentLayout>
     </>
   );
 }

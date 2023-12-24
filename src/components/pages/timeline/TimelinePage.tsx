@@ -7,6 +7,8 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import TimelineListUI from "../../unit/timeline/container/TimelineListUI.container";
 import ContentLayout from "../../atoms/layout/ContentLayout";
+import TimelineSideMenu from "../../unit/common/presenter/TimelineSideMenu.presenter";
+import TopicList from "../../unit/topic/presenter/TopicList.presenter";
 
 function TimelinePage() {
   const { title, timelineId } = useQuesryString();
@@ -34,7 +36,22 @@ function TimelinePage() {
     }
 
     if (isSuccess) {
-      return <TimelineListUI dateList={dateList} />;
+      return (
+        <TopicList
+          topicList={[
+            {
+              title: title.split("/")[0],
+              date: title.split("/")[1],
+              state: "Timeline",
+              isBookmarked: false,
+              keywordList: [],
+              onClick: () => {},
+              content: <TimelineListUI dateList={dateList} />,
+            },
+          ]}
+        />
+      );
+      //return <TimelineListUI dateList={dateList} />;
     }
 
     return null;
@@ -43,7 +60,7 @@ function TimelinePage() {
   return (
     <>
       <TitleBox icon="TIMELINE_STUDY" category={title} />
-      <ContentLayout width="500px">
+      <ContentLayout leftMenu={<TimelineSideMenu />}>
         <KeywordToggleButton comment />
         {renderContent()}
       </ContentLayout>

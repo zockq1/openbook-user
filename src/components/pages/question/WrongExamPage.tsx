@@ -50,7 +50,7 @@ function WrongExamPage() {
   return (
     <>
       <TitleBox icon="question" category={`${round}회 기출문제 오답노트`} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>{renderContent()}</ContentLayout>
     </>
   );
 }

@@ -12,6 +12,8 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
+import ChapterSideMenu from "../../unit/common/presenter/ChapterSideMenu.presenter";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);
@@ -87,7 +89,12 @@ function LearningTopicListPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category={title} />
-      <ContentLayout width="500px">
+      <ContentLayout
+        leftMenu={<ChapterSideMenu />}
+        rightMenu={
+          <SideAnchorUI anchorList={menuList.map((menu) => menu.title)} />
+        }
+      >
         <KeywordToggleButton comment keyword />
         {renderContent()}
       </ContentLayout>

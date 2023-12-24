@@ -37,13 +37,16 @@ const InnerCircle = styled.div`
   position: relative;
 `;
 
-const Title = styled.div`
+const Title = styled.div<{ comment: boolean }>`
   width: fit-content;
   padding: ${({ theme }) => theme.padding.small};
-  border-radius: ${({ theme }) => theme.padding.base};
+  border-radius: 10px 10px 2px 2px;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
-  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
+  border-bottom: ${({ theme, comment }) =>
+    comment
+      ? `3px solid ${theme.colors.lightGrey}`
+      : `1px solid ${theme.colors.lightGrey}`};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   z-index: 1;
@@ -86,7 +89,12 @@ function TimelineItemUI({
           </DateItem>
         </Date>
         <InnerCircle />
-        <Title onClick={onCommentToggle}>{comment}</Title>
+        <Title
+          onClick={onCommentToggle}
+          comment={comment ? !isCommentOn : false}
+        >
+          {comment}
+        </Title>
       </StyledTimelineItem>
       <CommentContainer>
         {!isQuestion && keywordList && keywordList.length > 0 && (

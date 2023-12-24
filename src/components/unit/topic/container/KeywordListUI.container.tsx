@@ -22,13 +22,12 @@ const KeywordListWrapper = styled.div<{ isVisible: boolean }>`
 const KeywordListContainer = styled.div<{ isVisible: boolean }>`
   position: relative;
   padding: 0 5px;
-  max-height: ${({ isVisible }) => (isVisible ? "2000px" : "0px")};
-  margin-bottom: ${({ isVisible }) => (isVisible ? "0" : "0px")};
+  max-height: ${({ isVisible }) => (isVisible ? "" : "0px")};
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   border-bottom: 0;
   border-top: 0;
   background-color: ${({ theme }) => theme.colors.bg};
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   overflow: hidden;
 `;
 
@@ -41,17 +40,20 @@ const KeywordList = styled.div`
 
 const KeywordTitleContainer = styled.div<{ isVisible: boolean }>`
   display: flex;
+  align-items: center;
   height: 40px;
   width: 100%;
 
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  border-top: ${({ isVisible }) => (isVisible ? "" : "0")};
+  border-top: 1px solid
+    ${({ theme, isVisible }) =>
+      !isVisible ? "transparent" : theme.colors.lightGrey};
   border-radius: 0 0 10px 10px;
 
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
   font-family: "Spoqa Han Sans Neo";
-  transition: all 1s;
+  //transition: all 1s;
 
   button:nth-child(2) {
     border-left: 1px solid ${({ theme }) => theme.colors.lightGrey};
@@ -73,9 +75,16 @@ const Questionbutton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   color: ${({ theme }) => theme.colors.textBlue};
+`;
+
+const Border = styled.div`
+  width: 1px;
+  height: 60%;
+
+  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
 function KeywordListUI({
@@ -131,11 +140,16 @@ function KeywordListUI({
               )}
             </MoreButton>
           )}
+          {keywordList.length !== 0 &&
+            !!content &&
+            (state === "Complete" ||
+              state === "InProgress" ||
+              state === "Locked") && <Border />}
           {(state === "Complete" ||
             state === "InProgress" ||
             state === "Locked") && (
             <Questionbutton onClick={onClickQuestion}>
-              <Icon icon="exam" size={20} />
+              <Icon icon="exam" size={18} /> &nbsp; 문제 풀기
             </Questionbutton>
           )}
         </KeywordTitleContainer>

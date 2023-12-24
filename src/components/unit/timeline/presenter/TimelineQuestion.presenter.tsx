@@ -157,7 +157,7 @@ function TimelineQuestion({
   };
 
   return (
-    <>
+    <div>
       {isFinish ? (
         <TimelineScore wrongCount={wrongCount} />
       ) : (
@@ -173,7 +173,7 @@ function TimelineQuestion({
       {isFinish && (
         <ResultButtonUI isSuccess={true} onNextContent={onNextContent} />
       )}
-    </>
+    </div>
   );
 }
 

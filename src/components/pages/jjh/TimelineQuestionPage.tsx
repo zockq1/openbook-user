@@ -12,6 +12,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useCallback } from "react";
+import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -67,7 +68,9 @@ function TimelineQuestionPage() {
   return (
     <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <ContentLayout width="500px">{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<JJHSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }

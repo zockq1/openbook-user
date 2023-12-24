@@ -103,12 +103,13 @@ function TopicUI({ topic, onKeywordToggle }: TopicUIProps) {
       state={state}
       color={mainColor}
       onClick={onKeywordToggle}
+      id={title}
     >
       <Description>
         <Title color={state === "Locked" ? mainColor : ""}>{title}</Title>
         <SubTitle color={state === "Locked" ? mainColor : ""}>{date}</SubTitle>
       </Description>
-      {state !== "Topic" && (
+      {state !== "Topic" && state !== "Timeline" && (
         <StateBox color={mainColor}>
           <Icon
             icon={
@@ -120,8 +121,6 @@ function TopicUI({ topic, onKeywordToggle }: TopicUIProps) {
                 ? "check"
                 : state === "Chapter"
                 ? "culture"
-                : state === "Timeline"
-                ? "TIMELINE_STUDY"
                 : "check"
             }
             size={30}
@@ -129,7 +128,7 @@ function TopicUI({ topic, onKeywordToggle }: TopicUIProps) {
         </StateBox>
       )}
 
-      {state !== "Locked" && (
+      {state !== "Locked" && state !== "Timeline" && (
         <BookmarkBox color={mainColor}>
           <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
         </BookmarkBox>

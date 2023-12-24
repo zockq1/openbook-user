@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 
 const StyledNavigationBar = styled.nav`
-  display: grid;
-  place-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
   @media (min-width: 768px) {
     width: 400px;
     font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -30,17 +28,17 @@ interface NavigationProps {
 
 const Navigation = styled(Link)<NavigationProps>`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
   height: 100%;
   min-width: max-content;
+  margin-right: 20px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   color: ${({ $isCurrent, theme }) =>
     $isCurrent ? theme.colors.textBlue : theme.colors.grey};
   font-weight: ${({ $isCurrent, theme }) =>
     $isCurrent ? theme.fontWeight.regular : theme.fontWeight.light};
   font-family: "Spoqa Han Sans Neo";
+  font-size: ${({ theme }) => theme.fontSizes.base};
 
   :hover {
     color: ${({ theme }) => theme.colors.textBlue};
@@ -53,8 +51,14 @@ function NavigationBar() {
 
   return (
     <StyledNavigationBar>
-      <Navigation to="/" $isCurrent={location.pathname === "/"}>
-        홈
+      <Navigation to="/jeong-ju-haeng" $isCurrent={location.pathname === "/"}>
+        정주행
+      </Navigation>
+      <Navigation to="/learning" $isCurrent={location.pathname === "/"}>
+        학습 자료
+      </Navigation>
+      <Navigation to="/timeline-list" $isCurrent={location.pathname === "/"}>
+        연표
       </Navigation>
       <Navigation to="/question" $isCurrent={location.pathname === "/question"}>
         문제

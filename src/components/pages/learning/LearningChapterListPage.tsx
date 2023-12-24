@@ -9,9 +9,13 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import { Default, Mobile } from "../../atoms/layout/Responsive";
+import ChapterSideMenu from "../../unit/common/presenter/ChapterSideMenu.presenter";
+import { useMediaQuery } from "react-responsive";
 
 function LearningChapterListPage() {
   const navigate = useNavigate();
+  const isNotMobile = useMediaQuery({ minWidth: 768 });
   const theme = useContext(ThemeContext);
   const {
     data: chapterList,
@@ -30,8 +34,11 @@ function LearningChapterListPage() {
     setMenuList(
       [...chapterList]
         .sort((a, b) => a.number - b.number)
-        .map((item) => {
+        .map((item, index) => {
           const { title, number } = item;
+          if (isNotMobile && index === 0) {
+            navigate(`/learning/chapter?chapter=${number}&title=${title}`);
+          }
           const result: MenuModel = {
             type: "Base",
             state: "Chapter",
@@ -51,7 +58,7 @@ function LearningChapterListPage() {
           return result;
         })
     );
-  }, [setMenuList, chapterList, navigate, theme]);
+  }, [setMenuList, chapterList, navigate, theme, isNotMobile]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -81,7 +88,12 @@ function LearningChapterListPage() {
   return (
     <>
       <TitleBox icon="CHAPTER_INFO" category="학습 자료 모음" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <Mobile>
+        <ContentLayout full>{renderContent()}</ContentLayout>
+      </Mobile>
+      <Default>
+        <ContentLayout leftMenu={<ChapterSideMenu />}>{}</ContentLayout>
+      </Default>
     </>
   );
 }

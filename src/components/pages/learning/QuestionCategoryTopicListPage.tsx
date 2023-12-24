@@ -77,7 +77,7 @@ function QustionCategoryTopicListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category={title} />
-      <ContentLayout width="500px">
+      <ContentLayout>
         <KeywordToggleButton keyword comment />
         {renderContent()}
       </ContentLayout>

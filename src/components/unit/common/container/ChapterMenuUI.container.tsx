@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MenuModel } from "../../../../types/commonTypes";
 import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 import Icon from "../../../atoms/icon/Icon";
+import Divider from "../../../atoms/box/Divider";
 
 interface MenuUIProps {
   menuList: MenuModel[];
@@ -114,48 +115,11 @@ const SubTitle = styled.div`
   }
 `;
 
-const Divider = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: ${({ theme }) => theme.fontSizes.xxxl};
-  font-weight: ${({ theme }) => theme.fontWeight.thin};
-
-  & > div {
-    padding: 10px;
-    border-top: 1px solid ${({ theme }) => theme.colors.textBlue};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.textBlue};
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    height: 1px;
-    background-color: ${({ theme }) => theme.colors.textBlue};
-    flex-grow: 1;
-  }
-
-  &::before {
-    margin-right: 20px;
-  }
-
-  &::after {
-    margin-left: 20px;
-  }
-
-  @media (max-width: 767px) {
-    margin: 10px 0;
-    font-size: ${({ theme }) => theme.fontSizes.xl};
-  }
-`;
-
 function ChapterMenuUI({ menuList, title, color = "" }: MenuUIProps) {
   if (menuList.length === 0) return <></>;
   return (
     <>
-      <Divider>
-        <div>{title}</div>
-      </Divider>
+      <Divider>{title}</Divider>
       <ChapterMenuList>
         {menuList.map((menu, index, arr) => {
           const {

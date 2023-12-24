@@ -10,9 +10,13 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import { Default, Mobile } from "../../atoms/layout/Responsive";
+import TimelineSideMenu from "../../unit/common/presenter/TimelineSideMenu.presenter";
+import { useMediaQuery } from "react-responsive";
 
 function TimelineMenuPage() {
   const navigate = useNavigate();
+  const isNotMobile = useMediaQuery({ minWidth: 768 });
   const theme = useContext(ThemeContext);
   const {
     data: timelineList,
@@ -32,11 +36,8 @@ function TimelineMenuPage() {
       {
         type: "Base",
         title: "전체 연표",
-        onClickMain: () => navigate(`/timeline?id=-1&title=전체 연표`),
-        onClickSub: () => {
-          navigate(`/timeline?id=-1&title=전체 연표`);
-          navigate(`/`);
-        },
+        onClickMain: () =>
+          navigate(`/timeline?id=-1&title=전체 연표/BC 700K ~ 현대`),
         icon: (
           <span>
             <Icon icon="TIMELINE_STUDY" size={22} />
@@ -52,9 +53,11 @@ function TimelineMenuPage() {
             type: "Base",
             title: `${timeline.title}`,
             onClickMain: () =>
-              navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
-            onClickSub: () =>
-              navigate(`/timeline?id=${timeline.id}&title=${timeline.title}`),
+              navigate(
+                `/timeline?id=${timeline.id}&title=${timeline.title}/${
+                  timeline.startDate / 10000
+                } ~ ${timeline.endDate / 10000}`
+              ),
             icon: (
               <span>
                 <Icon icon="TIMELINE_STUDY" size={22} />
@@ -68,7 +71,11 @@ function TimelineMenuPage() {
           return result;
         }),
     ]);
-  }, [setMenuList, timelineList, theme, navigate]);
+
+    if (isNotMobile) {
+      navigate(`/timeline?id=-1&title=전체 연표/BC 700K ~ 현대`);
+    }
+  }, [setMenuList, timelineList, theme, navigate, isNotMobile]);
 
   const renderContent = () => {
     if (isLoading) {
@@ -98,7 +105,12 @@ function TimelineMenuPage() {
   return (
     <>
       <TitleBox icon="TIMELINE_STUDY" category="연표 학습" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <Mobile>
+        <ContentLayout full>{renderContent()}</ContentLayout>
+      </Mobile>
+      <Default>
+        <ContentLayout leftMenu={<TimelineSideMenu />}>{}</ContentLayout>
+      </Default>
     </>
   );
 }

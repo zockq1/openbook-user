@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import useQuesryString from "../../../hooks/useQueryString";
-import getContentName from "../../../service/getContentName";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import TimelineList from "../../unit/timeline/presenter/TimelineList.presenter";
@@ -19,11 +18,18 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
+import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
 
 function ContentListPage() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const { chapterNumber, jjhNumber, timelineId, title } = useQuesryString();
+  const {
+    chapterNumber,
+    jjhNumber,
+    timelineId,
+    title: contentTitle,
+  } = useQuesryString();
   const {
     data: contentList,
     isError,
@@ -68,8 +74,11 @@ function ContentListPage() {
         let result: TopicMenuModel;
 
         result = {
-          title: content === "TOPIC_STUDY" ? title : getContentName(content),
-          date: content === "TIMELINE_STUDY" ? title : dateComment,
+          title,
+          date:
+            content === "TIMELINE_STUDY"
+              ? contentTitle.split("/")[1]
+              : dateComment,
           state,
           content:
             content === "TIMELINE_STUDY" ? (
@@ -112,6 +121,7 @@ function ContentListPage() {
     navigate,
     updateProgres,
     topicList,
+    contentTitle,
   ]);
 
   const renderContent = () => {
@@ -133,15 +143,7 @@ function ContentListPage() {
     }
 
     if (isSuccess && contentList.length > 0) {
-      return (
-        <>
-          {timelineId ? (
-            <TopicList topicList={menuList} />
-          ) : (
-            <TopicList topicList={menuList} />
-          )}
-        </>
-      );
+      return <TopicList topicList={menuList} />;
     }
 
     return null;
@@ -149,8 +151,13 @@ function ContentListPage() {
 
   return (
     <>
-      <TitleBox icon="TOPIC_STUDY" category={title} />
-      <ContentLayout width="500px">
+      <TitleBox icon="TOPIC_STUDY" category={contentTitle} />
+      <ContentLayout
+        leftMenu={<JJHSideMenu />}
+        rightMenu={
+          <SideAnchorUI anchorList={menuList.map((menu) => menu.title)} />
+        }
+      >
         {timelineId ? (
           <KeywordToggleButton comment />
         ) : (

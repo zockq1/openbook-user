@@ -17,6 +17,7 @@ export interface MenuModel {
   important?: boolean;
   topicTitle?: string;
   isBookmarked?: boolean;
+  id?: number;
 }
 
 export interface OptionModel {

@@ -45,7 +45,7 @@ function MockExamPage() {
   return (
     <>
       <TitleBox icon="question" category={title} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>{renderContent()}</ContentLayout>
     </>
   );
 }

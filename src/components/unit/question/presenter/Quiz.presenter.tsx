@@ -19,7 +19,6 @@ import gyeongbokgung from "../../../../styles/images/gyeongbokgung.svg";
 import kingSejong from "../../../../styles/images/king-sejong.svg";
 import IncorrectAnswerListUI from "../container/IncorrectAnswerListUI.container";
 import ResultButtonUI from "../container/ResultButtonUI.container";
-import Icon from "../../../atoms/icon/Icon";
 import QuizScore from "./QuizScore.presenter";
 import UpdateScoreUI from "../container/UpdateScoreUI.container";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
@@ -30,8 +29,9 @@ import { Default, Mobile } from "../../../atoms/layout/Responsive";
 
 const QuestionLayout = styled.div`
   @media (min-width: 768px) {
+    width: 100%;
+    grid-column: 2/3;
     display: grid;
-    width: 800px;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
   }
@@ -193,7 +193,7 @@ function createQuestion(question: QuizModel, index: number): QuestionModel {
               ? [
                   {
                     comment: choice.key,
-                    icon: <Icon icon="check" />,
+                    icon: null,
                     type: "Comment",
                   },
                 ]
@@ -357,7 +357,6 @@ function Quiz({
       ) : (
         <Default>
           {!questionList[currentNumber].isFinish ? (
-            // <Button onClick={handleCheckAnswer}>정답 확인</Button>
             <MultiButtonUI
               buttonList={[
                 { onClick: handleCheckAnswer, contents: "정답 확인" },

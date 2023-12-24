@@ -12,7 +12,7 @@ import Logo from "../icon/Logo";
 
 const StyledLogin = styled.button`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 `;
 

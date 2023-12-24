@@ -11,6 +11,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useCallback } from "react";
+import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
 
 function TopicQuestionPage() {
   const { topicTitle, jjhNumber, contentNumber } = useQuesryString();
@@ -66,7 +67,9 @@ function TopicQuestionPage() {
   return (
     <>
       <TitleBox icon="question" category={`${topicTitle} 문제`} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<JJHSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }

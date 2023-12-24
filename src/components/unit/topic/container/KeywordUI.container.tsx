@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import TextBox from "../../../atoms/box/TextBox";
 import { KeywordModel } from "../../../../types/topicTypes";
 import CommentUI from "./CommentUI.container";
 import Icon from "../../../atoms/icon/Icon";
@@ -16,6 +15,23 @@ const Keyword = styled.div<{ isCommentOn: boolean }>`
   flex-direction: column;
   margin: 5px;
   width: ${({ isCommentOn }) => (isCommentOn ? "100%" : "")};
+`;
+
+const Title = styled.div<{ comment: boolean }>`
+  width: fit-content;
+  padding: ${({ theme }) => theme.padding.small};
+  border-radius: 10px 10px 2px 2px;
+  background-color: ${({ theme, comment }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.textBlue};
+  border-bottom: ${({ theme, comment }) =>
+    comment
+      ? `3px solid ${theme.colors.lightGrey}`
+      : `1px solid ${theme.colors.lightGrey}`};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  z-index: 1;
+  word-break: keep-all;
+  cursor: ${({ comment }) => (comment ? "pointer" : "")};
 `;
 
 // const Badge = styled.div`
@@ -52,15 +68,13 @@ function KeywordUI({
   return (
     <Keyword isCommentOn={comment ? isCommentOn : false}>
       {/* {questionList.length !== 0 && <Badge>{questionList.length}</Badge>} */}
-      <TextBox
-        maxWidth="full"
-        shadow={false}
-        color="bgBlue"
+      <Title
         onClick={!comment ? () => {} : onCommentToggle}
+        comment={comment ? !isCommentOn : false}
       >
-        <Image src={file} />
+        {file && <Image src={file} />}
         <div>{name}</div>
-      </TextBox>
+      </Title>
       {comment && (
         <CommentUI
           isCommentOpen={isCommentOn}

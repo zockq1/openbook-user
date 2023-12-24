@@ -10,6 +10,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
 
 function ChapterQuestionPage() {
   const { handleNextContent } = useNextContent();
@@ -63,7 +64,9 @@ function ChapterQuestionPage() {
   return (
     <>
       <TitleBox icon="question" category={`${title} 마무리 문제`} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<JJHSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }
