@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import { ThemeContext } from "styled-components";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import Icon from "../../atoms/icon/Icon";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import QuizMenu from "../../unit/common/presenter/QuizMenu.presenter";
 
 function ExamListPage() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function ExamListPage() {
 
     setMenuList([
       ...[...examList]
-        .sort((a, b) => a.number - b.number)
+        .sort((a, b) => b.number - a.number)
         .map((exam, index, arr) => {
           const { number, score } = exam;
 
@@ -44,7 +44,7 @@ function ExamListPage() {
             ) : score >= 60 ? (
               <Icon icon="three" color={theme.colors.white} size={40} />
             ) : (
-              <Icon icon="fail" color={theme.colors.white} size={40} />
+              "불합격"
             );
 
           const result: MenuModel = {
@@ -55,11 +55,6 @@ function ExamListPage() {
             score,
             mainColor: calculateGradientColor(score),
             onClickMain: () => {
-              navigate(
-                `/question/mock-exam?round=${number}&title=${number}회 기출문제`
-              );
-            },
-            onClickSub: () => {
               navigate(
                 `/question/mock-exam?round=${number}&title=${number}회 기출문제`
               );
@@ -89,7 +84,7 @@ function ExamListPage() {
     }
 
     if (isSuccess && examList.length > 0) {
-      return <MenuUI menuList={questionMenuList} />;
+      return <QuizMenu menuList={questionMenuList} />;
     }
 
     return null;
@@ -98,7 +93,9 @@ function ExamListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category="기출 문제" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>
+        <div>{renderContent()}</div>
+      </ContentLayout>
     </>
   );
 }

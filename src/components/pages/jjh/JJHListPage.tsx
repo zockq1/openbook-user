@@ -48,6 +48,12 @@ function JJHListPage() {
             navigate(
               `/jeong-ju-haeng/content?jjh=${jjhNumber}&chapter=${number}&title=${title}`
             ),
+          onClickReplace: () =>
+            state !== "Locked" &&
+            navigate(
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&chapter=${number}&title=${title}`,
+              { replace: true }
+            ),
           icon: (
             <span>
               {number}
@@ -95,6 +101,14 @@ function JJHListPage() {
                 startDate / 10000
               } ~ ${endDate / 10000}`
             ),
+          onClickReplace: () =>
+            state !== "Locked" &&
+            navigate(
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${
+                startDate / 10000
+              } ~ ${endDate / 10000}`,
+              { replace: true }
+            ),
           icon: (
             <span>
               <Icon icon="TIMELINE_STUDY" size={22} />
@@ -139,15 +153,17 @@ function JJHListPage() {
             icon,
             description,
             onClickMain,
+            onClickReplace,
             mainColor,
             subTitle,
             important,
           } = item;
 
-          if (isNotMobile && state === "InProgress" && onClickMain) {
-            onClickMain();
+          if (isNotMobile && state === "InProgress" && onClickReplace) {
+            onClickReplace();
             find = true;
           }
+
           return {
             type,
             title,
@@ -163,8 +179,8 @@ function JJHListPage() {
         })
     );
 
-    if (isNotMobile && !find && newChapterList[0]?.onClickMain) {
-      newChapterList[0].onClickMain();
+    if (isNotMobile && !find && newChapterList[0]?.onClickReplace) {
+      newChapterList[0].onClickReplace();
     }
   }, [setMenuList, jjhList, navigate, theme, isNotMobile]);
 

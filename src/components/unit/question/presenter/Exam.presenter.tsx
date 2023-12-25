@@ -29,8 +29,8 @@ import { Default, Mobile } from "../../../atoms/layout/Responsive";
 
 const QuestionLayout = styled.div`
   @media (min-width: 768px) {
+    width: 100%;
     display: grid;
-    width: 800px;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
   }
@@ -65,6 +65,7 @@ const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 const LOAD = "LOAD";
+const RESET_STATE = "RESET_STATE";
 
 export type Action =
   | {
@@ -75,10 +76,24 @@ export type Action =
   | { type: "NEXT_QUESTION" }
   | { type: "FINISH" }
   | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
-  | { type: "LOAD"; loadedState: SaveState };
+  | { type: "LOAD"; loadedState: SaveState }
+  | {
+      type: "RESET_STATE";
+      questionList: QuestionModel[];
+      isFinish: boolean;
+      currentNumber: number;
+      score: number;
+    };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case RESET_STATE:
+      return {
+        questionList: action.questionList,
+        isFinish: action.isFinish,
+        currentNumber: action.currentNumber,
+        score: action.score,
+      };
     case LOAD:
       const updatedQuestionListLoad = state.questionList.map((item, index) => {
         return { ...item, ...action.loadedState.questionList[index] };
@@ -331,6 +346,17 @@ function Exam({ examList }: ExamProps) {
   const { round } = useQuesryString();
 
   useEffect(() => {
+    dispatch({
+      type: "RESET_STATE",
+      questionList: [...examList].map(createQuestion),
+      isFinish: false,
+      currentNumber: 0,
+      score: 0,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [round]);
+
+  useEffect(() => {
     let loadedState = localStorage.getItem(round);
     if (loadedState) {
       dispatch({ type: "LOAD", loadedState: JSON.parse(loadedState) });
@@ -445,15 +471,6 @@ function Exam({ examList }: ExamProps) {
                   <>
                     <Icon icon="pen" size={12} />
                     &nbsp;정답 확인
-                  </>
-                ),
-              },
-              {
-                onClick: handleNextQuestion,
-                contents: (
-                  <>
-                    <Icon icon="next" size={12} />
-                    &nbsp;다음 문제
                   </>
                 ),
               },

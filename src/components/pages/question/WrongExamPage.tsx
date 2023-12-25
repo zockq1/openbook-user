@@ -7,6 +7,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import WrongNoteSideMenu from "../../unit/common/presenter/WrongNoteSideMenu";
 
 function WrongExamPage() {
   const { round } = useQuesryString();
@@ -50,7 +51,9 @@ function WrongExamPage() {
   return (
     <>
       <TitleBox icon="question" category={`${round}회 기출문제 오답노트`} />
-      <ContentLayout full>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<WrongNoteSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }

@@ -27,7 +27,6 @@ import WrongExamListPage from "./components/pages/question/WrongExamListPage";
 import SearchPage from "./components/pages/learning/SearchPage";
 import NaverRedirectPage from "./components/pages/main/NaverRedirectPage";
 import PrivacyPage from "./components/pages/main/PrivacyPage";
-import PolicyAgreePage from "./components/pages/main/PolicyAgreePage";
 
 const router = createBrowserRouter([
   {
@@ -97,10 +96,6 @@ const router = createBrowserRouter([
       {
         path: "/timeline",
         element: <TimelinePage />,
-      },
-      {
-        path: "/policy-agree",
-        element: <PolicyAgreePage />,
       },
       {
         path: "/oauth/kakao/login",

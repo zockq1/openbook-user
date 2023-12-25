@@ -11,6 +11,7 @@ export interface MenuModel {
   score?: number;
   onClickMain?: () => void;
   onClickSub?: () => void;
+  onClickReplace?: () => void;
   mainColor?: string;
   titleColor?: string;
   content?: ReactNode;

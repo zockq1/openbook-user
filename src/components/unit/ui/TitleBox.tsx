@@ -1,9 +1,13 @@
-import styled, { ThemeContext } from "styled-components";
-import { IconType } from "../../atoms/icon/Icon";
-import BackButton from "../../atoms/button/BackButton";
-import { useContext } from "react";
-import HomeButton from "../../atoms/button/HomeButton";
+import styled from "styled-components";
+import Icon, { IconType } from "../../atoms/icon/Icon";
+import { useState } from "react";
 import { Mobile } from "../../atoms/layout/Responsive";
+import Logo from "../../atoms/icon/Logo";
+import { RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
+import UserButton from "../../atoms/button/UserButton";
+import LoginButton from "../../atoms/button/LoginButton";
+import { Link } from "react-router-dom";
 
 interface TitleBoxProps {
   icon: IconType | undefined | null;
@@ -31,20 +35,104 @@ const StyledTitleBox = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.light};
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
-
-const Title = styled.span`
+const SlidingMenu = styled.div`
   display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  top: 55px;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  padding-top: 10px;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+  z-index: 9999;
+
+  &.closed {
+    transform: translateX(-100%);
+  }
+`;
+const DarkOverlay = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+  display: ${({ visible }) => (visible ? "block" : "none")};
+  z-index: 9998;
+`;
+
+const MenuItem = styled(Link)`
+  display: flex;
+  margin: 10px;
+  font-weight: ${({ theme }) => theme.fontWeight.light};
+  font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
 const TitleBox = ({ icon, category }: TitleBoxProps) => {
-  const theme = useContext(ThemeContext);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
   return (
     <Mobile>
       <StyledTitleBox>
-        <BackButton color={theme.colors.textBlue} />
-        <Title>{category}</Title>
-        <HomeButton color={theme.colors.textBlue} />
+        <button onClick={toggleMenu}>
+          <Icon icon="menu" size={20} />
+        </button>
+        <Logo size={18} />
+        {isLoggedIn ? <UserButton /> : <LoginButton />}
       </StyledTitleBox>
+      <DarkOverlay visible={isMenuOpen} onClick={closeMenu} />
+      <SlidingMenu className={isMenuOpen ? "" : "closed"}>
+        <MenuItem to="/jeong-ju-haeng">
+          <Icon icon="run" size={14} />
+          &nbsp; 정주행
+        </MenuItem>
+        <MenuItem to="/learning">
+          <Icon icon="description" size={14} />
+          &nbsp; 자료
+        </MenuItem>
+        <MenuItem to="/timeline-list">
+          <Icon icon="TIMELINE_STUDY" size={14} />
+          &nbsp; 연표
+        </MenuItem>
+        <MenuItem to="/question/quiz-list">
+          <Icon icon="question" size={14} />
+          &nbsp; 퀴즈
+        </MenuItem>
+        <MenuItem to="/question/timeline-list">
+          <Icon icon="questionSquare" size={14} />
+          &nbsp; 연표 문제
+        </MenuItem>
+        <MenuItem to="/question/mock-exam-list">
+          <Icon icon="pen" size={14} />
+          &nbsp; 기출 문제
+        </MenuItem>
+        <MenuItem to="/my-info/wrong-notes">
+          <Icon icon="fail" size={14} />
+          &nbsp; 오답 노트
+        </MenuItem>
+        <MenuItem to="/my-info/bookmark">
+          <Icon icon="bookmarkOff" size={14} />
+          &nbsp; 북마크
+        </MenuItem>
+        <MenuItem to="/my-info/search">
+          <Icon icon="search" size={14} />
+          &nbsp; 검색
+        </MenuItem>
+        <MenuItem to="/option">
+          <Icon icon="setting" size={14} />
+          &nbsp; 설정
+        </MenuItem>
+      </SlidingMenu>
     </Mobile>
   );
 };

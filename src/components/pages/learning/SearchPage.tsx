@@ -42,9 +42,11 @@ function SearchPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category="검색" />
-      <ContentLayout>
-        <Search />
-        {renderContent()}
+      <ContentLayout leftMenu={<div />}>
+        <div>
+          <Search />
+          {renderContent()}
+        </div>
       </ContentLayout>
     </>
   );

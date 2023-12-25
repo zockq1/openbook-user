@@ -37,19 +37,21 @@ function TimelinePage() {
 
     if (isSuccess) {
       return (
-        <TopicList
-          topicList={[
-            {
-              title: title.split("/")[0],
-              date: title.split("/")[1],
-              state: "Timeline",
-              isBookmarked: false,
-              keywordList: [],
-              onClick: () => {},
-              content: <TimelineListUI dateList={dateList} />,
-            },
-          ]}
-        />
+        <div>
+          <TopicList
+            topicList={[
+              {
+                title: title.split("/")[0],
+                date: title.split("/")[1],
+                state: "Timeline",
+                isBookmarked: false,
+                keywordList: [],
+                onClick: () => {},
+                content: <TimelineListUI dateList={dateList} />,
+              },
+            ]}
+          />
+        </div>
       );
       //return <TimelineListUI dateList={dateList} />;
     }
@@ -61,7 +63,7 @@ function TimelinePage() {
     <>
       <TitleBox icon="TIMELINE_STUDY" category={title} />
       <ContentLayout leftMenu={<TimelineSideMenu />}>
-        <KeywordToggleButton comment />
+        <KeywordToggleButton comment keyword />
         {renderContent()}
       </ContentLayout>
     </>

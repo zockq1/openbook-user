@@ -3,13 +3,13 @@ import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import { useGetTimelineListQuery } from "../../../store/api/timelineApi";
 import calculateGradientColor from "../../../service/calculateGradientColor";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
 import withAuth from "../../../hoc/withAuth";
+import QuizMenu from "../../unit/common/presenter/QuizMenu.presenter";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
@@ -34,8 +34,8 @@ function TimelineQuestionListPage() {
     setMenuList([
       {
         type: "Progress",
-        icon: `${Math.floor(avgScore)}점`,
-        title: "전체 진행도-취약 연표 풀기",
+        icon: `${Math.floor(avgScore)}%`,
+        title: "전체 진행도",
         subTitle: "전체 연표",
         score: Math.floor(avgScore),
         mainColor: calculateGradientColor(avgScore),
@@ -47,32 +47,34 @@ function TimelineQuestionListPage() {
         },
         important: true,
       },
-      ...[...timelineList].map((questionCategory, index, arr) => {
-        const { title, id, score, timelineCount } = questionCategory;
-        const result: MenuModel = {
-          type: "Progress",
-          icon: `${Math.floor(score)}점`,
-          title: `${title}`,
-          subTitle: (
-            <>
-              <div>연표 보기</div>
-              <div>({timelineCount})</div>
-            </>
-          ),
-          score: Math.floor(score),
-          mainColor: calculateGradientColor(score),
-          onClickMain: () => {
-            navigate(`/question/timeline?id=${id}&title=${title}`);
-          },
-          onClickSub: () => {
-            navigate(`/timeline?id=${id}&title=${title}`);
-          },
+      ...[...timelineList]
+        .sort((a, b) => a.startDate - b.startDate)
+        .map((questionCategory, index, arr) => {
+          const { title, id, score, startDate, endDate } = questionCategory;
+          const result: MenuModel = {
+            type: "Progress",
+            icon: `${Math.floor(score)}%`,
+            description: `${startDate / 10000} ~ ${endDate / 10000}`,
+            title: `${title}`,
+            subTitle: (
+              <>
+                <div>연표 보기</div>
+              </>
+            ),
+            score: Math.floor(score),
+            mainColor: calculateGradientColor(score),
+            onClickMain: () => {
+              navigate(`/question/timeline?id=${id}&title=${title}`);
+            },
+            onClickSub: () => {
+              navigate(`/timeline?id=${id}&title=${title}`);
+            },
 
-          important: false,
-        };
+            important: false,
+          };
 
-        return result;
-      }),
+          return result;
+        }),
     ]);
   }, [setMenuList, timelineList, navigate]);
 
@@ -95,7 +97,7 @@ function TimelineQuestionListPage() {
     }
 
     if (isSuccess && timelineList.length > 0) {
-      return <MenuUI menuList={questionMenuList} />;
+      return <QuizMenu menuList={questionMenuList} />;
     }
 
     return null;
@@ -104,7 +106,9 @@ function TimelineQuestionListPage() {
   return (
     <>
       <TitleBox category="연표 문제" icon="questionSquare" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>
+        <div>{renderContent()}</div>
+      </ContentLayout>
     </>
   );
 }

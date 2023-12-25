@@ -7,7 +7,8 @@ export type ContentState =
   | "Updated"
   | "Chapter"
   | "Topic"
-  | "Timeline";
+  | "Timeline"
+  | "Question";
 export type Content =
   | "CHAPTER_INFO"
   | "TIMELINE_STUDY"

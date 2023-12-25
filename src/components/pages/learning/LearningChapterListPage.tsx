@@ -37,7 +37,9 @@ function LearningChapterListPage() {
         .map((item, index) => {
           const { title, number } = item;
           if (isNotMobile && index === 0) {
-            navigate(`/learning/chapter?chapter=${number}&title=${title}`);
+            navigate(`/learning/chapter?chapter=${number}&title=${title}`, {
+              replace: true,
+            });
           }
           const result: MenuModel = {
             type: "Base",

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { ThemeContext, keyframes } from "styled-components";
 import { useContext } from "react";
-import MenuLabelBox from "../../../atoms/box/MenuLabelBox";
 import Icon from "../../../atoms/icon/Icon";
 import Text from "../../../atoms/text/Text";
 import calculateGradientColor from "../../../../service/calculateGradientColor";
@@ -10,7 +9,10 @@ import useCountAnimation from "../../../../hooks/useCountAnimation";
 const Box = styled(Link)`
   position: relative;
   @media (min-width: 768px) {
-    grid-column: 2/4;
+    grid-column: 1/5;
+  }
+  @media (max-width: 767px) {
+    grid-column: 1/5;
   }
   padding: ${({ theme }) => theme.padding.base};
   margin: 8px;
@@ -22,8 +24,8 @@ const Box = styled(Link)`
   transition: transform ease 0.2s, box-shadow ease 0.2s;
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
+    //transform: translateY(-8px);
+    //box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
   }
 `;
 const BoxImage = styled.img`
@@ -37,7 +39,8 @@ const BoxImage = styled.img`
 const BoxTitle = styled.div`
   display: flex;
   align-items: center;
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  padding: 10px;
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.textBlue};
 
@@ -114,9 +117,7 @@ function JJHBox({
   return (
     <Box to={link}>
       <BoxTitle>
-        <MenuLabelBox state="Open">
-          {<Icon icon="run" size={22} />}
-        </MenuLabelBox>
+        {<Icon icon="run" size={20} />}
         &nbsp;&nbsp;{title}
       </BoxTitle>
       <BoxImage src={image} alt={title + " 이미지"} />

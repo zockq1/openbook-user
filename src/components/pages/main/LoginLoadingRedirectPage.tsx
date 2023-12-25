@@ -10,7 +10,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
-import BackButton from "../../atoms/button/BackButton";
+import MainPageLayout from "../../atoms/layout/MainPageLayout";
+import PolicyAgreePage from "./PolicyAgreePage";
+import { usePolicyAgreeMutation } from "../../../store/api/withdrawalApi";
 
 const LoginLoadingRedirectPage = () => {
   const dispatch = useDispatch();
@@ -27,20 +29,34 @@ const LoginLoadingRedirectPage = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(setAccessToken(data.accessToken));
-      dispatch(setRefreshToken(data.refreshToken));
-      dispatch(setId(data.id));
-      dispatch(login());
-      if (data.isNew) navigate("/policy-agree", { replace: true });
-      else navigate("/", { replace: true });
+      if (!data.isNew) {
+        dispatch(setAccessToken(data.accessToken));
+        dispatch(setRefreshToken(data.refreshToken));
+        dispatch(setId(data.id));
+        dispatch(login());
+        navigate("/", { replace: true });
+      }
     }
   }, [data, dispatch, navigate]);
+  const [policyAgree] = usePolicyAgreeMutation();
+
+  const onSubmit = async () => {
+    try {
+      dispatch(setAccessToken(data?.accessToken));
+      dispatch(setRefreshToken(data?.refreshToken));
+      dispatch(setId(data?.id));
+      dispatch(login());
+      await policyAgree().unwrap();
+      navigate("/", { replace: true });
+    } catch (error: any) {
+      alert(error.error);
+    }
+  };
 
   const renderContent = () => {
     if (isLoading) {
       return (
         <>
-          <BackButton color="black" />
           <Loading image="login" />
         </>
       );
@@ -50,10 +66,13 @@ const LoginLoadingRedirectPage = () => {
       return <ErrorUI error={error} message={`로그인에 실패하였습니다.`} />;
     }
 
+    if (data?.isNew) {
+      return <PolicyAgreePage handleSubmit={onSubmit} />;
+    }
     return null;
   };
 
-  return <div style={{ padding: "20px" }}>{renderContent()}</div>;
+  return <MainPageLayout>{renderContent()}</MainPageLayout>;
 };
 
 export default LoginLoadingRedirectPage;

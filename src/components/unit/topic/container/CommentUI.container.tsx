@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-const Comment = styled.ul<{ open: boolean }>`
+const Comment = styled.ul<{ open: boolean; color: string }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,7 @@ interface CommentUIProps {
 
 function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
   return (
-    <Comment open={isCommentOpen}>
+    <Comment open={isCommentOpen} color={color}>
       <Triangle open={isCommentOpen} />
       {commentList.map((item, index) => {
         const { comment, icon } = item;

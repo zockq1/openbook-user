@@ -1,11 +1,11 @@
 import { MenuModel } from "../../../../types/commonTypes";
-import ChapterMenuUI from "../container/ChapterMenuUI.container";
+import QuizMenuUI from "../container/QuizMenuUI.container";
 
 interface ChapterMenuProps {
   menuList: MenuModel[];
 }
 
-function ChapterMenu({ menuList }: ChapterMenuProps) {
+function QuizMenu({ menuList }: ChapterMenuProps) {
   const chapterCategory0 = ["전체"];
   const chapterCategory1 = [
     "선사",
@@ -36,7 +36,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
   ];
   return (
     <>
-      <ChapterMenuUI
+      <QuizMenuUI
         title="전체"
         color="#101a28"
         menuList={menuList.filter((chapter) =>
@@ -45,7 +45,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="선사 시대 ~ 남북국 시대"
         color="#5F0F40"
         menuList={menuList.filter(
@@ -57,7 +57,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
             !chapter.title?.toString().includes("고려")
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="고려 시대"
         color="#161A30"
         menuList={menuList.filter((chapter) =>
@@ -66,7 +66,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="조선 시대"
         color="#706233"
         menuList={menuList.filter((chapter) =>
@@ -75,7 +75,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="개항기 ~ 일제강점기"
         color="#413F42"
         menuList={menuList.filter((chapter) =>
@@ -84,7 +84,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="현대"
         color="#6C4343"
         menuList={menuList.filter((chapter) =>
@@ -93,7 +93,7 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
-      <ChapterMenuUI
+      <QuizMenuUI
         title="기타"
         color="#435334"
         menuList={menuList.filter((chapter) =>
@@ -102,8 +102,17 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
+      <QuizMenuUI
+        title="기출 문제"
+        color="#435334"
+        menuList={menuList.filter((chapter) =>
+          ["심화"].some((category) =>
+            chapter.title?.toString().includes(category)
+          )
+        )}
+      />
     </>
   );
 }
 
-export default ChapterMenu;
+export default QuizMenu;

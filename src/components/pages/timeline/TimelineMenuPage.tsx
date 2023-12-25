@@ -73,7 +73,9 @@ function TimelineMenuPage() {
     ]);
 
     if (isNotMobile) {
-      navigate(`/timeline?id=-1&title=전체 연표/BC 700K ~ 현대`);
+      navigate(`/timeline?id=-1&title=전체 연표/BC 700K ~ 현대`, {
+        replace: true,
+      });
     }
   }, [setMenuList, timelineList, theme, navigate, isNotMobile]);
 

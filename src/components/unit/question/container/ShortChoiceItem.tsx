@@ -44,6 +44,8 @@ const ShortChoice = styled.div<AnswerCheckProps>`
 const ShortComment = styled.img<AnswerCheckProps>`
   border-radius: 10px;
   height: 70%;
+  width: 90%;
+  object-fit: contain;
 `;
 
 function ShortChoiceItem({

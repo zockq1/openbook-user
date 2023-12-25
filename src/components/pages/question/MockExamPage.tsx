@@ -7,6 +7,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import ExamSideMenu from "../../unit/common/presenter/ExamSideMenu.presenter";
 function MockExamPage() {
   const { title, round } = useQuesryString();
   const {
@@ -45,7 +46,9 @@ function MockExamPage() {
   return (
     <>
       <TitleBox icon="question" category={title} />
-      <ContentLayout full>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<ExamSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }

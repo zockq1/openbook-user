@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { Id, ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../../../styles/images/correct.svg";
@@ -26,11 +26,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import styled from "styled-components";
 import { Default, Mobile } from "../../../atoms/layout/Responsive";
+import useQuesryString from "../../../../hooks/useQueryString";
 
 const QuestionLayout = styled.div`
   @media (min-width: 768px) {
     width: 100%;
-    grid-column: 2/3;
     display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
@@ -59,6 +59,7 @@ const FINISH = "FINISH";
 const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
+const RESET_STATE = "RESET_STATE";
 
 export type Action =
   | {
@@ -68,10 +69,32 @@ export type Action =
   | { type: "CHECK_ANSWER"; correctAlert: () => Id; wrongAlert: () => Id }
   | { type: "NEXT_QUESTION" }
   | { type: "FINISH" }
-  | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
+  | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
+  | {
+      type: "RESET_STATE";
+      questionList: QuestionModel[];
+      isFinish: boolean;
+      currentNumber: number;
+      score: number;
+      keywordList: Map<
+        number,
+        {
+          wrongCount: number;
+          correctCount: number;
+        }
+      >;
+    };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case RESET_STATE:
+      return {
+        questionList: action.questionList,
+        isFinish: action.isFinish,
+        currentNumber: action.currentNumber,
+        score: action.score,
+        keywordList: action.keywordList,
+      };
     case SELECT_CHOICE:
       if (state.questionList[state.currentNumber].isFinish) {
         return state;
@@ -246,6 +269,21 @@ function Quiz({
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
+  const { timelineId } = useQuesryString();
+
+  useEffect(() => {
+    dispatch({
+      type: "RESET_STATE",
+      questionList: [...quizList]
+        .sort(() => Math.random() - 0.5)
+        .map((item, index) => createQuestion(item, index)),
+      isFinish: false,
+      currentNumber: 0,
+      score: 0,
+      keywordList: getKeywordList(quizList),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timelineId]);
 
   const correctAnswer = () =>
     toast(

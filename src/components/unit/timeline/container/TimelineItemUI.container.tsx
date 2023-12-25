@@ -43,6 +43,7 @@ const Title = styled.div<{ comment: boolean }>`
   border-radius: 10px 10px 2px 2px;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
+  border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
   border-bottom: ${({ theme, comment }) =>
     comment
       ? `3px solid ${theme.colors.lightGrey}`

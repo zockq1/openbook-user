@@ -35,9 +35,9 @@ const StyledMainPageLayout = styled.div<{ full: boolean }>`
     grid-template-columns: ${({ full }) =>
       full
         ? "1fr"
-        : "minmax(250px, 250px) minmax(400px, 700px) minmax(auto, 300px)"};
+        : "minmax(250px, 250px) minmax(400px, 660px) minmax(auto, 300px)"};
     align-items: start;
-    max-width: 1300px;
+    max-width: 1250px;
     padding: 90px 20px 20px 20px;
   }
 

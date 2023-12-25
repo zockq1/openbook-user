@@ -4,12 +4,12 @@ import { MenuModel } from "../../../types/commonTypes";
 import { useNavigate } from "react-router-dom";
 import calculateGradientColor from "../../../service/calculateGradientColor";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import QuizMenu from "../../unit/common/presenter/QuizMenu.presenter";
 
 function QuizListPage() {
   const navigate = useNavigate();
@@ -32,7 +32,8 @@ function QuizListPage() {
     setMenuList([
       {
         type: "Progress",
-        icon: `${Math.floor(avgScore)}점`,
+        state: "Question",
+        icon: `${Math.floor(avgScore)}%`,
         title: "전체 진행도",
         subTitle: "전체 주제",
         score: Math.floor(avgScore),
@@ -51,14 +52,16 @@ function QuizListPage() {
           const { title, id, score, topicCount } = questionCategory;
           const result: MenuModel = {
             type: "Progress",
-            title: `${title}`,
-            icon: `${score}점`,
+            state: "Question",
+            title: title.split("-")[0],
             subTitle: (
               <>
                 <div>관련 주제</div>
                 <div>({topicCount})</div>
               </>
             ),
+            description: title.split("-")[1],
+            icon: `${score}%`,
             score: score,
             mainColor: calculateGradientColor(score),
             onClickMain: () => {
@@ -92,7 +95,7 @@ function QuizListPage() {
     }
 
     if (isSuccess && questionCategoryList.length > 0) {
-      return <MenuUI menuList={questionMenuList} />;
+      return <QuizMenu menuList={questionMenuList} />;
     }
 
     return null;
@@ -101,7 +104,9 @@ function QuizListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category="퀴즈" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout full>
+        <div>{renderContent()}</div>
+      </ContentLayout>
     </>
   );
 }

@@ -7,6 +7,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import QuizSideMenu from "../../unit/common/presenter/QuizSideMenu.presenter";
 
 function QuizPage() {
   const navigate = useNavigate();
@@ -53,7 +54,9 @@ function QuizPage() {
   return (
     <>
       <TitleBox icon="question" category="퀴즈" />
-      <ContentLayout full>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<QuizSideMenu />}>
+        {renderContent()}
+      </ContentLayout>
     </>
   );
 }

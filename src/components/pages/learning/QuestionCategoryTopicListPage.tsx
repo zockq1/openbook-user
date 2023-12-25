@@ -40,7 +40,7 @@ function QustionCategoryTopicListPage() {
 
     if (isSuccess && topicList.length > 0) {
       return (
-        <>
+        <div>
           {topicList.map((chapter) => {
             const { topicList, chapterTitle } = chapter;
             let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
@@ -67,7 +67,7 @@ function QustionCategoryTopicListPage() {
               </BookmarkChapter>
             );
           })}
-        </>
+        </div>
       );
     }
 
@@ -77,7 +77,7 @@ function QustionCategoryTopicListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category={title} />
-      <ContentLayout>
+      <ContentLayout leftMenu={<div />}>
         <KeywordToggleButton keyword comment />
         {renderContent()}
       </ContentLayout>

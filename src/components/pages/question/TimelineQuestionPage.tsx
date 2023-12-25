@@ -9,6 +9,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import TimelineQuestionSideMenu from "../../unit/common/presenter/TimelineQuestionSideMenu.presenter";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();
@@ -57,7 +58,9 @@ function TimelineQuestionPage() {
   return (
     <>
       <TitleBox icon="TIMELINE_QUESTION" category={title} />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<TimelineQuestionSideMenu />}>
+        <div>{renderContent()}</div>
+      </ContentLayout>
     </>
   );
 }

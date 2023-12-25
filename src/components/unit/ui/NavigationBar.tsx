@@ -4,14 +4,12 @@ import { Link, useLocation } from "react-router-dom";
 const StyledNavigationBar = styled.nav`
   display: flex;
   @media (min-width: 768px) {
-    width: 400px;
     font-size: ${({ theme }) => theme.fontSizes.xl};
   }
   @media (max-width: 767px) {
     position: fixed;
     top: 45px;
     width: 100%;
-    height: 45px;
     height: 45px;
     margin: 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
@@ -31,7 +29,7 @@ const Navigation = styled(Link)<NavigationProps>`
   align-items: center;
   height: 100%;
   min-width: max-content;
-  margin-right: 20px;
+  margin: 0 10px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   color: ${({ $isCurrent, theme }) =>
     $isCurrent ? theme.colors.textBlue : theme.colors.grey};
@@ -51,23 +49,53 @@ function NavigationBar() {
 
   return (
     <StyledNavigationBar>
-      <Navigation to="/jeong-ju-haeng" $isCurrent={location.pathname === "/"}>
+      <Navigation
+        to="/jeong-ju-haeng"
+        $isCurrent={location.pathname.includes("/jeong-ju-haeng")}
+      >
         정주행
       </Navigation>
-      <Navigation to="/learning" $isCurrent={location.pathname === "/"}>
-        학습 자료
+      <Navigation
+        to="/learning"
+        $isCurrent={location.pathname.includes("/learning")}
+      >
+        자료
       </Navigation>
-      <Navigation to="/timeline-list" $isCurrent={location.pathname === "/"}>
+      <Navigation
+        to="/timeline-list"
+        $isCurrent={location.pathname === "/timeline"}
+      >
         연표
       </Navigation>
-      <Navigation to="/question" $isCurrent={location.pathname === "/question"}>
-        문제
+      <Navigation
+        to="/question/quiz-list"
+        $isCurrent={location.pathname.includes("/question/quiz")}
+      >
+        퀴즈
       </Navigation>
-      <Navigation to="/my-info" $isCurrent={location.pathname === "/my-info"}>
-        내 학습
+      <Navigation
+        to="/question/timeline-list"
+        $isCurrent={location.pathname.includes("/question/timeline")}
+      >
+        연표 문제
       </Navigation>
-      <Navigation to="/option" $isCurrent={location.pathname === "/option"}>
-        설정
+      <Navigation
+        to="/question/mock-exam-list"
+        $isCurrent={location.pathname.includes("/question/mock-exam")}
+      >
+        기출
+      </Navigation>
+      <Navigation
+        to="/my-info/wrong-notes"
+        $isCurrent={location.pathname.includes("wrong-notes")}
+      >
+        오답노트
+      </Navigation>
+      <Navigation
+        to="/my-info/bookmark"
+        $isCurrent={location.pathname.includes("bookmark")}
+      >
+        북마크
       </Navigation>
     </StyledNavigationBar>
   );

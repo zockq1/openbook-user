@@ -14,7 +14,7 @@ const MobileHeaderContainer = styled.header`
   height: 45px;
   justify-content: space-between;
   padding: ${({ theme }) => theme.padding.base};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.bg};
   z-index: 100;
 `;
 
@@ -22,14 +22,11 @@ const DefualtHeader = styled.header`
   position: fixed;
   top: 0;
   display: grid;
-  grid-template-columns: minmax(160px, 280px) minmax(400px, 700px) minmax(
-      auto,
-      300px
-    );
+  place-items: center;
+  grid-template-columns: 230px minmax(480px, 750px) minmax(auto, 230px);
   width: 100%;
   max-width: 1300px;
   height: 80px;
-  min-width: 768px;
   padding: 15px;
   padding-left: 40px;
   margin: 0 auto;

@@ -6,21 +6,10 @@ interface SideMenuProps {
   selectedId: number;
 }
 
-const SideMenuContainer = styled.div`
-  position: relative;
-  width: auto;
-  height: calc(100vh - 110px);
-  /* width: auto;
-  margin: 10px;
-  margin-bottom: 4px;
-
-  overflow: hidden; */
-`;
-
 const MenuList = styled.ul`
-  position: fixed;
+  position: sticky;
   top: 100px;
-  height: 100%;
+  height: calc(100vh - 150px);
   width: 230px;
   min-width: 160px;
   overflow-y: scroll;
@@ -96,37 +85,35 @@ const SideMenuItem = styled.li<{
 
 function SideMenuUI({ menuList, selectedId }: SideMenuProps) {
   return (
-    <SideMenuContainer>
-      <MenuList>
-        {menuList.map((menu) => {
-          const {
-            title,
-            onClickMain,
-            description,
-            state,
-            mainColor = "",
-            icon,
-            id,
-          } = menu;
-          return (
-            <SideMenuItem
-              onClick={onClickMain}
-              color={mainColor}
-              lock={state === "Locked"}
-              isSelected={selectedId === id}
-              key={id}
-            >
-              <div className="icon">{icon}</div>
-              <div>
-                <span className="title">{title}</span>
-                <br />
-                <span className="description">{description}</span>
-              </div>
-            </SideMenuItem>
-          );
-        })}
-      </MenuList>
-    </SideMenuContainer>
+    <MenuList>
+      {menuList.map((menu) => {
+        const {
+          title,
+          onClickMain,
+          description,
+          state,
+          mainColor = "",
+          icon,
+          id,
+        } = menu;
+        return (
+          <SideMenuItem
+            onClick={onClickMain}
+            color={mainColor}
+            lock={state === "Locked"}
+            isSelected={selectedId === id}
+            key={id}
+          >
+            <div className="icon">{icon}</div>
+            <div>
+              <span className="title">{title}</span>
+              <br />
+              <span className="description">{description}</span>
+            </div>
+          </SideMenuItem>
+        );
+      })}
+    </MenuList>
   );
 }
 

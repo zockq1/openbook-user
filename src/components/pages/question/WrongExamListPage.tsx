@@ -10,6 +10,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
+import { useMediaQuery } from "react-responsive";
 
 const Label = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const Label = styled.div`
 
 function WrongExamListPage() {
   const navigate = useNavigate();
+  const isNotMobile = useMediaQuery({ minWidth: 768 });
   const theme = useContext(ThemeContext);
   const {
     data: examList,
@@ -41,26 +43,32 @@ function WrongExamListPage() {
     }
 
     setMenuList(
-      [...examList].map((item) => {
-        const { questionCount, roundNumber } = item;
-        const result: MenuModel = {
-          type: "Base",
-          title: `${roundNumber}회 기출문제 오답 노트`,
-          onClickMain: () =>
-            navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`),
-          onClickSub: () =>
-            navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`),
-          icon: (
-            <Label>
-              <span className="number">{`${questionCount}`}</span>
-              <span className="string">문제</span>
-            </Label>
-          ),
-        };
-        return result;
-      })
+      [...examList]
+        .sort((a, b) => b.roundNumber - a.roundNumber)
+        .map((item, index) => {
+          const { questionCount, roundNumber } = item;
+
+          if (isNotMobile && index === 0) {
+            navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`, {
+              replace: true,
+            });
+          }
+          const result: MenuModel = {
+            type: "Base",
+            title: `${roundNumber}회 기출문제 오답 노트`,
+            onClickMain: () =>
+              navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`),
+            icon: (
+              <Label>
+                <span className="number">{`${questionCount}`}</span>
+                <span className="string">문제</span>
+              </Label>
+            ),
+          };
+          return result;
+        })
     );
-  }, [setMenuList, navigate, theme, examList]);
+  }, [setMenuList, navigate, theme, examList, isNotMobile]);
 
   const renderContent = () => {
     if (isFetching) {
@@ -90,7 +98,7 @@ function WrongExamListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category="오답 노트" />
-      <ContentLayout>{renderContent()}</ContentLayout>
+      <ContentLayout leftMenu={<div />}>{renderContent()}</ContentLayout>
     </>
   );
 }

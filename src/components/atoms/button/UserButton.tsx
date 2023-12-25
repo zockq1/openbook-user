@@ -3,6 +3,7 @@ import styled, { ThemeContext } from "styled-components";
 import Icon from "../icon/Icon";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/slices/authSlice";
+import { Link } from "react-router-dom";
 
 const StyledUser = styled.div`
   position: relative;
@@ -13,9 +14,8 @@ const StyledUser = styled.div`
 
 const Popover = styled.button`
   position: absolute;
-  top: 38px;
-  left: 0;
-  z-index: 1;
+  top: 30px;
+  left: -40px;
   width: max-content;
   padding: 8px;
   background-color: #fff;
@@ -24,6 +24,7 @@ const Popover = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   font-size: ${({ theme }) => theme.fontSizes.base};
   font-weight: ${({ theme }) => theme.fontWeight.light};
+  z-index: 99999;
 `;
 
 function UserButton() {
@@ -63,7 +64,12 @@ function UserButton() {
       <button onClick={handleClick}>
         <Icon icon={"user"} size={25} color={theme.colors.textBlue} />
       </button>
-      {isVisible && <Popover onClick={handleLogout}>로그아웃</Popover>}
+      {isVisible && (
+        <Popover>
+          <div onClick={handleLogout}>로그아웃</div>
+          <Link to="/option">설정</Link>
+        </Popover>
+      )}
     </StyledUser>
   );
 }

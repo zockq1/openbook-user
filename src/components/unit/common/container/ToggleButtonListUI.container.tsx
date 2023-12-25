@@ -7,6 +7,9 @@ const ButtonContainer = styled.div`
   bottom: 30px;
   right: 30px;
   z-index: 98;
+  @media (min-width: 992px) {
+    left: calc(50% + 325px);
+  }
 `;
 
 const Button = styled.button<{ isActive: boolean }>`
