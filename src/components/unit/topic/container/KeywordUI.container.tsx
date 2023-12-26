@@ -17,7 +17,7 @@ const Keyword = styled.div<{ isCommentOn: boolean }>`
   width: ${({ isCommentOn }) => (isCommentOn ? "100%" : "")};
 `;
 
-const Title = styled.div<{ comment: boolean }>`
+const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
   width: fit-content;
   padding: ${({ theme }) => theme.padding.small};
   border-radius: 10px 10px 2px 2px;
@@ -25,8 +25,8 @@ const Title = styled.div<{ comment: boolean }>`
   color: ${({ theme }) => theme.colors.textBlue};
 
   border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
-  border-bottom: ${({ theme, comment }) =>
-    comment
+  border-bottom: ${({ theme, commentVisible }) =>
+    commentVisible
       ? `3px solid ${theme.colors.lightGrey}`
       : `1px solid ${theme.colors.lightGrey}`};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
@@ -72,7 +72,8 @@ function KeywordUI({
       {/* {questionList.length !== 0 && <Badge>{questionList.length}</Badge>} */}
       <Title
         onClick={!comment ? () => {} : onCommentToggle}
-        comment={comment ? !isCommentOn : false}
+        commentVisible={comment ? !isCommentOn : false}
+        comment={!!comment}
       >
         {file && <Image src={file} />}
         <div>{name}</div>
