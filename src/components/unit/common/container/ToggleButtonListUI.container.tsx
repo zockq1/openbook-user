@@ -4,11 +4,11 @@ import styled from "styled-components";
 const ButtonContainer = styled.div`
   position: fixed;
   flex-direction: column;
-  bottom: 30px;
+  bottom: 170px;
   right: 30px;
   z-index: 98;
   @media (min-width: 992px) {
-    left: calc(50% + 325px);
+    left: calc(50% + 320px);
   }
 `;
 
@@ -29,11 +29,11 @@ const Button = styled.button<{ isActive: boolean }>`
 
   border: 1px solid
     ${({ theme, isActive }) =>
-      isActive ? theme.colors.lightGrey : theme.colors.lightGrey};
+      isActive ? theme.colors.bg : theme.colors.lightGrey};
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white : theme.colors.textBlue};
   background-color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.textBlue : theme.colors.white};
+    isActive ? theme.colors.grey : theme.colors.white};
 
   transition: all 0.2s ease-in-out;
 

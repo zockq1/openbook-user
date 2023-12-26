@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../../unit/ui/Header";
 import { Default, Mobile } from "./Responsive";
 import TitleBox from "../../unit/ui/TitleBox";
+import Footer from "../../unit/ui/Footer";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -12,6 +13,7 @@ const StyledMainPageLayout = styled.div`
   display: grid;
   position: relative;
   width: 100%;
+  height: 100vh;
   margin: 0 auto;
   //모바일
   @media (max-width: 767px) {
@@ -29,14 +31,6 @@ const StyledMainPageLayout = styled.div`
     padding: 20px;
     padding-top: 90px;
   }
-
-  .hover {
-    outline: 3px solid ${({ theme }) => theme.colors.textBlue};
-    transition: 0.05s ease-in-out;
-  }
-
-  & > div {
-  }
 `;
 
 function MainPageLayout({ children }: LayoutProps) {
@@ -51,6 +45,7 @@ function MainPageLayout({ children }: LayoutProps) {
         </Default>
         {children}
       </StyledMainPageLayout>
+      <Footer></Footer>
     </>
   );
 }

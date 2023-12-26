@@ -9,16 +9,16 @@ const MenuList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   position: sticky;
   top: 100px;
   width: auto;
 `;
 
 const AnchorLink = styled.a<{ isActive: boolean }>`
-  width: 100%;
+  width: max-content;
   padding: 8px;
-  margin-left: 60px;
+  margin-left: 30px;
   cursor: pointer;
   transition: color 0.3s ease, background-color 0.3s ease;
   font-size: ${({ theme }) => theme.fontSizes.small};

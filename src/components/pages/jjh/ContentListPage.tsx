@@ -155,16 +155,14 @@ function ContentListPage() {
       <ContentLayout
         leftMenu={<JJHSideMenu />}
         rightMenu={
-          <div>
-            {timelineId ? (
-              <KeywordToggleButton comment />
-            ) : (
-              <KeywordToggleButton comment keyword />
-            )}
-            <SideAnchorUI anchorList={menuList.map((menu) => menu.title)} />
-          </div>
+          <SideAnchorUI anchorList={menuList.map((menu) => menu.title)} />
         }
       >
+        {timelineId ? (
+          <KeywordToggleButton comment />
+        ) : (
+          <KeywordToggleButton comment keyword />
+        )}
         {renderContent()}
       </ContentLayout>
     </>

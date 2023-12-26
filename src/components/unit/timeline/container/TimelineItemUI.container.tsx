@@ -92,7 +92,7 @@ function TimelineItemUI({
         <InnerCircle />
         <Title
           onClick={onCommentToggle}
-          comment={comment ? !isCommentOn : false}
+          comment={keywordList && keywordList?.length > 0 ? isCommentOn : false}
         >
           {comment}
         </Title>
