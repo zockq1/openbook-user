@@ -93,7 +93,7 @@ function TimelineItemUI({
         <Title
           onClick={onCommentToggle}
           commentVisible={
-            keywordList && keywordList?.length > 0 ? isCommentOn : false
+            keywordList && keywordList?.length > 0 ? isCommentOn : true
           }
           comment={keywordList && keywordList?.length > 0 ? true : false}
         >
