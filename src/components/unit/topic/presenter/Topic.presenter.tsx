@@ -14,6 +14,7 @@ function Topic({ topic }: TopicProps) {
   const { isKeywordOn: isKeywordOnGlobal } = useSelector(
     (state: RootState) => state.keyword
   );
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [isKeywordOn, setIsKeywordOn] = useState(isKeywordOnGlobal);
 
   useEffect(() => {
@@ -26,7 +27,11 @@ function Topic({ topic }: TopicProps) {
 
   return (
     <>
-      <TopicUI topic={topic} onKeywordToggle={toggleKeywordList} />
+      <TopicUI
+        topic={topic}
+        isLoggedIn={isLoggedIn}
+        onKeywordToggle={toggleKeywordList}
+      />
       {state !== "Locked" && (
         <KeywordListUI
           keywordList={keywordList}

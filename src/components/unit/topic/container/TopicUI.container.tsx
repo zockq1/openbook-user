@@ -6,6 +6,7 @@ import { TopicMenuModel } from "../../../../types/topicTypes";
 
 interface TopicUIProps {
   topic: TopicMenuModel;
+  isLoggedIn: boolean;
   onKeywordToggle: () => void;
 }
 
@@ -90,7 +91,7 @@ const BookmarkBox = styled.div<{ color: string }>`
   z-index: 9;
 `;
 
-function TopicUI({ topic, onKeywordToggle }: TopicUIProps) {
+function TopicUI({ topic, onKeywordToggle, isLoggedIn }: TopicUIProps) {
   const {
     title,
     date,
@@ -128,7 +129,7 @@ function TopicUI({ topic, onKeywordToggle }: TopicUIProps) {
         </StateBox>
       )}
 
-      {state !== "Locked" && state !== "Timeline" && (
+      {state !== "Locked" && state !== "Timeline" && isLoggedIn && (
         <BookmarkBox color={mainColor}>
           <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
         </BookmarkBox>
