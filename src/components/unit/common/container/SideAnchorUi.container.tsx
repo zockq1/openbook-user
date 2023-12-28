@@ -6,13 +6,13 @@ interface SideAnchorUIProps {
 }
 
 const MenuList = styled.ul`
+  position: sticky;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  position: sticky;
   top: 100px;
-  width: auto;
+  width: 50px;
 `;
 
 const AnchorLink = styled.a<{ isActive: boolean }>`

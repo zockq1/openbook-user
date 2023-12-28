@@ -26,26 +26,7 @@ function QuizListPage() {
     if (!questionCategoryList) {
       return;
     }
-    const avgScore =
-      questionCategoryList.reduce((sum, item) => sum + item.score, 0) /
-      questionCategoryList.length;
     setMenuList([
-      {
-        type: "Progress",
-        state: "Question",
-        icon: `${Math.floor(avgScore)}%`,
-        title: "전체 진행도",
-        subTitle: "전체 주제",
-        score: Math.floor(avgScore),
-        mainColor: calculateGradientColor(avgScore),
-        onClickMain: () => {
-          navigate(`/question/quiz?id=${-1}&noq=${10}`);
-        },
-        onClickSub: () => {
-          navigate("/learning");
-        },
-        important: true,
-      },
       ...[...questionCategoryList]
         .sort((a, b) => a.number - b.number)
         .map((questionCategory, index, arr) => {

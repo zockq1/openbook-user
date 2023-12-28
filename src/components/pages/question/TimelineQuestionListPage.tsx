@@ -27,26 +27,7 @@ function TimelineQuestionListPage() {
       return;
     }
 
-    const avgScore =
-      timelineList.reduce((sum, item) => sum + item.score, 0) /
-      timelineList.length;
-
     setMenuList([
-      {
-        type: "Progress",
-        icon: `${Math.floor(avgScore)}%`,
-        title: "전체 진행도",
-        subTitle: "전체 연표",
-        score: Math.floor(avgScore),
-        mainColor: calculateGradientColor(avgScore),
-        onClickMain: () => {
-          navigate(`/question/timeline?id=${-1}&title=전체 연표`);
-        },
-        onClickSub: () => {
-          navigate(`/timeline?id=-1&title=전체 연표`);
-        },
-        important: true,
-      },
       ...[...timelineList]
         .sort((a, b) => a.startDate - b.startDate)
         .map((questionCategory, index, arr) => {

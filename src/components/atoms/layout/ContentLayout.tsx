@@ -61,7 +61,7 @@ function ContentLayout({
         <StyledMainPageLayout full={full}>
           {leftMenu}
           {children}
-          <div style={{ width: "50px" }}>{rightMenu}</div>
+          {rightMenu ? rightMenu : <div style={{ width: "50px" }}></div>}
         </StyledMainPageLayout>
       </Desktop>
       <Tablet>

@@ -346,17 +346,6 @@ function Exam({ examList }: ExamProps) {
   const { round } = useQuesryString();
 
   useEffect(() => {
-    dispatch({
-      type: "RESET_STATE",
-      questionList: [...examList].map(createQuestion),
-      isFinish: false,
-      currentNumber: 0,
-      score: 0,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [round]);
-
-  useEffect(() => {
     let loadedState = localStorage.getItem(round);
     if (loadedState) {
       dispatch({ type: "LOAD", loadedState: JSON.parse(loadedState) });
