@@ -79,6 +79,7 @@ export interface ExamListModel extends ExamModel {
 
 export interface QuizChoiceModel {
   choice: string;
+  file: string;
   key: string;
 }
 
@@ -87,6 +88,7 @@ export interface QuizModel {
   answer: string;
   choiceType: ChoiceType;
   description: string[];
+  descriptionFile: string[];
   choiceList: QuizChoiceModel[];
   keywordIdList: number[];
 }

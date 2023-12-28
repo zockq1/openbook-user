@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useMemo, useReducer } from "react";
 import { Id, ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import corrct from "../../../../styles/images/correct.svg";
@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import styled from "styled-components";
 import { Default, Mobile } from "../../../atoms/layout/Responsive";
-import useQuesryString from "../../../../hooks/useQueryString";
+import Icon from "../../../atoms/icon/Icon";
 
 const QuestionLayout = styled.div`
   @media (min-width: 768px) {
@@ -196,6 +196,7 @@ function createQuestion(question: QuizModel, index: number): QuestionModel {
     choiceType,
     description,
     keywordIdList,
+    descriptionFile,
   } = question;
 
   return {
@@ -203,20 +204,36 @@ function createQuestion(question: QuizModel, index: number): QuestionModel {
     number: index + 1,
     questionType,
     choiceType,
-    descriptionList: description,
-    descriptionCommentList: [],
+    descriptionList: descriptionFile ? descriptionFile : description,
+    descriptionCommentList: descriptionFile
+      ? description.map((item) => {
+          return {
+            comment: item,
+            icon: <Icon icon="check" size={12} />,
+            type: "Keyword",
+          };
+        })
+      : [],
     choiceList: [...choiceList]
       .sort(() => Math.random() - 0.5)
       .map((choice) => {
         return {
-          choice: choice.choice,
+          choice: choice.file || choice.choice,
           key: choice.key,
           commentList:
-            questionType === "TtoK"
+            questionType === "TtoK" && choiceType === "Image"
+              ? [
+                  {
+                    comment: choice.choice,
+                    icon: <Icon icon="check" size={12} />,
+                    type: "Comment",
+                  },
+                ]
+              : questionType === "TtoK"
               ? [
                   {
                     comment: choice.key,
-                    icon: null,
+                    icon: <Icon icon="check" size={12} />,
                     type: "Comment",
                   },
                 ]
@@ -269,21 +286,6 @@ function Quiz({
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
-  const { timelineId } = useQuesryString();
-
-  useEffect(() => {
-    dispatch({
-      type: "RESET_STATE",
-      questionList: [...quizList]
-        .sort(() => Math.random() - 0.5)
-        .map((item, index) => createQuestion(item, index)),
-      isFinish: false,
-      currentNumber: 0,
-      score: 0,
-      keywordList: getKeywordList(quizList),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timelineId]);
 
   const correctAnswer = () =>
     toast(

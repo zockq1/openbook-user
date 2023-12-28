@@ -93,6 +93,21 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
               src={descriptionList[0]}
               alt=""
             />
+          ) : questionType === "KtoT" && choiceType === "Image" ? (
+            <>
+              <Image src={image} />
+              {descriptionList.map((item) => {
+                return (
+                  <DescriptionItem key={item}>
+                    <img
+                      style={{ width: "50%", height: "100%" }}
+                      src={item}
+                      alt=""
+                    />
+                  </DescriptionItem>
+                );
+              })}
+            </>
           ) : (
             <>
               <Image src={image} />
@@ -102,16 +117,17 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
             </>
           )}
         </Description>
-        {descriptionCommentList.length > 0 && (
-          <div style={{ margin: "0 5px" }}>
-            <CommentUI
-              isCommentOpen={isFinish}
-              commentList={descriptionCommentList}
-            />
-          </div>
-        )}
+        {descriptionCommentList.length > 0 &&
+          (choiceType === "String" || questionType === "KtoT") && (
+            <div style={{ margin: "0 5px" }}>
+              <CommentUI
+                isCommentOpen={isFinish}
+                commentList={descriptionCommentList}
+              />
+            </div>
+          )}
       </div>
-      {choiceType === "String" ? (
+      {choiceType === "String" || questionType === "KtoT" ? (
         <>
           <ColumnList>
             {choiceList.map((item, index) => (
