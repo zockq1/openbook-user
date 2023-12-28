@@ -140,7 +140,7 @@ function LoginButton() {
               <LogginImage src={naver} alt="naver-login" />
             </LogginImageBackground>
           </Link>
-          <Link to={""} replace={true}>
+          {/* <Link to={""} replace={true}>
             <LogginImageBackground color="#FFFFFF" borderColor="#DDDDDD">
               <LogginImage src={apple} alt="apple-login" />
             </LogginImageBackground>
@@ -149,7 +149,7 @@ function LoginButton() {
             <LogginImageBackground color="#FFFFFF" borderColor="#DDDDDD">
               <LogginImage src={google} alt="google-login" />
             </LogginImageBackground>
-          </Link>
+          </Link> */}
         </SocialLoginList>
         <CloseButton onClick={closeModal}>x</CloseButton>
       </ReactModal>
