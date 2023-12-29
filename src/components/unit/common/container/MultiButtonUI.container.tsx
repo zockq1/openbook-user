@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactNode } from "react";
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled.div<{ fixed: boolean }>`
   display: flex;
-  height: 50px;
+  height: 40px;
   width: 100%;
 
   margin: ${({ theme }) => theme.margin.base};
@@ -24,6 +24,15 @@ const ButtonContainer = styled.div`
     margin: 5px;
     width: auto;
   }
+
+  ${({ fixed }) =>
+    fixed &&
+    css`
+      position: fixed;
+      bottom: 0px;
+      left: 10px;
+      width: calc(100vw - 20px);
+    `}
 `;
 
 const Button = styled.button`
@@ -43,11 +52,12 @@ interface ResultButtonUIProps {
     onClick: () => void;
     contents: ReactNode;
   }[];
+  fixed?: boolean;
 }
 
-function MultiButtonUI({ buttonList }: ResultButtonUIProps) {
+function MultiButtonUI({ buttonList, fixed = false }: ResultButtonUIProps) {
   return (
-    <ButtonContainer>
+    <ButtonContainer fixed={fixed}>
       {buttonList.map((button, index) => {
         const { onClick, contents } = button;
         return (
