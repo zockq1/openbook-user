@@ -33,9 +33,9 @@ const StyledDivider = styled.div`
   &::after {
     margin-left: 20px;
   }
-
+  margin-top: 10px;
   @media (max-width: 767px) {
-    margin: 10px 0;
+    margin: 10px 0 5px;
     font-size: ${({ theme }) => theme.fontSizes.xl};
   }
 `;

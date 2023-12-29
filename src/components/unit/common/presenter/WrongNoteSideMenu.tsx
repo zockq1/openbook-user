@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import useQuesryString from "../../../../hooks/useQueryString";
 import { useGetWrongExamListQuery } from "../../../../store/api/questionApi";
+import { Desktop } from "../../../atoms/layout/Responsive";
 
 function WrongNoteSideMenu() {
   const { round } = useQuesryString();
@@ -38,7 +39,11 @@ function WrongNoteSideMenu() {
     );
   }, [setMenuList, navigate, theme, examList]);
 
-  return <SideMenuUI menuList={menuList} selectedId={Number(round)} />;
+  return (
+    <Desktop>
+      <SideMenuUI menuList={menuList} selectedId={Number(round)} />
+    </Desktop>
+  );
 }
 
 export default WrongNoteSideMenu;

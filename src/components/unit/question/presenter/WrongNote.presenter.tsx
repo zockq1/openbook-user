@@ -22,9 +22,18 @@ import { Default, Mobile } from "../../../atoms/layout/Responsive";
 import useQuesryString from "../../../../hooks/useQueryString";
 
 const QuestionLayout = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
+    width: 100%;
+    grid-column: 2/4;
     display: grid;
-    width: 800px;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 100%;
+    grid-column: 1/3;
+    grid-row: 1/2;
+    display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
   }
@@ -339,7 +348,7 @@ function WrongNote({ examList }: ExamProps) {
   const handleDelete = async () => {
     if (questionList.length === 1) {
       await deleteWrongNote(questionList[currentNumber].id);
-      navigate(-1);
+      navigate("/my-info/wrong-notes");
     } else {
       await deleteWrongNote(questionList[currentNumber].id);
       dispatch({ type: "DELETE_QUESTION" });

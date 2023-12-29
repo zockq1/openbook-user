@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "styled-components";
 import useQuesryString from "../../../../hooks/useQueryString";
 import { useGetRoundListQuery } from "../../../../store/api/questionApi";
+import { Desktop } from "../../../atoms/layout/Responsive";
 
 function ExamSideMenu() {
   const { round } = useQuesryString();
@@ -40,7 +41,11 @@ function ExamSideMenu() {
     ]);
   }, [setMenuList, examList, navigate, theme]);
 
-  return <SideMenuUI menuList={menuList} selectedId={Number(round)} />;
+  return (
+    <Desktop>
+      <SideMenuUI menuList={menuList} selectedId={Number(round)} />
+    </Desktop>
+  );
 }
 
 export default ExamSideMenu;

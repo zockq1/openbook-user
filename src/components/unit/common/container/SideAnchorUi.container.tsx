@@ -17,11 +17,11 @@ const MenuList = styled.ul`
 
 const AnchorLink = styled.a<{ isActive: boolean }>`
   width: max-content;
-  padding: 8px;
+  padding: 4px;
   margin-left: 30px;
   cursor: pointer;
   transition: color 0.3s ease, background-color 0.3s ease;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme, isActive }) =>
     isActive ? theme.fontWeight.medium : theme.fontWeight.regular};
   color: ${({ theme, isActive }) =>
@@ -38,7 +38,7 @@ const VerticalLine = styled.div<{ top: number }>`
   left: 30px;
   top: ${({ top }) => `${top}px`};
   width: 2px;
-  height: 30px;
+  height: 20px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.textBlue};
   transition: all 0.15s ease;
@@ -51,7 +51,7 @@ function SideAnchorUI({ anchorList }: SideAnchorUIProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const threshold = 100;
+      const threshold = 90;
 
       const activeSection = anchorList.find((anchor) => {
         const element = document.getElementById(anchor);
@@ -84,7 +84,7 @@ function SideAnchorUI({ anchorList }: SideAnchorUIProps) {
   const scrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId);
     if (element) {
-      const offset = element.offsetTop - 100;
+      const offset = element.offsetTop - 90;
       window.scrollTo({
         top: offset,
         behavior: "smooth",

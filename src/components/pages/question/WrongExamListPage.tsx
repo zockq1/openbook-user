@@ -26,7 +26,7 @@ const Label = styled.div`
 
 function WrongExamListPage() {
   const navigate = useNavigate();
-  const isNotMobile = useMediaQuery({ minWidth: 768 });
+  const isNotMobile = useMediaQuery({ minWidth: 992 });
   const theme = useContext(ThemeContext);
   const {
     data: examList,
@@ -47,12 +47,6 @@ function WrongExamListPage() {
         .sort((a, b) => b.roundNumber - a.roundNumber)
         .map((item, index) => {
           const { questionCount, roundNumber } = item;
-
-          if (isNotMobile && index === 0) {
-            navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`, {
-              replace: true,
-            });
-          }
           const result: MenuModel = {
             type: "Base",
             title: `${roundNumber}회 기출문제 오답 노트`,

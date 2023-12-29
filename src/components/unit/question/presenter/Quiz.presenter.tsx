@@ -29,8 +29,17 @@ import { Default, Mobile } from "../../../atoms/layout/Responsive";
 import Icon from "../../../atoms/icon/Icon";
 
 const QuestionLayout = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     width: 100%;
+    grid-column: 2/3;
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 100%;
+    grid-column: 2/3;
+    grid-row: 1/2;
     display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
@@ -321,12 +330,6 @@ function Quiz({
       correctAlert: correctAnswer,
       wrongAlert: wrongAnswer,
     });
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth",
-      });
-    }, 110);
   };
 
   const handleNextQuestion = async () => {
@@ -438,12 +441,14 @@ function Quiz({
             {!questionList[currentNumber].isFinish ? (
               // <Button onClick={handleCheckAnswer}>정답 확인</Button>
               <MultiButtonUI
+                fixed
                 buttonList={[
                   { onClick: handleCheckAnswer, contents: "정답 확인" },
                 ]}
               />
             ) : (
               <MultiButtonUI
+                fixed
                 buttonList={[{ onClick: handleNextQuestion, contents: "다음" }]}
               />
             )}

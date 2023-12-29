@@ -32,7 +32,7 @@ function Topic({ topic }: TopicProps) {
         isLoggedIn={isLoggedIn}
         onKeywordToggle={toggleKeywordList}
       />
-      {state !== "Locked" && (
+      {state !== "Locked" && state !== "Divider" && (
         <KeywordListUI
           keywordList={keywordList}
           state={state}

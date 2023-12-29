@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ReactNode } from "react";
+import styled, { ThemeContext } from "styled-components";
+import { ReactNode, useContext } from "react";
 
 const Comment = styled.ul<{ open: boolean; color: string }>`
   position: relative;
@@ -10,7 +10,7 @@ const Comment = styled.ul<{ open: boolean; color: string }>`
   padding: ${({ theme, open }) => (open ? theme.padding.small : "0")};
   border-radius: ${({ theme }) => theme.padding.base};
   border: 1px solid
-    ${({ theme, open }) => (open ? theme.colors.lightGrey : "transparent")};
+    ${({ theme, open, color }) => (open ? color : "transparent")};
   max-height: ${({ open }) => (open ? `600px` : "0")};
   font-size: ${({ open, theme }) => (open ? theme.fontSizes.small : "0px")};
   color: ${({ open }) => (open ? "inherit" : "transparent")};
@@ -23,16 +23,14 @@ const Comment = styled.ul<{ open: boolean; color: string }>`
   }
 `;
 
-const Triangle = styled.li<{ open: boolean }>`
+const Triangle = styled.li<{ open: boolean; color: string }>`
   position: absolute;
   width: 10px;
   height: 10px;
-  top: ${({ open }) => (open ? "-5px" : "-25px")};
+  top: ${({ open }) => (open ? "-6px" : "-25px")};
   left: 20px;
-  border-top: 1px solid
-    ${({ theme, open }) => (open ? theme.colors.lightGrey : "transparent")};
-  border-left: 1px solid
-    ${({ theme, open }) => (open ? theme.colors.lightGrey : "transparent")};
+  border-top: 1px solid ${({ color, open }) => (open ? color : "transparent")};
+  border-left: 1px solid ${({ color, open }) => (open ? color : "transparent")};
   background-color: ${({ theme, open }) =>
     open ? theme.colors.white : "transparent"};
   z-index: 0;
@@ -46,7 +44,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
-  color: ${({ color, theme }) => (color ? color : theme.colors.textBlue)};
+  color: ${({ color, theme }) => color};
   line-height: 120%;
   word-break: keep-all;
   overflow: hidden;
@@ -59,6 +57,14 @@ const CommentIcon = styled.div`
   flex-shrink: 0;
 `;
 
+const CommentDivider = styled.div<{ color: string }>`
+  width: 100%;
+  height: 1px;
+  margin-bottom: 8px;
+  background-color: ${({ color, theme }) => color};
+  opacity: 0.2;
+`;
+
 interface CommentUIProps {
   isCommentOpen: boolean;
   commentList: { comment: string; icon: ReactNode }[];
@@ -66,13 +72,22 @@ interface CommentUIProps {
 }
 
 function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
+  const theme = useContext(ThemeContext);
   return (
-    <Comment open={isCommentOpen} color={color}>
-      <Triangle open={isCommentOpen} />
-      {commentList.map((item, index) => {
+    <Comment open={isCommentOpen} color={color || theme.colors.lightGrey}>
+      <Triangle open={isCommentOpen} color={color || theme.colors.lightGrey} />
+      {commentList.map((item, index, arr) => {
         const { comment, icon } = item;
+        if (comment === "divider") {
+          if (index === arr.length - 1) return <></>;
+          return <CommentDivider color={color || theme.colors.grey} />;
+        }
         return (
-          <Description key={index + comment} open={isCommentOpen} color={color}>
+          <Description
+            key={index + comment}
+            open={isCommentOpen}
+            color={color || theme.colors.textBlue}
+          >
             <CommentIcon>{icon}</CommentIcon>
             {comment}
           </Description>

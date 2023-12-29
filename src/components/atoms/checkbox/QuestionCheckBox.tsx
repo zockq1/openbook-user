@@ -48,7 +48,7 @@ const CheckboxLabel = styled.label<AnswerCheckProps>`
 
   flex-shrink: 0;
   display: block;
-  margin: 10px 0;
+  margin: 5px 0;
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   border: calc(var(--checkbox-size) * 0.075) solid

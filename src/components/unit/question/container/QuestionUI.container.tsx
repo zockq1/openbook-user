@@ -6,6 +6,7 @@ import { LongChoiceItem } from "./LongChoiceItem";
 import CommentUI from "../../topic/container/CommentUI.container";
 import { useContext } from "react";
 import { ShortChoiceItem } from "./ShortChoiceItem";
+import { Mobile } from "../../../atoms/layout/Responsive";
 
 interface QuestionProps {
   quetion: QuestionModel;
@@ -68,6 +69,12 @@ const DescriptionItem = styled.div`
   z-index: 1;
   word-break: keep-all;
   text-align: center;
+`;
+
+const CommentContainer = styled.div`
+  @media (min-width: 768px) {
+    margin: 0 5px;
+  }
 `;
 
 function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
@@ -142,7 +149,7 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
                   index={index}
                 />
                 {item.commentList.length > 0 && (
-                  <div style={{ margin: "0 5px" }}>
+                  <CommentContainer>
                     <CommentUI
                       isCommentOpen={isFinish}
                       commentList={item.commentList}
@@ -152,7 +159,7 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
                           : theme.colors.red
                       }
                     />
-                  </div>
+                  </CommentContainer>
                 )}
               </li>
             ))}
@@ -185,6 +192,9 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
           </ImageChoiceList>
         </>
       )}
+      <Mobile>
+        <div style={{ height: "100px" }}></div>
+      </Mobile>
     </>
   );
 }

@@ -3,6 +3,7 @@ import Icon from "../../../atoms/icon/Icon";
 import Bookmark from "../presenter/Bookmark.presenter";
 import { ContentState } from "../../../../types/jjhTypes";
 import { TopicMenuModel } from "../../../../types/topicTypes";
+import Divider from "../../../atoms/box/Divider";
 
 interface TopicUIProps {
   topic: TopicMenuModel;
@@ -99,6 +100,9 @@ function TopicUI({ topic, onKeywordToggle, isLoggedIn }: TopicUIProps) {
     isBookmarked = false,
     mainColor = "",
   } = topic;
+  if (state === "Divider") {
+    return <Divider>{title}</Divider>;
+  }
   return (
     <StyledQuestionMenuItem
       state={state}
