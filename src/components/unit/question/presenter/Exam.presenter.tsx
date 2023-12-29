@@ -17,7 +17,6 @@ import kingSejong from "../../../../styles/images/king-sejong.svg";
 import Icon from "../../../atoms/icon/Icon";
 import useQuesryString from "../../../../hooks/useQueryString";
 import ExamScore from "./ExamScore.presenter";
-import ExamIncorrect from "./ExamIncorrect.presenter";
 import MultiButtonUI from "../../common/container/MultiButtonUI.container";
 import { useNavigate } from "react-router-dom";
 import {
@@ -28,8 +27,17 @@ import styled from "styled-components";
 import { Default, Mobile } from "../../../atoms/layout/Responsive";
 
 const QuestionLayout = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     width: 100%;
+    grid-column: 2/4;
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 100%;
+    grid-column: 1/3;
+    grid-row: 1/2;
     display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
@@ -62,7 +70,9 @@ interface SaveState {
 const SELECT_CHOICE = "SELECT_CHOICE";
 const FINISH = "FINISH";
 const NEXT_QUESTION = "NEXT_QUESTION";
+const PREV_QUESTION = "PREV_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
+const CHECK_CURRENT_ANSWER = "CHECK_CURRENT_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 const LOAD = "LOAD";
 const RESET_STATE = "RESET_STATE";
@@ -73,7 +83,9 @@ export type Action =
       checkedChoiceKey: string;
     }
   | { type: "CHECK_ANSWER" }
+  | { type: "CHECK_CURRENT_ANSWER" }
   | { type: "NEXT_QUESTION" }
+  | { type: "PREV_QUESTION" }
   | { type: "FINISH" }
   | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
   | { type: "LOAD"; loadedState: SaveState }
@@ -135,17 +147,41 @@ const reducer = (state: State, action: Action): State => {
     case CHECK_ANSWER:
       let score = 0;
       const updatedQuestionListCheck = state.questionList.map((item, index) => {
-        if (item.isChecked) {
-          if (item.isCorrect) score += item.score;
-          return { ...item, isFinish: true };
-        }
-        return item;
+        if (item.isCorrect) score += item.score;
+        return { ...item, isFinish: true };
       });
 
       return {
         ...state,
         score,
         questionList: updatedQuestionListCheck,
+      };
+
+    case CHECK_CURRENT_ANSWER:
+      let currentScore = state.score;
+      const updatedQuestionListCurrentCheck = state.questionList.map(
+        (item, index) => {
+          if (state.currentNumber === index && item.isFinish === false) {
+            if (item.isCorrect) currentScore += item.score;
+            return { ...item, isFinish: true };
+          }
+          return item;
+        }
+      );
+
+      return {
+        ...state,
+        score: currentScore,
+        questionList: updatedQuestionListCurrentCheck,
+      };
+
+    case PREV_QUESTION:
+      if (state.currentNumber === 0) {
+        return state;
+      }
+      return {
+        ...state,
+        currentNumber: state.currentNumber - 1,
       };
 
     case NEXT_QUESTION:
@@ -206,34 +242,16 @@ const createQuestion = (question: ExamModel): QuestionModel => {
         keywordDateComment ? `(${keywordDateComment}): ` : ``
       }`;
 
-      // if (acc.find((item) => item.comment === topic)) {
-      //   let findIndex = acc.findIndex((item) => item.comment === topic);
-
-      //   if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
-      //     acc[findIndex + 1].comment += ", " + keyword;
-      //   }
-      // } else {
-      //   acc.push({
-      //     comment: topic,
-      //     icon: <Icon icon="description" size={12} />,
-      //     type: "Topic",
-      //   });
-      //   acc.push({
-      //     comment: keyword,
-      //     icon: <Icon icon="key" size={12} />,
-      //     type: "Keyword",
-      //   });
-      // }
+      acc.push({
+        comment: keyword,
+        icon: <Icon icon="key" size={12} />,
+        type: "Keyword",
+      });
 
       acc.push({
         comment: topic,
         icon: <Icon icon="description" size={12} />,
         type: "Topic",
-      });
-      acc.push({
-        comment: keyword,
-        icon: <Icon icon="key" size={12} />,
-        type: "Keyword",
       });
 
       keywordComment &&
@@ -242,17 +260,21 @@ const createQuestion = (question: ExamModel): QuestionModel => {
           icon: <Icon icon="comment" size={12} />,
           type: "Comment",
         });
+
+      acc.push({
+        comment: "divider",
+        icon: <Icon icon="comment" size={12} />,
+        type: "Comment",
+      });
       return acc;
     }, []);
 
   const choiceListTransformed = choiceList.map((choice) => {
-    let isCorrect = choice.number === answer;
     return {
       choice: choice.choice,
       key: String(choice.number),
-      commentList: [...choice.commentList]
-        .sort((a, b) => a.topicTitle.localeCompare(b.topicTitle))
-        .reduce((acc: QuestionCommentModel[], cur) => {
+      commentList: [...choice.commentList].reduce(
+        (acc: QuestionCommentModel[], cur, index, arr) => {
           const {
             keywordComment,
             keywordDateComment,
@@ -266,36 +288,18 @@ const createQuestion = (question: ExamModel): QuestionModel => {
           let keyword = `${keywordName}${
             keywordDateComment ? `(${keywordDateComment})` : ``
           }`;
-          if (acc.find((item) => item.comment === keyword)) {
-            let findIndex = acc.findIndex((item) => item.comment === keyword);
 
-            if (acc[findIndex - 1] && acc[findIndex - 1].comment) {
-              acc[findIndex - 1].comment += ", " + topic;
-            }
-            return acc;
-          }
-          if (acc.find((item) => item.comment === topic)) {
-            let findIndex = acc.findIndex((item) => item.comment === topic);
+          acc.push({
+            comment: keyword,
+            icon: <Icon icon="key" size={12} />,
+            type: "Keyword",
+          });
 
-            if (acc[findIndex + 1] && acc[findIndex + 1].comment) {
-              acc[findIndex + 1].comment += ", " + keyword;
-            }
-          } else {
-            acc.push({
-              comment: topic,
-              icon: isCorrect ? (
-                <Icon icon="o" size={12} />
-              ) : (
-                <Icon icon="x" size={12} />
-              ),
-              type: "Topic",
-            });
-            acc.push({
-              comment: keyword,
-              icon: <Icon icon="key" size={12} />,
-              type: "Keyword",
-            });
-          }
+          acc.push({
+            comment: topic,
+            icon: <Icon icon="description" size={12} />,
+            type: "Topic",
+          });
 
           keywordComment &&
             acc.push({
@@ -303,8 +307,16 @@ const createQuestion = (question: ExamModel): QuestionModel => {
               icon: <Icon icon="comment" size={12} />,
               type: "Comment",
             });
+
+          acc.push({
+            comment: "divider",
+            icon: <Icon icon="comment" size={12} />,
+            type: "Comment",
+          });
           return acc;
-        }, []),
+        },
+        []
+      ),
     };
   });
 
@@ -381,12 +393,19 @@ function Exam({ examList }: ExamProps) {
     setIsCheckAnswer(true);
   };
 
+  const handleCheckCurrentAnswer = () => {
+    dispatch({
+      type: CHECK_CURRENT_ANSWER,
+    });
+    setIsCheckAnswer(true);
+  };
+
   useEffect(() => {
     if (isCheckAnswer) {
       setIsCheckAnswer(false);
       let saveExamList: UpdateWrongQuestionModel[] = [];
       questionList.forEach((question) => {
-        if (question.isFinish) {
+        if (question.isFinish && question.isChecked) {
           saveExamList.push({
             id: question.id,
             checkedChoiceKey: Number(question.checkedChoiceKey[1]),
@@ -398,6 +417,13 @@ function Exam({ examList }: ExamProps) {
       saveExamList.length > 0 && updateExam(saveExamList);
     }
   }, [isCheckAnswer, questionList, updateExam]);
+
+  const handlePrevQuestion = async () => {
+    dispatch({ type: PREV_QUESTION });
+    window.scrollTo({
+      top: 0,
+    });
+  };
 
   const handleNextQuestion = async () => {
     dispatch({ type: NEXT_QUESTION });
@@ -447,6 +473,15 @@ function Exam({ examList }: ExamProps) {
                   </>
                 ),
               },
+              {
+                onClick: handleCheckAnswer,
+                contents: (
+                  <>
+                    <Icon icon="pen" size={12} />
+                    &nbsp;전체 정답 확인
+                  </>
+                ),
+              },
             ]}
           />
         </Default>
@@ -455,11 +490,30 @@ function Exam({ examList }: ExamProps) {
           <MultiButtonUI
             buttonList={[
               {
-                onClick: handleCheckAnswer,
+                onClick: handlePrevQuestion,
+                contents: (
+                  <>
+                    <Icon icon="back" size={12} />
+                    &nbsp;이전 문제
+                  </>
+                ),
+              },
+
+              {
+                onClick: handleCheckCurrentAnswer,
                 contents: (
                   <>
                     <Icon icon="pen" size={12} />
                     &nbsp;정답 확인
+                  </>
+                ),
+              },
+              {
+                onClick: handleNextQuestion,
+                contents: (
+                  <>
+                    다음 문제&nbsp;
+                    <Icon icon="next" size={12} />
                   </>
                 ),
               },
@@ -496,10 +550,19 @@ function Exam({ examList }: ExamProps) {
                     </>
                   ),
                 },
+                {
+                  onClick: handleCheckAnswer,
+                  contents: (
+                    <>
+                      <Icon icon="pen" size={12} />
+                      &nbsp;전체 정답 확인
+                    </>
+                  ),
+                },
               ]}
             />
           </Mobile>
-          <ExamIncorrect questionList={questionList} />
+          {/* <ExamIncorrect questionList={questionList} /> */}
         </>
       ) : (
         <>
@@ -510,9 +573,19 @@ function Exam({ examList }: ExamProps) {
           />
           <Mobile>
             <MultiButtonUI
+              fixed
               buttonList={[
                 {
-                  onClick: handleCheckAnswer,
+                  onClick: handlePrevQuestion,
+                  contents: (
+                    <>
+                      <Icon icon="back" size={12} />
+                      &nbsp;이전 문제
+                    </>
+                  ),
+                },
+                {
+                  onClick: handleCheckCurrentAnswer,
                   contents: (
                     <>
                       <Icon icon="pen" size={12} />
@@ -524,8 +597,8 @@ function Exam({ examList }: ExamProps) {
                   onClick: handleNextQuestion,
                   contents: (
                     <>
+                      다음 문제&nbsp;
                       <Icon icon="next" size={12} />
-                      &nbsp;다음 문제
                     </>
                   ),
                 },
