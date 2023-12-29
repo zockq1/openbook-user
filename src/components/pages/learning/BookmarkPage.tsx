@@ -1,7 +1,6 @@
 import { useGetBookmarkedTopicQuery } from "../../../store/api/jjhApi";
 import TitleBox from "../../unit/ui/TitleBox";
 import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
-import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
@@ -34,44 +33,43 @@ function BookmarkPage() {
       return <EmptyUI message={`북마크가 비었습니다.`} />;
     }
 
-    if (isSuccess)
-      return (
-        <div>
-          {bookmarkList.map((chapter) => {
-            const { topicList, chapterTitle } = chapter;
-            let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
-              const { title, dateComment, keywordList, isBookmarked } = item;
-              const result: TopicMenuModel = {
-                title: title,
-                state: "Topic",
-                date: dateComment,
-                onClick: () => {},
-                isBookmarked,
-                keywordList,
-                content: null,
-              };
-              return result;
-            });
+    if (isSuccess) {
+      let newMenu: TopicMenuModel[] = [];
 
-            return (
-              <BookmarkChapter
-                chapterTitle={chapterTitle}
-                topicCount={topicList.length}
-                key={chapterTitle}
-              >
-                <TopicList topicList={newMenu} />
-              </BookmarkChapter>
-            );
-          })}
-        </div>
-      );
+      bookmarkList.forEach((chapter) => {
+        const { topicList, chapterTitle } = chapter;
+        newMenu.push({
+          title: chapterTitle,
+          state: "Divider",
+          date: "",
+          onClick: () => {},
+          isBookmarked: false,
+          keywordList: [],
+          content: null,
+        });
+        [...topicList].forEach((item) => {
+          const { title, dateComment, keywordList, isBookmarked } = item;
+          newMenu.push({
+            title: title,
+            state: "Topic",
+            date: dateComment,
+            onClick: () => {},
+            isBookmarked,
+            keywordList,
+            content: null,
+          });
+        });
+      });
+
+      return <TopicList topicList={newMenu} />;
+    }
   };
 
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category="북마크" />
       <ContentLayout leftMenu={<div />}>
-        <KeywordToggleButton topic comment keyword />
+        <KeywordToggleButton comment keyword />
         {renderContent()}
       </ContentLayout>
     </>
