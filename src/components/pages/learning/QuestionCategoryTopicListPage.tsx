@@ -6,7 +6,6 @@ import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import BookmarkChapter from "../../unit/topic/presenter/BookmarkChapter.presenter";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/presenter/TopicList.presenter";
 
@@ -39,36 +38,34 @@ function QustionCategoryTopicListPage() {
     }
 
     if (isSuccess && topicList.length > 0) {
-      return (
-        <div>
-          {topicList.map((chapter) => {
-            const { topicList, chapterTitle } = chapter;
-            let newMenu: TopicMenuModel[] = [...topicList].map((item) => {
-              const { title, dateComment, keywordList, isBookmarked } = item;
-              const result: TopicMenuModel = {
-                title: title,
-                state: "Topic",
-                date: dateComment,
-                onClick: () => {},
-                isBookmarked,
-                keywordList,
-                content: null,
-              };
-              return result;
-            });
+      let newMenu: TopicMenuModel[] = [];
 
-            return (
-              <BookmarkChapter
-                chapterTitle={chapterTitle}
-                topicCount={topicList.length}
-                key={chapterTitle}
-              >
-                <TopicList topicList={newMenu} />
-              </BookmarkChapter>
-            );
-          })}
-        </div>
-      );
+      topicList.forEach((chapter) => {
+        const { topicList, chapterTitle } = chapter;
+        newMenu.push({
+          title: chapterTitle,
+          state: "Divider",
+          date: "",
+          onClick: () => {},
+          isBookmarked: false,
+          keywordList: [],
+          content: null,
+        });
+        [...topicList].forEach((item) => {
+          const { title, dateComment, keywordList, isBookmarked } = item;
+          newMenu.push({
+            title: title,
+            state: "Topic",
+            date: dateComment,
+            onClick: () => {},
+            isBookmarked,
+            keywordList,
+            content: null,
+          });
+        });
+      });
+
+      return <TopicList topicList={newMenu} />;
     }
 
     return null;
