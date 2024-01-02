@@ -102,6 +102,15 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
           )
         )}
       />
+      <ChapterMenuUI
+        title="오답 노트"
+        color="#435334"
+        menuList={menuList.filter((chapter) =>
+          ["오답"].some((category) =>
+            chapter.title?.toString().includes(category)
+          )
+        )}
+      />
     </>
   );
 }

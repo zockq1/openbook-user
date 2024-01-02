@@ -4,18 +4,17 @@ import styled, { ThemeContext } from "styled-components";
 import { useGetWrongExamListQuery } from "../../../store/api/questionApi";
 import { MenuModel } from "../../../types/commonTypes";
 import TitleBox from "../../unit/ui/TitleBox";
-import MenuUI from "../../unit/common/container/MenuUI.container";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
 import { useMediaQuery } from "react-responsive";
+import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
 
 const Label = styled.div`
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.colors.red};
   .string {
     font-size: ${({ theme }) => theme.fontSizes.xs};
   }
@@ -49,7 +48,8 @@ function WrongExamListPage() {
           const { questionCount, roundNumber } = item;
           const result: MenuModel = {
             type: "Base",
-            title: `${roundNumber}회 기출문제 오답 노트`,
+            title: `${roundNumber}회 오답 노트`,
+            state: "Question",
             onClickMain: () =>
               navigate(`/my-info/wrong-notes/exam?round=${roundNumber}`),
             icon: (
@@ -83,7 +83,11 @@ function WrongExamListPage() {
     }
 
     if (isSuccess && examList.length > 0) {
-      return <MenuUI menuList={menuList} />;
+      return (
+        <div>
+          <ChapterMenu menuList={menuList} />
+        </div>
+      );
     }
 
     return null;

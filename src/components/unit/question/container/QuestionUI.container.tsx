@@ -126,12 +126,12 @@ function QuestionUI({ quetion, onChoiceClick, image }: QuestionProps) {
         </Description>
         {descriptionCommentList.length > 0 &&
           (choiceType === "String" || questionType === "KtoT") && (
-            <div style={{ margin: "0 5px" }}>
+            <CommentContainer>
               <CommentUI
                 isCommentOpen={isFinish}
                 commentList={descriptionCommentList}
               />
-            </div>
+            </CommentContainer>
           )}
       </div>
       {choiceType === "String" || questionType === "KtoT" ? (
