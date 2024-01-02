@@ -33,7 +33,7 @@ const StyledDivider = styled.div`
   &::after {
     margin-left: 20px;
   }
-  margin-top: 10px;
+  margin: 30px 0;
   @media (max-width: 767px) {
     margin: 10px 0 5px;
     font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -42,7 +42,7 @@ const StyledDivider = styled.div`
 
 function Divider({ children }: ChapterNumberProps) {
   return (
-    <StyledDivider>
+    <StyledDivider id={children?.toString()}>
       <div>{children}</div>
     </StyledDivider>
   );

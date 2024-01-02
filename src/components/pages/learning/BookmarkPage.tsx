@@ -8,6 +8,9 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import BookmarkSideMenu from "../../unit/common/presenter/BookmarkSideMenu.presenter";
+import useQuesryString from "../../../hooks/useQueryString";
+import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
 
 function BookmarkPage() {
   const {
@@ -17,6 +20,7 @@ function BookmarkPage() {
     error,
     isSuccess,
   } = useGetBookmarkedTopicQuery();
+  const { title } = useQuesryString();
 
   const renderContent = () => {
     if (isLoading) {
@@ -36,30 +40,32 @@ function BookmarkPage() {
     if (isSuccess) {
       let newMenu: TopicMenuModel[] = [];
 
-      bookmarkList.forEach((chapter) => {
-        const { topicList, chapterTitle } = chapter;
-        newMenu.push({
-          title: chapterTitle,
-          state: "Divider",
-          date: "",
-          onClick: () => {},
-          isBookmarked: false,
-          keywordList: [],
-          content: null,
-        });
-        [...topicList].forEach((item) => {
-          const { title, dateComment, keywordList, isBookmarked } = item;
+      bookmarkList
+        .filter((chapter) => (title ? chapter.chapterTitle === title : true))
+        .forEach((chapter) => {
+          const { topicList, chapterTitle } = chapter;
           newMenu.push({
-            title: title,
-            state: "Topic",
-            date: dateComment,
+            title: chapterTitle,
+            state: "Divider",
+            date: "",
             onClick: () => {},
-            isBookmarked,
-            keywordList,
+            isBookmarked: false,
+            keywordList: [],
             content: null,
           });
+          [...topicList].forEach((item) => {
+            const { title, dateComment, keywordList, isBookmarked } = item;
+            newMenu.push({
+              title: title,
+              state: "Topic",
+              date: dateComment,
+              onClick: () => {},
+              isBookmarked,
+              keywordList,
+              content: null,
+            });
+          });
         });
-      });
 
       return <TopicList topicList={newMenu} />;
     }
@@ -68,7 +74,22 @@ function BookmarkPage() {
   return (
     <>
       <TitleBox icon="TOPIC_STUDY" category="북마크" />
-      <ContentLayout leftMenu={<div />}>
+      <ContentLayout
+        leftMenu={<BookmarkSideMenu />}
+        rightMenu={
+          <SideAnchorUI
+            anchorList={
+              bookmarkList
+                ? title
+                  ? bookmarkList
+                      .find((chapter) => chapter.chapterTitle === title)
+                      ?.topicList.map((topic) => topic.title) || []
+                  : bookmarkList.map((chapter) => chapter.chapterTitle)
+                : []
+            }
+          />
+        }
+      >
         <KeywordToggleButton comment keyword />
         {renderContent()}
       </ContentLayout>

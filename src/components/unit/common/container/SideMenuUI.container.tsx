@@ -3,7 +3,7 @@ import { MenuModel } from "../../../../types/commonTypes";
 
 interface SideMenuProps {
   menuList: MenuModel[];
-  selectedId: number;
+  selectedId: number | string;
 }
 
 const MenuList = styled.ul`

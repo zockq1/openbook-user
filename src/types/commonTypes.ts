@@ -18,7 +18,7 @@ export interface MenuModel {
   important?: boolean;
   topicTitle?: string;
   isBookmarked?: boolean;
-  id?: number;
+  id?: number | string;
 }
 
 export interface OptionModel {
