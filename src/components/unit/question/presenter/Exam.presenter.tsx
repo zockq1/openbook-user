@@ -225,9 +225,8 @@ const createQuestion = (question: ExamModel): QuestionModel => {
 
   const descriptionList = [description];
 
-  const descriptionCommentListTransformed = [...descriptionCommentList]
-    .sort((a, b) => a.topicTitle.localeCompare(b.topicTitle))
-    .reduce((acc: QuestionCommentModel[], cur) => {
+  const descriptionCommentListTransformed = [...descriptionCommentList].reduce(
+    (acc: QuestionCommentModel[], cur, index) => {
       const {
         keywordComment,
         keywordDateComment,
@@ -262,12 +261,14 @@ const createQuestion = (question: ExamModel): QuestionModel => {
         });
 
       acc.push({
-        comment: "divider",
+        comment: "divider_description" + cur.keywordName + index,
         icon: <Icon icon="comment" size={12} />,
         type: "Comment",
       });
       return acc;
-    }, []);
+    },
+    []
+  );
 
   const choiceListTransformed = choiceList.map((choice) => {
     return {
@@ -309,7 +310,7 @@ const createQuestion = (question: ExamModel): QuestionModel => {
             });
 
           acc.push({
-            comment: "divider",
+            comment: "divider_choice" + cur.keywordName + index,
             icon: <Icon icon="comment" size={12} />,
             type: "Comment",
           });

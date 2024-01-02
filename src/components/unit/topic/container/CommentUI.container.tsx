@@ -78,9 +78,14 @@ function CommentUI({ isCommentOpen, commentList, color = "" }: CommentUIProps) {
       <Triangle open={isCommentOpen} color={color || theme.colors.lightGrey} />
       {commentList.map((item, index, arr) => {
         const { comment, icon } = item;
-        if (comment === "divider") {
-          if (index === arr.length - 1) return <></>;
-          return <CommentDivider color={color || theme.colors.grey} />;
+        if (comment.includes("divider")) {
+          if (index === arr.length - 1) return null;
+          return (
+            <CommentDivider
+              color={color || theme.colors.grey}
+              key={index + comment}
+            />
+          );
         }
         return (
           <Description
