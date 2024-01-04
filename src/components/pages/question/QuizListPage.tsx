@@ -49,7 +49,7 @@ function QuizListPage() {
               navigate(`/question/quiz?&id=${id}&noq=${10}`);
             },
             onClickSub: () => {
-              navigate(`/question/topic-list?id=${id}&title=${title}`);
+              navigate(`/question/topic-list?id=${id}`);
             },
           };
           return result;

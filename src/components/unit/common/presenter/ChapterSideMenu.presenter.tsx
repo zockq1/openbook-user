@@ -32,7 +32,7 @@ function ChapterSideMenu() {
               navigate(`/learning/chapter?chapter=${number}&title=${title}`),
             onClickSub: () =>
               navigate(`/learning/chapter?chapter=${number}&title=${title}`),
-            icon: <span>{number}.</span>,
+            icon: <span>{number}</span>,
             description: title?.toString().split("-")[1] || null,
           };
           return result;

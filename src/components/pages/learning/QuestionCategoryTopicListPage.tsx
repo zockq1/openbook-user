@@ -8,6 +8,8 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import QuestionCategorySideMenu from "../../unit/common/presenter/QuestionCategorySideMenu.presenter";
+import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
 
 function QustionCategoryTopicListPage() {
   const { timelineId: id, title } = useQuesryString();
@@ -40,30 +42,32 @@ function QustionCategoryTopicListPage() {
     if (isSuccess && topicList.length > 0) {
       let newMenu: TopicMenuModel[] = [];
 
-      topicList.forEach((chapter) => {
-        const { topicList, chapterTitle } = chapter;
-        newMenu.push({
-          title: chapterTitle,
-          state: "Divider",
-          date: "",
-          onClick: () => {},
-          isBookmarked: false,
-          keywordList: [],
-          content: null,
-        });
-        [...topicList].forEach((item) => {
-          const { title, dateComment, keywordList, isBookmarked } = item;
+      topicList
+        .filter((chapter) => (title ? chapter.chapterTitle === title : true))
+        .forEach((chapter) => {
+          const { topicList, chapterTitle } = chapter;
           newMenu.push({
-            title: title,
-            state: "Topic",
-            date: dateComment,
+            title: chapterTitle,
+            state: "Divider",
+            date: "",
             onClick: () => {},
-            isBookmarked,
-            keywordList,
+            isBookmarked: false,
+            keywordList: [],
             content: null,
           });
+          [...topicList].forEach((item) => {
+            const { title, dateComment, keywordList, isBookmarked } = item;
+            newMenu.push({
+              title: title,
+              state: "Topic",
+              date: dateComment,
+              onClick: () => {},
+              isBookmarked,
+              keywordList,
+              content: null,
+            });
+          });
         });
-      });
 
       return <TopicList topicList={newMenu} />;
     }
@@ -74,7 +78,22 @@ function QustionCategoryTopicListPage() {
   return (
     <>
       <TitleBox icon="questionSquare" category={title} />
-      <ContentLayout leftMenu={<div />}>
+      <ContentLayout
+        leftMenu={<QuestionCategorySideMenu />}
+        rightMenu={
+          <SideAnchorUI
+            anchorList={
+              topicList
+                ? title
+                  ? topicList
+                      .find((chapter) => chapter.chapterTitle === title)
+                      ?.topicList.map((topic) => topic.title) || []
+                  : topicList.map((chapter) => chapter.chapterTitle)
+                : []
+            }
+          />
+        }
+      >
         <KeywordToggleButton keyword comment />
         {renderContent()}
       </ContentLayout>
