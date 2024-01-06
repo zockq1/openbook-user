@@ -12,7 +12,6 @@ const Comment = styled.ul<{ open: boolean; color: string }>`
   border: 1px solid
     ${({ theme, open, color }) => (open ? color : "transparent")};
   max-height: ${({ open }) => (open ? `600px` : "0")};
-  font-size: ${({ open, theme }) => (open ? theme.fontSizes.small : "0px")};
   color: ${({ open }) => (open ? "inherit" : "transparent")};
   background-color: ${({ theme, open }) =>
     open ? theme.colors.white : "transparent"};
@@ -43,7 +42,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
   width: fit-content;
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
+  font-size: ${({ theme, open }) => (open ? theme.fontSizes.small : 0)};
   color: ${({ color, theme }) => color};
   line-height: 120%;
   word-break: keep-all;

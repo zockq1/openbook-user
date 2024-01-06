@@ -8,7 +8,7 @@ const ButtonContainer = styled.div`
   right: 30px;
   z-index: 98;
   @media (min-width: 992px) {
-    left: calc(50% + 320px);
+    left: calc(50% + 330px);
   }
   @media (max-width: 767px) {
   }

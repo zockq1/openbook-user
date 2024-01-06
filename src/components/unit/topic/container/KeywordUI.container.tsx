@@ -30,7 +30,7 @@ const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
       ? `3px solid ${theme.colors.lightGrey}`
       : `1px solid ${theme.colors.lightGrey}`};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   z-index: 1;
   word-break: keep-all;
   cursor: ${({ comment }) => (comment ? "pointer" : "")};
