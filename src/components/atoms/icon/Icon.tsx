@@ -53,6 +53,7 @@ import { ReactComponent as Up } from "../../../styles/icon/up.svg";
 import { ReactComponent as Down } from "../../../styles/icon/down.svg";
 import { ReactComponent as Exam } from "../../../styles/icon/exam.svg";
 import { ReactComponent as Menu } from "../../../styles/icon/menu.svg";
+import { ReactComponent as Drag } from "../../../styles/icon/drag.svg";
 //import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
@@ -95,6 +96,7 @@ export type IconType =
   | "down"
   | "exam"
   | "menu"
+  | "drag"
   | Content
   | TopicCategory;
 
@@ -172,6 +174,7 @@ function Icon({ icon, size = "inherit", color = "inherit" }: Iconprops) {
     down: Down,
     exam: Exam,
     menu: Menu,
+    drag: Drag,
   };
 
   if (!icons[icon]) return null;

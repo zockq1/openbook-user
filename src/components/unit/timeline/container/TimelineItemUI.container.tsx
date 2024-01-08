@@ -21,7 +21,7 @@ interface StyledTimelineItemProps {
 const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   display: grid;
   grid-template-columns: 63px 34px 1fr;
-  align-items: center;
+  align-items: top;
   margin: ${({ isQuestion }) => (isQuestion ? "30px 0" : "10px 0 5px")};
   //margin-right: 97px;
 `;
@@ -58,6 +58,7 @@ const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
 const Date = styled.div`
   display: flex;
   justify-content: end;
+  margin-top: 10px;
 `;
 
 const DateItem = styled.div`

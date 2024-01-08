@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
 import {
   DragDropContext,
@@ -8,6 +8,7 @@ import {
 } from "react-beautiful-dnd";
 import { TimeLineItemModel } from "../../../../types/timelinetypes";
 import TimelineItem from "../presenter/TimelineItem.presenter";
+import Icon from "../../../atoms/icon/Icon";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -16,6 +17,8 @@ interface TimelineQuestionProps {
   onDragEnd: (result: DropResult) => Promise<void>;
   isFinish: boolean;
   lineHeight: number;
+  wrongCount: number;
+  isActiveGuide: boolean;
 }
 
 interface LineProps {
@@ -44,11 +47,11 @@ const NextLine = styled.div`
   width: 6px;
   height: 40px;
   left: 89px;
-  top: calc(100vh - 158px);
+  top: calc(100vh - 196px);
   z-index: 0;
 
   @media (max-width: 767px) {
-    top: calc(100vh - 131px);
+    top: calc(100vh - 210px);
   }
 `;
 
@@ -70,13 +73,13 @@ const Item = styled.div`
 
 const NextItemPlace = styled.div`
   position: absolute;
-  height: 90px;
+  height: 95px;
   width: 100%;
-  top: calc(100vh - 185px);
+  top: calc(100vh - 225px);
   padding: 0 10px;
 
   @media (max-width: 767px) {
-    top: calc(100vh - 160px);
+    top: calc(100vh - 240px);
   }
 
   border-radius: 5px;
@@ -87,10 +90,11 @@ const PlayedItemPlaceBox = styled.div`
   position: absolute;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 185px);
+  top: 50px;
+  height: calc(100vh - 310px);
 
   @media (min-width: 768px) {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 300px);
   }
   width: 100%;
   padding: 10px;
@@ -114,6 +118,47 @@ const PlayedItemPlaceBox = styled.div`
   }
 `;
 
+const ScoreBox = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 2px solid ${({ theme }) => theme.colors.lightGrey};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSizes.base};
+
+  & > .play {
+    color: ${({ theme }) => theme.colors.blue};
+  }
+
+  & > .wrong {
+    color: ${({ theme }) => theme.colors.red};
+  }
+`;
+
+const bounceAnimation = keyframes`
+  0% {
+    top: 60px;
+  }
+  90%{
+    top: calc(-100vh + 400px);
+  }
+  100% {
+    top: 60px;
+  }
+`;
+
+const DragIcon = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  animation: ${bounceAnimation} 2s 1s infinite;
+  z-index: 100000;
+`;
+
 function TimelineQuestionUI({
   dateList,
   nextDateList,
@@ -121,6 +166,8 @@ function TimelineQuestionUI({
   onDragEnd,
   isFinish,
   lineHeight,
+  wrongCount,
+  isActiveGuide,
 }: TimelineQuestionProps) {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
@@ -130,6 +177,11 @@ function TimelineQuestionUI({
 
   return (
     <Container>
+      <ScoreBox>
+        <span className="play">{`배치: ${playedDateList.length}/${dateList.length}`}</span>
+        <span className="wrong">{`오답: ${wrongCount}`}</span>
+      </ScoreBox>
+
       <StyledTimelineQuestion>
         {dateList.length !== 0 && isMounted && (
           <DragDropContext onDragEnd={onDragEnd}>
@@ -178,6 +230,11 @@ function TimelineQuestionUI({
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
+                    {isActiveGuide && (
+                      <DragIcon>
+                        <Icon icon="drag" size={30} color="grey" />
+                      </DragIcon>
+                    )}
                     <Draggable draggableId={`ex`} index={0} key={`ex`}>
                       {(provided, snapshot) => {
                         return (

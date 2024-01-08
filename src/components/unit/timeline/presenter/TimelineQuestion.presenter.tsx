@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { useUpdateTimelineWrongCounterMutation } from "../../../../store/api/timelineApi";
 import { TimeLineItemModel } from "../../../../types/timelinetypes";
@@ -110,6 +110,29 @@ function TimelineQuestion({
   const { playedDateList, nextDateList, lineHeight, wrongCount, isFinish } =
     state;
   const { timelineId } = useQuesryString();
+  const [isActiveGuide, setIsActiveGuide] = useState<boolean>(
+    window.localStorage.getItem("isActiveGuide") !== "false"
+  );
+
+  useEffect(() => {
+    const atTop = window.scrollY === 0;
+
+    if (!atTop) {
+      console.log("Scrolling down!");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // 부드러운 스크롤을 위해 추가
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (wrongCount > 0 || playedDateList.length > 1) {
+      window.localStorage.setItem("isActiveGuide", "false");
+      setIsActiveGuide(false);
+    }
+  }, [wrongCount, playedDateList, isActiveGuide]);
 
   useEffect(() => {
     if (timelineId) {
@@ -201,6 +224,8 @@ function TimelineQuestion({
           isFinish={isFinish}
           lineHeight={lineHeight}
           onDragEnd={handleDragEnd}
+          wrongCount={wrongCount}
+          isActiveGuide={isActiveGuide}
         />
       )}
       {isFinish && (
