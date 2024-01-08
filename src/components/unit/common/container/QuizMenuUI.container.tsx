@@ -103,6 +103,9 @@ const StateBox = styled.div<{ color: string; important: boolean }>`
 
 const Score = styled.div`
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   left: 25px;
   @media (min-width: 768px) {
     position: relative;

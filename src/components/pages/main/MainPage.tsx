@@ -28,6 +28,7 @@ const Menu = styled.div`
   gap: 1px;
   background-color: ${({ theme }) => theme.colors.lightGrey};
   @media (max-width: 767px) {
+    min-height: 400px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }

@@ -40,7 +40,7 @@ const BoxTitle = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.textBlue};
 

@@ -8,7 +8,7 @@ const SearchBox = styled.div`
   height: 40px;
   margin: ${({ theme }) => theme.margin.base};
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
-  border: 2px solid ${({ theme }) => theme.colors.textBlue};
+  border: 1px solid ${({ theme }) => theme.colors.lightGrey};
 
   background-color: ${({ theme }) => theme.colors.white};
 `;

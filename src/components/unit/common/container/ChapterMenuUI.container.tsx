@@ -55,10 +55,12 @@ const ChapterBox = styled.button<{
   transition: transform ease 0.2s, box-shadow ease 0.2s;
 
   box-shadow: ${({ theme }) => theme.shadow.defaultShadow};
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
-    cursor: ${({ lock }) => lock && "not-allowed"};
+  @media (min-width: 768px) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.05);
+      cursor: ${({ lock }) => lock && "not-allowed"};
+    }
   }
 
   @media (max-width: 767px) {

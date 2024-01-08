@@ -5,8 +5,8 @@ import styled from "styled-components";
 const Box = styled(Link)`
   position: relative;
   @media (max-width: 767px) {
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    font-weight: ${({ theme }) => theme.fontWeight.regular};
+    font-size: ${({ theme }) => theme.fontSizes.base};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
   }
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ const Box = styled(Link)`
   overflow: hidden;
 
   font-size: ${({ theme }) => theme.fontSizes.base};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 
   transition: transform ease 0.2s, box-shadow ease 0.2s;
 `;
