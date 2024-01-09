@@ -28,7 +28,7 @@ const LongChoice = styled.div<AnswerCheckProps>`
   align-items: center;
   height: max-content;
   margin: 5px 0;
-  padding: 5px 12px 5px 12px;
+  padding: 5px 8px 5px 8px;
   border-radius: ${({ theme }) => theme.borderRadius.xxs};
   border: 1px solid
     ${({ theme, isFinish, isCorrect }) =>
@@ -48,8 +48,6 @@ const LongChoice = styled.div<AnswerCheckProps>`
 `;
 
 export const LongComment = styled.span<AnswerCheckProps>`
-  margin-left: 5px;
-
   color: ${({ theme, isCorrect, isFinish }) =>
     isFinish
       ? isCorrect

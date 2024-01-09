@@ -14,7 +14,6 @@ interface LayoutProps {
 const StyledMainPageLayout = styled.div<{ full: boolean }>`
   display: grid;
   position: relative;
-  min-height: 100vh;
   margin: 0 auto;
   //모바일
   @media (max-width: 767px) {
