@@ -104,9 +104,9 @@ function JJHListPage() {
           onClickReplace: () =>
             state !== "Locked" &&
             navigate(
-              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${Math.floor(
                 startDate / 10000
-              } ~ ${endDate / 10000}`,
+              )} ~ ${Math.floor(endDate / 10000)}`,
               { replace: true }
             ),
           icon: (
@@ -115,7 +115,9 @@ function JJHListPage() {
               <span style={{ fontSize: theme.fontSizes.xs }}> 연표</span>
             </span>
           ),
-          description: `${startDate / 10000} ~ ${item.endDate / 10000}`,
+          description: `${Math.floor(startDate / 10000)} ~ ${Math.floor(
+            item.endDate / 10000
+          )}`,
           jjhNumber: jjhNumber,
           subTitle:
             state === "Locked" ? (

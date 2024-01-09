@@ -35,13 +35,11 @@ function TimelineQuestionListPage() {
           const result: MenuModel = {
             type: "Progress",
             icon: `${Math.floor(score)}%`,
-            description: `${startDate / 10000} ~ ${endDate / 10000}`,
+            description: `${Math.floor(startDate / 10000)} ~ ${Math.floor(
+              endDate / 10000
+            )}`,
             title: `${title}`,
-            subTitle: (
-              <>
-                <div>연표 보기</div>
-              </>
-            ),
+            subTitle: <div>연표 보기</div>,
             score: Math.floor(score),
             mainColor: calculateGradientColor(score),
             onClickMain: () => {

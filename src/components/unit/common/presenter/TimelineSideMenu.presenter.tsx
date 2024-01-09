@@ -38,14 +38,16 @@ function TimelineSideMenu() {
             title: `${timeline.title}`,
             onClickMain: () =>
               navigate(
-                `/timeline?id=${timeline.id}&title=${timeline.title}/${
-                  timeline.startDate / 10000
-                } ~ ${timeline.endDate / 10000}`
+                `/timeline?id=${timeline.id}&title=${
+                  timeline.title
+                }/${Math.floor(timeline.startDate / 10000)} ~ ${Math.floor(
+                  timeline.endDate / 10000
+                )}`
               ),
             icon: <Icon icon="TIMELINE_STUDY" size={22} />,
-            description: `${timeline.startDate / 10000} ~ ${
-              timeline.endDate / 10000
-            }`,
+            description: `${Math.floor(
+              timeline.startDate / 10000
+            )} ~ ${Math.floor(timeline.endDate / 10000)}`,
           };
           return result;
         }),

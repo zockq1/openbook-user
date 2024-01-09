@@ -25,7 +25,7 @@ function TimelineQuestionSideMenu() {
         id: -1,
         type: "Progress",
         icon: `${Math.floor(avgScore)}%`,
-        title: "전체 진행도",
+        title: "전체 연표",
         subTitle: "전체 연표",
         score: Math.floor(avgScore),
         onClickMain: () => {
@@ -41,13 +41,11 @@ function TimelineQuestionSideMenu() {
             id,
             type: "Progress",
             icon: `${Math.floor(score)}%`,
-            description: `${startDate / 10000} ~ ${endDate / 10000}`,
+            description: `${Math.floor(startDate / 10000)} ~ ${Math.floor(
+              endDate / 10000
+            )}`,
             title: `${title}`,
-            subTitle: (
-              <>
-                <div>연표 보기</div>
-              </>
-            ),
+            subTitle: <div>연표 보기</div>,
             score: Math.floor(score),
             onClickMain: () => {
               navigate(`/question/timeline?id=${id}&title=${title}`);

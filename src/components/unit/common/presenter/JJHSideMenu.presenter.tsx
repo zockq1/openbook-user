@@ -77,9 +77,9 @@ function JJHSideMenu() {
           onClickMain: () =>
             state !== "Locked" &&
             navigate(
-              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${
+              `/jeong-ju-haeng/content?jjh=${jjhNumber}&id=${id}&title=${era}/${Math.floor(
                 startDate / 10000
-              } ~ ${endDate / 10000}`
+              )} ~ ${Math.floor(endDate / 10000)}`
             ),
           icon: (
             <Icon
@@ -93,7 +93,9 @@ function JJHSideMenu() {
               }
             />
           ),
-          description: `${startDate / 10000} ~ ${item.endDate / 10000}`,
+          description: `${Math.floor(startDate / 10000)} ~ ${Math.floor(
+            item.endDate / 10000
+          )}`,
           jjhNumber: jjhNumber,
           mainColor:
             state === "Locked"

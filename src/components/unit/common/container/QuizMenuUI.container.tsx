@@ -32,6 +32,7 @@ const ChapterBox = styled.button<{
   important: boolean;
   lock: boolean;
 }>`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,9 +107,11 @@ const Score = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
   left: 25px;
   @media (min-width: 768px) {
     position: relative;
+    height: 30%;
     left: 0;
     font-size: ${({ theme }) => theme.fontSizes.large};
   }
