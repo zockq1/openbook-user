@@ -67,6 +67,11 @@ const DateItem = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSizes.small};
   text-align: right;
+  word-break: keep-all;
+
+  .king {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+  }
 `;
 
 const CommentContainer = styled.div`
@@ -87,7 +92,15 @@ function TimelineItemUI({
       <StyledTimelineItem isQuestion={isQuestion}>
         <Date>
           <DateItem>
-            {typeof date === "number" ? Math.floor(Number(date) / 10000) : date}
+            {typeof date === "number"
+              ? Math.floor(Number(date) / 10000)
+              : date?.split("/")[0]}
+            {typeof date !== "number" && date?.split("/")[1] && (
+              <span className="king">
+                <br />
+                {`(${date?.split("/")[1]})`}
+              </span>
+            )}
           </DateItem>
         </Date>
         <InnerCircle />
