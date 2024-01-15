@@ -54,9 +54,11 @@ function TimelineMenuPage() {
             title: `${timeline.title}`,
             onClickMain: () =>
               navigate(
-                `/timeline?id=${timeline.id}&title=${timeline.title}/${
-                  timeline.startDate / 10000
-                } ~ ${timeline.endDate / 10000}`
+                `/timeline?id=${timeline.id}&title=${
+                  timeline.title
+                }/${Math.floor(timeline.startDate / 10000)} ~ ${Math.floor(
+                  timeline.endDate / 10000
+                )}`
               ),
             icon: (
               <span>
@@ -64,9 +66,9 @@ function TimelineMenuPage() {
                 <span style={{ fontSize: theme.fontSizes.xs }}> 연표</span>
               </span>
             ),
-            description: `${timeline.startDate / 10000} ~ ${
-              timeline.endDate / 10000
-            }`,
+            description: `${Math.floor(
+              timeline.startDate / 10000
+            )} ~ ${Math.floor(timeline.endDate / 10000)}`,
           };
           return result;
         }),
