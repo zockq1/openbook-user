@@ -18,12 +18,15 @@ const Keyword = styled.div<{ isCommentOn: boolean }>`
 `;
 
 const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: fit-content;
   padding: ${({ theme }) => theme.padding.small};
   border-radius: 10px 10px 2px 2px;
   background-color: ${({ theme, comment }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.textBlue};
-
   border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
   border-bottom: ${({ theme, commentVisible }) =>
     commentVisible

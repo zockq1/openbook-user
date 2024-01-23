@@ -26,7 +26,7 @@ const StyledTimelineItem = styled.li<StyledTimelineItemProps>`
   //margin-right: 97px;
 `;
 
-const InnerCircle = styled.div`
+const InnerCircle = styled.div<{ visible: boolean }>`
   margin: 10px;
   background-color: ${({ theme }) => theme.colors.bgBlue};
   width: 14px;
@@ -35,6 +35,7 @@ const InnerCircle = styled.div`
   border: 4px solid ${({ theme }) => theme.colors.textBlue};
   z-index: 9;
   position: relative;
+  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `;
 
 const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
@@ -71,6 +72,7 @@ const DateItem = styled.div`
 
   .king {
     font-size: ${({ theme }) => theme.fontSizes.xs};
+    font-weight: ${({ theme }) => theme.fontWeight.light};
   }
 `;
 
@@ -98,12 +100,12 @@ function TimelineItemUI({
             {typeof date !== "number" && date?.split("/")[1] && (
               <span className="king">
                 <br />
-                {`(${date?.split("/")[1]})`}
+                {`${date?.split("/")[1]}`}
               </span>
             )}
           </DateItem>
         </Date>
-        <InnerCircle />
+        <InnerCircle visible={date !== ""} />
         <Title
           onClick={onCommentToggle}
           commentVisible={

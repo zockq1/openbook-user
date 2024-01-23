@@ -238,7 +238,9 @@ const createQuestion = (question: ExamModel): QuestionModel => {
         topicDateComment ? `(${topicDateComment})` : ``
       }`;
       let keyword = `${keywordName}${
-        keywordDateComment ? `(${keywordDateComment}): ` : ``
+        !!keywordDateComment && keywordDateComment !== " "
+          ? `(${keywordDateComment})`
+          : ``
       }`;
 
       acc.push({
@@ -287,7 +289,9 @@ const createQuestion = (question: ExamModel): QuestionModel => {
             topicDateComment ? `(${topicDateComment})` : ``
           }`;
           let keyword = `${keywordName}${
-            keywordDateComment ? `(${keywordDateComment})` : ``
+            !!keywordDateComment && keywordDateComment !== " "
+              ? `(${keywordDateComment})`
+              : ``
           }`;
 
           acc.push({

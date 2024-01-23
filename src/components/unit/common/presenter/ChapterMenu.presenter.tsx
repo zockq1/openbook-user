@@ -33,6 +33,8 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
     "민속",
     "지역사",
     "유산",
+    "종교",
+    "건축",
   ];
   return (
     <>
@@ -69,10 +71,11 @@ function ChapterMenu({ menuList }: ChapterMenuProps) {
       <ChapterMenuUI
         title="조선 시대"
         color="#706233"
-        menuList={menuList.filter((chapter) =>
-          chapterCategory4.some((category) =>
-            chapter.title?.toString().includes(category)
-          )
+        menuList={menuList.filter(
+          (chapter) =>
+            chapterCategory4.some((category) =>
+              chapter.title?.toString().includes(category)
+            ) && !chapter.title?.toString().includes("건축물")
         )}
       />
       <ChapterMenuUI

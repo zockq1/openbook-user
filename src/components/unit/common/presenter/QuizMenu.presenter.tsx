@@ -33,6 +33,8 @@ function QuizMenu({ menuList }: ChapterMenuProps) {
     "민속",
     "지역사",
     "유산",
+    "종교",
+    "건축",
   ];
   return (
     <>

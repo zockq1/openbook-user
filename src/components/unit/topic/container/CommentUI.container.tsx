@@ -42,7 +42,7 @@ const Description = styled.li<{ open: boolean; color: string }>`
   width: fit-content;
   flex-wrap: nowrap;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
-  font-size: ${({ theme, open }) => (open ? theme.fontSizes.small : 0)};
+  font-size: ${({ theme, open }) => (open ? theme.fontSizes.xs : 0)};
   color: ${({ color, theme }) => color};
   line-height: 120%;
   word-break: keep-all;

@@ -106,6 +106,7 @@ function KeywordListUI({
           <KeywordList>
             {keywordList
               .filter((keyword) => !keyword.dateComment)
+              .sort((a, b) => a.number - b.number)
               .map((keyword, index) => (
                 <Keyword key={index} keyword={keyword} />
               ))}
@@ -115,9 +116,13 @@ function KeywordListUI({
             dateList={keywordList
               .filter((keyword) => !!keyword.dateComment)
               .sort((a, b) => a.number - b.number)
-              .map((keyword, index) => {
+              .map((keyword, index, arr) => {
                 return {
-                  date: keyword.dateComment,
+                  date:
+                    arr[index - 1] &&
+                    arr[index - 1].dateComment === keyword.dateComment
+                      ? ""
+                      : keyword.dateComment,
                   comment: keyword.name,
                   keywordList: keyword.comment
                     .trim()
