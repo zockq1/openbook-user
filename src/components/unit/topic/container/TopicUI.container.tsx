@@ -133,11 +133,14 @@ function TopicUI({ topic, onKeywordToggle, isLoggedIn }: TopicUIProps) {
         </StateBox>
       )}
 
-      {state !== "Locked" && state !== "Timeline" && isLoggedIn && (
-        <BookmarkBox color={mainColor}>
-          <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
-        </BookmarkBox>
-      )}
+      {state !== "Locked" &&
+        state !== "Timeline" &&
+        state !== "Chapter" &&
+        isLoggedIn && (
+          <BookmarkBox color={mainColor}>
+            <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
+          </BookmarkBox>
+        )}
     </StyledQuestionMenuItem>
   );
 }
