@@ -10,7 +10,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
-import BackButton from "../../atoms/button/BackButton";
 import PolicyAgreePage from "./PolicyAgreePage";
 import { usePolicyAgreeMutation } from "../../../store/api/withdrawalApi";
 import MainPageLayout from "../../atoms/layout/MainPageLayout";
@@ -58,7 +57,6 @@ const NaverRedirectPage = () => {
     if (isLoading) {
       return (
         <>
-          <BackButton color="black" />
           <Loading image="login" />
         </>
       );
