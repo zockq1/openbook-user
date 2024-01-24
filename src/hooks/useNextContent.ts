@@ -27,7 +27,6 @@ function useNextContent() {
 
       //다음 컨텐츠 찾기
       if (contentList[contentList.length - 1].contentNumber === contentNumber) {
-        console.log("asd");
         //단원의 마지막
         isSameJJH = false;
         nextContent = null;
@@ -48,8 +47,13 @@ function useNextContent() {
         setNextContentTitle(nextContent.title);
       }
 
-      //다음 컨텐츠가 다음 단원일 경우
+      if (!nextContent && !nextJJHChapter && !nextJJHTimeline) {
+        navigate("/jeong-ju-haeng");
+        return;
+      }
+
       if (!nextContent) {
+        //다음 컨텐츠가 다음 단원일 경우
         nextJJHChapter &&
           navigate(
             `/jeong-ju-haeng/content?jjh=${nextJJHChapter.jjhNumber}&chapter=${nextJJHChapter.number}&title=${nextJJHChapter.title}`,
@@ -69,7 +73,13 @@ function useNextContent() {
 
       //다음 컨텐츠가 complete 상태가 아닌 경우
       if (nextContent.state !== "Complete" && isSameJJH) {
-        navigate(-1);
+        const currentContent = (nextJJHChapter = jjhList.chapterList.find(
+          (jjh) => jjh.jjhNumber === jjhNumber
+        ));
+        navigate(
+          `/jeong-ju-haeng/content?jjh=${currentContent?.jjhNumber}&chapter=${currentContent?.number}&title=${currentContent?.title}`,
+          { replace: true }
+        );
         return;
       }
 
