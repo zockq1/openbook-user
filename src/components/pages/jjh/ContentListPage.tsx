@@ -62,54 +62,56 @@ function ContentListPage() {
     };
 
     setMenuList([
-      ...contentList.map((item) => {
-        const {
-          content,
-          title,
-          state,
-          contentNumber,
-          dateComment,
-          savedBookmark,
-        } = item;
-        let result: TopicMenuModel;
+      ...[...contentList]
+        .sort((a, b) => a.contentNumber - b.contentNumber)
+        .map((item) => {
+          const {
+            content,
+            title,
+            state,
+            contentNumber,
+            dateComment,
+            savedBookmark,
+          } = item;
+          let result: TopicMenuModel;
 
-        result = {
-          title,
-          date:
-            content === "TIMELINE_STUDY"
-              ? contentTitle.split("/")[1]
-              : dateComment,
-          state,
-          content:
-            content === "TIMELINE_STUDY" ? (
-              <TimelineList id={timelineId} />
-            ) : (
-              content === "CHAPTER_INFO" && <ChapterInfo />
-            ),
-          onClick: async () => {
-            if (state === "Locked") return;
-            if (content === "CHAPTER_INFO") {
-              await updateProgres({ contentNumber: contentNumber });
-              return;
-            }
-            navigate(getLink(content, title, contentNumber));
-          },
-          mainColor:
-            state === "Locked"
-              ? theme.colors.red
-              : state === "Complete"
-              ? theme.colors.green
-              : state === "InProgress"
-              ? theme.colors.blue
-              : theme.colors.white,
-          isBookmarked: savedBookmark,
-          keywordList:
-            topicList.find((topic) => topic.title === item.title)
-              ?.keywordList || [],
-        };
+          result = {
+            title,
+            date:
+              content === "TIMELINE_STUDY"
+                ? contentTitle.split("/")[1]
+                : dateComment,
+            state,
+            content:
+              content === "TIMELINE_STUDY" ? (
+                <TimelineList id={timelineId} />
+              ) : (
+                content === "CHAPTER_INFO" && <ChapterInfo />
+              ),
+            onClick: async () => {
+              if (state === "Locked") return;
+              if (content === "CHAPTER_INFO") {
+                await updateProgres({ contentNumber: contentNumber });
+                return;
+              }
+              navigate(getLink(content, title, contentNumber));
+            },
+            mainColor:
+              state === "Locked"
+                ? theme.colors.red
+                : state === "Complete"
+                ? theme.colors.green
+                : state === "InProgress"
+                ? theme.colors.blue
+                : theme.colors.white,
+            isBookmarked: savedBookmark,
+            keywordList:
+              topicList.find((topic) => topic.title === item.title)
+                ?.keywordList || [],
+          };
 
-        return result;
-      }),
+          return result;
+        }),
     ]);
   }, [
     setMenuList,
