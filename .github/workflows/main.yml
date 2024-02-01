@@ -1,4 +1,4 @@
-name: CI/CD hdev_client to AWS S3
+name: CI/CD
 
 on:
   push:
@@ -23,6 +23,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.12.1
+          
+      - name: .env 설정
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+          echo "REACT_APP_IP=${{ secrets.REACT_APP_IP }}" >> .env
+          echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
+          echo "REACT_APP_NAVER_KEY=${{ secrets.REACT_APP_NAVER_KEY }}" >> .env
+          echo "REACT_APP_PROTOCOL=${{ secrets.REACT_APP_PROTOCOL }}" >> .env
+          echo "REACT_APP_URL=${{ secrets.REACT_APP_URL }}" >> .env
 
       - name: 리액트 빌드
         run: |
