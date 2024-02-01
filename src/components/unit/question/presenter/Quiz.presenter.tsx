@@ -233,6 +233,11 @@ function createQuestion(question: QuizModel, index: number): QuestionModel {
             questionType === "TtoK" && choiceType === "Image"
               ? [
                   {
+                    comment: choice.key,
+                    icon: <Icon icon="description" size={12} />,
+                    type: "Comment",
+                  },
+                  {
                     comment: choice.choice,
                     icon: <Icon icon="check" size={12} />,
                     type: "Comment",
