@@ -5,9 +5,9 @@ import { useContext, useState } from "react";
 import ReactModal from "react-modal";
 
 import kakao from "../../../styles/images/kakao.png";
-import apple from "../../../styles/images/apple.png";
+//import apple from "../../../styles/images/apple.png";
 import naver from "../../../styles/images/naver.png";
-import google from "../../../styles/images/google.png";
+//import google from "../../../styles/images/google.png";
 import Logo from "../icon/Logo";
 
 const StyledLogin = styled.button`
