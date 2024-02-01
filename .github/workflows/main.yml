@@ -19,6 +19,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v18.12.1
+
       - name: 리액트 빌드
         run: |
           npm install
