@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import useQuesryString from "../../../hooks/useQueryString";
 import TitleBox from "../../unit/ui/TitleBox";
-import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
+import TimelineQuestion from "../../unit/timeline/container/TimelineQuestion";
 import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
-import TimelineQuestionSideMenu from "../../unit/common/presenter/TimelineQuestionSideMenu.presenter";
+import TimelineQuestionSideMenu from "../../unit/common/container/TimelineQuestionSideMenu.presenter";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();

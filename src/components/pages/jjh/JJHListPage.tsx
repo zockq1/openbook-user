@@ -10,9 +10,9 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
-import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import ChapterMenu from "../../unit/common/container/ChapterMenu.presenter";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
-import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
+import JJHSideMenu from "../../unit/common/container/JJHSideMenu.presenter";
 import { useMediaQuery } from "react-responsive";
 
 interface JJHList extends MenuModel {

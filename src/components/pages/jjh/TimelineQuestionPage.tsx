@@ -2,7 +2,7 @@ import useNextContent from "../../../hooks/useNextContent";
 import useQuesryString from "../../../hooks/useQueryString";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import TitleBox from "../../unit/ui/TitleBox";
-import TimelineQuestion from "../../unit/timeline/presenter/TimelineQuestion.presenter";
+import TimelineQuestion from "../../unit/timeline/container/TimelineQuestion";
 import Loading from "../../unit/skeleton/LoadingUI";
 import usePreventScroll from "../../../hooks/usePreventScroll";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
@@ -12,7 +12,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useCallback } from "react";
-import JJHSideMenu from "../../unit/common/presenter/JJHSideMenu.presenter";
+import JJHSideMenu from "../../unit/common/container/JJHSideMenu.presenter";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();

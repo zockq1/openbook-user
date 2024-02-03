@@ -1,14 +1,14 @@
 import TitleBox from "../../unit/ui/TitleBox";
 import useQuesryString from "../../../hooks/useQueryString";
-import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import KeywordToggleButton from "../../unit/topic/container/KeywordToggleButton";
 import { useGetTimelineQuery } from "../../../store/api/timelineApi";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
-import TimelineListUI from "../../unit/timeline/container/TimelineListUI.container";
+import TimelineListUI from "../../unit/timeline/presenter/TimelineListUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import TimelineSideMenu from "../../unit/common/presenter/TimelineSideMenu.presenter";
-import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import TimelineSideMenu from "../../unit/common/container/TimelineSideMenu.presenter";
+import TopicList from "../../unit/topic/container/TopicList";
 
 function TimelinePage() {
   const { title, timelineId } = useQuesryString();

@@ -3,17 +3,17 @@ import TitleBox from "../../unit/ui/TitleBox";
 import { useGetChapterInfoQuery } from "../../../store/api/chapterApi";
 import { useGetChapterTopicListQuery } from "../../../store/api/jjhApi";
 import { ThemeContext } from "styled-components";
-import ChapterInfo from "../../unit/chapter/presenter/ChapterInfo.presenter";
+import ChapterInfo from "../../unit/chapter/container/ChapterInfo";
 import useQuesryString from "../../../hooks/useQueryString";
-import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import KeywordToggleButton from "../../unit/topic/container/KeywordToggleButton";
 import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
-import TopicList from "../../unit/topic/presenter/TopicList.presenter";
-import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
-import ChapterSideMenu from "../../unit/common/presenter/ChapterSideMenu.presenter";
+import TopicList from "../../unit/topic/container/TopicList";
+import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
+import ChapterSideMenu from "../../unit/common/container/ChapterSideMenu.presenter";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);

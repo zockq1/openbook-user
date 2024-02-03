@@ -9,7 +9,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
-import QuizMenu from "../../unit/common/presenter/QuizMenu.presenter";
+import QuizMenu from "../../unit/common/container/QuizMenu.presenter";
 
 function QuizListPage() {
   const navigate = useNavigate();
