@@ -47,7 +47,7 @@ const colors = {
   purple: "#8A3FFC",
   lightPurple: "#A56EFF",
 
-  bg: "#f2f5f9",
+  bg: "#f7f7f7",
 
   bgBlue: "#e0f2ff",
   textBlue: "#101A28",
