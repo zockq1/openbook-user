@@ -4,7 +4,7 @@ import reset from "styled-reset";
 export const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
-  background-color: #f2f5f9;
+  background-color: #f7f7f7;
   font-family: "Spoqa Han Sans Neo";
   //background-color: #101A28
   -webkit-user-select:none;
