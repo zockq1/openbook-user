@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useMemo, useReducer } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   ExamModel,
@@ -19,7 +19,6 @@ import { useDeleteWrongNoteMutation } from "../../../../store/api/questionApi";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Default, Mobile } from "../../../atoms/layout/Responsive";
-import useQuesryString from "../../../../hooks/useQueryString";
 
 const QuestionLayout = styled.div`
   @media (min-width: 992px) {
@@ -56,7 +55,6 @@ const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 const DELETE_QUESTION = "DELETE_QUESTION";
-const RESET_STATE = "RESET_STATE";
 
 export type Action =
   | {
@@ -66,24 +64,10 @@ export type Action =
   | { type: "CHECK_ANSWER" }
   | { type: "NEXT_QUESTION" }
   | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
-  | { type: "DELETE_QUESTION" }
-  | {
-      type: "RESET_STATE";
-      questionList: QuestionModel[];
-      isFinish: boolean;
-      currentNumber: number;
-      score: number;
-    };
+  | { type: "DELETE_QUESTION" };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case RESET_STATE:
-      return {
-        questionList: action.questionList,
-        isFinish: action.isFinish,
-        currentNumber: action.currentNumber,
-        score: action.score,
-      };
     case SELECT_CHOICE:
       if (state.questionList[state.currentNumber].isFinish) {
         return state;
@@ -294,7 +278,6 @@ const createQuestion = (question: ExamModel): QuestionModel => {
 };
 
 function WrongNote({ examList }: ExamProps) {
-  const { round } = useQuesryString();
   const navigate = useNavigate();
   const [deleteWrongNote] = useDeleteWrongNoteMutation();
   const [state, dispatch] = useReducer(reducer, {
@@ -307,16 +290,6 @@ function WrongNote({ examList }: ExamProps) {
   const image = useMemo(() => {
     return images[Math.floor(Math.random() * images.length)];
   }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: "RESET_STATE",
-      questionList: [...examList].map(createQuestion),
-      isFinish: false,
-      currentNumber: 0,
-      score: 0,
-    });
-  }, [round, examList]);
 
   const handleChoiceClick = (key: string) => {
     dispatch({

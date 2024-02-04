@@ -68,7 +68,6 @@ const FINISH = "FINISH";
 const NEXT_QUESTION = "NEXT_QUESTION";
 const CHECK_ANSWER = "CHECK_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
-const RESET_STATE = "RESET_STATE";
 
 export type Action =
   | {
@@ -78,32 +77,10 @@ export type Action =
   | { type: "CHECK_ANSWER"; correctAlert: () => Id; wrongAlert: () => Id }
   | { type: "NEXT_QUESTION" }
   | { type: "FINISH" }
-  | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
-  | {
-      type: "RESET_STATE";
-      questionList: QuestionModel[];
-      isFinish: boolean;
-      currentNumber: number;
-      score: number;
-      keywordList: Map<
-        number,
-        {
-          wrongCount: number;
-          correctCount: number;
-        }
-      >;
-    };
+  | { type: "MOVE_QUESTION"; moveQuestionNumber: number };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case RESET_STATE:
-      return {
-        questionList: action.questionList,
-        isFinish: action.isFinish,
-        currentNumber: action.currentNumber,
-        score: action.score,
-        keywordList: action.keywordList,
-      };
     case SELECT_CHOICE:
       if (state.questionList[state.currentNumber].isFinish) {
         return state;

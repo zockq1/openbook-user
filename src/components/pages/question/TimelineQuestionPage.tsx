@@ -17,7 +17,7 @@ function TimelineQuestionPage() {
   const {
     data: dateList,
     isError,
-    isLoading,
+    isFetching,
     isSuccess,
     error,
   } = useGetTimelineQuery(timelineId);
@@ -25,7 +25,7 @@ function TimelineQuestionPage() {
   usePreventScroll();
 
   const renderContent = () => {
-    if (isLoading) {
+    if (isFetching) {
       return <Loading image="question" />;
     }
 
@@ -48,6 +48,7 @@ function TimelineQuestionPage() {
           dateList={[...dateList].sort(() => Math.random() - 0.5)}
           onNextContent={() => navigate(-1)}
           id={timelineId}
+          key={timelineId}
         />
       );
     }

@@ -75,7 +75,6 @@ const CHECK_ANSWER = "CHECK_ANSWER";
 const CHECK_CURRENT_ANSWER = "CHECK_CURRENT_ANSWER";
 const MOVE_QUESTION = "MOVE_QUESTION";
 const LOAD = "LOAD";
-const RESET_STATE = "RESET_STATE";
 
 export type Action =
   | {
@@ -88,24 +87,10 @@ export type Action =
   | { type: "PREV_QUESTION" }
   | { type: "FINISH" }
   | { type: "MOVE_QUESTION"; moveQuestionNumber: number }
-  | { type: "LOAD"; loadedState: SaveState }
-  | {
-      type: "RESET_STATE";
-      questionList: QuestionModel[];
-      isFinish: boolean;
-      currentNumber: number;
-      score: number;
-    };
+  | { type: "LOAD"; loadedState: SaveState };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case RESET_STATE:
-      return {
-        questionList: action.questionList,
-        isFinish: action.isFinish,
-        currentNumber: action.currentNumber,
-        score: action.score,
-      };
     case LOAD:
       const updatedQuestionListLoad = state.questionList.map((item, index) => {
         return { ...item, ...action.loadedState.questionList[index] };
