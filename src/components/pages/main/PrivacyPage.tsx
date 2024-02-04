@@ -1,5 +1,5 @@
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import TopicList from "../../unit/topic/presenter/TopicList.presenter";
+import TopicList from "../../unit/topic/container/TopicList";
 import TitleBox from "../../unit/ui/TitleBox";
 
 function PrivacyPage() {

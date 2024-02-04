@@ -1,16 +1,16 @@
 import { useGetBookmarkedTopicQuery } from "../../../store/api/jjhApi";
 import TitleBox from "../../unit/ui/TitleBox";
-import KeywordToggleButton from "../../unit/topic/presenter/KeywordToggleButton.presenter";
+import KeywordToggleButton from "../../unit/topic/container/KeywordToggleButton";
 import Loading from "../../unit/skeleton/LoadingUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
 import { TopicMenuModel } from "../../../types/topicTypes";
-import TopicList from "../../unit/topic/presenter/TopicList.presenter";
-import BookmarkSideMenu from "../../unit/common/presenter/BookmarkSideMenu.presenter";
+import TopicList from "../../unit/topic/container/TopicList";
+import BookmarkSideMenu from "../../unit/common/container/BookmarkSideMenu";
 import useQuesryString from "../../../hooks/useQueryString";
-import SideAnchorUI from "../../unit/common/container/SideAnchorUi.container";
+import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
 
 function BookmarkPage() {
   const {

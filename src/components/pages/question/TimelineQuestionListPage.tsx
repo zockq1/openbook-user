@@ -9,7 +9,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
 import withAuth from "../../../hoc/withAuth";
-import QuizMenu from "../../unit/common/presenter/QuizMenu.presenter";
+import QuizMenu from "../../unit/common/container/QuizMenu";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();

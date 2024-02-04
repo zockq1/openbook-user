@@ -8,9 +8,9 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import ChapterMenu from "../../unit/common/container/ChapterMenu";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
-import ChapterSideMenu from "../../unit/common/presenter/ChapterSideMenu.presenter";
+import ChapterSideMenu from "../../unit/common/container/ChapterSideMenu";
 import { useMediaQuery } from "react-responsive";
 
 function LearningChapterListPage() {

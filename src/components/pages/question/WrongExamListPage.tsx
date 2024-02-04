@@ -10,7 +10,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
 import { useMediaQuery } from "react-responsive";
-import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import ChapterMenu from "../../unit/common/container/ChapterMenu";
 
 const Label = styled.div`
   display: flex;

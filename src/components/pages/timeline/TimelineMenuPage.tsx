@@ -9,9 +9,9 @@ import MenuSkeletonListUI from "../../unit/skeleton/MenuSkeletonListUI";
 import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import ChapterMenu from "../../unit/common/presenter/ChapterMenu.presenter";
+import ChapterMenu from "../../unit/common/container/ChapterMenu";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
-import TimelineSideMenu from "../../unit/common/presenter/TimelineSideMenu.presenter";
+import TimelineSideMenu from "../../unit/common/container/TimelineSideMenu";
 import { useMediaQuery } from "react-responsive";
 
 function TimelineMenuPage() {

@@ -4,7 +4,7 @@ import {
   CheckBoxInput,
   CheckBoxLabel,
 } from "../../atoms/checkbox/QuestionCheckBox";
-import Topic from "../../unit/topic/presenter/Topic.presenter";
+import Topic from "../../unit/topic/container/Topic";
 
 const NextButton = styled.button`
   height: 50px;
