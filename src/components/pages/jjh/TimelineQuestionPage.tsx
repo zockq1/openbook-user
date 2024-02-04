@@ -12,7 +12,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useCallback } from "react";
-import JJHSideMenu from "../../unit/common/container/JJHSideMenu.presenter";
+import JJHSideMenu from "../../unit/common/container/JJHSideMenu";
 
 function TimelineQuestionPage() {
   const { handleNextContent } = useNextContent();

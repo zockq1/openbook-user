@@ -7,7 +7,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
-import ExamSideMenu from "../../unit/common/container/ExamSideMenu.presenter";
+import ExamSideMenu from "../../unit/common/container/ExamSideMenu";
 function MockExamPage() {
   const { title, round } = useQuesryString();
   const {

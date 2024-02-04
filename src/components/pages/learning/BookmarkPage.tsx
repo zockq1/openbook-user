@@ -8,7 +8,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/container/TopicList";
-import BookmarkSideMenu from "../../unit/common/container/BookmarkSideMenu.presenter";
+import BookmarkSideMenu from "../../unit/common/container/BookmarkSideMenu";
 import useQuesryString from "../../../hooks/useQueryString";
 import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
 

@@ -8,7 +8,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/container/TopicList";
-import QuestionCategorySideMenu from "../../unit/common/container/QuestionCategorySideMenu.presenter";
+import QuestionCategorySideMenu from "../../unit/common/container/QuestionCategorySideMenu";
 import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
 
 function QustionCategoryTopicListPage() {

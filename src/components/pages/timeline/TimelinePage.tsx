@@ -7,7 +7,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import TimelineListUI from "../../unit/timeline/presenter/TimelineListUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
-import TimelineSideMenu from "../../unit/common/container/TimelineSideMenu.presenter";
+import TimelineSideMenu from "../../unit/common/container/TimelineSideMenu";
 import TopicList from "../../unit/topic/container/TopicList";
 
 function TimelinePage() {

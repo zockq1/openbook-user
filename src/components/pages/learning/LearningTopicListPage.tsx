@@ -13,7 +13,7 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/container/TopicList";
 import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
-import ChapterSideMenu from "../../unit/common/container/ChapterSideMenu.presenter";
+import ChapterSideMenu from "../../unit/common/container/ChapterSideMenu";
 
 function LearningTopicListPage() {
   const theme = useContext(ThemeContext);

@@ -9,7 +9,7 @@ import ErrorUI from "../../unit/skeleton/ErrorUI";
 import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import withAuth from "../../../hoc/withAuth";
-import TimelineQuestionSideMenu from "../../unit/common/container/TimelineQuestionSideMenu.presenter";
+import TimelineQuestionSideMenu from "../../unit/common/container/TimelineQuestionSideMenu";
 
 function TimelineQuestionPage() {
   const { timelineId, title } = useQuesryString();

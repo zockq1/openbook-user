@@ -10,7 +10,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import JJHSideMenu from "../../unit/common/container/JJHSideMenu.presenter";
+import JJHSideMenu from "../../unit/common/container/JJHSideMenu";
 
 function ChapterQuestionPage() {
   const { handleNextContent } = useNextContent();

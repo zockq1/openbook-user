@@ -18,7 +18,7 @@ import EmptyUI from "../../unit/skeleton/EmptyUI";
 import ContentLayout from "../../atoms/layout/ContentLayout";
 import { TopicMenuModel } from "../../../types/topicTypes";
 import TopicList from "../../unit/topic/container/TopicList";
-import JJHSideMenu from "../../unit/common/container/JJHSideMenu.presenter";
+import JJHSideMenu from "../../unit/common/container/JJHSideMenu";
 import SideAnchorUI from "../../unit/common/presenter/SideAnchorUI";
 
 function ContentListPage() {
