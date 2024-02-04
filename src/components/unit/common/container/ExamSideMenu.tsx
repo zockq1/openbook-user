@@ -31,7 +31,7 @@ function ExamSideMenu() {
             icon: `${number}회`,
             score,
             onClickMain: () => {
-              window.location.replace(
+              navigate(
                 `/question/mock-exam?round=${number}&title=${number}회 기출문제`
               );
             },

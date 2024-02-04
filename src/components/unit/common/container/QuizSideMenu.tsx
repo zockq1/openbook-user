@@ -35,7 +35,7 @@ function QuizSideMenu() {
             icon: `${score}%`,
             score: score,
             onClickMain: () => {
-              window.location.replace(`/question/quiz?&id=${id}&noq=${10}`);
+              navigate(`/question/quiz?&id=${id}&noq=${10}`);
             },
           };
           return result;

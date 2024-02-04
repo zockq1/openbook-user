@@ -14,13 +14,13 @@ function WrongExamPage() {
   const {
     data: mockExamList,
     isError,
-    isLoading,
+    isFetching,
     isSuccess,
     error,
   } = useGetExamQuery(Number(round));
 
   const renderContent = () => {
-    if (isLoading) {
+    if (isFetching) {
       return <Loading image="wrong" />;
     }
 
@@ -41,6 +41,7 @@ function WrongExamPage() {
       return (
         <WrongNote
           examList={mockExamList.filter((exam) => exam.savedAnswerNote)}
+          key={round}
         />
       );
     }

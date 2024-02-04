@@ -13,13 +13,13 @@ function MockExamPage() {
   const {
     data: mockExamList,
     isError,
-    isLoading,
+    isFetching,
     isSuccess,
     error,
   } = useGetExamQuery(Number(round));
 
   const renderContent = () => {
-    if (isLoading) {
+    if (isFetching) {
       return <Loading image="question" />;
     }
 
@@ -37,7 +37,8 @@ function MockExamPage() {
     }
 
     if (isSuccess) {
-      return <Exam examList={mockExamList} />;
+      console.log(round);
+      return <Exam examList={mockExamList} key={round} />;
     }
 
     return null;

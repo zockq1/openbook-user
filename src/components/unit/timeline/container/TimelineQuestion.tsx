@@ -7,7 +7,6 @@ import ResultButtonUI from "../../question/presenter/ResultButtonUI";
 import TimelineScore from "./TimelineScore";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import useQuesryString from "../../../../hooks/useQueryString";
 
 interface TimelineQuestionProps {
   dateList: TimeLineItemModel[];
@@ -29,34 +28,17 @@ const MOVE_MIDDLE = "MOVE_MIDDLE";
 const MOVE_LAST = "MOVE_LAST";
 const WRONG_MOVE = "WRONG_MOVE";
 const FINISH = "FINISH";
-const RESET_STATE = "RESET_STATE";
 
 type Action =
   | { type: "MOVE_FIRST" }
   | { type: "MOVE_MIDDLE"; destinationIndex: number }
   | { type: "MOVE_LAST" }
   | { type: "WRONG_MOVE" }
-  | { type: "FINISH" }
-  | {
-      type: "RESET_STATE";
-      playedDateList: TimeLineItemModel[];
-      nextDateList: TimeLineItemModel[];
-      lineHeight: number;
-      wrongCount: number;
-      isFinish: boolean;
-    };
+  | { type: "FINISH" };
 
 const reducer = (state: State, action: Action): State => {
   const { playedDateList, nextDateList, lineHeight, wrongCount } = state;
   switch (action.type) {
-    case RESET_STATE:
-      return {
-        playedDateList: action.playedDateList,
-        nextDateList: action.nextDateList,
-        lineHeight: action.lineHeight,
-        wrongCount: action.wrongCount,
-        isFinish: action.isFinish,
-      };
     case MOVE_FIRST:
       return {
         ...state,
@@ -109,7 +91,6 @@ function TimelineQuestion({
   });
   const { playedDateList, nextDateList, lineHeight, wrongCount, isFinish } =
     state;
-  const { timelineId } = useQuesryString();
   const [isActiveGuide, setIsActiveGuide] = useState<boolean>(
     window.localStorage.getItem("isActiveGuide") !== "false"
   );
@@ -131,20 +112,6 @@ function TimelineQuestion({
       setIsActiveGuide(false);
     }
   }, [wrongCount, playedDateList, isActiveGuide]);
-
-  useEffect(() => {
-    if (timelineId) {
-      dispatch({
-        type: "RESET_STATE",
-        playedDateList: [dateList[0]],
-        nextDateList: dateList.slice(1),
-        lineHeight: 166,
-        wrongCount: 0,
-        isFinish: dateList.length === 0,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timelineId]);
 
   useEffect(() => {
     if (nextDateList.length === 0) {
