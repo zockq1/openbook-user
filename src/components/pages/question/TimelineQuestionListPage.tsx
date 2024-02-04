@@ -10,7 +10,6 @@ import ContentLayout from "../../atoms/layout/ContentLayout";
 import TitleBox from "../../unit/ui/TitleBox";
 import withAuth from "../../../hoc/withAuth";
 import QuizMenu from "../../unit/common/container/QuizMenu";
-import callAll from "../../../service/callAll";
 
 function TimelineQuestionListPage() {
   const navigate = useNavigate();
@@ -43,9 +42,9 @@ function TimelineQuestionListPage() {
             subTitle: <div>연표 보기</div>,
             score: Math.floor(score),
             mainColor: calculateGradientColor(score),
-            onClickMain: callAll(() => {
+            onClickMain: () => {
               navigate(`/question/timeline?id=${id}&title=${title}`);
-            }),
+            },
             onClickSub: () => {
               navigate(`/timeline?id=${id}&title=${title}`);
             },
