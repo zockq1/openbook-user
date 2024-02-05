@@ -37,7 +37,6 @@ function MockExamPage() {
     }
 
     if (isSuccess) {
-      console.log(round);
       return <Exam examList={mockExamList} key={round} />;
     }
 

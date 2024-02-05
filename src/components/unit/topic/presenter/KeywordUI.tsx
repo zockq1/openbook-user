@@ -39,25 +39,6 @@ const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
   cursor: ${({ comment }) => (comment ? "pointer" : "")};
 `;
 
-// const Badge = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   position: absolute;
-//   z-index: 10;
-//   width: 20px;
-//   height: 20px;
-//   top: -9px;
-//   left: -7px;
-//   padding: 5px;
-//   border-radius: 100%;
-//   border: 2px solid ${({ theme }) => theme.colors.textBlue};
-//   background-color: ${({ theme }) => theme.colors.bg};
-//   color: ${({ theme }) => theme.colors.textBlue};
-//   font-size: ${({ theme }) => theme.fontSizes.xxs};
-//   font-weight: ${({ theme }) => theme.fontWeight.bold};
-// `;
-
 const Image = styled.img`
   max-width: 100px;
   max-height: 100px;
@@ -72,7 +53,6 @@ function KeywordUI({
 
   return (
     <Keyword isCommentOn={comment ? isCommentOn : false}>
-      {/* {questionList.length !== 0 && <Badge>{questionList.length}</Badge>} */}
       <Title
         onClick={!comment ? () => {} : onCommentToggle}
         commentVisible={comment ? !isCommentOn : false}
