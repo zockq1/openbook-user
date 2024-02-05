@@ -33,7 +33,7 @@ const KeywordListContainer = styled.div<{ isVisible: boolean }>`
 
 const KeywordList = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   padding: 5px;
 `;
@@ -45,9 +45,7 @@ const KeywordTitleContainer = styled.div<{ isVisible: boolean }>`
   width: 100%;
 
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
-  border-top: 1px solid
-    ${({ theme, isVisible }) =>
-      !isVisible ? "transparent" : theme.colors.lightGrey};
+  border-top: 0;
   border-radius: 0 0 10px 10px;
 
   background-color: ${({ theme }) => theme.colors.white};
@@ -108,11 +106,15 @@ function KeywordListUI({
               .filter((keyword) => !keyword.dateComment)
               .sort((a, b) => a.number - b.number)
               .map((keyword, index) => (
-                <Keyword key={index} keyword={keyword} />
+                <Keyword
+                  key={index}
+                  title={keyword.name}
+                  comment={keyword.comment}
+                  file={keyword.file}
+                />
               ))}
           </KeywordList>
           <TimelineListUI
-            isTopic
             dateList={keywordList
               .filter((keyword) => !!keyword.dateComment)
               .sort((a, b) => a.number - b.number)
@@ -128,6 +130,7 @@ function KeywordListUI({
                     .trim()
                     .split(".")
                     .filter(Boolean),
+                  file: keyword.file,
                 };
               })}
           />

@@ -1,17 +1,14 @@
 import styled from "styled-components";
-import CommentUI from "../../topic/presenter/CommentUI";
-import Icon from "../../../atoms/icon/Icon";
+import Keyword from "../../topic/container/Keyword";
 
 interface TimelineTopicProps {
   dateItem: {
     comment: string;
     date: number | string | null;
     keywordList: string[] | null;
+    file?: string;
   };
   isQuestion?: boolean;
-  isCommentOn: boolean;
-  onCommentToggle: () => void;
-  isTopic?: boolean;
 }
 
 interface StyledTimelineItemProps {
@@ -38,24 +35,6 @@ const InnerCircle = styled.div<{ visible: boolean }>`
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `;
 
-const Title = styled.div<{ comment: boolean; commentVisible: boolean }>`
-  width: fit-content;
-  padding: ${({ theme }) => theme.padding.small};
-  border-radius: 10px 10px 2px 2px;
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.textBlue};
-  border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
-  border-bottom: ${({ theme, commentVisible }) =>
-    !commentVisible
-      ? `3px solid ${theme.colors.lightGrey}`
-      : `1px solid ${theme.colors.lightGrey}`};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  z-index: 1;
-  word-break: keep-all;
-  cursor: ${({ comment }) => (comment ? "pointer" : "")};
-`;
-
 const Date = styled.div`
   display: flex;
   justify-content: end;
@@ -76,19 +55,8 @@ const DateItem = styled.div`
   }
 `;
 
-const CommentContainer = styled.div`
-  position: relative;
-  margin-left: 98px;
-`;
-
-function TimelineItemUI({
-  dateItem,
-  isCommentOn,
-  onCommentToggle,
-  isQuestion = false,
-  isTopic = false,
-}: TimelineTopicProps) {
-  const { comment, date, keywordList } = dateItem;
+function TimelineItemUI({ dateItem, isQuestion = false }: TimelineTopicProps) {
+  const { comment, date, keywordList, file } = dateItem;
   return (
     <>
       <StyledTimelineItem isQuestion={isQuestion}>
@@ -106,34 +74,13 @@ function TimelineItemUI({
           </DateItem>
         </Date>
         <InnerCircle visible={date !== ""} />
-        <Title
-          onClick={onCommentToggle}
-          commentVisible={
-            keywordList && keywordList?.length > 0 ? isCommentOn : true
-          }
-          comment={keywordList && keywordList?.length > 0 ? true : false}
-        >
-          {comment}
-        </Title>
+        <Keyword
+          title={comment}
+          comment={keywordList?.join(".") || ""}
+          file={file}
+          isQuestion={isQuestion}
+        />
       </StyledTimelineItem>
-      <CommentContainer>
-        {!isQuestion && keywordList && keywordList.length > 0 && (
-          <CommentUI
-            isCommentOpen={isCommentOn}
-            commentList={keywordList.map((item, index) => {
-              return {
-                comment: item,
-                icon: (
-                  <Icon
-                    icon={index === 0 && !isTopic ? "description" : "checkBox"}
-                    size={12}
-                  />
-                ),
-              };
-            })}
-          />
-        )}
-      </CommentContainer>
     </>
   );
 }
