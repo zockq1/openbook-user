@@ -54,7 +54,6 @@ import { ReactComponent as Down } from "../../../styles/icon/down.svg";
 import { ReactComponent as Exam } from "../../../styles/icon/exam.svg";
 import { ReactComponent as Menu } from "../../../styles/icon/menu.svg";
 import { ReactComponent as Drag } from "../../../styles/icon/drag.svg";
-//import { ReactComponent as  } from "../../../styles/icon";
 
 export type IconType =
   | "run"
