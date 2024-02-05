@@ -51,6 +51,8 @@ const colors = {
 
   bgBlue: "#e0f2ff",
   textBlue: "#101A28",
+
+  keywordBg: "#ffffff",
   //textBlue: "#000066",
 };
 

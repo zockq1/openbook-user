@@ -6,8 +6,8 @@ interface TimelineListProps {
     comment: string;
     date: number | string | null;
     keywordList: string[] | null;
+    file?: string;
   }[];
-  isTopic?: boolean;
 }
 
 const Line = styled.li`
@@ -30,13 +30,13 @@ const StyledTimelineList = styled.ul`
   padding-left: 0;
 `;
 
-function TimelineListUI({ dateList, isTopic }: TimelineListProps) {
+function TimelineListUI({ dateList }: TimelineListProps) {
   if (dateList.length === 0) return null;
   return (
     <StyledTimelineList>
       <Line />
       {dateList.map((item, index) => {
-        return <TimelineItem dateItem={item} key={index} isTopic={isTopic} />;
+        return <TimelineItem dateItem={item} key={index} />;
       })}
     </StyledTimelineList>
   );

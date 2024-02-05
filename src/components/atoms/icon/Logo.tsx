@@ -1,6 +1,4 @@
-import styled, { ThemeContext } from "styled-components";
-import Icon from "./Icon";
-import { useContext } from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const StyledLogo = styled(Link)<LogoProps>`
@@ -20,12 +18,9 @@ interface LogoProps {
 }
 
 function Logo({ size }: LogoProps) {
-  const theme = useContext(ThemeContext);
   return (
     <StyledLogo to="/" size={size}>
-      정주행
-      <Icon icon="run" size={size} color={theme.colors.textBlue} />
-      한국사
+      정주행 한국사
     </StyledLogo>
   );
 }

@@ -28,7 +28,7 @@ const StyledQuestionMenuItem = styled.div<{
     state === "Locked" ? "10px" : "10px 10px 0 0"};
 
   border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
+  border-bottom: 0;
   background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 `;
@@ -43,8 +43,7 @@ const Description = styled.div`
 
 const Title = styled.div<{ color: string }>`
   width: 100%;
-  padding: 0 50px;
-  text-align: center;
+  padding-left: 50px;
   font-size: ${({ theme }) => theme.fontSizes.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ color }) => color};
@@ -54,41 +53,24 @@ const Title = styled.div<{ color: string }>`
 
 const SubTitle = styled.div<{ color: string }>`
   width: 100%;
-  padding: 0 50px;
+  padding-left: 50px;
   margin-top: 5px;
-  text-align: center;
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.light};
 
   color: ${({ theme, color }) => (color ? color : theme.colors.grey)};
 `;
 
-const StateBox = styled.div<{ color: string }>`
+const BookmarkBox = styled.div<{ color: string }>`
   position: absolute;
-  top: -1px;
-  right: -1px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  border-radius: 0 10px 0 10px;
-
-  background-color: ${({ color, theme }) =>
-    color ? color : theme.colors.white};
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-const BookmarkBox = styled.div<{ color: string }>`
-  position: absolute;
-  top: -1px;
-  left: -1px;
+  top: 1px;
+  left: 1px;
   width: 46px;
   height: 46px;
 
-  border: ${({ theme }) => `1px solid ${theme.colors.lightGrey}`};
-  border-radius: 10px 0 10px 0;
-  background-color: ${({ theme }) => theme.colors.white};
-  transition: all 0.2s ease-in-out;
   z-index: 9;
 `;
 
@@ -114,33 +96,20 @@ function TopicUI({ topic, onKeywordToggle, isLoggedIn }: TopicUIProps) {
         <Title color={state === "Locked" ? mainColor : ""}>{title}</Title>
         <SubTitle color={state === "Locked" ? mainColor : ""}>{date}</SubTitle>
       </Description>
-      {state !== "Topic" && state !== "Timeline" && (
-        <StateBox color={mainColor}>
-          <Icon
-            icon={
-              state === "Locked"
-                ? "lock"
-                : state === "InProgress"
-                ? "run"
-                : state === "Complete"
-                ? "check"
-                : state === "Chapter"
-                ? "culture"
-                : "check"
-            }
-            size={30}
-          />
-        </StateBox>
-      )}
 
-      {state !== "Locked" &&
-        state !== "Timeline" &&
-        state !== "Chapter" &&
-        isLoggedIn && (
-          <BookmarkBox color={mainColor}>
+      <BookmarkBox color={mainColor}>
+        {state === "Locked" ? (
+          <Icon icon={"lock"} size={22} color={mainColor} />
+        ) : state === "Timeline" ? (
+          <Icon icon="TIMELINE_QUESTION" size={22} color={mainColor} />
+        ) : state === "Chapter" ? (
+          <Icon icon="CHAPTER_INFO" size={22} color={mainColor} />
+        ) : (
+          isLoggedIn && (
             <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
-          </BookmarkBox>
+          )
         )}
+      </BookmarkBox>
     </StyledQuestionMenuItem>
   );
 }
