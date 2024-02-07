@@ -5,8 +5,6 @@ import LoginLoadingRedirectPage from "./components/pages/main/LoginLoadingRedire
 import ContentListPage from "./components/pages/jjh/ContentListPage";
 import TopicQuestionPage from "./components/pages/jjh/TopicQuestionPage";
 import ChapterQuestionPage from "./components/pages/jjh/ChapterQuestionPage";
-import QuestionPage from "./components/pages/main/QuestionPage";
-import MyInfoPage from "./components/pages/main/MyInfoPage";
 import OptionPage from "./components/pages/main/OptionPage";
 import TimelineMenuPage from "./components/pages/timeline/TimelineMenuPage";
 import TimelinePage from "./components/pages/timeline/TimelinePage";
@@ -38,10 +36,6 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: "/question",
-        element: <QuestionPage />,
-      },
-      {
         path: "/question/mock-exam-list",
         element: <ExamListPage />,
       },
@@ -68,10 +62,6 @@ const router = createBrowserRouter([
       {
         path: "/question/quiz",
         element: <QuizPage />,
-      },
-      {
-        path: "/my-info",
-        element: <MyInfoPage />,
       },
       {
         path: "/option",

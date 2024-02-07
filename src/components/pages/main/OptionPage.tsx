@@ -1,23 +1,23 @@
 import SettingBox from "../../unit/ui/main-box/SettingBox";
 import UserBox from "../../unit/ui/main-box/UserBox";
-import SubPageLayout from "../../atoms/layout/SubPageLayout";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
+import ContentLayout from "../../atoms/layout/ContentLayout";
 
 function OptionPage() {
   return (
     <>
       <Mobile>
-        <SubPageLayout>
+        <ContentLayout>
           <UserBox />
           <SettingBox />
-        </SubPageLayout>
+        </ContentLayout>
       </Mobile>
 
       <Default>
-        <SubPageLayout>
+        <ContentLayout>
           <UserBox />
           <SettingBox />
-        </SubPageLayout>
+        </ContentLayout>
       </Default>
     </>
   );
