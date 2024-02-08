@@ -11,7 +11,7 @@ const StyledSettingBox = styled.div`
   display: flex;
   flex-direction: column;
   @media (min-width: 768px) {
-    grid-column: 2/4;
+    grid-column: 2/3;
   }
   grid-row: 2/4;
   margin: 8px;

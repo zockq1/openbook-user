@@ -104,10 +104,10 @@ function TopicUI({ topic, onKeywordToggle, isLoggedIn }: TopicUIProps) {
           <Icon icon="TIMELINE_QUESTION" size={22} color={mainColor} />
         ) : state === "Chapter" ? (
           <Icon icon="CHAPTER_INFO" size={22} color={mainColor} />
+        ) : isLoggedIn ? (
+          <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
         ) : (
-          isLoggedIn && (
-            <Bookmark isBookmarked={isBookmarked} topicTitle={title} />
-          )
+          <Icon icon="TOPIC_STUDY" size={22} color={mainColor} />
         )}
       </BookmarkBox>
     </StyledQuestionMenuItem>

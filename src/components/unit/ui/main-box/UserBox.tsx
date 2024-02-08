@@ -8,7 +8,7 @@ const StyledUserBox = styled.div`
   grid-template-columns: 100px 20px 1fr 20px;
   place-items: center;
   @media (min-width: 768px) {
-    grid-column: 2/4;
+    grid-column: 2/3;
   }
   position: relative;
   margin: 8px;

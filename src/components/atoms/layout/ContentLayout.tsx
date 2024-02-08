@@ -17,13 +17,13 @@ const StyledMainPageLayout = styled.div<{ full: boolean }>`
   margin: 0 auto;
   //모바일
   @media (max-width: 767px) {
-    width: 100vw;
+    width: 100%;
     padding: 65px 10px 10px;
   }
   //태블릿
   @media (min-width: 768px) and (max-width: 991px) {
     grid-template-columns: ${({ full }) =>
-      full ? "1fr" : "minmax(250px, 250px) minmax(400px, 700px)"};
+      full ? "1fr" : "250px minmax(400px, 700px)"};
     align-items: start;
     width: 100%;
     max-width: 1200px;
@@ -33,9 +33,7 @@ const StyledMainPageLayout = styled.div<{ full: boolean }>`
   //PC,
   @media (min-width: 992px) {
     grid-template-columns: ${({ full }) =>
-      full
-        ? "1fr"
-        : "minmax(250px, 250px) minmax(400px, 680px) minmax(auto, 300px)"};
+      full ? "1fr" : "250px minmax(400px, 700px) minmax(auto, 300px)"};
     align-items: start;
     max-width: 1250px;
     padding: 90px 20px 20px 20px;
