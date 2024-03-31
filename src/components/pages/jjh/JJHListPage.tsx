@@ -14,6 +14,7 @@ import ChapterMenu from "../../unit/common/container/ChapterMenu";
 import { Default, Mobile } from "../../atoms/layout/Responsive";
 import JJHSideMenu from "../../unit/common/container/JJHSideMenu";
 import { useMediaQuery } from "react-responsive";
+import withAuth from "../../../hoc/withAuth";
 
 interface JJHList extends MenuModel {
   jjhNumber: number;
@@ -223,4 +224,4 @@ function JJHListPage() {
   );
 }
 
-export default JJHListPage;
+export default withAuth(JJHListPage);
