@@ -1,55 +1,55 @@
-name: CI/CD
+# name: CI/CD
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 코드 체크아웃
-        uses: actions/checkout@v3
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 코드 체크아웃
+#         uses: actions/checkout@v3
 
-      - name: AWS IAM 사용자 설정
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+#       - name: AWS IAM 사용자 설정
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: 노드 버전 세팅
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.12.1
+#       - name: 노드 버전 세팅
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18.12.1
           
-      - name: .env 설정
-        run: |
-          echo "PORT=${{ secrets.PORT }}" >> .env
-          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-          echo "REACT_APP_IP=${{ secrets.REACT_APP_IP }}" >> .env
-          echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
-          echo "REACT_APP_NAVER_KEY=${{ secrets.REACT_APP_NAVER_KEY }}" >> .env
-          echo "REACT_APP_PROTOCOL=${{ secrets.REACT_APP_PROTOCOL }}" >> .env
-          echo "REACT_APP_URL=${{ secrets.REACT_APP_URL }}" >> .env
+#       - name: .env 설정
+#         run: |
+#           echo "PORT=${{ secrets.PORT }}" >> .env
+#           echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+#           echo "REACT_APP_IP=${{ secrets.REACT_APP_IP }}" >> .env
+#           echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
+#           echo "REACT_APP_NAVER_KEY=${{ secrets.REACT_APP_NAVER_KEY }}" >> .env
+#           echo "REACT_APP_PROTOCOL=${{ secrets.REACT_APP_PROTOCOL }}" >> .env
+#           echo "REACT_APP_URL=${{ secrets.REACT_APP_URL }}" >> .env
 
-      - name: 리액트 빌드
-        run: |
-          npm install
-          npm run build
+#       - name: 리액트 빌드
+#         run: |
+#           npm install
+#           npm run build
 
-      - name: 빌드한 파일 S3에 업로드
-        run: aws s3 sync build/ s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       - name: 빌드한 파일 S3에 업로드
+#         run: aws s3 sync build/ s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: CloudFront 캐시 무력화 설정
-        uses: chetan/invalidate-cloudfront-action@v2
-        env:
-          DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT }}
-          PATHS: "/*"
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       - name: CloudFront 캐시 무력화 설정
+#         uses: chetan/invalidate-cloudfront-action@v2
+#         env:
+#           DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT }}
+#           PATHS: "/*"
+#           AWS_REGION: ${{ secrets.AWS_REGION }}
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
